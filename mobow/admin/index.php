@@ -11,14 +11,15 @@ include_once("head.php");
 <?php
 require_once("header.php");
 ?>
-
+<?php
+require_once("checklogin.php");
+?>
 
 <div id = "text">
-<form action="" method="post" id = "pass">
-   Användarnamn: <input type="text" name="mobow"><br>
-   Lösenord: <input type="text" name="mobow"><br>
+<form action="<?php echo  htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id = "pass">
+   Användarnamn: <input type="text" name="username"><br>
+   Lösenord: <input type="text" name="password"><br>
    <input type="submit" value="Logga in">
-
 </form>
 </div>
 <?php

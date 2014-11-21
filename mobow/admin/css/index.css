@@ -1,7 +1,7 @@
 #mobowpic {width: 500px; height: auto;}
-#pass {display: inline-block; text-align: center;}
+#passchange {display: inline-block; text-align: center;}
 #accept {display: inline-block; text-align: center;}
-#text {text-align: center;}
+#passframe {text-align: center;}
 #frame {width: 1024px; height: 800px; background: #ffffff; display: inline-block; text-align: center;}
 #choice {width: 100%; height: auto;}
 #messageframecompany  {width: 1024px; height: 250px; background: #ffffff;}

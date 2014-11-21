@@ -13,11 +13,11 @@ require_once("header.php");
 require_once("menuebar.php");
 ?>
 <div id = "frame">
-	<div id = "text">
-	<form action="" method="post" id = "pass">
-		Gammalt lösenord: <input type="text" name="mobow"><br>
-		Nytt Lösenord: <input type="text" name="mobow"><br>
-		Upprepa Lösenord: <input type="text" name="mobow"><br>
+	<div id = "passframe">
+	<form action="" method="post" id = "passchange">
+		Gammalt lösenord: <input type="password" name="mobow"><br>
+		Nytt Lösenord: <input type="password" name="mobow"><br>
+		Upprepa Lösenord: <input type="password" name="mobow"><br>
 	<input type="submit" value="Godkänn">
 	</form>
 	</div>
