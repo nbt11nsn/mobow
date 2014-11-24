@@ -2,15 +2,15 @@
 <html>
 <head>
 <?php
-  include_once("head.php");
+  include_once("include/head.php");
 ?>
 </head>
 <body>
 <?php
-  require_once("header.php");
+  require_once("include/header.php");
 ?>
 <?php
-  require_once("checklogin.php");
+  require_once("include/checklogin.php");
 ?>
 <div id="main-wrapper">
   <div id="login-wrapper">
@@ -32,7 +32,7 @@
   </div><!--login-wrapper-->
 </div><!--main-wrapper-->
 <?php
-  require_once("footer.php");
+  require_once("include/footer.php");
 ?>
 </body>
 </html>

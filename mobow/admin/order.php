@@ -2,16 +2,16 @@
 <html>
 <head>
 <?php
-  include_once("head.php");
+  include_once("include/head.php");
 ?>
 </head>
 <body>
 <?php
-  require_once("header.php");
+  require_once("include/header.php");
 ?>
 <div id="main-wrapper">
 <?php
-  require_once("menuebar.php");
+  require_once("include/menuebar.php");
 ?>
 <div id="frame">
   <div id="text">
@@ -27,7 +27,7 @@
 </div>
 </div><!--main-wrapper-->
 <?php
-  require_once("footer.php");
+  require_once("include/footer.php");
 ?>
 </body>
 </html>

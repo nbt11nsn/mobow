@@ -2,18 +2,18 @@
 <html>
 <head>
 <?php
-  include_once("head.php");
+  include_once("include/head.php");
 ?>
 <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
 <script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
 <?php
-  require_once("header.php");
+  require_once("include/header.php");
 ?>
 <div id="main-wrapper">
 <?php
-  require_once("menuebar.php");
+  require_once("include/menuebar.php");
 ?>
 <div id = "frame"
   <div class="upload_form_cont">
@@ -61,7 +61,7 @@
 </div>
 </div><!--main-wrapper-->
 <?php
-  require_once("footer.php");
+  require_once("include/footer.php");
 ?>
 </body>
 </html>
