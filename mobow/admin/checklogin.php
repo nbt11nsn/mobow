@@ -1,5 +1,4 @@
 <?php
-echo "skit";
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 $servername = "localhost";
 $username = "root";
@@ -23,10 +22,10 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo "id: " . $row["anvnamn"]. " - Name: " . $row["losen"];
+        header('Location: report.php');   
     }
 } else {
-    echo "0 results";
+    echo "<p>Fel användarnamn eller lösenord!!</p>";
 }
 
 mysqli_close($conn);

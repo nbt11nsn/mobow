@@ -1,0 +1,7 @@
+Sessionsvariabler:
+$_SESSION['first_name']
+$_SESSION['last_name']
+$_SESSION['mobile']
+$_SESSION['mail']
+$_SESSION['username']
+$_SESSION['admin'] --> Boolean true är admin, false är inte admin.
