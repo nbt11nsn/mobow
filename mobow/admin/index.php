@@ -17,9 +17,9 @@ require_once("checklogin.php");
 
 <div id = "text">
 <form action="<?php echo  htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id = "pass">
-   Användarnamn: <input type="text" name="username"><br>
-   Lösenord: <input type="text" name="password"><br>
-   <input type="submit" value="Logga in">
+   Användarnamn: <input type="text" maxlength="50" required autofocus name="username"><br>
+   Lösenord: <input type="password" maxlength="50" required name="password"><br>
+   <input type="submit" name="login" value="Logga in">
 </form>
 </div>
 <?php
