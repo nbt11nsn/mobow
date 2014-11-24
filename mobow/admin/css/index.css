@@ -1,7 +1,8 @@
 /*
 mobow-färgkoder [fyll gärna i resterande färgkoder]
-#CCCCCC
+#CCC
 #EA005A
+#969
 */
 #passchange {display: inline-block; text-align: center;}
 #accept {display: inline-block; text-align: center;}
@@ -200,7 +201,7 @@ height: 103px;
     height: 100%;
 }
 
-/* Grafiskt grejs för login wrapper */
+/* Snygga till login wrapper */
 #login-wrapper {
     margin: 0px auto;
     width: 400px;
@@ -232,8 +233,8 @@ height: 103px;
 
 /* generella inställningar för body */
 body{
-    background: #cccccc; 
-    color:#996699;
+    background: #ccc; 
+    color:#969;
     padding:10px;
     text-align: center;
 }
@@ -291,7 +292,7 @@ input {
 /* ändra färg på border när fältet är markerat */
 
 form *:focus {
-    border: 2px solid #000000;
+    border: 2px solid #000;
     outline: none;
 }
 
@@ -309,7 +310,7 @@ input[type="submit"], input[type="button"] {
     margin-left:20px;
     width: 10em;
     padding: 10px;
-    border: 2px solid #ff0066;
+    border: 2px solid #f06;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;

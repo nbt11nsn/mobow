@@ -1,54 +1,49 @@
 <!DOCTYPE html>
 <html>
-
-	<head>
-	<?php
-	session_start();
-		include_once("head.php");
-	?>
-	</head>
+<head>
+<?php
+  session_start();
+  include_once("head.php");
+?>
+</head>
 <body>
 <?php
-require_once("header.php");
+  require_once("header.php");
 ?>
 <div id="main-wrapper">
 <?php
-require_once("menuebar.php");
+  require_once("menuebar.php");
 ?>
 <div id = "frame">
-	<div id = "text">
-	<form action="" method="post" id = "accept">
-		<select>
-			<option value="Pagaende">Pågående</option>
-			<option value="Godkand">Godkänd</option>
-			<option value="Nekad">Nekad</option>
-		</select> 
-
-	<div id = "messageframecompany">
+  <div id = "text">
+    <form action="" method="post" id = "accept">
+      <select>
+	<option value="Pagaende">Pågående</option>
+	<option value="Godkand">Godkänd</option>
+	<option value="Nekad">Nekad</option>
+      </select> 
+      <div id = "messageframecompany">
 	meddelande från företaget
-	</div>
-	<div id = "messageframeadmin">
+      </div>
+      <div id = "messageframeadmin">
 	meddelande från admin
-	</div>
-	<input type="submit" value="Skicka">
-	</form>
-	</div>
+      </div>
+      <input type="submit" value="Skicka" />
+    </form>
+  </div>
 </div>
 <?php
 echo $_SESSION['first_name'].
-	$_SESSION['last_name'].
-	$_SESSION['mobile'].
-	$_SESSION['mail'].
-	$_SESSION['username'].
-	$_SESSION['admin'];
-
+   $_SESSION['last_name'].
+   $_SESSION['mobile'].
+   $_SESSION['mail'].
+   $_SESSION['username'].
+   $_SESSION['admin'];
 ?>
-
-</div>
+</div><!--main-wrapper-->
 <?php
-require_once("footer.php");
+  require_once("footer.php");
 ?>
 </body>
-
 </html>
 
