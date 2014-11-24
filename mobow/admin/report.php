@@ -3,6 +3,7 @@
 
 	<head>
 	<?php
+	session_start();
 		include_once("head.php");
 	?>
 	</head>
@@ -32,6 +33,13 @@ require_once("menuebar.php");
 </div>
 <?php
 require_once("footer.php");
+echo $_SESSION['first_name']. "1 ".
+	$_SESSION['last_name']. " 2".
+	$_SESSION['mobile']. " 3".
+	$_SESSION['mail']. "4 ".
+	$_SESSION['username']. " 5".
+	$_SESSION['admin'];
+
 ?>
 </body>
 
