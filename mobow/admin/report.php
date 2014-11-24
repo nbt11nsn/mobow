@@ -10,6 +10,9 @@
 <body>
 <?php
 require_once("header.php");
+?>
+<div id="main-wrapper">
+<?php
 require_once("menuebar.php");
 ?>
 <div id = "frame">
@@ -32,14 +35,18 @@ require_once("menuebar.php");
 	</div>
 </div>
 <?php
-require_once("footer.php");
-echo $_SESSION['first_name']. "1 ".
-	$_SESSION['last_name']. " 2".
-	$_SESSION['mobile']. " 3".
-	$_SESSION['mail']. "4 ".
-	$_SESSION['username']. " 5".
+echo $_SESSION['first_name'].
+	$_SESSION['last_name'].
+	$_SESSION['mobile'].
+	$_SESSION['mail'].
+	$_SESSION['username'].
 	$_SESSION['admin'];
 
+?>
+
+</div>
+<?php
+require_once("footer.php");
 ?>
 </body>
 

@@ -33,10 +33,10 @@ require_once("checklogin.php");
 </ul>
 </form>
 </div><!--login-wrapper-->
+</div><!--main-wrapper-->
 <?php
 require_once("footer.php");
 ?>
-</div><!--main-wrapper-->
 </body>
 
 </html>
