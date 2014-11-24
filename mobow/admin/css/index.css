@@ -4,334 +4,306 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
 #EA005A
 #969
 */
-#passchange {display: inline-block; text-align: center;}
-#accept {display: inline-block; text-align: center;}
-#passframe {text-align: center;}
-#frame {width: 1024px; height: 800px; background: #ffffff; display: inline-block; text-align: center;}
-#messageframecompany  {width: 1024px; height: 250px; background: #ffffff;}
-#messageframeadmin {width: 1024px; height: 250px; background: #ffffff;}
+#passchange {
+  display: inline-block;
+  text-align: center;
+}
+#accept {
+  display: inline-block;
+  text-align: center;
+}
+#passframe {
+  text-align: center;
+}
+#frame {
+  width: 1024px; 
+  height: 800px;
+  background: #fff; 
+  display: inline-block; 
+  text-align: center;
+}
+#messageframecompany {
+  width: 1024px; 
+  height: 250px; 
+  background: #fff;
+}
+#messageframeadmin {
+  width: 1024px;
+  height: 250px;
+  background: #fff;
+}
 *{
-	margin:0;
-	padding:0;
+  margin:0;
+  padding:0;
 }
-
 .fancyNav{
-	/* Affects the UL element */
-	overflow: hidden;
-	display: inline-block;
+  /* Affects the UL element */
+  overflow: hidden;
+  display: inline-block;
 }
-
 .fancyNav li{
-	/* Specifying a fallback color and we define CSS3 gradients for the major browsers: */
-	
-	background-color: #f0f0f0;
-	background-image: -webkit-gradient(linear,left top, left bottom,from(#fefefe), color-stop(0.5,#f0f0f0), color-stop(0.51, #e6e6e6));
-	background-image: -moz-linear-gradient(#fefefe 0%, #f0f0f0 50%, #e6e6e6 51%);
-	background-image: -o-linear-gradient(#fefefe 0%, #f0f0f0 50%, #e6e6e6 51%);
-	background-image: -ms-linear-gradient(#fefefe 0%, #f0f0f0 50%, #e6e6e6 51%);
-	background-image: linear-gradient(#fefefe 0%, #f0f0f0 50%, #e6e6e6 51%);
-	
-	border-right: 1px solid rgba(9, 9, 9, 0.125);
-	
-	/* Adding a 1px inset highlight for a more polished efect: */
-	
-	box-shadow: 1px -1px 0 rgba(255, 255, 255, 0.6) inset;
-	-moz-box-shadow: 1px -1px 0 rgba(255, 255, 255, 0.6) inset;
-	-webkit-box-shadow: 1px -1px 0 rgba(255, 255, 255, 0.6) inset;
-	
-	position:relative;
-	
-	float: left;
-	list-style: none;
+/* Specifying a fallback color and we define CSS3 gradients for the major browsers: */	
+  background-color: #f0f0f0;
+  background-image: -webkit-gradient(linear,left top, left bottom,from(#fefefe), color-stop(0.5,#f0f0f0), color-stop(0.51, #e6e6e6));
+  background-image: -moz-linear-gradient(#fefefe 0%, #f0f0f0 50%, #e6e6e6 51%);
+  background-image: -o-linear-gradient(#fefefe 0%, #f0f0f0 50%, #e6e6e6 51%);
+  background-image: -ms-linear-gradient(#fefefe 0%, #f0f0f0 50%, #e6e6e6 51%);
+  background-image: linear-gradient(#fefefe 0%, #f0f0f0 50%, #e6e6e6 51%);
+  border-right: 1px solid rgba(9, 9, 9, 0.125);
+  /* Adding a 1px inset highlight for a more polished efect: */
+  box-shadow: 1px -1px 0 rgba(255, 255, 255, 0.6) inset;
+  -moz-box-shadow: 1px -1px 0 rgba(255, 255, 255, 0.6) inset;
+  -webkit-box-shadow: 1px -1px 0 rgba(255, 255, 255, 0.6) inset;
+  position:relative;
+  float: left;
+  list-style: none;
 }
-
 .fancyNav li:after{
-
-	/* This creates a pseudo element inslide each LI */	
-	
-	content:'.';
-	text-indent:-9999px;
-	overflow:hidden;
-	position:absolute;
-	width:100%;
-	height:100%;
-	top:0;
-	left:0;
-	z-index:1;
-	opacity:0;
-	
-	/* Gradients! */
-	
-	background-image:-webkit-gradient(linear, left top, right top, from(rgba(168,168,168,0.5)),color-stop(0.5,rgba(168,168,168,0)), to(rgba(168,168,168,0.5)));
-	background-image:-moz-linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));
-	background-image:-o-linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));
-	background-image:-ms-linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));
-	background-image:linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));
-	
-	/* Creating borders with box-shadow. Useful, as they don't affect the size of the element. */
-	
-	box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff,1px 0 0 #a3a3a3,2px 0 0 #fff;
-	-moz-box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff,1px 0 0 #a3a3a3,2px 0 0 #fff;
-	-webkit-box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff,1px 0 0 #a3a3a3,2px 0 0 #fff;
-	
-	/* This will create a smooth transition for the opacity property */
-	
-	-moz-transition:0.25s all;
-	-webkit-transition:0.25s all;
-	-o-transition:0.25s all;
-	transition:0.25s all;
+  /* This creates a pseudo element inslide each LI */		
+  content:'.';
+  text-indent:-9999px;
+  overflow:hidden;
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  z-index:1;
+  opacity:0;	
+  /* Gradients! */	
+  background-image:-webkit-gradient(linear, left top, right top, from(rgba(168,168,168,0.5)),color-stop(0.5,rgba(168,168,168,0)), to(rgba(168,168,168,0.5)));
+  background-image:-moz-linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));
+  background-image:-o-linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));
+  background-image:-ms-linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));
+  background-image:linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));	
+  /* Creating borders with box-shadow. Useful, as they don't affect the size of the element. */
+  box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff,1px 0 0 #a3a3a3,2px 0 0 #fff;
+  -moz-box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff,1px 0 0 #a3a3a3,2px 0 0 #fff;
+  -webkit-box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff,1px 0 0 #a3a3a3,2px 0 0 #fff;
+  /* This will create a smooth transition for the opacity property */
+  -moz-transition:0.25s all;
+  -webkit-transition:0.25s all;
+  -o-transition:0.25s all;
+  transition:0.25s all;
 }
 
 /* Treating the first LI and li:after elements separately */
-
 .fancyNav li:first-child{
-	border-radius: 4px 0 0 4px;
+  border-radius: 5px 0 0 5px;
 }
 
 .fancyNav li:first-child:after,
 .fancyNav li.selected:first-child:after{
-	box-shadow:1px 0 0 #a3a3a3,2px 0 0 #fff;
-	-moz-box-shadow:1px 0 0 #a3a3a3,2px 0 0 #fff;
-	-webkit-box-shadow:1px 0 0 #a3a3a3,2px 0 0 #fff;
-	
-	border-radius:4px 0 0 4px;
+  box-shadow:1px 0 0 #a3a3a3,2px 0 0 #fff;
+  -moz-box-shadow:1px 0 0 #a3a3a3,2px 0 0 #fff;
+  -webkit-box-shadow:1px 0 0 #a3a3a3,2px 0 0 #fff;
+  border-radius:5px 0 0 5px;
 }
 
 .fancyNav li:last-child{
-	border-radius: 0 4px 4px 0;
+  border-radius: 0 5px 5px 0;
 }
 
 /* Treating the last LI and li:after elements separately */
-
 .fancyNav li:last-child:after,
 .fancyNav li.selected:last-child:after{
-	box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff;
-	-moz-box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff;
-	-webkit-box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff;
-	
-	border-radius:0 4px 4px 0;
+  box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff;
+  -moz-box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff;
+  -webkit-box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff;
+  border-radius:0 5px 5px 0;
 }
 
 .fancyNav li:hover:after,
 .fancyNav li.selected:after,
 .fancyNav li:target:after{
-	/* This property triggers the CSS3 transition */
-	opacity:1;
+/* This property triggers the CSS3 transition */
+  opacity:1;
 }
 
 .fancyNav:hover li.selected:after,
 .fancyNav:hover li:target:after{
-	/* Hides the targeted li when we are hovering on the UL */
-	opacity:0;
+/* Hides the targeted li when we are hovering on the UL */
+  opacity:0;
 }
 
 .fancyNav li.selected:hover:after,
 .fancyNav li:target:hover:after{
-	opacity:1 !important;
+  opacity:1;
 }
 
 /* Styling the anchor elements */
-
 .fancyNav li a{
-	color: #5d5d5d;
-	display: inline-block;
-	font: 20px/1 Lobster,Arial,sans-serif;
-	padding: 12px 35px 14px;
-	position: relative;
-	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.6);
-	z-index:2;
-	text-decoration:none !important;
-	white-space:nowrap;
+  color: #5d5d5d;
+  display: inline-block;
+  font: 18px Arial,sans-serif;
+  padding: 10px 35px 10px;
+  position: relative;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.6);
+  z-index:2;
+  text-decoration:none;
+  white-space:nowrap;
 }
 
-.fancyNav a.homeIcon{
-	background:url('../img/home.png') no-repeat center center;
-	display: block;
-	overflow: hidden;
-	padding-left: 12px;
-	padding-right: 12px;
-	text-indent: -9999px;
-	width: 16px;
-}
-
-nav{
-	display: block;
-	margin: 100px auto 0;
-	text-align: center;
-	width: 1024px;
-}
-
-
-a, a:visited {
-	text-decoration:none;
-	outline:none;
-	color:#54a6de;
-}
-
-a:hover{
-    text-decoration:underline;
-}
-
-
+/* ################################################################## */
+/* ################################################################## */
 /* Allting nedan är uppstrukturerat och kontrollerat att det fungerar */
+/* ################################################################## */
+/* ################################################################## */
 
 /* ############### id attribute #<id> ############### */
 
 /* Huvudområde längst upp på sidan */
 #header-wrapper {
-    width: 100%;
-    height: 110px;
+  width: 100%;
+  height: 110px;
 }
 
 /* Företagslogga längst upp på alla sidor */
 #mobowpic {
-width: 500px; 
-height: 103px;
+  width: 500px; 
+  height: 103px;
 }
 
 /* Huvudområde längst ned på sidan*/
 #footer-wrapper {
-    width: 100%;
-    height: 10px;
+  width: 100%;
+  height: 10px;
 }
 
 /* Huvudområdet i mitten av sidan */
 #main-wrapper {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
-/* Snygga till login wrapper */
+/* Snygga till login-wrapper */
 #login-wrapper {
-    margin: 0px auto;
-    width: 400px;
-    height: 200px;
-    padding: 50px 5px 10px 50px;
-    margin-top: 150px;
-    -moz-box-shadow: 0px 0px 10px #888;
-    -o-box-shadow: 0px 0px 10px #888;
-    -webkit-box-shadow: 0px 0px 10px #888;
-    -moz-border-radius: 10px 10px 10px 10px;
-    -o-border-radius: 10px 10px 10px 10px;
-    -webkit-border-radius: 10px 10px 10px 10px;
+  margin: 0px auto;
+  width: 400px;
+  height: 200px;
+  padding: 50px 5px 10px 50px;
+  margin-top: 150px;
+  -moz-box-shadow: 0px 0px 10px #888;
+  -o-box-shadow: 0px 0px 10px #888;
+  -webkit-box-shadow: 0px 0px 10px #888;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -o-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
 }
 
-/* generella inställningar för huvudmenyn */
+/* generella inställningar för huvudmeny */
 #huvudmeny {
-    width: 100%; 
-    height: auto;
+  width: 100%; 
+  height: auto;
 }
 
 /* ############### name attribute .<name> ############### */
 
+/* generella inställningar för submit */
 .submit {
-    text-align: center;
-    margin: 20px 0 0 -80px;
+  text-align: center;
+  margin: 20px 0 0 -80px;
 }
 
 /* ############### tag attribute  ############### */
 
 /* generella inställningar för body */
 body{
-    background: #ccc; 
-    color:#969;
-    padding:10px;
-    text-align: center;
+  background: #ccc; 
+  color:#969;
+  padding:10px;
+  text-align: center;
 }
 
 /* Form höjd, marginal och padding */
 form ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 form ul li {
-    margin: 1em 0 0 0;
-    padding: 0;
+  margin: 1em 0 0 0;
+  padding: 0;
 }
 
 form * {
-    line-height: 1em;
-    text-align:left;
-}
-
-/* style för label */
-
-label {
-    clear: left;
-    text-align: right;
-    width: 15%;
-    font-family: Times New Roman;
-    font-weight: bold;
-    font-size: 16px;
-    color: #606060;
-}
-
-/* enskilda fält */
-
-input {
-    font-size: 1em;
-}
-
-input {
-    border: 2px solid #999;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    background: #fff;
-}
-
-input {
-    display: block;
-    margin: 0;
-    padding: .5em;
-    width: 80%;
+  line-height: 1em;
+  text-align:left;
 }
 
 /* ändra färg på border när fältet är markerat */
-
 form *:focus {
-    border: 2px solid #000;
-    outline: none;
+  border: 2px solid #000;
+  outline: none;
+}
+
+/* enskilda fält */
+input {
+  font-size: 1em;
+  border: 2px solid #999;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  background: #fff;
+  display: block;
+  margin: 0;
+  padding: .5em;
+  width: 80%;
 }
 
 /* Gör bakgrunden lätt grön när fälten är ifyllda */
-
 input:valid {
-    background: #efe;
+  background: #efe;
 }
 
 /* Knappar [typ button eller submit] */
-
 input[type="submit"], input[type="button"] {
-    display: inline;
-    margin: 0 5px;
-    margin-left:20px;
-    width: 10em;
-    padding: 10px;
-    border: 2px solid #f06;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    -moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
-    -webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
-    box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
-    color: #fff;
-    background: #EA005A;
-    font-weight: bold;
-    -webkit-appearance: none;
+  display: inline;
+  margin: 0 5px;
+  margin-left:20px;
+  width: 10em;
+  padding: 10px;
+  border: 2px solid #f06;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+  box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+  color: #fff;
+  background: #EA005A;
+  font-weight: bold;
+  -webkit-appearance: none;
 }
 
 input[type="submit"]:hover, input[type="submit"]:active, input[type="button"]:hover, input[type="button"]:active {
-    cursor: pointer;
-    background: #fff;
-    color: #EA005A;
+  cursor: pointer;
+  background: #fff;
+  color: #EA005A;
 }
 
 input[type="button"]:active, input[type="button"]:active {
-    background: #eee;
-    -moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8) inset;
-    -webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8) inset;
-    box-shadow: 0 0 .5em rgba(0, 0, 0, .8) inset;
+  background: #eee;
+  -moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8) inset;
+  -webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8) inset;
+  box-shadow: 0 0 .5em rgba(0, 0, 0, .8) inset;
+}
+
+/* style för label */
+label {
+  clear: left;
+  text-align: right;
+  width: 15%;
+  font-family: Times New Roman;
+  font-weight: bold;
+  font-size: 16px;
+  color: #606060;
+}
+
+/* generella inställningar för nav */
+nav{
+  margin: 50px auto 0;
+  text-align: center;
+  width: 1024px;
 }
