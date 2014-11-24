@@ -1,0 +1,6 @@
+ErrorDocument 401 /errordocs/error401.html
+ErrorDocument 402 /errordocs/error402.html
+ErrorDocument 403 /errordocs/error403.html
+ErrorDocument 404 /errordocs/error404.html
+ErrorDocument 418 /errordocs/error418.html
+ErrorDocument 500 /errordocs/error500.html
