@@ -1,3 +1,3 @@
-<div id="footer_wrapper">
+<div id="footer-wrapper">
 
 </div>

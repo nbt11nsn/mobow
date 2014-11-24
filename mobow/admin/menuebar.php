@@ -1,5 +1,5 @@
 
-<div id = "choice">
+<div id = "huvudmeny">
 <nav>
     <ul class="fancyNav">
 		<li><a href = "contract.php"> Kontrakt</a></li> 
