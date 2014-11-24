@@ -1,3 +1,6 @@
+<?php
+  defined('THE_MENUE') or die();
+?>
 <div id = "huvudmeny">
   <nav>
     <ul class="fancyNav">

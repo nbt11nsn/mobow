@@ -6,9 +6,11 @@
 // SESSION_start();
 
 // tar bort all form av felrapportering
-// require_once('./include/no_error.php');
+// define('THE_ERROR', TRUE);
+// require_once('include/no_error.php');
 
 // koppla upp mot databas
+// define('THE_DB', TRUE);
 // require_once('../db.php');
 
 /*
@@ -17,12 +19,14 @@
 * som inte behövs och döp om kopian till vid skapande av
 * nya php-sidor med grafiskt innehåll
 */
-  include_once("head.php"); // se till att denna finns
+  define('THE_HEAD', TRUE);
+  include_once("head.php"); // se till att denna fil finns
 ?>
 </head>
 <body>
 <?php
-  require_once("header.php"); // se till att denna finns
+  define('THE_HEADER', TRUE);
+  require_once("header.php"); // se till att denna fil finns
 ?>
 <div id="main-wrapper">
   Läste du instruktionerna?
@@ -31,7 +35,8 @@
 -->
 </div><!--main-wrapper-->
 <?php
-  require_once("footer.php"); // se till att denna finns
+  define('THE_FOOTER', TRUE);
+  require_once("footer.php"); // se till att denna fil finns
 ?>
 </body>
 </html>

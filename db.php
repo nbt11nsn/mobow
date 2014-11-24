@@ -1,4 +1,5 @@
 <?php
+defined('THE_DB') or die();
 $db="mobowdb";
 $usr="root";
 $host="localhost";

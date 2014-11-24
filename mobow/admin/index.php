@@ -2,14 +2,17 @@
 <html>
 <head>
 <?php
+  define('THE_HEAD', TRUE);
   include_once("include/head.php");
 ?>
 </head>
 <body>
 <?php
+    define('THE_HEADER', TRUE);
   require_once("include/header.php");
 ?>
 <?php
+  define('THE_CHECK', TRUE);
   require_once("include/checklogin.php");
 ?>
 <div id="main-wrapper">
@@ -32,6 +35,7 @@
   </div><!--login-wrapper-->
 </div><!--main-wrapper-->
 <?php
+  define('THE_FOOTER', TRUE);
   require_once("include/footer.php");
 ?>
 </body>

@@ -3,15 +3,18 @@
 <head>
 <?php
   session_start();
+  define('THE_HEAD', TRUE);
   include_once("include/head.php");
 ?>
 </head>
 <body>
 <?php
+  define('THE_HEADER', TRUE);
   require_once("include/header.php");
 ?>
 <div id="main-wrapper">
 <?php
+  define('THE_MENUE', TRUE);
   require_once("include/menuebar.php");
 ?>
 <div id = "frame">
@@ -42,6 +45,7 @@ echo $_SESSION['first_name'].
 ?>
 </div><!--main-wrapper-->
 <?php
+  define('THE_FOOTER', TRUE);
   require_once("include/footer.php");
 ?>
 </body>
