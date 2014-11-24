@@ -15,18 +15,28 @@ require_once("header.php");
 require_once("checklogin.php");
 ?>
 
-<div id = "text">
-
+<div id="main-wrapper">
+<div id="login-wrapper">
 <form action="<?php echo  htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id = "pass">
-   Användarnamn: <input type="text" maxlength="50" required autofocus name="username"><br>
-   Lösenord: <input type="password" maxlength="50" required name="password"><br>
+<ul>
+  <li>
+   <label for="username">Användarnamn: </label> 
+<input type="text" maxlength="50" required autofocus id="username">
+</li>
+  <li>
+   <label for="password">Lösenord: </label>
+<input type="password" maxlength="50" required id="password">
+</li>
+  <li class="submit">
    <input type="submit" name="login" value="Logga in">
-
+</li>
+</ul>
 </form>
-</div>
+</div><!--login-wrapper-->
 <?php
 require_once("footer.php");
 ?>
+</div><!--main-wrapper-->
 </body>
 
 </html>

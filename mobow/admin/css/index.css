@@ -179,3 +179,155 @@ a, a:visited {
 a:hover{
 	text-decoration:underline;
 }
+
+
+
+
+
+/* ##### HTML5 reset för äldre webbläsare ##### */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+display: block;
+}
+body {
+line-height: 1;
+}
+ol, ul {
+list-style: none;
+}
+blockquote, q {
+quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+content: '';
+content: none;
+}
+table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+/*###############################################*/
+
+/* Huvudområdet i mitten av sidan */
+#main-wrapper {
+width: 100%;
+height: 100%;
+}
+
+/* Grafiskt grejs för login wrapper */
+#login-wrapper {
+margin: 0px auto;
+width: 400px;
+height: 200px;
+padding: 50px 5px 10px 50px;
+margin-top: 150px;
+-moz-box-shadow: 0px 0px 10px #888;
+-o-box-shadow: 0px 0px 10px #888;
+-webkit-box-shadow: 0px 0px 10px #888;
+-moz-border-radius: 10px 10px 10px 10px;
+-o-border-radius: 10px 10px 10px 10px;
+-webkit-border-radius: 10px 10px 10px 10px;
+}
+
+/* Form höjd, marginal och padding */
+form ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+form ul li {
+	margin: 1em 0 0 0;
+	padding: 0;
+}
+
+form * {
+	line-height: 1em;
+	text-align:left;
+}
+
+/* style för label */
+
+label {
+	clear: left;
+	text-align: right;
+	width: 15%;
+	font-family: Times New Roman;
+	font-weight: bold;
+	font-size: 16px;
+	color: #606060;
+}
+
+/* enskilda fält */
+
+input {
+	font-size: 1em;
+}
+
+input {
+	border: 2px solid #666;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background: #fff;
+}
+
+input {
+	display: block;
+	margin: 0;
+	padding: .5em;
+	width: 80%;
+}
+
+/* ändra färg på border när fältet är markerat */
+
+form *:focus {
+	border: 2px solid #000000;
+	outline: none;
+}
+
+/* Gör bakgrunden lätt grön när fälten är ifyllda */
+
+input:valid {
+	background: #efe;
+}
+
+/* Submitknappen */
+
+.submit {
+	text-align: center;
+	margin: 20px 0 0 -80px;
+}
+
+input[type="submit"], input[type="button"] {
+	display: inline;
+	margin: 0 5px;
+margin-left:20px;
+	width: 10em;
+	padding: 10px;
+	border: 2px solid #ff0066;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+	-webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+	box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+	color: #fff;
+	background: #EA005A;
+	font-weight: bold;
+	-webkit-appearance: none;
+}
+
+input[type="submit"]:hover, input[type="submit"]:active, input[type="button"]:hover, input[type="button"]:active {
+	cursor: pointer;
+	background: #fff;
+	color: #EA005A;
+}
+
+input[type="button"]:active, input[type="button"]:active {
+	background: #eee;
+	-moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8) inset;
+	-webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8) inset;
+	box-shadow: 0 0 .5em rgba(0, 0, 0, .8) inset;
+}
