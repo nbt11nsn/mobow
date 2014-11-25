@@ -2,7 +2,7 @@
 <html>
 <head>
 <?php
-  define('THE_HEAD', TRUE);
+  defined('THE_HEAD') || define('THE_HEAD', TRUE);
   include_once("include/head.php");
 ?>
 <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
@@ -10,12 +10,12 @@
 </head>
 <body>
 <?php
-  define('THE_HEADER', TRUE);
+  defined('THE_HEADER') || define('THE_HEADER', TRUE);
   require_once("include/header.php");
 ?>
 <div id="main-wrapper">
 <?php
-  define('THE_MENUE', TRUE);
+  defined('THE_MENUE') || define('THE_MENUE', TRUE);
   require_once("include/menuebar.php");
 ?>
 <div id = "frame"
@@ -64,7 +64,7 @@
 </div>
 </div><!--main-wrapper-->
 <?php
-  define('THE_FOOTER', TRUE);
+  defined('THE_FOOTER') || define('THE_FOOTER', TRUE);
   require_once("include/footer.php");
 ?>
 </body>
