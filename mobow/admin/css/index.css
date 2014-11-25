@@ -144,6 +144,16 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
   white-space:nowrap;
 }
 
+.fancyNav a.hemikon{
+	background:url('../../image/home.png') no-repeat center center;
+	display: block;
+	overflow: hidden;
+	padding-left: 12px;
+	padding-right: 12px;
+	text-indent: -9999px;
+	width: 16px;
+}
+
 /* ################################################################## */
 /* ################################################################## */
 /* Allting nedan är uppstrukturerat och kontrollerat att det fungerar */

@@ -1,8 +1,10 @@
+<?php
+ SESSION_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
 <?php
-  session_start();
   require_once('include/checksession.php');
   defined('THE_HEAD') || define('THE_HEAD', TRUE);
   include_once("include/head.php");

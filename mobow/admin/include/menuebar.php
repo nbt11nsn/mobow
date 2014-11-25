@@ -5,6 +5,9 @@
   <nav>
     <ul class="fancyNav">
       <li>
+        <a href="info.php" class="hemikon">H</a>
+      </li> 
+      <li>
         <a href="contract.php">Kontrakt</a>
       </li> 
       <li>

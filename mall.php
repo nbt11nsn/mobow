@@ -1,10 +1,11 @@
+<?php
+// starta session
+// SESSION_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
 <?php
-// starta session
-// SESSION_start();
-
 // tar bort all form av felrapportering
 // defined('THE_ERROR') || define('THE_ERROR', TRUE);
 // require_once('include/no_error.php');
