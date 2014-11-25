@@ -4,15 +4,15 @@ if(isset($_POST['login']))
 {
   defined('THE_DB') || define('THE_DB', TRUE);
   require_once(__DIR__ .'./../../../db.php');
-  $uname = mysql_real_escape_string($_POST['username']);
+  $uname = mysqli_real_escape_string($_POST['username']);
   $sql = "SELECT * FROM kontaktperson WHERE anvnamn = '$uname' LIMIT 1";
   $result = mysqli_query($con, $sql); 
   if (mysqli_num_rows($result) != 0) 
   {
   // det finns en användare
     $row = mysqli_fetch_assoc($result);
-    mysql_free_result($result);
-    if(password_verity($_POST['password'], $row['losen'])) 
+    mysqli_free_result($result);
+    if(password_verify($_POST['password'], $row['losen'])) 
     {
       if(password_needs_rehash($row['losen'], PASSWORD_DEFAULT))
       {
