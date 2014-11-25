@@ -3,6 +3,7 @@
 <head>
 <?php
   session_start();
+  require_once('include/checksession.php');
   defined('THE_HEAD') || define('THE_HEAD', TRUE);
   include_once("include/head.php");
 ?>
@@ -35,14 +36,6 @@
     </form>
   </div>
 </div>
-<?php
-echo $_SESSION['first_name'].
-   $_SESSION['last_name'].
-   $_SESSION['mobile'].
-   $_SESSION['mail'].
-   $_SESSION['username'].
-   $_SESSION['admin'];
-?>
 </div><!--main-wrapper-->
 <?php
   defined('THE_FOOTER') || define('THE_FOOTER', TRUE);

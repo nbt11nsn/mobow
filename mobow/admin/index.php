@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <?php
   defined('THE_HEAD') || define('THE_HEAD', TRUE);
   include_once("include/head.php");
@@ -28,7 +29,7 @@
 	  <input type="password" maxlength="50" required id="password" name="password" />
 	</li>
 	<li class="submit">
-	  <input type="submit" name="login" value="Logga in" />
+	  <input type="submit" name="login" value="Logga in"/>
 	</li>
       </ul>
     </form>

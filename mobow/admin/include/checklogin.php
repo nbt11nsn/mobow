@@ -19,8 +19,9 @@ if ($result->num_rows > 0) {
     $_SESSION['mobile'] = $row['mobil'];
     $_SESSION['mail'] = $row['mejl'];
     $_SESSION['username'] = $row['anvnamn'];
-    $_SESSION['admin'] = ($row['admin'] == 1);
-    header('Location: report.php');   
+    $_SESSION['admin'] = ($row['admin'] == 1);	
+    header('Location: report.php');
+	exit;	
   }
 } 
 else {
