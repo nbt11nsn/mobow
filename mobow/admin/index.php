@@ -8,18 +8,18 @@
 <html>
 <head>
 <?php
-  defined('THE_HEAD') || define('THE_HEAD', TRUE);
-  include_once("include/head.php");
+defined('THE_HEAD') || define('THE_HEAD', TRUE);
+include_once("include/head.php");
 ?>
 </head>
 <body>
 <?php
-  defined('THE_HEADER') || define('THE_HEADER', TRUE);
-  require_once("include/header.php");
+defined('THE_HEADER') || define('THE_HEADER', TRUE);
+require_once("include/header.php");
 ?>
 <?php
-  defined('THE_CHECK') || define('THE_CHECK', TRUE);
-  require_once("include/checklogin.php");
+defined('THE_CHECK') || define('THE_CHECK', TRUE);
+require_once("include/checklogin.php");
 ?>
 <div id="main-wrapper">
   <div id="login-wrapper">
