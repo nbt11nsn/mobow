@@ -9,7 +9,8 @@ if(isset($_POST['login']))
   $result = mysqli_query($con, $sql); 
   if (mysqli_num_rows($result) != 0) 
   {
-  // det finns en användare
+      echo "def";
+    // det finns en användare
     $row = mysqli_fetch_assoc($result);
     mysqli_free_result($result);
     if(password_verify($_POST['password'], $row['losen'])) 
@@ -19,17 +20,17 @@ if(isset($_POST['login']))
         //updatera databasen då hash bytts
         $newh = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $usql = "UPDATE kontaktperson SET losen = '$newh' WHERE ID = '".$row['ID']."'";
-      if(mysqli_query($con, $usql)) 
-      {
-        //password uppdaterat
+        if(mysqli_query($con, $usql)) 
+        {
+            //password uppdaterat
+        }
+        else 
+        {
+          // misslyckades uppdatera lösenord
+          // ta bort innan release
+          die("Fixa detta script, sql-frågan kanske?");
+        }
       }
-      else 
-      {
-        // misslyckades uppdatera lösenord
-        // ta bort innan release
-        die("Fixa detta script, sql-frågan kanske?");
-      }
-    }
     // inloggad
     $_SESSION['first_name'] = $row['fornamn'];
     $_SESSION['last_name'] = $row['efternamn'];
