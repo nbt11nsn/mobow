@@ -14,6 +14,7 @@
    function initialize()
    {
    var mapProp = {
+    scrollwheel: false,
   center:new google.maps.LatLng(63.8250,20.2639),
    zoom:5,
    mapTypeId:google.maps.MapTypeId.ROADMAP
@@ -27,8 +28,7 @@
       position: myLatLng,
       map: map,
       icon: image
-  });
-   
+  });   
    
    }
    google.maps.event.addDomListener(window, 'load', initialize);

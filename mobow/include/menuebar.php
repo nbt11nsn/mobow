@@ -6,13 +6,13 @@
   <nav>
     <ul class="fancyNav">
       <li>
-        <a href="contract.php">Om oss</a>
+        <a href="">Om oss</a>
       </li> 
       <li>
 	<a href="invoice.php">Laddningsstationer</a>
       </li>
       <li>
-	<a href="report.php">Login</a>
+	<a href="admin">Login</a>
       </li>    
     </ul>
   </nav>

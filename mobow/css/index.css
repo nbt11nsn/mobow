@@ -21,7 +21,8 @@ border:thick solid #ccc;
 }
 
 #googleMap {
- height : 500px;
+ min-height : 500px;
+ height: 100%;
  width : 100%;
 }
 
@@ -30,7 +31,6 @@ border:thick solid #ccc;
  height: auto;
  display: inline-block;
  background: #FFFFFF;
- margin-bottom: 2%;
  padding-top: 1%;
  padding-bottom: 1%;
  border-top-style: solid;
