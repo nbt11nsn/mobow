@@ -21,11 +21,11 @@
       <ul>
 	<li>
 	  <label for="username">Användarnamn: </label> 
-	  <input type="text" maxlength="50" required autofocus id="username" />
+	  <input type="text" maxlength="50" required autofocus id="username" name="username" />
 	</li>
 	<li>
 	  <label for="password">Lösenord: </label>
-	  <input type="password" maxlength="50" required id="password" />
+	  <input type="password" maxlength="50" required id="password" name="password" />
 	</li>
 	<li class="submit">
 	  <input type="submit" name="login" value="Logga in" />

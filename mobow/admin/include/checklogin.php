@@ -2,8 +2,9 @@
 session_start();
 defined('THE_CHECK') or die();
 if($_SERVER["REQUEST_METHOD"] == "POST") {
+
   defined('THE_DB') || define('THE_DB', TRUE);
-  require_once('../../../db.php');
+  require_once(__DIR__ .'./../../../db.php');
   $sql = "SELECT  anvnamn, losen, fornamn, efternamn, mobil, mejl, admin 
   FROM kontaktperson WHERE anvnamn = '".$_POST['username']."' AND 
   losen = '".$_POST['password']."'"; 
