@@ -1,5 +1,4 @@
 <?php
-session_start();
 defined('THE_CHECK') or die("include checklog");
 if(isset($_POST['login'])) 
 {
