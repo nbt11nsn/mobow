@@ -1,0 +1,36 @@
+#footer-wrapper {
+width : 100%;
+min-height: 150px;
+height: auto;
+background: #4D4D4D;
+overflow: hidden;
+color: white;
+box-sizing:border-box;
+-moz-box-sizing:border-box;
+-webkit-box-sizing:border-box; 
+border:thick solid #ccc;
+padding-top: 2%;
+}
+#footer-wrapper li{
+list-style-type: none;
+color: white;
+}
+#footer-wrapper  li:before {
+    content: "• ";
+    color: pink; /* or whatever color you prefer */
+}
+
+#left-box{
+padding-left: 10%;
+width: 35%;
+height: auto;
+float: left;
+color: #C3C3C3;
+}
+
+#right-box{
+padding-right: 10%;
+width: 35%;
+height: auto;
+float: right;
+}
