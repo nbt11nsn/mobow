@@ -4,6 +4,7 @@
   float: left;
 }
 #mobowpic {
+padding-left: 2%;
  width: 40%;
  vertical-align:top;
 }
@@ -49,8 +50,7 @@ html, body {
  
  body {
        margin: 0px;
-       padding: 0px;
-	   background: #969;
+       padding: 0px;	  
  }
  
  #wrapper {
