@@ -20,16 +20,13 @@ mysqli_close($con);
 <?php
 defined('THE_HEAD') || define('THE_HEAD', TRUE);
 require_once("include/head.php");
-?>
+require_once('include/googlemaps.php'); ?>
 </head>
 <body>
 
 <?php
-
 defined('THE_HEADER') || define('THE_HEADER', TRUE);
-  require_once("include/header.php");
- 
- 
+  require_once("include/header.php"); 
 ?>  
 
   <div id='google_container'>

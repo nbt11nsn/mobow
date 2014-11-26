@@ -1,3 +1,5 @@
+
+<script>
 function getStyles(){
 		var styles = [{
 							featureType: "all",
@@ -39,11 +41,11 @@ function getStyles(){
 
 
     function makeMarkers(map){
-    var places = '<?php echo json_encode($places ); ?>';
-    
+    var places = '<?php echo json_encode($places, JSON_FORCE_OBJECT); ?>';
+
     var locations = [
       ['<div class="map-popup"><h1>Mowbro-Test</h1><br/><div class="logo"><img src="image/mobow.png" /></div><div class="about">här kan man skriva diverse information som känns vettig.</div></div><div class="clear"></div>', 63.7250, 20.1639, 4],
-      [places[0][0], 63.8250, 20.2639, 5],
+      ['<div class="map-popup"><h1>'+"hej"+'</h1></div>', 63.8250, 20.2639, 5],
       ['Cronulla Beach', -34.028249, 151.157507, 3],
       ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
       ['Maroubra Beach', -33.950198, 151.259302, 1]
@@ -124,3 +126,4 @@ function getStyles(){
 		jQuery(document).ready(function() {
 			jQuery('div.location').CustomMap();
 		});
+</script>
