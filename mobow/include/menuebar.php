@@ -9,7 +9,7 @@
         <a href="">Om oss</a>
       </li> 
       <li>
-	<a href="invoice.php">Laddningsstationer</a>
+	<a href="index.php">Laddningsstationer</a>
       </li>
       <li>
 	<a href="admin">Login</a>
