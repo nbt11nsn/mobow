@@ -38,7 +38,7 @@ if(isset($_POST['login']))
     $_SESSION['mail'] = $row['mejl'];
     $_SESSION['username'] = $row['anvnamn'];
     $_SESSION['admin'] = ($row['admin'] == 1);	
-    header('Location: report.php');
+    header('Location: info.php');
     }
     else 
     {

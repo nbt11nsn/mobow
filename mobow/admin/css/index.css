@@ -3,6 +3,7 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
 #CCC
 #EA005A
 #969
+#F2F2F2
 */
 #passchange {
   display: inline-block;
@@ -219,7 +220,7 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
 
 /* generella inställningar för body */
 body{
-  background: #ccc; 
+  background: #F2F2F2; 
   color:#969;
   padding:10px;
   text-align: center;
