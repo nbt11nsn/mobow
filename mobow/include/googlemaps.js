@@ -4,7 +4,7 @@
 				var settings = $.extend({
 					home: { latitude: 63.8250, longitude: 20.2639 },
 					text: '<div class="map-popup"><h1>Mowbro-Test</h1><br/><div class="logo"><img src="image/mobow.png" /></div><div class="about">här kan man skriva diverse information som känns vettig.</div></div><div class="clear"></div>',
-					icon_url: 'image/icon.png',					
+					icon_url: 'image/icon32x32.png',					
 				}, options );
 				
 				var coords = new google.maps.LatLng(settings.home.latitude, settings.home.longitude);
