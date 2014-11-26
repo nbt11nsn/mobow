@@ -59,3 +59,40 @@ html, body {
        height: auto !important;
        
  }
+ 
+ 
+		.location {
+			 width: 100%;
+			 min-height: 400px;
+			 height: 100%;
+		}
+		
+		.map-popup {
+			position: relative;			
+		}
+		.map-popup img {
+		width: 100%;
+		height: auto;
+		
+		}
+		.map-popup h1{
+			margin: 0px;
+		}
+		
+		.map-popup > div {
+			display: inline-block;			
+		}
+		
+		.map-popup div.logo {
+			width: 25%;
+			float: left;
+		}
+	
+		.map-popup div.about {
+			float: right;
+			width: 75%;
+		}
+
+		.clear {
+			clear: both;
+		}

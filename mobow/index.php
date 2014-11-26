@@ -18,7 +18,10 @@ defined('THE_HEADER') || define('THE_HEADER', TRUE);
 ?>  
 
   <div id='google_container'>
-  <div id= "googleMap"></div>
+  <div id= "googleMap">
+  <div class="location"></div>
+    </div>  
+  </div>
 </div>
 
 <?php
