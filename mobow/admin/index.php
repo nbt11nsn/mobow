@@ -23,7 +23,7 @@ require_once("include/checklogin.php");
 ?>
 <div id="main-wrapper">
   <div id="login-wrapper">
-    <form action="<?php echo  htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id = "pass">
+    <form action="" method="post" id = "pass">
       <ul>
 	<li>
 	  <label for="username">Användarnamn: </label> 

@@ -1,22 +1,27 @@
+<?php
+SESSION_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
 <?php
-  defined('THE_HEAD') || define('THE_HEAD', TRUE);
-  include_once("include/head.php");
+defined('THE_SESSION') || define('THE_SESSION', TRUE);
+require_once('include/checksession.php');
+defined('THE_HEAD') || define('THE_HEAD', TRUE);
+include_once("include/head.php");
 ?>
 <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
 <script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
 <?php
-  defined('THE_HEADER') || define('THE_HEADER', TRUE);
-  require_once("include/header.php");
+defined('THE_HEADER') || define('THE_HEADER', TRUE);
+require_once("include/header.php");
 ?>
 <div id="main-wrapper">
 <?php
-  defined('THE_MENUE') || define('THE_MENUE', TRUE);
-  require_once("include/menuebar.php");
+defined('THE_MENUE') || define('THE_MENUE', TRUE);
+require_once("include/menuebar.php");
 ?>
 <div id = "frame"
   <div class="upload_form_cont">
@@ -64,8 +69,8 @@
 </div>
 </div><!--main-wrapper-->
 <?php
-  defined('THE_FOOTER') || define('THE_FOOTER', TRUE);
-  require_once("include/footer.php");
+defined('THE_FOOTER') || define('THE_FOOTER', TRUE);
+require_once("include/footer.php");
 ?>
 </body>
 </html>

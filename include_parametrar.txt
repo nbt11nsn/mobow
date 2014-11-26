@@ -6,4 +6,5 @@ defined('THE_CHECK') -> admin/checklogin.php
 defined('THE_FOOTER')-> admin/footer.php
 defined('THE_DB')    -> ../db.php
 defined('THE_FUNC')  -> include/functions.php
-defiend('THE_ERROR') -> include/no_error.php, admin/include/no_error.php
+defined('THE_ERROR') -> include/no_error.php, admin/include/no_error.php
+defined('THE_SESSION') -> admin/include/checksession.php

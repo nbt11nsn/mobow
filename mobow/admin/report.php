@@ -1,13 +1,14 @@
 <?php
- SESSION_start();
+SESSION_start();
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 <?php
-  require_once('include/checksession.php');
-  defined('THE_HEAD') || define('THE_HEAD', TRUE);
-  include_once("include/head.php");
+defined('THE_SESSION') || define('THE_SESSION', TRUE);
+require_once('include/checksession.php');
+defined('THE_HEAD') || define('THE_HEAD', TRUE);
+include_once("include/head.php");
 ?>
 </head>
 <body>
