@@ -1,4 +1,9 @@
-<meta charset=utf-8 />
+<?php
+mb_internal_encoding('UTF-8');
+mb_http_output('UTF-8');
+mb_http_input('UTF-8');
+?>
+<meta charset=UTF-8 />
   <title>Mobow</title>
   <link rel="stylesheet" type="text/css" media="screen" href="css/index.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="css/menu.css" />
