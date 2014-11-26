@@ -5,7 +5,7 @@ Kräver:
 
 PHP >= 5.5.0
 
-MySQL >= 5.5.3
+MySQL >= 5.x
 
 CSS3
 
