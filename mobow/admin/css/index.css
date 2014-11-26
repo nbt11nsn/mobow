@@ -137,7 +137,7 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
   color: #5d5d5d;
   display: inline-block;
   font: 18px Arial,sans-serif;
-  padding: 10px 35px 10px;
+  padding: 10px 33px 10px;
   position: relative;
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.6);
   z-index:2;
@@ -149,8 +149,18 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
 	background:url('../../image/home.png') no-repeat center center;
 	display: block;
 	overflow: hidden;
-	padding-left: 12px;
-	padding-right: 12px;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-indent: -9999px;
+	width: 16px;
+}
+
+.fancyNav a.logikon{
+	background:url('../../image/logout.png') no-repeat center center;
+	display: block;
+	overflow: hidden;
+	padding-left: 10px;
+	padding-right: 10px;
 	text-indent: -9999px;
 	width: 16px;
 }
