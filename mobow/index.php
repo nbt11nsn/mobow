@@ -8,6 +8,7 @@ if($iresult = mysqli_query($con, $isql)){
   if (mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {
           $places[] = $irows;
+          echo $irows['stad'];
       }
       mysqli_free_result($iresult);
   }
