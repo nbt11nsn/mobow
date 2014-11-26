@@ -4,8 +4,7 @@
 				var settings = $.extend({
 					home: { latitude: 63.8250, longitude: 20.2639 },
 					text: '<div class="map-popup"><h1>Mowbro-Test</h1><br/><div class="logo"><img src="image/mobow.png" /></div><div class="about">här kan man skriva diverse information som känns vettig.</div></div><div class="clear"></div>',
-					icon_url: 'image/icon.png',	
-					zoom: 5
+					icon_url: 'image/icon.png',					
 				}, options );
 				
 				var coords = new google.maps.LatLng(settings.home.latitude, settings.home.longitude);
@@ -15,9 +14,9 @@
 					
 					var options = {
 					scrollwheel: false,
-						zoom: settings.zoom,
+						zoom: 5,
 						center: coords,
-						mapTypeId: google.maps.MapTypeId.ROADMAP,
+						mapTypeId: google.maps.MapTypeId.HYBRID,
 						mapTypeControl: true,
 						scaleControl: true,
 						zoomControlOptions: {
@@ -57,43 +56,23 @@
 							featureType: "road",
 							elementType: "geometry",
 							stylers: [
-							  { hue: "#00ffee" },
+							  { hue: "#EA005A" },
 							  { saturation: 50 }
 							]
 						}, {
 							featureType: "road",
 							elementType: "labels",
 							stylers: [
-								{ hue: "#4f2a0b" },
+								{ hue: "#969" },
 								{ saturation: 50 }
-							]
-						}, {
-							featureType: 'poi.school',
-							elementType: 'geometry',
-							stylers: [
-								{ hue: '#4f2a0b' },
-								{ lightness: -15 },
-								{ saturation: 99 }
-							]
-						}, {
-							featureType: 'poi.park',
-							elementType: 'geometry',
-							stylers: [
-								{ hue: '#a3e36b' },
-								{ lightness: -15 },
-								{ saturation: 99 }
-							]
-						}, {
-							featureType: 'poi.park',
-							elementType: 'labels.icon',
-							stylers: [
-								{ hue: '#450b4f' },
-								{ lightness: -15 },
-								{ saturation: 99 }
 							]
 						}
 					];
 
+				//	#CCC
+				//	#EA005A
+				//	#969
+					
 					map.setOptions({styles: styles});
 				});
 		 
