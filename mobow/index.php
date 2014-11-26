@@ -12,7 +12,7 @@ if($iresult = mysqli_query($con, $isql)){
       mysqli_free_result($iresult);
   }
 }
-mysql_close($con);
+mysqli_close($con);
 ?>
 <!DOCTYPE html>
 <html>
