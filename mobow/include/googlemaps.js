@@ -18,6 +18,15 @@ function getStyles(){
 								{ hue: "#969" },
 								{ saturation: 50 }
 							]
+						},
+            {
+							featureType: "infoWindow",
+							elementType: "labels",
+							stylers: [
+              { color: "#969" },
+								{ hue: "#969" },
+								{ saturation: 50 }
+							]
 						}
 					];	
 
@@ -29,22 +38,6 @@ function getStyles(){
         infoWindow.setContent(html);
         infoWindow.open(map, marker);
       });
-    }
-
-    function downloadUrl(url, callback) {
-      var request = window.ActiveXObject ?
-          new ActiveXObject('Microsoft.XMLHTTP') :
-          new XMLHttpRequest;
-
-      request.onreadystatechange = function() {
-        if (request.readyState == 4) {
-          request.onreadystatechange = doNothing;
-          callback(request, request.status);
-        }
-      };
-
-      request.open('GET', url, true);
-      request.send(null);
     }
 
     function doNothing() {}
@@ -72,8 +65,7 @@ function getStyles(){
 						overviewMapControl: true,	
 					};	
 
-          var infoWindow = new google.maps.InfoWindow({						
-					});
+       
           
 					var map = new google.maps.Map(element[0], options);
 					
@@ -85,12 +77,15 @@ function getStyles(){
       
       
         for (var i = 0; i < obj_length; i++) {
+           var infoWindow = new google.maps.InfoWindow({                     
+					 maxWidth: 300
+          });
           var name = obj[i].kontorsnamn;
-          var address = obj[i].stad;         
+          var address = obj[i].stad + " " + obj[i].gata;         
           var point = new google.maps.LatLng(
               parseFloat(obj[i].lat),
               parseFloat(obj[i].lng));
-          var html = "<b>" + name + "</b> <br/>" + address;
+          var html = "<h1>" + name +"</h1><p>" + address + "</p><p>" + obj[i].oppet + "</p><p>" + obj[i].allminfo + "</p><p>" + obj[i].hemsida + "</p><p>Antal stationer:" + obj[i].stn; + "</p><p>" + obj[i].typ;
           var icon = obj[i].imgurl;
           var marker = new google.maps.Marker({
             map: map,
