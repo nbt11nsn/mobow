@@ -20,7 +20,9 @@ mysqli_close($con);
 <?php
 defined('THE_HEAD') || define('THE_HEAD', TRUE);
 require_once("include/head.php");
-require_once('include/googlemaps.php'); ?>
+?>
+<script language="javascript" type="text/javascript" src = "include/googlemap.js"/>
+
 </head>
 <body>
 
