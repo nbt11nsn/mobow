@@ -20,7 +20,11 @@ mysqli_close($con);
 <?php
 defined('THE_HEAD') || define('THE_HEAD', TRUE);
 require_once("include/head.php");
-require_once('include/googlemaps.php'); ?>
+//require_once('include/googlemaps.php'); ?>
+<script language="javascript" type="text/javascript" src="include/googlemaps.js"></script>
+<script type="text/javascript">
+    var places = <?php echo json_encode($places, JSON_UNESCAPED_UNICODE); ?>;
+</script>
 </head>
 <body>
 
