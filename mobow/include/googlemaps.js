@@ -76,6 +76,7 @@ function getStyles(){
       obj_length = obj.length;
       
       
+          var latlng = new Array();
         for (var i = 0; i < obj_length; i++) {
            var infoWindow = new google.maps.InfoWindow({                     
 					 maxWidth: 300
@@ -85,6 +86,7 @@ function getStyles(){
           var point = new google.maps.LatLng(
               parseFloat(obj[i].lat),
               parseFloat(obj[i].lng));
+          latlng[i] = point;
           var html = "<h1>" + name +"</h1><p>" + address + "</p><p>" + obj[i].oppet + "</p><p>" + obj[i].allminfo + "</p><p>" + obj[i].hemsida + "</p><p>Antal stationer:" + obj[i].stn; + "</p><p>" + obj[i].typ;
           var icon = obj[i].imgurl;
           var marker = new google.maps.Marker({
@@ -95,7 +97,11 @@ function getStyles(){
           bindInfoWindow(marker, map, infoWindow, html);
         }
       
-           
+          var latlngbounds = new google.maps.LatLngBounds();
+          for (var i = 0; i < latlng.length; i++) {
+          latlngbounds.extend(latlng[i]);
+            }
+        map.fitBounds(latlngbounds);
 
          
 				//	#CCC
