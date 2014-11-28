@@ -1,5 +1,3 @@
-
-<script>
 function getStyles(){
 		var styles = [{
 							featureType: "all",
@@ -145,4 +143,3 @@ var customIcons = {
 		jQuery(document).ready(function() {
 			jQuery('div.location').CustomMap();
 		});
-</script>
