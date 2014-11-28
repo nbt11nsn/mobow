@@ -87,7 +87,7 @@ function getStyles(){
               parseFloat(obj[i].lat),
               parseFloat(obj[i].lng));
           latlng[i] = point;
-          var html = "<h1>" + name +"</h1><p>" + address + "</p><p>" + obj[i].oppet + "</p><p>" + obj[i].allminfo + "</p><p>" + obj[i].hemsida + "</p><p>Antal stationer:" + obj[i].stn; + "</p><p>" + obj[i].typ;
+          var html = "<div id='info_window'<h1>" + name +"</h1><p>" + address + "</p><p>" + obj[i].oppet + "</p><p>" + obj[i].allminfo + "</p><p>" + obj[i].hemsida + "</p><p>Antal stationer:" + obj[i].stn; + "</p><p>" + obj[i].typ + "</p></div>";
           var icon = obj[i].imgurl;
           var marker = new google.maps.Marker({
             map: map,
