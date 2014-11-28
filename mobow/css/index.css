@@ -69,38 +69,53 @@ html, body {
  }
  
  
-		.location {
-			 width: 100%;
-			 min-height: 400px;
+ .location {
+     width: 100%;
+     min-height: 400px;
 			 height: 100%;
-		}
+ }
+ 
+ .map-popup {
+     position: relative;			
+ }
+ .map-popup img {
+     width: 100%;
+     height: auto;
 		
-		.map-popup {
-			position: relative;			
-		}
-		.map-popup img {
-		width: 100%;
-		height: auto;
+ }
+ .map-popup h1{
+     margin: 0px;
+ }
 		
-		}
-		.map-popup h1{
-			margin: 0px;
-		}
-		
-		.map-popup > div {
-			display: inline-block;			
-		}
-		
-		.map-popup div.logo {
-			width: 25%;
-			float: left;
-		}
-	
-		.map-popup div.about {
-			float: right;
-			width: 75%;
-		}
+ .map-popup > div {
+     display: inline-block;			
+ }
+ 
+ .map-popup div.logo {
+     width: 25%;
+     float: left;
+ }
+ 
+ .map-popup div.about {
+     float: right;
+     width: 75%;
+ }
+ 
+ .clear {
+     clear: both;
+ }
 
-		.clear {
-			clear: both;
-		}
+#info_window{
+  width: 350px;
+}
+
+.gm-style .gm-style-iw, .gm-style .gm-style-iw a, .gm-style .gm-style-iw span, .gm-style .gm-style-iw label, .gm-style .gm-style-iw div {
+  max-height: 280px;
+  padding: 0px 10px 5px 5px;
+  overflow-y: scroll;
+  overflow-x: visible;
+}
+
+.gm-style-iw div {
+  overflow:visible !important;
+}
