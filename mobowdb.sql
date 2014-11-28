@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 26, 2014 at 03:28 PM
+-- Generation Time: Nov 28, 2014 at 03:06 PM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `adress` (
   `postnr` int(11) DEFAULT NULL,
   `stad` varchar(100) NOT NULL,
   `gata` varchar(100) NOT NULL,
-  `long` double NOT NULL,
+  `lng` double NOT NULL,
   `lat` double NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `adress` (
 -- Dumping data for table `adress`
 --
 
-INSERT INTO `adress` (`ID`, `postnr`, `stad`, `gata`, `long`, `lat`) VALUES
+INSERT INTO `adress` (`ID`, `postnr`, `stad`, `gata`, `lng`, `lat`) VALUES
 (1, 80320, 'Gävle', 'Stortorget 1', 17.1420337, 60.6748389),
 (2, 91232, 'Vilhelmina', 'Postgatan 3', 16.6547774, 64.6230765),
 (3, 77670, 'Vikmanshyttan', 'Rostugnsvägen 3', 15.8253629, 60.2930402),
@@ -162,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `foretag` (
 
 CREATE TABLE IF NOT EXISTS `ikontyp` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `url` varchar(256) NOT NULL,
+  `imgurl` varchar(256) NOT NULL,
   `typ` varchar(100) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
@@ -171,9 +171,38 @@ CREATE TABLE IF NOT EXISTS `ikontyp` (
 -- Dumping data for table `ikontyp`
 --
 
-INSERT INTO `ikontyp` (`ID`, `url`, `typ`) VALUES
-(1, 'image/restaurang.png', 'Restaurang'),
-(2, 'image/cafe.png', 'Café');
+INSERT INTO `ikontyp` (`ID`, `imgurl`, `typ`) VALUES
+(1, 'image/restaurang24x32.png', 'Restaurang'),
+(2, 'image/cafe31x32.png', 'Café');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inforuta`
+--
+
+CREATE TABLE IF NOT EXISTS `inforuta` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `hemsida` varchar(256) DEFAULT NULL,
+  `oppet` text,
+  `allminfo` text,
+  `b_hojd` int(11) DEFAULT NULL,
+  `b_langd` int(11) DEFAULT NULL,
+  `forecolor` varchar(7) NOT NULL DEFAULT '#000000',
+  `backcolor` varchar(7) NOT NULL DEFAULT '#FFFFFF',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `inforuta`
+--
+
+INSERT INTO `inforuta` (`ID`, `hemsida`, `oppet`, `allminfo`, `b_hojd`, `b_langd`, `forecolor`, `backcolor`) VALUES
+(1, 'http://www.google.com/', 'mån-fre: 9:00-22:00\r\nsön: 10:03-10:33\r\nannars: stängt', 'random grejs', NULL, NULL, '#000000', '#FFFFFF'),
+(2, 'http://www.aftonbladet.se/', 'STÄNGT!!!', NULL, 32, 32, '#FF33FF', '#000000'),
+(3, 'http://www.gd.se/', 'mån-sön: 01:30-03:30', 'massa text\r\nmassa text\r\nmassa text\r\nmassa text\r\nmassa text\r\nmassa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text', 256, 256, '#000000', '#FFFFFF'),
+(4, 'http://sv.wikipedia.org/wiki/', 'mån-sön: 00:00-24:00', NULL, 256, 256, '#FFCC33', '#00FFFF'),
+(5, NULL, 'mån-sön: 10:03-10:04', NULL, 256, 256, '#00FF00', '#FF00FF');
 
 -- --------------------------------------------------------
 
@@ -214,11 +243,9 @@ CREATE TABLE IF NOT EXISTS `kontrakt` (
   `stn` int(11) NOT NULL,
   `kontaktpersonid` int(11) NOT NULL,
   `adressid` int(11) NOT NULL,
-  `hemsida` varchar(256) DEFAULT NULL,
-  `oppet` mediumtext,
-  `allminfo` mediumtext,
   `logurl` varchar(256) DEFAULT NULL,
   `ikonid` int(11) NOT NULL,
+  `inforutaid` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
@@ -226,12 +253,12 @@ CREATE TABLE IF NOT EXISTS `kontrakt` (
 -- Dumping data for table `kontrakt`
 --
 
-INSERT INTO `kontrakt` (`ID`, `kontorsnamn`, `tele`, `stn`, `kontaktpersonid`, `adressid`, `hemsida`, `oppet`, `allminfo`, `logurl`, `ikonid`) VALUES
-(1, 'Gevalia', NULL, 1, 1, 1, 'http://www.google.com/', 'mån-fre: 9:00-22:00\r\nsön: 10:03-10:33\r\nannars: stängt', 'random grejs', NULL, 1),
-(2, 'Discovery', NULL, 3, 2, 2, 'http://www.aftonbladet.se/', 'STÄNGT!!!', NULL, 'image/logo/logo0.png', 2),
-(3, 'Rubinola', NULL, 2, 3, 3, 'http://www.gd.se/', 'mån-sön: 01:30-03:30', 'massa text\r\nmassa text\r\nmassa text\r\nmassa text\r\nmassa text\r\nmassa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text', 'image/logo/03venus.png', 1),
-(4, 'Solen', NULL, 1, 4, 4, 'http://sv.wikipedia.org/wiki/', 'mån-sön: 00:00-24:00', NULL, 'image/logo/01sun.png', 2),
-(5, 'Svarta hålet', NULL, 10000, 5, 5, NULL, 'mån-sön: 10:03-10:04', NULL, 'image/logo/blackhole.png', 1);
+INSERT INTO `kontrakt` (`ID`, `kontorsnamn`, `tele`, `stn`, `kontaktpersonid`, `adressid`, `logurl`, `ikonid`, `inforutaid`) VALUES
+(1, 'Gevalia', NULL, 1, 1, 1, NULL, 1, 1),
+(2, 'Discovery', NULL, 3, 2, 2, 'image/logo/logo0.png', 2, 2),
+(3, 'Rubinola', NULL, 2, 3, 3, 'image/logo/03venus.png', 1, 3),
+(4, 'Solen', NULL, 1, 4, 4, 'image/logo/01sun.png', 2, 4),
+(5, 'Svarta hålet', NULL, 10000, 5, 5, 'image/logo/blackhole.png', 1, 5);
 
 -- --------------------------------------------------------
 
