@@ -42,8 +42,47 @@ function bindInfoWindow(marker, map, infoWindow, html) {
 
 function doNothing() {}
 
+function makeHTML(i){
+var name = obj[i].kontorsnamn;
+var address = obj[i].stad + " " + obj[i].gata;
+var oppet;
+var image;
+if(obj[i].oppet == null){
+ oppet = "";
+} else{
+oppet = "<p>" + obj[i].oppet + "</p>";
+}
+var allminfo;
+if(obj[i].allminfo == null){
+ allminfo = "";
+} else{
+allminfo = "<p>" + obj[i].allminfo + "</p>";
+}
+var hemsida;
+if(obj[i].hemsida == null){
+ hemsida = "";
+} else{
+hemsida = "<p><a href = '" + obj[i].hemsida + "' target = '_blank'>" + obj[i].hemsida + "</a></p>";
+}
+var tele;
+if(obj[i].tele == null){
+ tele = "";
+} else{
+tele = "<p>" + obj[i].tele + "</p>";
+}
 
+if(obj[i].logurl == null){
+ image = "";
+} else{
+image = "<img src='"+ obj[i].logurl + "' width = '50px' height = '50px' float = 'left'/>";
+}
 
+var stn = obj[i].stn;
+var html = image + "<div id='info_window' background-color='yellow'><h1>" + name +"</h1><p>" + address + "</p>" + oppet + allminfo +
+    hemsida + "<p>Antal stationer:" + stn; + "</p><p>" + obj[i].typ + "</p>" + tele + "</div>";
+return html;
+ 
+}
 (function ( $ ) {
     $.fn.CustomMap = function( options ) {			
 	
@@ -73,21 +112,18 @@ function doNothing() {}
             
             
 	    
-	    obj_length = obj.length;
-	    
+	    obj_length = obj.length;	
 	    
             var latlng = new Array();
             for (var i = 0; i < obj_length; i++) {
 		var infoWindow = new google.maps.InfoWindow({                     
 		    maxWidth: 360
-		});
-		var name = obj[i].kontorsnamn;
-		var address = obj[i].stad + " " + obj[i].gata;         
+		});       
 		var point = new google.maps.LatLng(
 		    parseFloat(obj[i].lat),
 		    parseFloat(obj[i].lng));
 		latlng[i] = point;
-		var html = "<div id='info_window'<h1>" + name +"</h1><p>" + address + "</p><p>" + obj[i].oppet + "</p><p>" + obj[i].allminfo + "</p><p>" + obj[i].hemsida + "</p><p>Antal stationer:" + obj[i].stn; + "</p><p>" + obj[i].typ + "</p></div>";
+		var html = makeHTML(i);     
 		var icon = obj[i].imgurl;
 		var marker = new google.maps.Marker({
 		    map: map,
