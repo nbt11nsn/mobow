@@ -18,7 +18,16 @@ function getStyles(){
 								{ hue: "#969" },
 								{ saturation: 50 }
 							]
-						}            
+						},
+            {
+							featureType: "infoWindow",
+							elementType: "labels",
+							stylers: [
+              { color: "#969" },
+								{ hue: "#969" },
+								{ saturation: 50 }
+							]
+						}
 					];	
 
       return styles;          
@@ -37,7 +46,9 @@ function getStyles(){
 
 		(function ( $ ) {
 			$.fn.CustomMap = function( options ) {			
-				var coords = new google.maps.LatLng(63.8250, 20.2639);					 
+				
+				var coords = new google.maps.LatLng(63.8250, 20.2639);
+					 
 				return this.each(function() {	
 					var element = $(this);
 					
@@ -64,7 +75,7 @@ function getStyles(){
 		   
       obj_length = obj.length;
       
-      var latlng = new Array();
+      
         for (var i = 0; i < obj_length; i++) {
            var infoWindow = new google.maps.InfoWindow({                     
 					 maxWidth: 300
@@ -74,7 +85,6 @@ function getStyles(){
           var point = new google.maps.LatLng(
               parseFloat(obj[i].lat),
               parseFloat(obj[i].lng));
-          latlng[i] = point;
           var html = "<h1>" + name +"</h1><p>" + address + "</p><p>" + obj[i].oppet + "</p><p>" + obj[i].allminfo + "</p><p>" + obj[i].hemsida + "</p><p>Antal stationer:" + obj[i].stn; + "</p><p>" + obj[i].typ;
           var icon = obj[i].imgurl;
           var marker = new google.maps.Marker({
@@ -85,11 +95,7 @@ function getStyles(){
           bindInfoWindow(marker, map, infoWindow, html);
         }
       
-          var latlngbounds = new google.maps.LatLngBounds();
-          for (var i = 0; i < latlng.length; i++) {
-          latlngbounds.extend(latlng[i]);
-            }
-        map.fitBounds(latlngbounds);
+           
 
          
 				//	#CCC
