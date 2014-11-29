@@ -18,16 +18,7 @@ function getStyles(){
 	    { hue: "#969" },
 	    { saturation: 50 }
 	]
-    },
-		  {
-		      featureType: "infoWindow",
-		      elementType: "labels",
-		      stylers: [
-			  { color: "#969" },
-			  { hue: "#969" },
-			  { saturation: 50 }
-		      ]
-		  }
+    }  
 		 ];	
     
     return styles;          
