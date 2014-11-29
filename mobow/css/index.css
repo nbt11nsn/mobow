@@ -97,9 +97,7 @@ body {
 .clear {
     clear: both;
 }
-#info_window{
-    width: 350px;
-}
+
 
 .gm-style .gm-style-iw, .gm-style .gm-style-iw a, .gm-style .gm-style-iw span, .gm-style .gm-style-iw label, .gm-style .gm-style-iw div {
     max-height: 280px;
@@ -110,4 +108,35 @@ body {
 
 .gm-style-iw div {
   overflow:visible !important;
+}
+
+
+.infowindow{
+    background: #EA005A;
+    border-radius:4px;
+    box-shadow:8px 8px 16px #222;
+    color: #232323;
+    min-width:150px;
+    max-width:200px;
+    max-height:300px;
+    text-align:center;
+    padding:5px 20px 10px;
+    overflow:hidden;
+    position:absolute;
+    text-transform:uppercase;
+}
+
+.infowindow{
+    float:right;
+    cursor:pointer;
+    margin-right:-5px;
+    margin-left:5px;
+}
+
+.infowindow h5{
+    font-weight:bold;
+}
+
+.infowindow p{
+    color: #000;
 }
