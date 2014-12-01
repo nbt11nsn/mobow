@@ -109,7 +109,7 @@ Cmap.prototype.initialize = function(){
     this.markers = [];
     this.map = new google.maps.Map(this.mapid, options);
     this.map.setOptions({styles: getStyles()});
-    this.directionsDisplay = new google.maps.DirectionsRenderer();
+    this.directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers:true});
     this.directionsDisplay.setMap(this.map);
     var obj_length = obj.length;
     var lat, lng;
