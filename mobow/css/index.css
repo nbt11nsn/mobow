@@ -65,6 +65,8 @@ body {
     clear: both;
 }
 
+/* ##### infoWindow design  ##### */
+
 .aDcrocleft{
   position: absolute; 
   left: 6px; 
@@ -134,9 +136,13 @@ body {
 }
 
 .contentDiv{
-  overflow: auto; 
+  overflow-y: auto;
+  overflow-x: hidden;
   width: 200px; 
   height: 324px;
+  font-family:Roboto, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
 /*  text-align:center;*/
 /*  padding:5px 20px 10px;*/
 }
@@ -161,7 +167,19 @@ body {
   height: 16px;
 }
 
-/*.div1{width: 0px; height: 0px; border-right-width: 10px; border-right-style: solid; border-right-color: transparent; border-left-width: 10px; border-left-style: solid; border-left-color: transparent; border-top-width: 24px; border-top-style: solid; border-top-color: rgba(0, 0, 0, 0.0980392); position: absolute; left: 117px; top: 342px;}*/
-/*.div2{position: absolute; left: 0px; top: 0px; border-radius: 2px; -webkit-box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; width: 253px; height: 342px; background-color: rgba(0, 0, 0, 0.2);}*/
-/*.arrowDiv{border-top-width: 24px; position: absolute; left: 117px; top: 339px;}
-*/
+/* ##### infoWindow innehåll ##### */
+.kontorsnamn{
+    font-family: Roboto,Arial,sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    direction: ltr;
+}
+
+.imge{
+    float:right;
+}
+
+.address, .oppet, .stn, .allminfo, .hemsida, .tele{
+    font-size: 12px;
+    direction: ltr;
+}

@@ -23,24 +23,27 @@ function bindInfoWindow(marker, map, infoWindow, html, textcolor, backgroundcolo
 
 function doNothing(){}
 
-function makeHTML(i){
-    var name = obj[i].kontorsnamn;
-    var address = obj[i].stad + " " + obj[i].gata;
-    var oppet = (obj[i].oppet == null)? "":"<p>" + obj[i].oppet + "</p>";
-    var stn = obj[i].stn;
-    var image = (obj[i].logurl == null)? "":"<img src='"+ obj[i].logurl + "' width = '50px' height = '50px' float = 'left'/>";
-    var allminfo = (obj[i].allminfo == null)? "":"<p>" + obj[i].allminfo + "</p>";
-    var hemsida = (obj[i].hemsida == null)? "":"<p><a href = '" + obj[i].hemsida + "' target = '_blank'>" + obj[i].hemsida + "</a></p>";
-    var tele = (obj[i].tele == null)? "":"<p>" + obj[i].tele + "</p>";
-    var html = image + "<div id='info_content'><h1>" + name +"</h1><p>" + address + "</p>" + oppet + allminfo + hemsida + "<p>Antal stationer:" + stn; + "</p><p>" + obj[i].typ + "</p>" + tele + "</div>";
+function makeHTML(i, lat, lng){
+    var placex = (lat!=0)?lat:obj[i].lat;
+    var placey = (lng!=0)?lng:obj[i].lng;
+    var name = "<p class='kontorsnamn'>" + obj[i].kontorsnamn + "</p>";
+    var address = "<p class='address'>" + obj[i].gata + "<br />" + obj[i].stad + "</p>";
+    var oppet = (obj[i].oppet == null)? "":"<p class='oppet'>Öppettider: <br />" + obj[i].oppet + "</p>";
+    var stn = "<p class='stn'>Antal stationer: " + obj[i].stn + "</p>";
+    var image = (obj[i].logurl == null)? "":"<img class='imge' src='"+ obj[i].logurl + "' width='"+obj[i].logbredd+"px' height='"+obj[i].loghojd+"px' />";
+    var allminfo = (obj[i].allminfo == null)? "":"<p class='allminfo'>" + obj[i].allminfo + "</p>";
+    var hemsida = (obj[i].hemsida == null)? "":"<p class='hemsida'><a href = '" + obj[i].hemsida + "' target = '_blank'>Vill du veta mer?</a></p>";
+    var tele = (obj[i].tele == null)? "":"<p class='tele'>" + obj[i].tele + "</p>";
+    var vagvisning = "<p class='hemsida'><a href = 'http://maps.google.com/?t=m&dirflg=w&saddr="+placex+"+"+placey+"&daddr="+obj[i].lat+"+"+obj[i].lng+"' target = '_blank'>Vägbeskrivning</a></p>";
+    
+    var html = image + "<div id='info_content'>" + name + address + allminfo + oppet + stn + tele + hemsida + vagvisning + "</div>";
     return html;
 }
 
 var cmap;
 (function(){
     document.addEventListener('DOMContentLoaded', function(){
-	var mapid = document.getElementById('googleMap');
-	cmap = new Cmap({el:mapid});
+	cmap = new Cmap({el:document.getElementById('googleMap')});
     });
 })();
 
@@ -55,14 +58,43 @@ function Cmap(opt_opts) {
     this.mapReady = false;
     this.opt = opt_opts;
     this.mapid = this.opt.el;
+    this.coords = {lat: 0, lng: 0};
+    this.zoom = 1;
     this.starting();
 }
 
-Cmap.prototype.init = function(){
-    var coords = new google.maps.LatLng(63.8250, 20.2639);
+Cmap.prototype.init = function() {
+    var self = this;
+    //ta en titt på navigator.geolocation.watchPosition till mobilversionen
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+	    function(position) {self.updateLocation(position);}, 
+	    function(){self.setLocation();}
+	);
+    } 
+    else {
+        this.setLocation();
+    }
+};
+
+Cmap.prototype.updateLocation = function(loc){
+    this.coords.lat = loc.coords.latitude;
+    this.coords.lng = loc.coords.longitude;
+    this.zoom = 12;
+    this.initialize();
+}
+
+Cmap.prototype.setLocation = function(){
+    this.zoom = 6;
+    this.initialize();
+}
+
+Cmap.prototype.initialize = function(){
+    var locx = (this.coords.lat != 0)? this.coords.lat:63.8250;
+    var locy = (this.coords.lng != 0)? this.coords.lng:20.2639;
     var options = {
-	zoom:6,
-	center: coords,
+	zoom:this.zoom,
+	center: new google.maps.LatLng(locx, locy),
 	mapTypeId: google.maps.MapTypeId.HYBRID,
 	mapTypeControl: true,
 	scaleControl: true,
@@ -82,7 +114,7 @@ Cmap.prototype.init = function(){
 	lat = parseFloat(obj[i].lat);
 	lng = parseFloat(obj[i].lng);
 	var point = new google.maps.LatLng(lat, lng);
-	var htm = makeHTML(i);
+	var htm = makeHTML(i, this.coords.lat, this.coords.lng);
 	var icon = {url:obj[i].imgurl, size:new google.maps.Size(32,32)};
 	var marker = new google.maps.Marker({
 	    map:this.map,
@@ -112,16 +144,10 @@ function InfoCBox(){
 	this.container.appendChild(this.container.innerDiv);
 	this.container.appendChild(this.container.closeDiv);
 
-//	var div1 = document.createElement('div');
-//	var div2 = document.createElement('div');
 	var arrowDiv = document.createElement('div');
 	var containerDiv = document.createElement('div');
-//	div1.classList.add('div1');
-//	div2.classList.add('div2');
 	arrowDiv.classList.add('arrowDiv');
 	containerDiv.classList.add('containerDiv');
-//	this.container.inDiv.appendChild(div1);
-//	this.container.inDiv.appendChild(div2);
 	this.container.inDiv.appendChild(containerDiv);
 	this.container.inDiv.appendChild(arrowDiv);
 
