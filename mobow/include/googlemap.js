@@ -68,7 +68,7 @@ Cmap.prototype.init = function() {
     var self = this;
     //ta en titt på navigator.geolocation.watchPosition till mobilversionen
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
+        navigator.geolocation.watchPosition(
 	    function(position) {self.updateLocation(position);}, 
 	    function(){self.setLocation();}
 	);
@@ -96,7 +96,7 @@ Cmap.prototype.initialize = function(){
     var options = {
 	zoom:this.zoom,
 	center: new google.maps.LatLng(locx, locy),
-	mapTypeId: google.maps.MapTypeId.HYBRID,
+	mapTypeId: google.maps.MapTypeId.ROADMAP,
 	mapTypeControl: true,
 	scaleControl: true,
 	zoomControlOptions: {
