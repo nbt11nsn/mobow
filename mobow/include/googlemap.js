@@ -34,8 +34,9 @@ function makeHTML(i, lat, lng){
     var allminfo = (obj[i].allminfo == null)? "":"<p class='allminfo'>" + obj[i].allminfo + "</p>";
     var hemsida = (obj[i].hemsida == null)? "":"<p class='hemsida'><a href = '" + obj[i].hemsida + "' target = '_blank'>Vill du veta mer?</a></p>";
     var tele = (obj[i].tele == null)? "":"<p class='tele'>" + obj[i].tele + "</p>";
-    var vagvisning = "<p class='hemsida'><a href = 'http://maps.google.com/?t=m&dirflg=w&saddr="+placex+"+"+placey+"&daddr="+obj[i].lat+"+"+obj[i].lng+"' target = '_blank'>Vägbeskrivning</a></p>";
-    
+    var vagvisning = "<p class='hemsida'><a href='javascript:void(0)' onclick='cmap.direction("+placex+","+placey+","+obj[i].lat+","+obj[i].lng+");'>Vägbeskrivning</a></p>";
+
+
     var html = image + "<div id='info_content'>" + name + address + allminfo + oppet + stn + tele + hemsida + vagvisning + "</div>";
     return html;
 }
@@ -108,6 +109,8 @@ Cmap.prototype.initialize = function(){
     this.markers = [];
     this.map = new google.maps.Map(this.mapid, options);
     this.map.setOptions({styles: getStyles()});
+    this.directionsDisplay = new google.maps.DirectionsRenderer();
+    this.directionsDisplay.setMap(this.map);
     var obj_length = obj.length;
     var lat, lng;
     for (var i = 0; i < obj_length; i++) {
@@ -125,6 +128,21 @@ Cmap.prototype.initialize = function(){
 	var bcolor = obj[i].backcolor;
 	bindInfoWindow(marker, this.map, this.infoWindow, htm, fcolor, bcolor);
     }
+}
+
+Cmap.prototype.direction = function(flat,flng,tlat,tlng){
+    var directionsService = new google.maps.DirectionsService();
+    var self = this;
+    var request = {
+	origin:new google.maps.LatLng(flat,flng),
+	destination:new google.maps.LatLng(tlat,tlng),
+	travelMode: google.maps.TravelMode.WALKING
+    };
+    directionsService.route(request, function(result, status) {
+	if (status == google.maps.DirectionsStatus.OK) {
+	    self.directionsDisplay.setDirections(result);
+	}
+    });
 }
 
 function InfoCBox(){
