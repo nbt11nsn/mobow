@@ -10,6 +10,7 @@ require_once('include/checksession.php');
 defined('THE_HEAD') || define('THE_HEAD', TRUE);
 include_once("include/head.php");
 ?>
+
 </head>
 <body>
 <?php
@@ -22,15 +23,16 @@ defined('THE_MENUE') || define('THE_MENUE', TRUE);
 require_once("include/menuebar.php");
 ?>
 <div id = "frame">
-  <form action="" method="post" id = "accept">
-    <select>
-      <option value="Pagaende">Pågående</option>
-      <option value="Godkand">Godkänd</option>
-      <option value="Nekad">Nekad</option>
+  <form action="#" method="post">
+    <select name = "contracts">
+	<?php require_once('getContracts.php');
+	?>
     </select> 
-kontrakt!
-    <input type="submit" value="Skicka">
-  </form>
+		kontrakt!		
+    <input type="submit" name = "accept" id = "accept" value="Välj">
+  
+   <?php require_once("include/fillform.php"); ?>
+   </form>
 </div><!--frame-->
 </div><!--main-wrapper-->
 <?php
