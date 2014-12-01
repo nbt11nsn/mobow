@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 29, 2014 at 08:50 PM
+-- Generation Time: Dec 01, 2014 at 03:32 AM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -178,35 +178,6 @@ INSERT INTO `ikontyp` (`ID`, `imgurl`, `typ`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `inforuta`
---
-
-CREATE TABLE IF NOT EXISTS `inforuta` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `hemsida` varchar(256) DEFAULT NULL,
-  `oppet` text,
-  `allminfo` text,
-  `b_hojd` int(11) DEFAULT NULL,
-  `b_langd` int(11) DEFAULT NULL,
-  `forecolor` varchar(7) NOT NULL DEFAULT '#000000',
-  `backcolor` varchar(7) NOT NULL DEFAULT '#FFFFFF',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
-
---
--- Dumping data for table `inforuta`
---
-
-INSERT INTO `inforuta` (`ID`, `hemsida`, `oppet`, `allminfo`, `b_hojd`, `b_langd`, `forecolor`, `backcolor`) VALUES
-(1, 'http://www.google.com/', 'mån-fre: 9:00-22:00\r\nsön: 10:03-10:33\r\nannars: stängt', 'random grejs', NULL, NULL, '#000000', '#FFFFFF'),
-(2, 'http://www.aftonbladet.se/', 'STÄNGT!!!', NULL, 32, 32, '#FF33FF', '#000000'),
-(3, 'http://www.gd.se/', 'mån-sön: 01:30-03:30', 'massa text\r\nmassa text\r\nmassa text\r\nmassa text\r\nmassa text\r\nmassa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text', 256, 256, '#000000', '#FFFFFF'),
-(4, 'http://sv.wikipedia.org/wiki/', 'mån-sön: 00:00-24:00', NULL, 256, 256, '#FFCC33', '#00FFFF'),
-(5, NULL, 'mån-sön: 10:03-10:04', NULL, 256, 256, '#00FF00', '#FF00FF');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `kontaktperson`
 --
 
@@ -241,11 +212,17 @@ CREATE TABLE IF NOT EXISTS `kontrakt` (
   `kontorsnamn` varchar(50) NOT NULL,
   `tele` int(11) DEFAULT NULL,
   `stn` int(11) NOT NULL,
+  `logurl` varchar(256) DEFAULT NULL,
+  `logbredd` int(11) DEFAULT NULL,
+  `loghojd` int(11) DEFAULT NULL,
+  `hemsida` varchar(256) DEFAULT NULL,
+  `oppet` text,
+  `allminfo` text,
+  `forecolor` varchar(7) NOT NULL DEFAULT '#000000',
+  `backcolor` varchar(7) NOT NULL DEFAULT '#FFFFFF',
   `kontaktpersonid` int(11) NOT NULL,
   `adressid` int(11) NOT NULL,
-  `logurl` varchar(256) DEFAULT NULL,
   `ikonid` int(11) NOT NULL,
-  `inforutaid` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
@@ -253,12 +230,12 @@ CREATE TABLE IF NOT EXISTS `kontrakt` (
 -- Dumping data for table `kontrakt`
 --
 
-INSERT INTO `kontrakt` (`ID`, `kontorsnamn`, `tele`, `stn`, `kontaktpersonid`, `adressid`, `logurl`, `ikonid`, `inforutaid`) VALUES
-(1, 'Gevalia', NULL, 1, 1, 1, NULL, 1, 1),
-(2, 'Discovery', NULL, 3, 2, 2, 'image/logo/logo0.png', 2, 2),
-(3, 'Rubinola', NULL, 2, 3, 3, 'image/logo/03venus.png', 1, 3),
-(4, 'Solen', NULL, 1, 4, 4, 'image/logo/01sun.png', 2, 4),
-(5, 'Svarta hålet', NULL, 10000, 5, 5, 'image/logo/blackhole.png', 1, 5);
+INSERT INTO `kontrakt` (`ID`, `kontorsnamn`, `tele`, `stn`, `logurl`, `logbredd`, `loghojd`, `hemsida`, `oppet`, `allminfo`, `forecolor`, `backcolor`, `kontaktpersonid`, `adressid`, `ikonid`) VALUES
+(1, 'Gevalia', NULL, 1, NULL, NULL, NULL, 'http://www.google.com/', 'mån-fre: 9:00-22:00\r\nsön: 10:03-10:33\r\nannars: stängt', 'random grejs', '#000000', '#FFFFFF', 1, 1, 1),
+(2, 'Discovery', NULL, 3, 'image/logo/logo0.png', 32, 32, 'http://www.aftonbladet.se/', 'STÄNGE!!!', NULL, '#FF00FF', '#000000', 2, 2, 2),
+(3, 'Rubinola', NULL, 2, 'image/logo/03venus.png', 256, 256, 'http://www.gd.se/', 'mån-sön: 01:30-03:30', 'massa text\r\nmassa text\r\nmassa text\r\nmassa text\r\nmassa text\r\nmassa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text', '#000000', '#FFFFFF', 3, 3, 1),
+(4, 'Solen', NULL, 1, 'image/logo/01sun.png', 256, 256, 'http://sv.wikipedia.org/wiki/', 'mån-sön: 00:00-24:00', NULL, '#ABCDEF', '#543210', 4, 4, 1),
+(5, 'Svarta hålet', NULL, 10000, 'image/logo/blackhole.png', 256, 256, NULL, 'mån-sön: 10:03-10:04', 'HEJHEJHEJHEJ', '#FF0000', '#00FFFF', 5, 5, 2);
 
 -- --------------------------------------------------------
 
