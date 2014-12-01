@@ -21,17 +21,65 @@ require_once("include/header.php");
 <?php
 defined('THE_MENUE') || define('THE_MENUE', TRUE);
 require_once("include/menuebar.php");
+defined('THE_DB') || define('THE_DB', TRUE);
+require_once(__DIR__ .'./../../db.php');
+$isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID
+LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID";
+
 ?>
 <div id = "frame">
-  <form action="#" method="post">
+  <form action="" method="post">
     <select name = "contracts">
-	<?php require_once('getContracts.php');
+	<?php 
+	$iresult = mysqli_query($con, $isql);
+	if (mysqli_num_rows($iresult) != 0) {
+      while($irows = mysqli_fetch_assoc($iresult)) {
+	  if(isset($_POST["accept"]) && $_POST["contracts"] == $irows['ID'])
+	  {
+	  echo "<option value=".$irows['ID']." selected='selected' >".$irows['kontorsnamn']."</option>";
+	  }
+	  else {echo "<option value=".$irows['ID'].">".$irows['kontorsnamn']."</option>";}	
+	 }      
+  }
+  mysqli_free_result($iresult);	
 	?>
     </select> 
+	
 		kontrakt!		
-    <input type="submit" name = "accept" id = "accept" value="Välj">
-  
-   <?php require_once("include/fillform.php"); ?>
+    <input type="submit" name = "accept" id = "accept" value="Välj">  
+   <?php 
+   if(isset($_POST["accept"])){
+   $isql2 = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID
+LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontrakt.ID = '".$_POST['contracts']."'";
+   $iresult = mysqli_query($con, $isql2);
+	if (mysqli_num_rows($iresult) != 0) {
+	$irows = mysqli_fetch_assoc($iresult);
+   echo '<form action="" method="post" id = "editContract">
+      <ul>
+	<li>
+	  <label for="Tele">Telefon: </label> 
+	  <input type="text" maxlength="50" value = "'.$irows['tele'].'"  name="telefonenbr" />
+	</li>
+	<li>
+	  <label for="logourl">Logga: </label>
+	  <input type="text" value = "'.$irows['logurl'].'" maxlength="50" value="logo" name="logo" />
+	</li>
+	
+	<li class="submit">
+	  <input type="submit" name="save" id="save" value="Spara" />
+	</li>
+      </ul>
+    </form>';
+		}
+	}
+	if(isset($_POST['save'])) 
+	{
+	$sql3 = "UPDATE kontrakt SET logurl = '".$_POST["logo"]."',tele = '".$_POST["telefonenbr"]."' WHERE kontrakt.ID = '".$_POST['contracts']."'";
+	mysqli_query($con, $sql3);	
+	}
+	//kontorsnamn, tele, stn, multipart logo(url + bred + höjd), hemsida, oppet,
+	//allminfo, forecolor, backcolor, ikonID, postnr, stad, gata, googlemap long lat,
+	?>
    </form>
 </div><!--frame-->
 </div><!--main-wrapper-->

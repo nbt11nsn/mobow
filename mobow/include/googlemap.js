@@ -35,8 +35,6 @@ function makeHTML(i, lat, lng){
     var hemsida = (obj[i].hemsida == null)? "":"<p class='hemsida'><a href = '" + obj[i].hemsida + "' target = '_blank'>Vill du veta mer?</a></p>";
     var tele = (obj[i].tele == null)? "":"<p class='tele'>" + obj[i].tele + "</p>";
     var vagvisning = "<p class='hemsida'><a href='javascript:void(0)' onclick='cmap.direction("+placex+","+placey+","+obj[i].lat+","+obj[i].lng+");'>Vägbeskrivning</a></p>";
-
-
     var html = image + "<div id='info_content'>" + name + address + allminfo + oppet + stn + tele + hemsida + vagvisning + "</div>";
     return html;
 }
