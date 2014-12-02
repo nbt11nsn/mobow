@@ -37,7 +37,7 @@ function scaleImage(currW, currH, maxW, maxH){
 }
 
 function makeHTML(i){
-    var name = "<p class='kontorsnamn'>" + obj[i].kontorsnamn + "</p>";
+    var name = "<p class='kontorsnamn'><h3>" + obj[i].kontorsnamn + "</h3></p>";
     var max = {w:185, h:100};
     var imgSize = scaleImage(obj[i].logbredd, obj[i].loghojd, max.w, max.h);
     var address = "<p class='address'>Adress: <br />" + obj[i].gata + "<br />" + obj[i].stad + "</p>";
@@ -158,6 +158,7 @@ Cmap.prototype.direction = function(tlat,tlng){
     google.maps.event.addListener(this.myMarker, 'dragend', function(event){
 	self.direction(tlat,tlng);
     });
+
     var request = {
 	origin:new google.maps.LatLng(pos.lat(),pos.lng()),
 	destination:new google.maps.LatLng(tlat,tlng),
@@ -165,6 +166,10 @@ Cmap.prototype.direction = function(tlat,tlng){
     };
     directionsService.route(request, function(result, status) {
 	if (status == google.maps.DirectionsStatus.OK) {
+	    var meterDiv = document.createElement('div');
+	    meterDiv.classList.add('meterDiv');
+	    meterDiv.innerHTML = result.routes[0].legs[0].distance.value + " meter";
+	    document.getElementById("googleMap").appendChild(meterDiv);
 	    self.directionsDisplay.setDirections(result);
 	}
     });
@@ -212,6 +217,7 @@ function InfoCBox(){
 	var contentDiv = document.createElement('div');
 	contentDiv.classList.add('contentDiv');
 	this.container.innerDiv.appendChild(contentDiv);
+
 	this.hooks = {cont:containerDiv, inne:contentDiv, cright:aDcrocright, cleft:aDcrocleft};
 
 	this.container.closeDiv.innerHTML = makeHead();
@@ -294,7 +300,7 @@ function InfoCBox(){
 	this.hooks.inne.style.color = textcolor;
 	this.hooks.cont.style.backgroundColor = backgroundcolor;
 	this.hooks.cont.style.borderStyle = 'solid';
-	this.hooks.cont.style.borderWidth = '2px';
+	this.hooks.cont.style.borderWidth = '3px';
 	this.hooks.cont.style.borderColor = textcolor;
 	this.hooks.cright.style.backgroundColor = backgroundcolor;
 	this.hooks.cleft.style.backgroundColor = backgroundcolor;
