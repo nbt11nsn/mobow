@@ -293,6 +293,9 @@ function InfoCBox(){
 	this.hooks.inne.innerHTML = content;
 	this.hooks.inne.style.color = textcolor;
 	this.hooks.cont.style.backgroundColor = backgroundcolor;
+	this.hooks.cont.style.borderStyle = 'solid';
+	this.hooks.cont.style.borderWidth = '2px';
+	this.hooks.cont.style.borderColor = textcolor;
 	this.hooks.cright.style.backgroundColor = backgroundcolor;
 	this.hooks.cleft.style.backgroundColor = backgroundcolor;
     }
