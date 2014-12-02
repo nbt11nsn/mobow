@@ -33,6 +33,12 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
   height: 250px;
   background: #fff;
 }
+#overviewinfo{
+  width: 1024px; 
+  height: 250px; 
+  background: #fff;
+}
+
 *{
   margin:0;
   padding:0;
