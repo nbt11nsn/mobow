@@ -30,7 +30,7 @@ $currentContract = 1;
 
 ?>
 <div id = "frame">
-  <form action="" method="post">
+  <form action="" method="post" id = "postContracts">
     <select name = "contracts">
 	<?php 
 	
@@ -51,8 +51,7 @@ $currentContract = 1;
   mysqli_free_result($iresult);	
 	?>
     </select> 
-	
-		kontrakt!		
+		
     <input type="submit" name = "accept" id = "accept" value="Välj">  
    <?php 
 
@@ -61,13 +60,15 @@ $currentContract = 1;
 	
 	if(isset($_POST['save'])) 
 	{
-	$sql3 = "UPDATE kontrakt SET logurl = '".$_POST["logo"]."',tele = '".$_POST["telefonenbr"]."' WHERE kontrakt.ID = '".$_POST['contracts']."'";
+	$sql3 = "UPDATE kontrakt, adress SET gata = '".$_POST["gata"]."', stn = '".$_POST["stn"]."', oppet = '".mysqli_real_escape_string($con, nl2br($_POST["oppet"]))."', allminfo = '".mysqli_real_escape_string($con, nl2br($_POST["allminfo"]))."',
+	hemsida = '".$_POST["hemsida"]."', forecolor = '".$_POST["forecolor"]."',	backcolor = '".$_POST["backcolor"]."', postnr = '".$_POST["postnr"]."',
+	stad = '".$_POST["stad"]."', gata = '".$_POST["gata"]."', tele = '".$_POST["telefonenbr"]."', logurl = '".$_POST["logo"]."' WHERE kontrakt.ID = '".$_POST['contracts']."'";
 	mysqli_query($con, $sql3);	
 	}
 	//kontorsnamn, tele, stn, multipart logo(url + bred + höjd), hemsida, oppet,
 	//allminfo, forecolor, backcolor, ikonID, postnr, stad, gata, googlemap long lat,
 	
-	   $isql2 = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID
+	   $isql2 = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata, stn, oppet, allminfo, hemsida, forecolor, backcolor, postnr, stad FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID
 LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontrakt.ID = '".$currentContract."'";
    $iresult = mysqli_query($con, $isql2);
 	if (mysqli_num_rows($iresult) != 0) {
@@ -79,11 +80,47 @@ LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontrakt.ID = '".$
       <ul>
 	<li>
 	  <label for="Tele">Telefon: </label> 
-	  <input type="text" maxlength="50" value = "'.$irows["tele"].'"  name="telefonenbr" />
+	  <input type="text" align="left"  maxlength="50" value = "'.$irows["tele"].'"  name="telefonenbr" />
+	</li>
+	<li>
+	  <label for="logourl">Antal stationer: </label>
+	  <input type="text" align="left"  value = "'.$irows["stn"].'" maxlength="50" value="stn" name="stn" />
 	</li>
 	<li>
 	  <label for="logourl">Logga: </label>
-	  <input type="text" value = "'.$irows["logurl"].'" maxlength="50" value="logo" name="logo" />
+	  <input type="text" align="left"  value = "'.$irows["logurl"].'" maxlength="50" value="logo" name="logo" />
+	</li>
+	<li>
+	  <label for="logourl">Öppet tider: </label>
+	 <textarea cols="40" rows="5" input type="text" value="oppet" name="oppet">'.strip_tags($irows["oppet"]).'</textarea>
+	</li>
+	<li>
+	  <label for="logourl" >Hemsida: </label>
+	  <input type="text" align="left" value = "'.$irows["hemsida"].'" maxlength="50" value="hemsida" name="hemsida" />
+	</li>
+	<li>
+	  <label for="logourl">Allmäninfo: </label>
+	   <textarea cols="40" rows="5" input type="text" value="allminfo" name="allminfo">'.strip_tags($irows["allminfo"]).'</textarea>
+	</li>
+	<li>
+	  <label for="logourl">Förgrundsfärg: </label>
+	  <input type="text" align="left"  value = "'.$irows["forecolor"].'" maxlength="50" value="forecolor" name="forecolor" />
+	</li>
+	<li>
+	  <label for="logourl">Bakgrundsfärg: </label>
+	  <input type="text" align="left"  value = "'.$irows["backcolor"].'" maxlength="50" value="backcolor" name="backcolor" />
+	</li>
+	<li>
+	  <label for="logourl">Postnummer: </label>
+	  <input type="text" align="left"  value = "'.$irows["postnr"].'" maxlength="50" value="postnr" name="postnr" />
+	</li>
+	<li>
+	  <label for="logourl">Stad: </label>
+	  <input type="text" align="left"  value = "'.$irows["stad"].'" maxlength="50" value="stad" name="stad" />
+	</li>
+	<li>
+	  <label for="logourl">Gata: </label>
+	  <input type="text"  align="left" value = "'.$irows["gata"].'" maxlength="50" value="gata" name="gata" />
 	</li>
 	
 	<li class="submit">

@@ -33,8 +33,7 @@ echo '<form action="" method="post" id = "editContract">
 if(isset($_POST['save'])) 
 {
 	$sql = "UPDATE kontrakt SET tele = '".$_POST["telefonenbr"]."' WHERE kontrakt.id = '".$_POST['contracts']."'";
-	mysqli_query($con, $sql);
-	
+	mysqli_query($con, $sql);	
 }
 
 
