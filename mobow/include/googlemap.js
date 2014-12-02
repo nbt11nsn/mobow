@@ -123,6 +123,7 @@ Cmap.prototype.initialize = function(){
     this.mapReady = true;
     this.infoWindow = new (InfoCBox())();
     this.markers = [];
+//    var myIcon = {url:"image/contacts-32.png", size:new google.maps.Size(32,32)};
     this.map = new google.maps.Map(this.mapid, options);
     this.myMarker = new google.maps.Marker({
 	position: new google.maps.LatLng(locx, locy),
