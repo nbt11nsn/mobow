@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 01, 2014 at 03:32 AM
+-- Generation Time: Dec 03, 2014 at 05:37 PM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `adress` (
   `lng` double NOT NULL,
   `lat` double NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `adress`
@@ -47,7 +47,8 @@ INSERT INTO `adress` (`ID`, `postnr`, `stad`, `gata`, `lng`, `lat`) VALUES
 (2, 91232, 'Vilhelmina', 'Postgatan 3', 16.6547774, 64.6230765),
 (3, 77670, 'Vikmanshyttan', 'Rostugnsvägen 3', 15.8253629, 60.2930402),
 (4, 95391, 'Haparanda', 'Kukkolaforsen 184', 24.0548527, 65.9591007),
-(5, 95336, 'Haparanda', 'Norrskensvägen 2', 24.1324517, 65.8429222);
+(5, 95336, 'Haparanda', 'Norrskensvägen 2', 24.1324517, 65.8429222),
+(6, 80302, 'Gävle', 'Alderholmsgatan 7', 17.16285760793459, 60.6786653779345);
 
 -- --------------------------------------------------------
 
@@ -210,7 +211,7 @@ INSERT INTO `kontaktperson` (`ID`, `fornamn`, `efternamn`, `mobil`, `mejl`, `los
 CREATE TABLE IF NOT EXISTS `kontrakt` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `kontorsnamn` varchar(50) NOT NULL,
-  `tele` int(11) DEFAULT NULL,
+  `tele` varchar(20) DEFAULT NULL,
   `stn` int(11) NOT NULL,
   `logurl` varchar(256) DEFAULT NULL,
   `logbredd` int(11) DEFAULT NULL,
@@ -224,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `kontrakt` (
   `adressid` int(11) NOT NULL,
   `ikonid` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `kontrakt`
@@ -233,9 +234,10 @@ CREATE TABLE IF NOT EXISTS `kontrakt` (
 INSERT INTO `kontrakt` (`ID`, `kontorsnamn`, `tele`, `stn`, `logurl`, `logbredd`, `loghojd`, `hemsida`, `oppet`, `allminfo`, `forecolor`, `backcolor`, `kontaktpersonid`, `adressid`, `ikonid`) VALUES
 (1, 'Gevalia', NULL, 1, NULL, NULL, NULL, 'http://www.google.com/', 'mån-fre: 9:00-22:00\r\nsön: 10:03-10:33\r\nannars: stängt', 'random grejs', '#000000', '#FFFFFF', 1, 1, 1),
 (2, 'Discovery', NULL, 3, 'image/logo/logo0.png', 32, 32, 'http://www.aftonbladet.se/', 'STÄNGE!!!', NULL, '#FF00FF', '#000000', 2, 2, 2),
-(3, 'Rubinola', NULL, 2, 'image/logo/03venus.png', 256, 256, 'http://www.gd.se/', 'mån-sön: 01:30-03:30', 'massa text\r\nmassa text\r\nmassa text\r\nmassa text\r\nmassa text\r\nmassa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text\r\nmassa text massa text massa text', '#000000', '#FFFFFF', 3, 3, 1),
-(4, 'Solen', NULL, 1, 'image/logo/01sun.png', 256, 256, 'http://sv.wikipedia.org/wiki/', 'mån-sön: 00:00-24:00', NULL, '#ABCDEF', '#543210', 4, 4, 1),
-(5, 'Svarta hålet', NULL, 10000, 'image/logo/blackhole.png', 256, 256, NULL, 'mån-sön: 10:03-10:04', 'HEJHEJHEJHEJ', '#FF0000', '#00FFFF', 5, 5, 2);
+(3, 'Rubinola', '', 2, 'image/logo/08saturn.png', 256, 256, 'http://www.gd.se/', 'mån-sön: 01:30-03:30', 'massa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text', '#000000', '#ffffff', 3, 3, 1),
+(4, 'Solen', '012341234', 2, 'image/logo/08saturn.png', 256, 256, 'http://sv.wikipedia.org/wiki/', 'mån-sön: 00:00-24:00', '', '#abcdef', '#543210', 4, 4, 1),
+(5, 'Svarta hålet', NULL, 10000, 'image/logo/blackhole.png', 256, 256, NULL, 'mån-sön: 10:03-10:04', 'HEJHEJHEJHEJ', '#FF0000', '#00FFFF', 5, 5, 2),
+(6, 'Wayne''s Coffee', '', 1, 'image/logo/wayne.jpg', 100, 100, 'http://www.waynescoffee.se/menyer.aspx', 'Vardag 9 - 19<br />\r\nLördag 11 - 18<br />\r\nSöndag 12 - 18', 'Vi på Wayne´s Coffee vill ge människor en möjlighet att ta en paus i vardagen, en stund av avkoppling. Wayne´s Coffee har blivit känt som ”det tredje rummet”, en mötesplats mellan arbetet och hemmet. En frizon där vänner träffas och tar en fika tillsammans. I våra caféer erbjudes  kaffe av eget märke, bakverk från eget bageri och mat med naturliga råvaror av hög kvalité.<br />\r\n', '#000000', '#ffffff', 1, 6, 2);
 
 -- --------------------------------------------------------
 
