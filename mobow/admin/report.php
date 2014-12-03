@@ -45,7 +45,7 @@ $currentContract = 1;
       while($irows = mysqli_fetch_assoc($iresult)) {	  
 		  echo "<option value=".$irows['ID'].">".$irows['anvnamn']."</option>";}	
 	 }      
-  }
+  
   mysqli_free_result($iresult);	
 	?>
     </select> 		
