@@ -53,6 +53,30 @@ text-align: left;
 text-align: left;
 }
 
+#editContract *{
+ text-align: center;
+margin-left: auto;
+margin-right: auto;
+padding-top: 5px;
+padding-top: 5px;
+vertical-align: middle;
+max-width: 100%;
+}
+
+#editContract {
+margin-left: auto;
+margin-right: auto;
+width: 50%;
+}
+
+#editContract input{
+text-align: left;
+}
+
+#editContract textarea{
+text-align: left;
+}
+
 
 #messageframecompany {
   width: 1024px; 
@@ -309,8 +333,8 @@ input:valid , textarea:valid{
   background: #efe;
 }
 
-/* Knappar [typ button eller submit] */
-input[type="submit"], input[type="button"] {
+/* Knappar [typ button,reset eller submit] */
+input[type="button"], input[type="reset"], input[type="submit"] {
   display: inline;
   margin: 0 5px;
   margin-left:20px;
@@ -329,7 +353,7 @@ input[type="submit"], input[type="button"] {
   -webkit-appearance: none;
 }
 
-input[type="submit"]:hover, input[type="submit"]:active, input[type="button"]:hover, input[type="button"]:active {
+input[type="submit"]:hover, input[type="submit"]:active, input[type="reset"]:hover, input[type="reset"]:active, input[type="button"]:hover, input[type="button"]:active {
   cursor: pointer;
   background: #fff;
   color: #EA005A;
