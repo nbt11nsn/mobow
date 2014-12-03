@@ -25,19 +25,17 @@ defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../../db.php');
 $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID
 LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID";
-$_SESSION['currentContract'] = 1;
 ?>
 
 <div id = "frame">
-    <form action='' method='post' id ='postContracts'>
-    <select name = 'contracts' id='contracts'>
+    <form action='' method='post' id ='postContracts' enctype="multipart/form-data">
+    <select name='contracts' id='contracts'>
 <?php 
 $iresult = mysqli_query($con, $isql);
 if (mysqli_num_rows($iresult) != 0) {
   while($irows = mysqli_fetch_assoc($iresult)) {
-    if($_SESSION['currentContract'] == $irows['ID'])
+      if($_POST['contracts'] == $irows['ID'])
     {
-      $_SESSION['currentContract'] = $_POST["contracts"];
       echo "<option value=".$irows['ID']." selected='selected' >".$irows['kontorsnamn']."</option>";
     }
     else {		
@@ -54,7 +52,7 @@ mysqli_free_result($iresult);
 
 if(isset($_POST['accept'])) 
 {
-$isql2 = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata, stn, oppet, allminfo, hemsida, forecolor, backcolor, postnr, stad FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontrakt.ID = '".$_SESSION['currentContract']."'";
+$isql2 = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata, stn, oppet, allminfo, hemsida, forecolor, backcolor, postnr, stad FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontrakt.ID = '".$_POST['contracts']."'";
 $iresult = mysqli_query($con, $isql2);
 if (mysqli_num_rows($iresult) != 0) {
   $irows = mysqli_fetch_assoc($iresult);
@@ -76,7 +74,7 @@ echo '<ul><li>
 <textarea cols="40" rows="5" value="oppet" name="oppet" id="oppet">'.strip_tags($irows["oppet"]).'</textarea>
 </li>
 <li>
-<label for="hemsida" >Hemsida: </label>
+<label for="hemsida" >Hemsida (kom ihåg http://): </label>
 <input type="url" align="left" value = "'.$irows["hemsida"].'" maxlength="256" value="hemsida" name="hemsida" id="hemsida" />
 </li>
 <li>
@@ -105,7 +103,7 @@ echo '<ul><li>
 </li>
 <li>
 <label for="logo">Nuvarande logga: '.$irows["logurl"].'</label>
-<input type="file" align="left" maxlength="256" name="logo" />
+<input type="file" accept="image/*" align="left" maxlength="256" name="logo" />
 </li>
 <li class="submit">
 <input type="reset" name="rst" id="rst" value="Återställ" />
@@ -115,26 +113,49 @@ echo '<ul><li>
 </form>';
 }
 
-if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_POST['stad'])&&isset($_POST['contracts'])) 
+$target_dir = "image/logo/";
+if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_POST['stad'])&&isset($_POST['contracts']))
 {
+    $error = false;
+    if(is_numeric($_POST['stn'])){
+        $s=$_POST['stn'];
+    }
+    else{$error=true;}
+    if(is_numeric($_POST['postnr'])){
+        $p=$_POST['postnr'];
+    }
+    else{$error=true;}
+    if(is_numeric($_POST['contracts'])){
+        $c=$_POST['contracts'];
+    }
+    else{$error=true;}
     $g=mysqli_real_escape_string($con,$_POST['gata']);
-    $s=is_numeric($_POST['stn']);
-    $o=mysqli_real_escape_string($con, nl2br($_POST['oppet']));
-    $a=mysqli_real_escape_string($con, nl2br($_POST['allminfo']));
+    $o=mysqli_real_escape_string($con,nl2br($_POST['oppet']));
+    $a=mysqli_real_escape_string($con,nl2br($_POST['allminfo']));
     $h=mysqli_real_escape_string($con,$_POST['hemsida']);
     $f=mysqli_real_escape_string($con,$_POST['forecolor']);
     $b=mysqli_real_escape_string($con,$_POST['backcolor']);
-    $p=is_numeric($_POST['postnr']);
     $ss=mysqli_real_escape_string($con,$_POST['stad']);
     $t=mysqli_real_escape_string($con,$_POST['telefonenbr']);
     $l=mysqli_real_escape_string($con,$_POST['logo']);
-    $c=is_numeric($_POST['contracts']);
-	$sql3 = "UPDATE kontrakt, adress SET adress.gata = '$g', kontrakt.stn = '$s', kontrakt.oppet = '$o', kontrakt.allminfo = '$a', kontrakt.hemsida = '$h', kontrakt.forecolor = '$f', kontrakt.backcolor = '$b', adress.postnr = '$p', adress.stad = '$ss', kontrakt.tele = '$t', kontrakt.logurl = '$l' WHERE kontrakt.adressid = adress.ID AND kontrakt.ID = '$c'";
-	if(mysqli_query($con, $sql3)){
-        echo "<br /><br /><b>Uppdateringen lyckades</b>";
+    if(strlen($str)>0)
+    {
+        $sql3 = "UPDATE kontrakt, adress SET adress.gata = '$g', kontrakt.stn = '$s', kontrakt.oppet = '$o', kontrakt.allminfo = '$a', kontrakt.hemsida = '$h', kontrakt.forecolor = '$f', kontrakt.backcolor = '$b', adress.postnr = '$p', adress.stad = '$ss', kontrakt.tele = '$t', kontrakt.logurl = '$l' WHERE kontrakt.adressid = adress.ID AND kontrakt.ID = '$c'";
+    }
+    else
+    {
+        $sql3 = "UPDATE kontrakt, adress SET adress.gata = '$g', kontrakt.stn = '$s', kontrakt.oppet = '$o', kontrakt.allminfo = '$a', kontrakt.hemsida = '$h', kontrakt.forecolor = '$f', kontrakt.backcolor = '$b', adress.postnr = '$p', adress.stad = '$ss', kontrakt.tele = '$t' WHERE kontrakt.adressid = adress.ID AND kontrakt.ID = '$c'";
+    }
+    if(!$error){
+        if(mysqli_query($con, $sql3)){
+            echo "<br /><br /><b>Uppdateringen lyckades</b>";
+        }
+        else{
+            echo "<br /><br /><b>Uppdateringen misslyckades</b>";
+        }
     }
     else{
-        echo "<br /><br /><b>Uppdateringen misslyckades</b>";
+        echo "<br /><br /><b>Ogiligt värde</b>";
     }
 }
 ?>
