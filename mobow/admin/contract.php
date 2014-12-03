@@ -138,7 +138,7 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
     $ss=mysqli_real_escape_string($con,$_POST['stad']);
     $t=mysqli_real_escape_string($con,$_POST['telefonenbr']);
     $l=mysqli_real_escape_string($con,$_POST['logo']);
-    if(strlen($str)>0)
+    if(strlen($l)>0)
     {
         $sql3 = "UPDATE kontrakt, adress SET adress.gata = '$g', kontrakt.stn = '$s', kontrakt.oppet = '$o', kontrakt.allminfo = '$a', kontrakt.hemsida = '$h', kontrakt.forecolor = '$f', kontrakt.backcolor = '$b', adress.postnr = '$p', adress.stad = '$ss', kontrakt.tele = '$t', kontrakt.logurl = '$l' WHERE kontrakt.adressid = adress.ID AND kontrakt.ID = '$c'";
     }
