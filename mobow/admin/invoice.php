@@ -28,7 +28,7 @@ require_once("include/menuebar.php");
     <form id="upload_form" enctype="multipart/form-data" method="post" action="upload.php">
       <div>
         <div>
-	  <label for="image_file">Please select image file</label>
+	  <label for="image_file">Ladda upp en fil</label>
 	</div>
         <div>
 	  <input type="file" name="image_file" id="image_file" onchange="fileSelected();" />
@@ -43,13 +43,13 @@ require_once("include/menuebar.php");
         <div id="filetype"></div>
         <div id="filedim"></div>
       </div>
-      <div id="error">You should select valid image files only!
+      <div id="error">Fel filformat
       </div>
-      <div id="error2">An error occurred while uploading the file
+      <div id="error2">Ett fel har inträffat under uppladdningen
       </div>
-      <div id="abort">The upload has been canceled by the user or the browser dropped the connection
+      <div id="abort">Uppladdningen avbröts
       </div>
-      <div id="warnsize">Your file is very big. We can't accept it. Please select more small file
+      <div id="warnsize">Filen är för stor
       </div>
       <div id="progress_info">
         <div id="progress"></div>
@@ -71,6 +71,13 @@ require_once("include/menuebar.php");
 <?php
 defined('THE_FOOTER') || define('THE_FOOTER', TRUE);
 require_once("include/footer.php");
+      //<div id="error">You should select valid image files only!
+      //</div>
+      //<div id="error2">An error occurred while uploading the file
+      //</div>
+      //<div id="abort">The upload has been canceled by the user or the browser dropped the connection
+      //</div>
+      //<div id="warnsize">Your file is very big. We can't accept it. Please select more small file
 ?>
 </body>
 </html>

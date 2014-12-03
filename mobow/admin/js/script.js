@@ -65,9 +65,9 @@ function fileSelected() {
             // we are going to display some custom image information here
             sResultFileSize = bytesToSize(oFile.size);
             document.getElementById('fileinfo').style.display = 'block';
-            document.getElementById('filename').innerHTML = 'Name: ' + oFile.name;
-            document.getElementById('filesize').innerHTML = 'Size: ' + sResultFileSize;
-            document.getElementById('filetype').innerHTML = 'Type: ' + oFile.type;
+            document.getElementById('filename').innerHTML = 'Filnamn: ' + oFile.name;
+            document.getElementById('filesize').innerHTML = 'Storlek: ' + sResultFileSize;
+            document.getElementById('filetype').innerHTML = 'Typ: ' + oFile.type;
             document.getElementById('filedim').innerHTML = 'Dimension: ' + oImage.naturalWidth + ' x ' + oImage.naturalHeight;
         };
     };
@@ -162,6 +162,7 @@ function uploadFinish(e) { // upload successfully finished
     document.getElementById('remaining').innerHTML = '| 00:00:00';
 
     clearInterval(oTimer);
+	//återställ all information 
 }
 
 function uploadError(e) { // upload error
