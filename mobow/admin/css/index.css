@@ -24,6 +24,21 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
   display: inline-block; 
   text-align: center;
 }
+#invoiceframe { 
+  width: 1024px; 
+  min-height: 800px;
+  height: 100%;
+  background: #fff; 
+  display: inline-block; 
+}
+#listframe { 
+  width: 80%; 
+  min-height: 800px;
+  height: 100%;
+  background: #CCC; 
+  display: inline-block; 
+  text-align: center;
+}
 
 #frame *{
 margin: 0;
