@@ -81,8 +81,13 @@ $isql = "SELECT * FROM faktura NATURAL JOIN kontrakt";
 		<?php 	
 	$iresult = mysqli_query($con, $isql);
 	if (mysqli_num_rows($iresult) != 0) {
-      while($irows = mysqli_fetch_assoc($iresult)) {
-	  echo "<option value=".$irows['ID']." selected='selected' >".$irows['namn']."</option>";
+      while($irows = mysqli_fetch_assoc($iresult)) {	  
+	  if(isset($_POST['rows']) && $irows['ID'] == $_POST['rows']){
+	  	  echo "<option value=".$irows['ID']." selected='selected' >".$irows['kontorsnamn']."</option>";
+	  }
+else{
+	  echo "<option value=".$irows['ID'].">".$irows['kontorsnamn']."</option>";
+}
     }
   }
   mysqli_free_result($iresult);	
@@ -91,7 +96,7 @@ $isql = "SELECT * FROM faktura NATURAL JOIN kontrakt";
 		</form>
 				<?php 
 		if(isset($_POST["row2"])){
-			$isql2 = "SELECT * FROM faktura NATURAL JOIN kontrakt WHERE kontrakt.ID = '".$_POST['rows']."'";
+			$isql2 = "SELECT * FROM faktura LEFT OUTER JOIN kontrakt ON kontrakt.ID = faktura.agarid WHERE kontrakt.ID = '".$_POST['rows']."'";
 	$iresult = mysqli_query($con, $isql2);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows2 = mysqli_fetch_assoc($iresult)) {
