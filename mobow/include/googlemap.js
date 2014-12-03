@@ -23,18 +23,35 @@ function bindInfoWindow(marker, map, infoWindow, html, textcolor, backgroundcolo
 
 function doNothing(){}
 
-function makeHTML(i, lat, lng){
-    var placex = (lat!=0)?lat:obj[i].lat;
-    var placey = (lng!=0)?lng:obj[i].lng;
-    var name = "<p class='kontorsnamn'>" + obj[i].kontorsnamn + "</p>";
-    var address = "<p class='address'>" + obj[i].gata + "<br />" + obj[i].stad + "</p>";
-    var oppet = (obj[i].oppet == null)? "":"<p class='oppet'>Öppettider: <br />" + obj[i].oppet + "</p>";
+function scaleImage(currW, currH, maxW, maxH){
+    var ratio = currH / currW;
+    if(currW >= maxW && ratio <= 1){
+	currW = maxW;
+	currH = currW * ratio;
+    } 
+    if(currH >= maxH){
+	currH = maxH;
+	currW = currH / ratio;
+    }
+    return {w:currW, h:currH};
+}
+
+function makeHTML(i){
+    var name = "<p class='kontorsnamn'><h3>" + obj[i].kontorsnamn + "</h3></p>";
+    var max = {w:185, h:100};
+    var imgSize = scaleImage(obj[i].logbredd, obj[i].loghojd, max.w, max.h);
+    var address = "<p class='address'>Adress: <br />" + obj[i].gata + "<br />" + obj[i].stad + "</p>";
+    var oppet = (obj[i].oppet == null)? "":"<p class='oppet'><b>Öppettider: </b><br />" + obj[i].oppet + "</p>";
     var stn = "<p class='stn'>Antal stationer: " + obj[i].stn + "</p>";
-    var image = (obj[i].logurl == null)? "":"<img class='imge' src='"+ obj[i].logurl + "' width='"+obj[i].logbredd+"px' height='"+obj[i].loghojd+"px' />";
+
+    var image = (obj[i].logurl == null)? "":"<img class='imge' src='"+ obj[i].logurl + "' width='"+imgSize.w+"px' height='"+imgSize.h+"px' />";
+
     var allminfo = (obj[i].allminfo == null)? "":"<p class='allminfo'>" + obj[i].allminfo + "</p>";
     var hemsida = (obj[i].hemsida == null)? "":"<p class='hemsida'><a href = '" + obj[i].hemsida + "' target = '_blank'>Vill du veta mer?</a></p>";
     var tele = (obj[i].tele == null)? "":"<p class='tele'>" + obj[i].tele + "</p>";
-    var vagvisning = "<p class='hemsida'><a href='javascript:void(0)' onclick='cmap.direction("+placex+","+placey+","+obj[i].lat+","+obj[i].lng+");'>Vägbeskrivning</a></p>";
+    var vagvisning = "<p class='hemsida'><a href='javascript:void(0)' onclick='cmap.direction("+obj[i].lat+","+obj[i].lng+");'>Vägbeskrivning</a></p>";
+
+
     var html = image + "<div id='info_content'>" + name + address + allminfo + oppet + stn + tele + hemsida + vagvisning + "</div>";
     return html;
 }
@@ -66,7 +83,7 @@ Cmap.prototype.init = function() {
     var self = this;
     //ta en titt på navigator.geolocation.watchPosition till mobilversionen
     if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(
+        navigator.geolocation.getCurrentPosition(
 	    function(position) {self.updateLocation(position);}, 
 	    function(){self.setLocation();}
 	);
@@ -91,6 +108,7 @@ Cmap.prototype.setLocation = function(){
 Cmap.prototype.initialize = function(){
     var locx = (this.coords.lat != 0)? this.coords.lat:63.8250;
     var locy = (this.coords.lng != 0)? this.coords.lng:20.2639;
+    var self = this;
     var options = {
 	zoom:this.zoom,
 	center: new google.maps.LatLng(locx, locy),
@@ -105,9 +123,15 @@ Cmap.prototype.initialize = function(){
     this.mapReady = true;
     this.infoWindow = new (InfoCBox())();
     this.markers = [];
+//    var myIcon = {url:"image/contacts-32.png", size:new google.maps.Size(32,32)};
     this.map = new google.maps.Map(this.mapid, options);
-    this.map.setOptions({styles: getStyles()});
-    this.directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers:true});
+    this.myMarker = new google.maps.Marker({
+	position: new google.maps.LatLng(locx, locy),
+	draggable: true
+	});
+    this.myMarker.setMap(this.map);
+//    this.map.setOptions({styles: getStyles()});
+    this.directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers:true, polylineOptions: {strokeColor: "#EA005A"}});
     this.directionsDisplay.setMap(this.map);
     var obj_length = obj.length;
     var lat, lng;
@@ -115,7 +139,7 @@ Cmap.prototype.initialize = function(){
 	lat = parseFloat(obj[i].lat);
 	lng = parseFloat(obj[i].lng);
 	var point = new google.maps.LatLng(lat, lng);
-	var htm = makeHTML(i, this.coords.lat, this.coords.lng);
+	var htm = makeHTML(i);
 	var icon = {url:obj[i].imgurl, size:new google.maps.Size(32,32)};
 	var marker = new google.maps.Marker({
 	    map:this.map,
@@ -128,16 +152,25 @@ Cmap.prototype.initialize = function(){
     }
 }
 
-Cmap.prototype.direction = function(flat,flng,tlat,tlng){
+Cmap.prototype.direction = function(tlat,tlng){
     var directionsService = new google.maps.DirectionsService();
     var self = this;
+    var pos = this.myMarker.getPosition();
+    google.maps.event.addListener(this.myMarker, 'dragend', function(event){
+	self.direction(tlat,tlng);
+    });
+
     var request = {
-	origin:new google.maps.LatLng(flat,flng),
+	origin:new google.maps.LatLng(pos.lat(),pos.lng()),
 	destination:new google.maps.LatLng(tlat,tlng),
 	travelMode: google.maps.TravelMode.WALKING
     };
     directionsService.route(request, function(result, status) {
 	if (status == google.maps.DirectionsStatus.OK) {
+	    var meterDiv = document.createElement('div');
+	    meterDiv.classList.add('meterDiv');
+	    meterDiv.innerHTML = result.routes[0].legs[0].distance.value + " meter";
+	    document.getElementById("googleMap").appendChild(meterDiv);
 	    self.directionsDisplay.setDirections(result);
 	}
     });
@@ -185,6 +218,7 @@ function InfoCBox(){
 	var contentDiv = document.createElement('div');
 	contentDiv.classList.add('contentDiv');
 	this.container.innerDiv.appendChild(contentDiv);
+
 	this.hooks = {cont:containerDiv, inne:contentDiv, cright:aDcrocright, cleft:aDcrocleft};
 
 	this.container.closeDiv.innerHTML = makeHead();
@@ -266,6 +300,9 @@ function InfoCBox(){
 	this.hooks.inne.innerHTML = content;
 	this.hooks.inne.style.color = textcolor;
 	this.hooks.cont.style.backgroundColor = backgroundcolor;
+	this.hooks.cont.style.borderStyle = 'solid';
+	this.hooks.cont.style.borderWidth = '3px';
+	this.hooks.cont.style.borderColor = textcolor;
 	this.hooks.cright.style.backgroundColor = backgroundcolor;
 	this.hooks.cleft.style.backgroundColor = backgroundcolor;
     }

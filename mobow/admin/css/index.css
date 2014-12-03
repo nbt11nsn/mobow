@@ -16,13 +16,44 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
 #passframe {
   text-align: center;
 }
-#frame {
+#frame { 
   width: 1024px; 
-  height: 800px;
+  min-height: 800px;
+  height: 100%;
   background: #fff; 
   display: inline-block; 
   text-align: center;
 }
+
+#frame *{
+margin: 0;
+}
+
+#postContracts *{
+ text-align: center;
+margin-left: auto;
+margin-right: auto;
+padding-top: 5px;
+padding-top: 5px;
+vertical-align: middle;
+max-width: 100%;
+}
+
+#postContracts {
+margin-left: auto;
+margin-right: auto;
+width: 50%;
+}
+
+#postContracts input{
+text-align: left;
+}
+
+#postContracts textarea{
+text-align: left;
+}
+
+
 #messageframecompany {
   width: 1024px; 
   height: 250px; 
@@ -266,7 +297,7 @@ form *:focus {
 }
 
 /* enskilda fält */
-input {
+input, textarea {
   font-size: 1em;
   border: 2px solid #999;
   -moz-border-radius: 5px;
@@ -280,7 +311,7 @@ input {
 }
 
 /* Gör bakgrunden lätt grön när fälten är ifyllda */
-input:valid {
+input:valid , textarea:valid{
   background: #efe;
 }
 
