@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.0.10deb1
 -- http://www.phpmyadmin.net
 --
--- Värd: 127.0.0.1
--- Tid vid skapande: 03 dec 2014 kl 17:40
--- Serverversion: 5.6.20
--- PHP-version: 5.5.15
+-- Host: localhost
+-- Generation Time: Dec 04, 2014 at 03:10 PM
+-- Server version: 5.5.40-0ubuntu0.14.04.1
+-- PHP Version: 5.5.9-1ubuntu4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Databas: `mobowdb`
+-- Database: `mobowdb`
 --
 CREATE DATABASE IF NOT EXISTS `mobowdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `mobowdb`;
@@ -25,20 +25,21 @@ USE `mobowdb`;
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `adress`
+-- Table structure for table `adress`
 --
 
 CREATE TABLE IF NOT EXISTS `adress` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `postnr` int(11) DEFAULT NULL,
   `stad` varchar(100) NOT NULL,
   `gata` varchar(100) NOT NULL,
   `lng` double NOT NULL,
-  `lat` double NOT NULL
+  `lat` double NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
--- Dumpning av Data i tabell `adress`
+-- Dumping data for table `adress`
 --
 
 INSERT INTO `adress` (`ID`, `postnr`, `stad`, `gata`, `lng`, `lat`) VALUES
@@ -52,23 +53,24 @@ INSERT INTO `adress` (`ID`, `postnr`, `stad`, `gata`, `lng`, `lat`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `bestallning`
+-- Table structure for table `bestallning`
 --
 
 CREATE TABLE IF NOT EXISTS `bestallning` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `datum` date NOT NULL,
-  `foretagsid` int(11) NOT NULL
+  `foretagsid` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `edit_foretag`
+-- Table structure for table `edit_foretag`
 --
 
 CREATE TABLE IF NOT EXISTS `edit_foretag` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `kontorsnamn` varchar(50) DEFAULT NULL,
   `tele` int(11) DEFAULT NULL,
   `hemsida` varchar(256) DEFAULT NULL,
@@ -77,40 +79,43 @@ CREATE TABLE IF NOT EXISTS `edit_foretag` (
   `logurl` varchar(256) DEFAULT NULL,
   `ikonid` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
-  `meddelande` mediumtext
+  `meddelande` mediumtext,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `edit_kntper`
+-- Table structure for table `edit_kntper`
 --
 
 CREATE TABLE IF NOT EXISTS `edit_kntper` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `fornamn` varchar(50) DEFAULT NULL,
   `efternamn` varchar(50) DEFAULT NULL,
   `mobil` int(11) DEFAULT NULL,
   `mejl` varchar(50) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
-  `meddelande` mediumtext
+  `meddelande` mediumtext,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `faktura`
+-- Table structure for table `faktura`
 --
 
 CREATE TABLE IF NOT EXISTS `faktura` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `namn` varchar(50) NOT NULL,
   `url` varchar(100) NOT NULL,
-  `agarid` int(11) NOT NULL
+  `agarid` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
--- Dumpning av Data i tabell `faktura`
+-- Dumping data for table `faktura`
 --
 
 INSERT INTO `faktura` (`ID`, `namn`, `url`, `agarid`) VALUES
@@ -125,55 +130,59 @@ INSERT INTO `faktura` (`ID`, `namn`, `url`, `agarid`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `felmeddelande`
+-- Table structure for table `felmeddelande`
 --
 
 CREATE TABLE IF NOT EXISTS `felmeddelande` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `text` mediumtext NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '0',
-  `feltypid` int(11) NOT NULL
+  `feltypid` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `feltyp`
+-- Table structure for table `feltyp`
 --
 
 CREATE TABLE IF NOT EXISTS `feltyp` (
-`ID` int(11) NOT NULL,
-  `feltext` varchar(100) NOT NULL
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `feltext` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `foretag`
+-- Table structure for table `foretag`
 --
 
 CREATE TABLE IF NOT EXISTS `foretag` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `orgnr` varchar(20) NOT NULL,
   `namn` varchar(50) NOT NULL,
   `tele` int(11) DEFAULT NULL,
-  `kontaktpersid` int(11) NOT NULL
+  `kontaktpersid` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `ikontyp`
+-- Table structure for table `ikontyp`
 --
 
 CREATE TABLE IF NOT EXISTS `ikontyp` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `imgurl` varchar(256) NOT NULL,
-  `typ` varchar(100) NOT NULL
+  `typ` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Dumpning av Data i tabell `ikontyp`
+-- Dumping data for table `ikontyp`
 --
 
 INSERT INTO `ikontyp` (`ID`, `imgurl`, `typ`) VALUES
@@ -183,22 +192,24 @@ INSERT INTO `ikontyp` (`ID`, `imgurl`, `typ`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `kontaktperson`
+-- Table structure for table `kontaktperson`
 --
 
 CREATE TABLE IF NOT EXISTS `kontaktperson` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `fornamn` varchar(50) NOT NULL,
   `efternamn` varchar(50) NOT NULL,
   `mobil` int(11) DEFAULT NULL,
   `mejl` varchar(50) NOT NULL,
   `losen` varchar(256) NOT NULL,
   `admin` tinyint(1) NOT NULL,
-  `anvnamn` varchar(50) NOT NULL
+  `anvnamn` varchar(50) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `anvnamn` (`anvnamn`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumpning av Data i tabell `kontaktperson`
+-- Dumping data for table `kontaktperson`
 --
 
 INSERT INTO `kontaktperson` (`ID`, `fornamn`, `efternamn`, `mobil`, `mejl`, `losen`, `admin`, `anvnamn`) VALUES
@@ -207,12 +218,14 @@ INSERT INTO `kontaktperson` (`ID`, `fornamn`, `efternamn`, `mobil`, `mejl`, `los
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `kontrakt`
+-- Table structure for table `kontrakt`
 --
 
 CREATE TABLE IF NOT EXISTS `kontrakt` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `kontorsnamn` varchar(50) NOT NULL,
+  `sbesok` date NOT NULL DEFAULT '0000-00-00',
+  `currinfo` text,
   `tele` varchar(20) DEFAULT NULL,
   `stn` int(11) NOT NULL,
   `logurl` varchar(256) DEFAULT NULL,
@@ -225,193 +238,90 @@ CREATE TABLE IF NOT EXISTS `kontrakt` (
   `backcolor` varchar(7) NOT NULL DEFAULT '#FFFFFF',
   `kontaktpersonid` int(11) NOT NULL,
   `adressid` int(11) NOT NULL,
-  `ikonid` int(11) NOT NULL
+  `ikonid` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
--- Dumpning av Data i tabell `kontrakt`
+-- Dumping data for table `kontrakt`
 --
 
-INSERT INTO `kontrakt` (`ID`, `kontorsnamn`, `tele`, `stn`, `logurl`, `logbredd`, `loghojd`, `hemsida`, `oppet`, `allminfo`, `forecolor`, `backcolor`, `kontaktpersonid`, `adressid`, `ikonid`) VALUES
-(1, 'Gevalia', NULL, 1, NULL, NULL, NULL, 'http://www.google.com/', 'mån-fre: 9:00-22:00\r\nsön: 10:03-10:33\r\nannars: stängt', 'random grejs', '#000000', '#FFFFFF', 1, 1, 1),
-(2, 'Discovery', NULL, 3, 'image/logo/logo0.png', 32, 32, 'http://www.aftonbladet.se/', 'STÄNGE!!!', NULL, '#FF00FF', '#000000', 2, 2, 2),
-(3, 'Rubinola', '', 2, 'image/logo/08saturn.png', 256, 256, 'http://www.gd.se/', 'mån-sön: 01:30-03:30', 'massa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text', '#000000', '#ffffff', 3, 3, 1),
-(4, 'Solen', '012341234', 2, 'image/logo/08saturn.png', 256, 256, 'http://sv.wikipedia.org/wiki/', 'mån-sön: 00:00-24:00', '', '#abcdef', '#543210', 4, 4, 1),
-(5, 'Svarta hålet', NULL, 10000, 'image/logo/blackhole.png', 256, 256, NULL, 'mån-sön: 10:03-10:04', 'HEJHEJHEJHEJ', '#FF0000', '#00FFFF', 5, 5, 2),
-(6, 'Wayne''s Coffee', '', 1, 'image/logo/wayne.jpg', 100, 100, 'http://www.waynescoffee.se/menyer.aspx', 'Vardag 9 - 19<br />\r\nLördag 11 - 18<br />\r\nSöndag 12 - 18', 'Vi på Wayne´s Coffee vill ge människor en möjlighet att ta en paus i vardagen, en stund av avkoppling. Wayne´s Coffee har blivit känt som ”det tredje rummet”, en mötesplats mellan arbetet och hemmet. En frizon där vänner träffas och tar en fika tillsammans. I våra caféer erbjudes  kaffe av eget märke, bakverk från eget bageri och mat med naturliga råvaror av hög kvalité.<br />\r\n', '#000000', '#ffffff', 1, 6, 2);
+INSERT INTO `kontrakt` (`ID`, `kontorsnamn`, `sbesok`, `currinfo`, `tele`, `stn`, `logurl`, `logbredd`, `loghojd`, `hemsida`, `oppet`, `allminfo`, `forecolor`, `backcolor`, `kontaktpersonid`, `adressid`, `ikonid`) VALUES
+(1, 'Gevalia', '1980-01-01', NULL, NULL, 1, NULL, NULL, NULL, 'http://www.google.com/', 'mån-fre: 9:00-22:00\r\nsön: 10:03-10:33\r\nannars: stängt', 'random grejs', '#000000', '#FFFFFF', 1, 1, 1),
+(2, 'Discovery', '0000-00-00', 'sfdlkjsfdjkllkjdsf', '', 3, 'image/logo/logo0.png', 32, 32, 'http://www.aftonbladet.se/', 'STÄNGT!!!', '', '#ff00ff', '#000000', 2, 2, 2),
+(3, 'Rubinola', '0000-00-00', NULL, '', 2, 'image/logo/04earth.png', 256, 256, 'http://www.gd.se/', 'mån-sön: 01:30-03:30', 'massa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text', '#000000', '#ffffff', 3, 3, 1),
+(4, 'Solen', '0000-00-00', NULL, '012341234', 2, 'image/logo/08saturn.png', 256, 256, 'http://sv.wikipedia.org/wiki/', 'mån-sön: 00:00-24:00', '', '#abcdef', '#543210', 4, 4, 1),
+(5, 'Svarta hålet', '0000-00-00', NULL, NULL, 10000, 'image/logo/blackhole.png', 256, 256, NULL, 'mån-sön: 10:03-10:04', 'HEJHEJHEJHEJ', '#FF0000', '#00FFFF', 5, 5, 2),
+(6, 'Wayne''s Coffee', '0000-00-00', NULL, '', 1, 'image/logo/wayne.jpg', 100, 100, 'http://www.waynescoffee.se/menyer.aspx', 'Vardag 9 - 19<br />\r\nLördag 11 - 18<br />\r\nSöndag 12 - 18', 'Vi på Wayne´s Coffee vill ge människor en möjlighet att ta en paus i vardagen, en stund av avkoppling. Wayne´s Coffee har blivit känt som ”det tredje rummet”, en mötesplats mellan arbetet och hemmet. En frizon där vänner träffas och tar en fika tillsammans. I våra caféer erbjudes  kaffe av eget märke, bakverk från eget bageri och mat med naturliga råvaror av hög kvalité.<br />\r\n', '#000000', '#ffffff', 1, 6, 2);
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `probest`
+-- Table structure for table `oppettider`
 --
 
-CREATE TABLE IF NOT EXISTS `probest` (
-  `bestallningsid` int(11) NOT NULL,
-  `produktid` int(11) NOT NULL,
-  `antal` int(11) NOT NULL
+CREATE TABLE IF NOT EXISTS `oppettider` (
+  `kontraktid` int(11) NOT NULL,
+  `veckodagarid` int(11) NOT NULL,
+  `oppet` time DEFAULT NULL,
+  `stangt` time DEFAULT NULL,
+  PRIMARY KEY (`kontraktid`,`veckodagarid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `produkt`
+-- Table structure for table `probest`
+--
+
+CREATE TABLE IF NOT EXISTS `probest` (
+  `bestallningsid` int(11) NOT NULL,
+  `produktid` int(11) NOT NULL,
+  `antal` int(11) NOT NULL,
+  PRIMARY KEY (`bestallningsid`,`produktid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `produkt`
 --
 
 CREATE TABLE IF NOT EXISTS `produkt` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `maxbest` int(11) NOT NULL DEFAULT '0',
   `namn` varchar(100) NOT NULL,
   `bildurl` varchar(256) DEFAULT NULL,
-  `info` mediumtext
+  `info` mediumtext,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Index för dumpade tabeller
---
+-- --------------------------------------------------------
 
 --
--- Index för tabell `adress`
---
-ALTER TABLE `adress`
- ADD PRIMARY KEY (`ID`);
-
---
--- Index för tabell `bestallning`
---
-ALTER TABLE `bestallning`
- ADD PRIMARY KEY (`ID`);
-
---
--- Index för tabell `edit_foretag`
---
-ALTER TABLE `edit_foretag`
- ADD PRIMARY KEY (`ID`);
-
---
--- Index för tabell `edit_kntper`
---
-ALTER TABLE `edit_kntper`
- ADD PRIMARY KEY (`ID`);
-
---
--- Index för tabell `faktura`
---
-ALTER TABLE `faktura`
- ADD PRIMARY KEY (`ID`);
-
---
--- Index för tabell `felmeddelande`
---
-ALTER TABLE `felmeddelande`
- ADD PRIMARY KEY (`ID`);
-
---
--- Index för tabell `feltyp`
---
-ALTER TABLE `feltyp`
- ADD PRIMARY KEY (`ID`);
-
---
--- Index för tabell `foretag`
---
-ALTER TABLE `foretag`
- ADD PRIMARY KEY (`ID`);
-
---
--- Index för tabell `ikontyp`
---
-ALTER TABLE `ikontyp`
- ADD PRIMARY KEY (`ID`);
-
---
--- Index för tabell `kontaktperson`
---
-ALTER TABLE `kontaktperson`
- ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `anvnamn` (`anvnamn`);
-
---
--- Index för tabell `kontrakt`
---
-ALTER TABLE `kontrakt`
- ADD PRIMARY KEY (`ID`);
-
---
--- Index för tabell `probest`
---
-ALTER TABLE `probest`
- ADD PRIMARY KEY (`bestallningsid`,`produktid`);
-
---
--- Index för tabell `produkt`
---
-ALTER TABLE `produkt`
- ADD PRIMARY KEY (`ID`);
-
---
--- AUTO_INCREMENT för dumpade tabeller
+-- Table structure for table `veckodagar`
 --
 
+CREATE TABLE IF NOT EXISTS `veckodagar` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `akro` varchar(4) NOT NULL,
+  `veckonamn` varchar(8) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
 --
--- AUTO_INCREMENT för tabell `adress`
+-- Dumping data for table `veckodagar`
 --
-ALTER TABLE `adress`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT för tabell `bestallning`
---
-ALTER TABLE `bestallning`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT för tabell `edit_foretag`
---
-ALTER TABLE `edit_foretag`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT för tabell `edit_kntper`
---
-ALTER TABLE `edit_kntper`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT för tabell `faktura`
---
-ALTER TABLE `faktura`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
---
--- AUTO_INCREMENT för tabell `felmeddelande`
---
-ALTER TABLE `felmeddelande`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT för tabell `feltyp`
---
-ALTER TABLE `feltyp`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT för tabell `foretag`
---
-ALTER TABLE `foretag`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT för tabell `ikontyp`
---
-ALTER TABLE `ikontyp`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT för tabell `kontaktperson`
---
-ALTER TABLE `kontaktperson`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT för tabell `kontrakt`
---
-ALTER TABLE `kontrakt`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT för tabell `produkt`
---
-ALTER TABLE `produkt`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+INSERT INTO `veckodagar` (`ID`, `akro`, `veckonamn`) VALUES
+(1, 'Mån', 'Måndag'),
+(2, 'Tis', 'Tisdag'),
+(3, 'Ons', 'Onsdag'),
+(4, 'Tors', 'Torsdag'),
+(5, 'Fre', 'Fredag'),
+(6, 'Lör', 'Lördag'),
+(7, 'Sön', 'Söndag');
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
