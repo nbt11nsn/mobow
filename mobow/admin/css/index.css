@@ -23,6 +23,7 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
   background: #fff; 
   display: inline-block; 
   text-align: center;
+  padding:25px 0px;
 }
 #invoiceframe { 
   width: 1024px; 
@@ -62,6 +63,14 @@ width: 50%;
 
 #postContracts input{
 text-align: left;
+}
+
+#postContracts input[type="reset"]{
+text-align: center;
+}
+
+#postContracts input[type="submit"]{
+text-align: center;
 }
 
 #postContracts textarea{
@@ -119,7 +128,6 @@ text-align: left;
   display: inline-block;
 }
 .fancyNav li{
-/* Specifying a fallback color and we define CSS3 gradients for the major browsers: */	
   background-color: #f0f0f0;
   background-image: -webkit-gradient(linear,left top, left bottom,from(#fefefe), color-stop(0.5,#f0f0f0), color-stop(0.51, #e6e6e6));
   background-image: -moz-linear-gradient(#fefefe 0%, #f0f0f0 50%, #e6e6e6 51%);
@@ -127,7 +135,6 @@ text-align: left;
   background-image: -ms-linear-gradient(#fefefe 0%, #f0f0f0 50%, #e6e6e6 51%);
   background-image: linear-gradient(#fefefe 0%, #f0f0f0 50%, #e6e6e6 51%);
   border-right: 1px solid rgba(9, 9, 9, 0.125);
-  /* Adding a 1px inset highlight for a more polished efect: */
   box-shadow: 1px -1px 0 rgba(255, 255, 255, 0.6) inset;
   -moz-box-shadow: 1px -1px 0 rgba(255, 255, 255, 0.6) inset;
   -webkit-box-shadow: 1px -1px 0 rgba(255, 255, 255, 0.6) inset;
@@ -135,8 +142,7 @@ text-align: left;
   float: left;
   list-style: none;
 }
-.fancyNav li:after{
-  /* This creates a pseudo element inslide each LI */		
+.fancyNav li:after{	
   content:'.';
   text-indent:-9999px;
   overflow:hidden;
@@ -152,19 +158,16 @@ text-align: left;
   background-image:-moz-linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));
   background-image:-o-linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));
   background-image:-ms-linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));
-  background-image:linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));	
-  /* Creating borders with box-shadow. Useful, as they don't affect the size of the element. */
+  background-image:linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));
   box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff,1px 0 0 #a3a3a3,2px 0 0 #fff;
   -moz-box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff,1px 0 0 #a3a3a3,2px 0 0 #fff;
   -webkit-box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff,1px 0 0 #a3a3a3,2px 0 0 #fff;
-  /* This will create a smooth transition for the opacity property */
   -moz-transition:0.25s all;
   -webkit-transition:0.25s all;
   -o-transition:0.25s all;
   transition:0.25s all;
 }
 
-/* Treating the first LI and li:after elements separately */
 .fancyNav li:first-child{
   border-radius: 5px 0 0 5px;
 }
@@ -181,7 +184,6 @@ text-align: left;
   border-radius: 0 5px 5px 0;
 }
 
-/* Treating the last LI and li:after elements separately */
 .fancyNav li:last-child:after,
 .fancyNav li.selected:last-child:after{
   box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff;
@@ -193,13 +195,11 @@ text-align: left;
 .fancyNav li:hover:after,
 .fancyNav li.selected:after,
 .fancyNav li:target:after{
-/* This property triggers the CSS3 transition */
   opacity:1;
 }
 
 .fancyNav:hover li.selected:after,
 .fancyNav:hover li:target:after{
-/* Hides the targeted li when we are hovering on the UL */
   opacity:0;
 }
 
@@ -208,7 +208,6 @@ text-align: left;
   opacity:1;
 }
 
-/* Styling the anchor elements */
 .fancyNav li a{
   color: #5d5d5d;
   display: inline-block;
@@ -249,28 +248,16 @@ text-align: left;
 
 /* ############### id attribute #<id> ############### */
 
-/* Huvudområde längst upp på sidan */
-#header-wrapper {
-  width: 100%;
-  height: 110px;
-}
-
-/* Företagslogga längst upp på alla sidor */
-#mobowpic {
-  width: 500px; 
-  height: 103px;
-}
-
 /* Huvudområde längst ned på sidan*/
 #footer-wrapper {
   width: 100%;
   height: 10px;
 }
 
-/* Huvudområdet i mitten av sidan */
-#main-wrapper {
-  width: 100%;
-  height: 100%;
+/* generella inställningar för huvudmeny */
+#huvudmeny {
+  width: 100%; 
+  height: auto;
 }
 
 /* Snygga till login-wrapper */
@@ -288,10 +275,27 @@ text-align: left;
   -webkit-border-radius: 10px 10px 10px 10px;
 }
 
-/* generella inställningar för huvudmeny */
-#huvudmeny {
-  width: 100%; 
-  height: auto;
+/* Huvudområde längst upp på sidan */
+#header-wrapper {
+  width: 100%;
+  height: 110px;
+}
+
+/* Huvudområdet i mitten av sidan */
+#main-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+/* Företagslogga längst upp på alla sidor */
+#mobowpic {
+  width: 500px; 
+  height: 103px;
+}
+
+#rmimg{
+  width: 120px;
+  margin-left: 25px;
 }
 
 /* ############### name attribute .<name> ############### */
@@ -342,7 +346,7 @@ input, textarea {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  background: #fff;
+  background: #fee;
   display: block;
   margin: 0;
   padding: .5em;
@@ -372,6 +376,7 @@ input[type="button"], input[type="reset"], input[type="submit"] {
   background: #EA005A;
   font-weight: bold;
   -webkit-appearance: none;
+  text-align:center;
 }
 
 input[type="submit"]:hover, input[type="submit"]:active, input[type="reset"]:hover, input[type="reset"]:active, input[type="button"]:hover, input[type="button"]:active {
