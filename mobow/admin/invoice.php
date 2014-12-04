@@ -95,11 +95,11 @@ else{
 		</form>
 				<?php 
 		if(isset($_POST["row2"])){
-			$isql2 = "SELECT * FROM faktura LEFT OUTER JOIN kontrakt ON kontrakt.ID = faktura.agarid WHERE kontrakt.ID = '".$_POST['rows']."'";
+			$isql2 = "SELECT * FROM faktura LEFT OUTER JOIN kontrakt ON kontrakt.ID = faktura.agarid WHERE kontrakt.ID = '".$_POST['rows']."' ORDER BY Datum DESC";
 	$iresult = mysqli_query($con, $isql2);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows2 = mysqli_fetch_assoc($iresult)) {
-	  echo "<a target='_blank' href = '../".$irows2['url']."' ><div id='invoicelistframe'>".$irows2['namn']."</div></a>";
+	  echo "<a target='_blank' href = '../".$irows2['url']."' ><div id='invoicelistframe'>".$irows2['namn']." ".$irows2['Datum']."</div></a>";
 		}
 	}
 	  mysqli_free_result($iresult);

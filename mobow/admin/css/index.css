@@ -32,8 +32,11 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
   background: #fff; 
   display: inline-block; 
 }
+#invoiceframe option{
+background: #EA005A;
+}
 #listframe { 
-  width: 50%; 
+  width: 60%; 
   min-height: 800px;
   height: 100%;
   background: #CCC; 
