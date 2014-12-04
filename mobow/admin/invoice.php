@@ -70,7 +70,6 @@ $isql = "SELECT * FROM faktura NATURAL JOIN kontrakt";
 		 <div id = "listframe">	
 		 </form>
 		<?php
-		//vid upload, lägg till filen i databasen. en array finns som hämtar 
 		 //ALLA filer som ligger i databasen genom URL. sedan visas filnamet i 
 		 //en numrerad lista. en ladda hem knapp skall finnas för att kunna få hem fakturan igen.
 		//skapa en array som hämtar info från URL i databasen och skriver ut dessa i en numrerad lista med namnet på pdf:en
@@ -100,12 +99,12 @@ else{
 	$iresult = mysqli_query($con, $isql2);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows2 = mysqli_fetch_assoc($iresult)) {
-	  echo "<div id='row'><a target='_blank' href = '../".$irows2['url']."' >".$irows2['namn']."</a></div>";
+	  echo "<a target='_blank' href = '../".$irows2['url']."' ><div id='invoicelistframe'>".$irows2['namn']."</div></a>";
 		}
 	}
 	  mysqli_free_result($iresult);
   }	
-	?>	  
+	?>	
       </div>
       </div>
     </form>
@@ -117,14 +116,6 @@ else{
 <?php
 defined('THE_FOOTER') || define('THE_FOOTER', TRUE);
 require_once("include/footer.php");
-      //<div id="error">You should select valid image files only!
-      //</div>
-      //<div id="error2">An error occurred while uploading the file
-      //</div>
-      //<div id="abort">The upload has been canceled by the user or the browser dropped the connection
-      //</div>
-      //<div id="warnsize">Your file is very big. We can't accept it. Please select more small file
-	 //
 ?>
 </body>
 </html>
