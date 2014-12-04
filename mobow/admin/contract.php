@@ -52,7 +52,7 @@ mysqli_free_result($iresult);
 
 if(isset($_POST['accept'])) 
 {
-$isql2 = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata, stn, oppet, allminfo, hemsida, forecolor, backcolor, postnr, stad FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontrakt.ID = '".$_POST['contracts']."'";
+$isql2 = "SELECT kontrakt.ID, kontorsnamn, sbesok, tele, logurl, gata, stn, oppet, allminfo, currinfo, hemsida, forecolor, backcolor, postnr, stad FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontrakt.ID = '".$_POST['contracts']."'";
 $iresult = mysqli_query($con, $isql2);
 if (mysqli_num_rows($iresult) != 0) {
   $irows = mysqli_fetch_assoc($iresult);
@@ -60,6 +60,10 @@ if (mysqli_num_rows($iresult) != 0) {
 echo '<ul><li>
 <label for="kontor">Namn: </label>
 <input type="text" align="left"  maxlength="50" value = "'.$irows["kontorsnamn"].'"  name="kontor" id="kontor" />
+</li>
+<li>
+<label for="sbesok">Senaste besök: </label>
+<input type="date" align="left" value = "'.$irows["sbesok"].'"  name="sbesok" id="sbesok" />
 </li>
 <li>
 <label for="telefonenbr">Telefon: </label>
@@ -79,7 +83,11 @@ echo '<ul><li>
 </li>
 <li>
 <label for="allminfo">Information: </label>
-<textarea cols="40" rows="5" input type="text" value="allminfo" name="allminfo" id="allminfo">'.strip_tags($irows["allminfo"]).'</textarea>
+<textarea cols="40" rows="5" input type="text" name="allminfo" id="allminfo">'.strip_tags($irows["allminfo"]).'</textarea>
+</li>
+<li>
+<label for="allminfo">Aktuellt: </label>
+<textarea cols="40" rows="5" input type="text" name="currinfo" id="currinfo">'.strip_tags($irows["currinfo"]).'</textarea>
 </li>
 <li>
 <label for="forecolor">Förgrundsfärg: </label>
@@ -131,7 +139,7 @@ if(isset($_POST['rmimg'])&&isset($_POST['contracts'])){
 }
 
 $target_dir = "image/logo/";
-if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_POST['stad'])&&isset($_POST['contracts'])&&isset($_POST['kontor']))
+if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_POST['stad'])&&isset($_POST['contracts'])&&isset($_POST['kontor'])&&isset($_POST['sbesok']))
 {
     $error = false;
     $g=mysqli_real_escape_string($con,$_POST['gata']);
@@ -146,6 +154,14 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
     }
     else{$error=true;}
     $sql3 = "UPDATE kontrakt, adress SET kontrakt.kontorsnamn = '$k', adress.gata = '$g', kontrakt.stn = '$s', adress.stad = '$ss'";
+    if(isset($_POST['sbesok'])){
+        $d=mysqli_real_escape_string($con,$_POST['sbesok']);
+    }else{$d="";}
+    $sql3.= ", kontrakt.sbesok= '$d'";
+    if(isset($_POST['currinfo'])){
+        $ci=mysqli_real_escape_string($con,nl2br($_POST['currinfo']));
+    }else{$ci="";}
+    $sql3.= ", kontrakt.currinfo = '$ci'";
     if(isset($_POST['oppet'])){
         $o=mysqli_real_escape_string($con,nl2br($_POST['oppet']));
     }else{$o="";}

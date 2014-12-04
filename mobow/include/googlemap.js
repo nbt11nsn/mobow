@@ -47,9 +47,9 @@ function makeHTML(i){
     var image = (obj[i].logurl == null)? "":"<img class='imge' src='"+ obj[i].logurl + "' width='"+imgSize.w+"px' height='"+imgSize.h+"px' />";
 
     var allminfo = (obj[i].allminfo == null)? "":"<p class='allminfo'>" + obj[i].allminfo + "</p>";
-    var hemsida = (obj[i].hemsida == null)? "":"<p class='hemsida'><a href = '" + obj[i].hemsida + "' target = '_blank'>Vill du veta mer?</a></p>";
+    var hemsida = (obj[i].hemsida == null)? "":"<p class='hemsida'><a style='color:"+obj[i].forecolor+"' href = '" + obj[i].hemsida + "' target = '_blank'>Vill du veta mer?</a></p>";
     var tele = (obj[i].tele == null)? "":"<p class='tele'>" + obj[i].tele + "</p>";
-    var vagvisning = "<p class='hemsida'><a href='javascript:void(0)' onclick='cmap.direction("+obj[i].lat+","+obj[i].lng+");'>Vägbeskrivning</a></p>";
+    var vagvisning = "<p class='hemsida'><a style='color:"+obj[i].forecolor+"' href='javascript:void(0)' onclick='cmap.direction("+obj[i].lat+","+obj[i].lng+");'>Vägbeskrivning</a></p>";
 
 
     var html = image + "<div id='info_content'>" + name + address + allminfo + oppet + stn + tele + hemsida + vagvisning + "</div>";
