@@ -28,7 +28,7 @@ $isql = "SELECT * FROM faktura NATURAL JOIN kontrakt";
 
 ?>
 <div id = "invoiceframe">
-  <div class="upload_form_cont">
+  <div class="upload_form_cont" >
     <form id="upload_form" enctype="multipart/form-data" method="post" action="upload.php">
       <div>
         <div>
@@ -39,7 +39,7 @@ $isql = "SELECT * FROM faktura NATURAL JOIN kontrakt";
 	</div>
       </div>
       <div>
-        <input type="button" value="Upload" onclick="startUploading()" />
+        <input type="button" id = "uploadbutton" value="Ladda upp" onclick="startUploading()" />
       </div>
 	  	
       <div id="fileinfo">
@@ -76,30 +76,30 @@ $isql = "SELECT * FROM faktura NATURAL JOIN kontrakt";
 		//target_blank på alla flikar för att öppna dom i nytt fönster
 		?>
 	<form action="" method="post" id = "postRows">
-		<select name = "rows">		
+		<select name = "dropdown" id = "invoicedropdown">		
 		<?php 	
 	$iresult = mysqli_query($con, $isql);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	  
-	  if(isset($_POST['rows']) && $irows['ID'] == $_POST['rows']){
+	  if(isset($_POST['dropdown']) && $irows['ID'] == $_POST['dropdown']){
 	  	  echo "<option value=".$irows['ID']." selected='selected' >".$irows['kontorsnamn']."</option>";
 	  }
-else{
+	else{
 	  echo "<option value=".$irows['ID'].">".$irows['kontorsnamn']."</option>";
-}
+	}
     }
   }
   mysqli_free_result($iresult);	
 	?>	
-	<input type="submit" name = "row2" id = "row2" value="Välj kontrakt">
+	<input type="submit" name = "choicebutton" id = "choicebutton" value="Välj kontrakt">
 		</form>
 				<?php 
-		if(isset($_POST["row2"])){
-			$isql2 = "SELECT * FROM faktura LEFT OUTER JOIN kontrakt ON kontrakt.ID = faktura.agarid WHERE kontrakt.ID = '".$_POST['rows']."' ORDER BY Datum DESC";
+		if(isset($_POST["choicebutton"])){
+			$isql2 = "SELECT * FROM faktura LEFT OUTER JOIN kontrakt ON kontrakt.ID = faktura.agarid WHERE kontrakt.ID = '".$_POST['dropdown']."' ORDER BY Datum DESC";
 	$iresult = mysqli_query($con, $isql2);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows2 = mysqli_fetch_assoc($iresult)) {
-	  echo "<a target='_blank' href = '../".$irows2['url']."' ><div id='invoicelistframe'>".$irows2['namn']." ".$irows2['Datum']."</div></a>";
+	  echo "<a target='_blank' href = '../".$irows2['url']."' ><div id='invoicelistframe'>".$irows2['namn']." ".$irows2['datum']."</div></a>";
 		}
 	}
 	  mysqli_free_result($iresult);
@@ -108,7 +108,7 @@ else{
       </div>
       </div>
     </form>
-    <img id="preview" />
+    <img id="preview"  />
   </div>  
 </div>
 </div><!--main-wrapper-->

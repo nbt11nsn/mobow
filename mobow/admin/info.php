@@ -31,22 +31,35 @@ require_once("include/header.php");
 <?php
 defined('THE_MENUE') || define('THE_MENUE', TRUE);
 require_once("include/menuebar.php");
+defined('THE_DB') || define('THE_DB', TRUE);
+require_once(__DIR__ .'./../../db.php');
+$isql = "SELECT * FROM kontaktperson JOIN kontrakt on kontrakt.kontaktpersonid = kontaktperson.ID";
 ?>
-
 </div><!--main-wrapper-->
 <div id="frame">
  <div id = "overviewinfo">
-hej
+<div> Antal kontrakt: </div> 
+<div> Antal uthyrda stationer: </div> 
+<div> Framtida kontroller: </div> 
+	<form action="" method="post" id = "postRows">
+		<select name = "dropdown" id = "invoicedropdown">		
+		<?php 	
+	$iresult = mysqli_query($con, $isql);
+	if (mysqli_num_rows($iresult) != 0) {
+      while($irows = mysqli_fetch_assoc($iresult)) {	  
+	  if(isset($_POST['dropdown']) && $irows['ID'] == $_POST['dropdown']){
+	  	  echo "<option value=".$irows['ID']." selected='selected' >".$irows['fornamn']."</option>";
+	  }
+	else{
+	  echo "<option value=".$irows['ID'].">".$irows['fornamn']. " ".$irows['kontorsnamn']."</option>";
+	}
+    }
+  }
+  mysqli_free_result($iresult);	
+	?>
+
 </div>
-   	<form>
-		<div>
-		<input type="button" name="btn2" id="btn" style="width: 300px; height: 50px;" value="En felrapport har skapats" onclick="location.href='report.php'"/>
-		<input type="button" name="btn2" id="btn" style="width: 300px; height: 50px;" value="En kund vill ändra sin information" onclick="location.href='companymessage.php'"/>
-		</form>
-		</div>
-    </form>
-  </div>
-</div>
+
 
 <?php
 defined('THE_FOOTER') || define('THE_FOOTER', TRUE);
