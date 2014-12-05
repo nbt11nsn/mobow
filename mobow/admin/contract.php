@@ -52,7 +52,7 @@ mysqli_free_result($iresult);
 
 if(isset($_POST['accept'])) 
 {
-$isql2 = "SELECT kontrakt.ID, kontorsnamn, sbesok, tele, logurl, gata, stn, oppet, allminfo, currinfo, hemsida, forecolor, backcolor, postnr, stad FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontrakt.ID = '".$_POST['contracts']."'";
+$isql2 = "SELECT kontrakt.ID, kontorsnamn, sbesok, tele, logurl, gata, stn, allminfo, currinfo, hemsida, forecolor, backcolor, postnr, stad FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontrakt.ID = '".$_POST['contracts']."'";
 $iresult = mysqli_query($con, $isql2);
 if (mysqli_num_rows($iresult) != 0) {
   $irows = mysqli_fetch_assoc($iresult);
@@ -72,10 +72,6 @@ echo '<ul><li>
 <li>
 <label for="stn">Antal stationer: </label>
 <input type="number" align="left"  value = "'.$irows["stn"].'" maxlength="11" value="stn" name="stn" name="stn" />
-</li>
-<li>
-<label for="oppet">Öppettider: </label>
-<textarea cols="40" rows="5" value="oppet" name="oppet" id="oppet">'.strip_tags($irows["oppet"]).'</textarea>
 </li>
 <li>
 <label for="hemsida" >Hemsida (kom ihåg http://): </label>
@@ -135,10 +131,15 @@ if(isset($_POST['rmimg'])&&isset($_POST['contracts'])){
     $c=$_POST['contracts'];
     $sqlquery = "UPDATE kontrakt SET kontrakt.logurl=NULL, kontrakt.logbredd=NULL, kontrakt.loghojd=NULL WHERE kontrakt.ID='$c'";
     mysqli_query($con, $sqlquery);
+    if(mysqli_query($con, $sqlquery)){
+      echo "<br /><br /><b>Uppdateringen lyckades</b>";
+    }
+    else{
+      echo "<br /><br /><b>Uppdateringen misslyckades</b>";
+    }
   }
 }
 
-$target_dir = "image/logo/";
 if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_POST['stad'])&&isset($_POST['contracts'])&&isset($_POST['kontor'])&&isset($_POST['sbesok']))
 {
     $error = false;
@@ -148,12 +149,47 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
     if(is_numeric($_POST['stn'])){
         $s=$_POST['stn'];
     }
-    else{$error=true;}
+    else{$error="Ogiltigt antal stationer";}
     if(is_numeric($_POST['contracts'])){
         $c=$_POST['contracts'];
     }
-    else{$error=true;}
+    else{$error="Kontraktet finns inte";}
     $sql3 = "UPDATE kontrakt, adress SET kontrakt.kontorsnamn = '$k', adress.gata = '$g', kontrakt.stn = '$s', adress.stad = '$ss'";
+
+
+
+    if(!empty($_FILES['logo']['name'])){
+        $ok=true;
+        $err="Error: ";
+        $allow = array("image/jpeg", "image/gif", "image/bmp", "image/png");
+        if($_FILES["logo"]["size"] > 2000000) {
+            $ok=false;
+            $err.='För stor fil<br />';
+        }
+        if(!in_array($_FILES['logo']['type'], $allow)){
+            $ok=false;
+            $err.='Filformatet stöds inte<br />';
+        }
+        if($ok==false){
+            echo $err;
+        }
+        else
+        {
+            $tmp_path = $_FILES['logo']['tmp_name'];
+            $li = getimagesize($tmp_path);
+            $lw = $li[0];
+            $lh = $li[1];
+            $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
+            $target = "image/logo/"."kontrakt".$c.".".$ext;
+            $abs_dir = __DIR__."/../".$target;
+            if(move_uploaded_file($tmp_path, $abs_dir)){
+                $sql3.= ", kontrakt.logurl = '$target', kontrakt.logbredd = '$lw', kontrakt.loghojd = '$lh'";
+            }
+            else{
+                $error="Gick inte att ladda upp bilden";
+            }
+        }
+    }
     if(isset($_POST['sbesok'])){
         $d=mysqli_real_escape_string($con,$_POST['sbesok']);
     }else{$d="";}
@@ -162,10 +198,6 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
         $ci=mysqli_real_escape_string($con,nl2br($_POST['currinfo']));
     }else{$ci="";}
     $sql3.= ", kontrakt.currinfo = '$ci'";
-    if(isset($_POST['oppet'])){
-        $o=mysqli_real_escape_string($con,nl2br($_POST['oppet']));
-    }else{$o="";}
-    $sql3.= ", kontrakt.oppet = '$o'";
     if(isset($_POST['allminfo'])){
         $a=mysqli_real_escape_string($con,nl2br($_POST['allminfo']));
     }else{$a="";}
@@ -190,10 +222,6 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
         $t=mysqli_real_escape_string($con,$_POST['telefonenbr']);
     }else{$t="";}
     $sql3.= ", kontrakt.tele = '$t'";
-    if(isset($_POST['logo'])){
-        $l=mysqli_real_escape_string($con,$_POST['logo']);
-        $sql3.= ", kontrakt.logurl = '$l'";
-    }
     $sql3.=" WHERE kontrakt.adressid = adress.ID AND kontrakt.ID = '$c'";
     if(!$error){
         if(mysqli_query($con, $sql3)){
@@ -204,7 +232,7 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
         }
     }
     else{
-        echo "<br /><br /><b>Ogiligt värde</b>";
+        echo "<br /><br /><b>$error</b>";
     }
 }
 ?>
