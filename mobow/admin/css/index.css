@@ -70,6 +70,17 @@ margin-right: auto;
 width: 50%;
 }
 
+#postContracts input[type="text"],
+#postContracts textarea,
+#postContracts input[type="date"],
+#postContracts input[type="tel"],
+#postContracts input[type="number"],
+#postContracts input[type="color"],
+#postContracts input[type="url"]
+{
+    width:80%;
+}
+
 #postContracts input{
 text-align: left;
 }
@@ -242,7 +253,6 @@ input, textarea {
   display: block;
   margin: 0;
   padding: .5em;
-  width: 80%;
 }
 
 /* Gör bakgrunden lätt grön när fälten är ifyllda */
