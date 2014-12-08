@@ -25,7 +25,9 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
   text-align: center;
   padding:25px 0px;
 }
-#frame_edit {
+#frame_edit{}
+#frame_admedit{}
+#frame_edit, #frame_admedit {
   position:relative;
   left:-50%;
   float:left;
@@ -41,25 +43,10 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
   -o-border-radius: 10px 10px 10px 10px;
   -webkit-border-radius: 10px 10px 10px 10px;
 }
+
 #admchange{
   display: inline-block;
   text-align: center;
-}
-#frame_admedit{ 
-  position:relative;
-  left:-50%;
-  float:left;
-  color: #000;
-  width: 400px;
-  height: 350px;
-  padding: 25px;
-  margin-top: 50px;
-  -moz-box-shadow: 0px 0px 10px #888;
-  -o-box-shadow: 0px 0px 10px #888;
-  -webkit-box-shadow: 0px 0px 10px #888;
-  -moz-border-radius: 10px 10px 10px 10px;
-  -o-border-radius: 10px 10px 10px 10px;
-  -webkit-border-radius: 10px 10px 10px 10px;
 }
 #invoiceframe { 
   width: 1024px; 
