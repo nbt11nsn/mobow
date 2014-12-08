@@ -88,10 +88,10 @@ $isql4 = "SELECT kontorsnamn, sbesok FROM kontrakt ";
 	</div> 
 
 
-
 	<form action="" method="post" id = "postRows">
 		<select name = "dropdown" id = "invoicedropdown">		
 		<?php 
+		//Skriver ut kontaktpersonens info
 	$isql = "SELECT * FROM kontaktperson JOIN kontrakt on kontrakt.kontaktpersonid = kontaktperson.anvnamn";		
 	$iresult = mysqli_query($con, $isql);
 	if (mysqli_num_rows($iresult) != 0) {

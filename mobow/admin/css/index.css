@@ -78,7 +78,7 @@ background: #efefef;
 	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
 	border-radius: 10px;  
 	position:relative;
-	left:2px;top:2px;	
+	left:5px;top:3px;	
 	padding: 10px 20px;
 	color: #EA005A; 
 	font: 18px Arial,sans-serif;
@@ -93,7 +93,7 @@ background: #efefef;
 	padding: 10px 20px;
 	color: #EA005A;
 	position:relative;
-	left:40px;top:2px;	
+	left:225px;bottom:40px;	
 	font: 18px Arial,sans-serif;
 	border: hidden;
 }
@@ -127,7 +127,7 @@ background: #efefef;
 	padding: 10px 7px;
 	width: 95%;
 	position:relative;
-	left:5px;top:10px;
+	left:5px;top:0px;
 	color: #EA005A; 
 	font: 18px Arial,sans-serif;
 }
