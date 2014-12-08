@@ -33,17 +33,37 @@ defined('THE_MENUE') || define('THE_MENUE', TRUE);
 require_once("include/menuebar.php");
 defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../../db.php');
-$isql = "SELECT * FROM kontaktperson JOIN kontrakt on kontrakt.kontaktpersonid = kontaktperson.ID";
+
 ?>
 </div><!--main-wrapper-->
 <div id="frame">
- <div id = "overviewinfo">
+<div id = "overviewinfo">
 <div> Antal kontrakt: </div> 
-<div> Antal uthyrda stationer: </div> 
+<div> Antal uthyrda stationer: 
+		<?php 
+$isql2 = "SELECT SUM(stn) FROM kontrakt";		
+	$iresult = mysqli_query($con, $isql2);
+	if (mysqli_num_rows($iresult) != 0) {
+      while($irows = mysqli_fetch_assoc($iresult)) {	  
+	  
+	  echo "<div>"."Du har för närvarande ".$irows['SUM(stn)']." stationer uthyrda"."</div>";
+	
+    }
+  }
+  mysqli_free_result($iresult);	
+	?>
+</div> 
+
+
+
 <div> Framtida kontroller: </div> 
+
+
+
 	<form action="" method="post" id = "postRows">
 		<select name = "dropdown" id = "invoicedropdown">		
-		<?php 	
+		<?php 
+	$isql = "SELECT * FROM kontaktperson JOIN kontrakt on kontrakt.kontaktpersonid = kontaktperson.ID";		
 	$iresult = mysqli_query($con, $isql);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	  
@@ -51,13 +71,12 @@ $isql = "SELECT * FROM kontaktperson JOIN kontrakt on kontrakt.kontaktpersonid =
 	  	  echo "<option value=".$irows['ID']." selected='selected' >".$irows['fornamn']."</option>";
 	  }
 	else{
-	  echo "<option value=".$irows['ID'].">".$irows['fornamn']. " ".$irows['kontorsnamn']."</option>";
+	  echo "<option value=".$irows['ID'].">".$irows['fornamn']." ".$irows['efternamn'].", ".$irows['kontorsnamn']."</option>";
 	}
     }
   }
   mysqli_free_result($iresult);	
-	?>
-
+	?>	
 </div>
 
 
