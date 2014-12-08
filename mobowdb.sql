@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 08 dec 2014 kl 15:07
+-- Tid vid skapande: 08 dec 2014 kl 15:16
 -- Serverversion: 5.6.20
 -- PHP-version: 5.5.15
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Databas: `mobowdb`
 --
+CREATE DATABASE IF NOT EXISTS `mobowdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `mobowdb`;
 
 -- --------------------------------------------------------
 
