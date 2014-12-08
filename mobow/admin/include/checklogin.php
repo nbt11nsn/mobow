@@ -18,7 +18,7 @@ if(isset($_POST['login']))
       {
         //updatera databasen då hash bytts
         $newh = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $usql = "UPDATE kontaktperson SET losen = '$newh' WHERE ID = '".$row['ID']."'";
+        $usql = "UPDATE kontaktperson SET losen = '$newh' WHERE anvnamn = '".$row['anvnamn']."'";
         if(mysqli_query($con, $usql)) 
         {
             //password uppdaterat

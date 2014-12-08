@@ -306,6 +306,22 @@ text-align: left;
   margin-top: 20px;
 }
 
+.ok{
+    background-color: #cfc;
+    color: #000;
+    font-weight: bold;
+    display: inline-block;
+    width: 1024px;
+}
+
+.error{
+    background-color: #fcc;
+    color: #000;
+    font-weight: bold;
+    display: inline-block;
+    width: 1024px;
+}
+
 /* ############### tag attribute  ############### */
 
 b{
