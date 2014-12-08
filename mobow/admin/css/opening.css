@@ -47,3 +47,17 @@ margin-right: 18%;
 #labels label{
 padding-left: 20%;
 }
+
+#labels{
+width: 100%;
+height: auto;
+}
+
+#conts {
+display: inline;
+}
+
+.checkbox_ {
+float: right;
+margin: 0;
+}
