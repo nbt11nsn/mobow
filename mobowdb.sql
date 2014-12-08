@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 04, 2014 at 03:10 PM
+-- Generation Time: Dec 08, 2014 at 12:22 PM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -196,24 +196,24 @@ INSERT INTO `ikontyp` (`ID`, `imgurl`, `typ`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `kontaktperson` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `anvnamn` varchar(50) NOT NULL,
   `fornamn` varchar(50) NOT NULL,
   `efternamn` varchar(50) NOT NULL,
   `mobil` int(11) DEFAULT NULL,
   `mejl` varchar(50) NOT NULL,
   `losen` varchar(256) NOT NULL,
   `admin` tinyint(1) NOT NULL,
-  `anvnamn` varchar(50) NOT NULL,
-  PRIMARY KEY (`ID`),
+  PRIMARY KEY (`anvnamn`),
   UNIQUE KEY `anvnamn` (`anvnamn`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `kontaktperson`
 --
 
-INSERT INTO `kontaktperson` (`ID`, `fornamn`, `efternamn`, `mobil`, `mejl`, `losen`, `admin`, `anvnamn`) VALUES
-(1, 'administrator', 'mobow', 123456789, 'nbt11nsn@student.hig.se', '$2y$10$Uat1/q0s8A6X2.SG9HKCkeB6xPzbYHtjZe.9iEO43EmoaVEv2Tfm2', 1, 'admin');
+INSERT INTO `kontaktperson` (`anvnamn`, `fornamn`, `efternamn`, `mobil`, `mejl`, `losen`, `admin`) VALUES
+('admin', 'administrator', 'mobow', 123456789, 'nbt11nsn@student.hig.se', '$2y$10$Uat1/q0s8A6X2.SG9HKCkeB6xPzbYHtjZe.9iEO43EmoaVEv2Tfm2', 1),
+('test', 'Någon', 'Nisse', 123, 'nbt11nsn@student.hig.se', 'asdlkj', 0);
 
 -- --------------------------------------------------------
 
@@ -236,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `kontrakt` (
   `allminfo` text,
   `forecolor` varchar(7) NOT NULL DEFAULT '#000000',
   `backcolor` varchar(7) NOT NULL DEFAULT '#FFFFFF',
-  `kontaktpersonid` int(11) NOT NULL,
+  `kontaktpersonid` varchar(50) NOT NULL,
   `adressid` int(11) NOT NULL,
   `ikonid` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
@@ -247,12 +247,12 @@ CREATE TABLE IF NOT EXISTS `kontrakt` (
 --
 
 INSERT INTO `kontrakt` (`ID`, `kontorsnamn`, `sbesok`, `currinfo`, `tele`, `stn`, `logurl`, `logbredd`, `loghojd`, `hemsida`, `oppet`, `allminfo`, `forecolor`, `backcolor`, `kontaktpersonid`, `adressid`, `ikonid`) VALUES
-(1, 'Gevalia', '1980-01-01', NULL, NULL, 1, NULL, NULL, NULL, 'http://www.google.com/', 'mån-fre: 9:00-22:00\r\nsön: 10:03-10:33\r\nannars: stängt', 'random grejs', '#000000', '#FFFFFF', 1, 1, 1),
-(2, 'Discovery', '0000-00-00', 'sfdlkjsfdjkllkjdsf', '', 3, 'image/logo/logo0.png', 32, 32, 'http://www.aftonbladet.se/', 'STÄNGT!!!', '', '#ff00ff', '#000000', 2, 2, 2),
-(3, 'Rubinola', '0000-00-00', NULL, '', 2, 'image/logo/04earth.png', 256, 256, 'http://www.gd.se/', 'mån-sön: 01:30-03:30', 'massa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text', '#000000', '#ffffff', 3, 3, 1),
-(4, 'Solen', '0000-00-00', NULL, '012341234', 2, 'image/logo/08saturn.png', 256, 256, 'http://sv.wikipedia.org/wiki/', 'mån-sön: 00:00-24:00', '', '#abcdef', '#543210', 4, 4, 1),
-(5, 'Svarta hålet', '0000-00-00', NULL, NULL, 10000, 'image/logo/blackhole.png', 256, 256, NULL, 'mån-sön: 10:03-10:04', 'HEJHEJHEJHEJ', '#FF0000', '#00FFFF', 5, 5, 2),
-(6, 'Wayne''s Coffee', '0000-00-00', NULL, '', 1, 'image/logo/wayne.jpg', 100, 100, 'http://www.waynescoffee.se/menyer.aspx', 'Vardag 9 - 19<br />\r\nLördag 11 - 18<br />\r\nSöndag 12 - 18', 'Vi på Wayne´s Coffee vill ge människor en möjlighet att ta en paus i vardagen, en stund av avkoppling. Wayne´s Coffee har blivit känt som ”det tredje rummet”, en mötesplats mellan arbetet och hemmet. En frizon där vänner träffas och tar en fika tillsammans. I våra caféer erbjudes  kaffe av eget märke, bakverk från eget bageri och mat med naturliga råvaror av hög kvalité.<br />\r\n', '#000000', '#ffffff', 1, 6, 2);
+(1, 'Gevalia', '1980-01-01', '', '', 1, NULL, NULL, NULL, 'http://www.google.com/', 'mån-fre: 9:00-22:00\r\nsön: 10:03-10:33\r\nannars: stängt', 'random grejs', '#000000', '#ffffff', 'admin', 1, 1),
+(2, 'Discovery', '0000-00-00', 'sfdlkjsfdjkllkjdsf', '', 3, 'image/logo/logo0.png', 32, 32, 'http://www.aftonbladet.se/', 'STÄNGT!!!', '', '#ff00ff', '#000000', 'admin', 2, 2),
+(3, 'Rubinola', '0000-00-00', NULL, '', 2, 'image/logo/04earth.png', 256, 256, 'http://www.gd.se/', 'mån-sön: 01:30-03:30', 'massa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text', '#000000', '#ffffff', 'admin', 3, 1),
+(4, 'Solen', '0000-00-00', '', '012341234', 2, 'image/logo/08saturn.png', 256, 256, 'http://sv.wikipedia.org/wiki/', 'mån-sön: 00:00-24:00', '', '#abcdef', '#543210', 'admin', 4, 1),
+(5, 'Svarta hålet', '0000-00-00', NULL, NULL, 10000, 'image/logo/blackhole.png', 256, 256, NULL, 'mån-sön: 10:03-10:04', 'HEJHEJHEJHEJ', '#FF0000', '#00FFFF', 'admin', 5, 2),
+(6, 'Wayne''s Coffee', '0000-00-00', NULL, '', 1, 'image/logo/wayne.jpg', 100, 100, 'http://www.waynescoffee.se/menyer.aspx', 'Vardag 9 - 19<br />\r\nLördag 11 - 18<br />\r\nSöndag 12 - 18', 'Vi på Wayne´s Coffee vill ge människor en möjlighet att ta en paus i vardagen, en stund av avkoppling. Wayne´s Coffee har blivit känt som ”det tredje rummet”, en mötesplats mellan arbetet och hemmet. En frizon där vänner träffas och tar en fika tillsammans. I våra caféer erbjudes  kaffe av eget märke, bakverk från eget bageri och mat med naturliga råvaror av hög kvalité.<br />\r\n', '#000000', '#ffffff', 'admin', 6, 2);
 
 -- --------------------------------------------------------
 

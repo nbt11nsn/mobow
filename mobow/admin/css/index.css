@@ -25,10 +25,33 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
   text-align: center;
   padding:25px 0px;
 }
-#frame_edit { 
-  margin: 0px auto;
+#frame_edit {
+  position:relative;
+  left:-50%;
+  float:left;
+  color: #000;
   width: 400px;
-  height: 300px;
+  height: 350px;
+  padding: 25px;
+  margin-top: 50px;
+  -moz-box-shadow: 0px 0px 10px #888;
+  -o-box-shadow: 0px 0px 10px #888;
+  -webkit-box-shadow: 0px 0px 10px #888;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -o-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+}
+#admchange{
+  display: inline-block;
+  text-align: center;
+}
+#frame_admedit{ 
+  position:relative;
+  left:-50%;
+  float:left;
+  color: #000;
+  width: 400px;
+  height: 350px;
   padding: 25px;
   margin-top: 50px;
   -moz-box-shadow: 0px 0px 10px #888;
@@ -151,6 +174,12 @@ text-align: left;
 
 /* ############### id attribute #<id> ############### */
 
+#center{
+    position: relative;
+    left: 50%;
+    float: left;
+}
+
 /* Huvudområde längst ned på sidan*/
 #footer-wrapper {
   width: 100%;
@@ -196,9 +225,17 @@ text-align: left;
   height: 103px;
 }
 
+#password{
+    width:360px;
+}
+
 #rmimg{
   width: 120px;
   margin-left: 25px;
+}
+
+#username{
+    width:360px;
 }
 
 /* ############### name attribute .<name> ############### */
@@ -210,6 +247,10 @@ text-align: left;
 }
 
 /* ############### tag attribute  ############### */
+
+b{
+    font-weight:bold;
+}
 
 /* generella inställningar för body */
 body{
@@ -244,12 +285,19 @@ form *:focus {
 
 /* enskilda fält */
 input, textarea {
+  background: #fee;
+}
+
+select{
+  background: #fff;
+}
+
+input, textarea, select{
   font-size: 1em;
   border: 2px solid #999;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  background: #fee;
   display: block;
   margin: 0;
   padding: .5em;
