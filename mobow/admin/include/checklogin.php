@@ -9,7 +9,6 @@ if(isset($_POST['login']))
   $result = mysqli_query($con, $sql); 
   if (mysqli_num_rows($result) != 0) 
   {
-      echo "def";
     // det finns en användare
     $row = mysqli_fetch_assoc($result);
     mysqli_free_result($result);
@@ -24,12 +23,7 @@ if(isset($_POST['login']))
         {
             //password uppdaterat
         }
-        else 
-        {
-          // misslyckades uppdatera lösenord
-          // ta bort innan release
-          die("Fixa detta script, sql-frågan kanske?");
-        }
+        else {}
       }
     // inloggad
     $_SESSION['first_name'] = $row['fornamn'];
