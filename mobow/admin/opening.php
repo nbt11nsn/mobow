@@ -66,12 +66,18 @@ if (mysqli_num_rows($iresult) != 0) {
 echo '<li>
 <label for="'.$irows["veckonamn"].'" id="day">'.$irows["veckonamn"].': </label></li><li>
 
-<div id = "openingFrame"><div id = "labels">
-<label>Öppnar: </label><label for="moday_close">Stänger: </label></div>
+<div id = "openingFrame">
+<div id = "labels">
+<label>Öppnar: </label>
+<label>Stänger: </label>
+</div>
 <div class = "times">
 <input type="time" align="left"  maxlength="50" value = "'.$irows['oppet'].'"  name="'.$namesdays[$index].'_open" id="'.$namesdays[$index].'_open" />
-
-<input type="time" align="left" value = "'.$irows['stangt'].'"  name="'.$namesdays[$index].'_close" id="'.$namesdays[$index++].'_close" />
+<input type="time" align="left" value = "'.$irows['stangt'].'"  name="'.$namesdays[$index].'_close" id="'.$namesdays[$index].'_close" />
+</div>
+<div id = "labels">
+<label>Stängt:</label>
+<input type="checkbox" class = "checkbox_" id="checkbox_'.$namesdays[$index++].'" value="Stängt"/>
 </div>
 </li>
 ';
@@ -93,7 +99,7 @@ if (mysqli_num_rows($iresult) != 0) {
 <div class = "times">
 <input type="time" align="left"  maxlength="50" value = ""  name="'.$namesdays[$index].'_open" id="'.$namesdays[$index].'_open" />
 
-<input type="time" align="left" value = ""  name="'.$namesdays[$index].'_close" id="'.$namesdays[$index].'_close" />
+<input type="time" align="left" value = ""  name="'.$namesdays[$index].'_close" id="'.$namesdays[$index++].'_close" />
 </div>
 </li>
 ';	
@@ -122,7 +128,7 @@ if(isset($_POST['save'])) {
 	(".mysqli_real_escape_string($con, $_POST['conts']).",6,'".mysqli_real_escape_string($con, $_POST['fri_open'])."','".mysqli_real_escape_string($con, $_POST['fri_close'])."'),
 	(".mysqli_real_escape_string($con, $_POST['conts']).",2,'".mysqli_real_escape_string($con, $_POST['sat_open'])."','".mysqli_real_escape_string($con, $_POST['sat_close'])."'),
 	(".mysqli_real_escape_string($con, $_POST['conts']).",7,'".mysqli_real_escape_string($con, $_POST['sun_open'])."','".mysqli_real_escape_string($con, $_POST['sun_close'])."')
-	;";
+	;";	
 	mysqli_query($con, $sqlquery);  
 }
 
