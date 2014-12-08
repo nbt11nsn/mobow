@@ -85,7 +85,6 @@ echo '<li>
 	else{		
 	$isql3 = "SELECT veckonamn FROM veckodagar ORDER BY ID";
 $iresult = mysqli_query($con, $isql3);
-echo '<ul>';
 if (mysqli_num_rows($iresult) != 0) {
   while($irows = mysqli_fetch_assoc($iresult)){ 
 	echo '<li>
@@ -99,7 +98,11 @@ if (mysqli_num_rows($iresult) != 0) {
 <div class = "times">
 <input type="time" align="left"  maxlength="50" value = ""  name="'.$namesdays[$index].'_open" id="'.$namesdays[$index].'_open" />
 
-<input type="time" align="left" value = ""  name="'.$namesdays[$index].'_close" id="'.$namesdays[$index++].'_close" />
+<input type="time" align="left" value = ""  name="'.$namesdays[$index].'_close" id="'.$namesdays[$index].'_close" />
+</div>
+<div id = "labels">
+<label>Stängt:</label>
+<input type="checkbox" class = "checkbox_" id="checkbox_'.$namesdays[$index++].'" value="Stängt"/>
 </div>
 </li>
 ';	
