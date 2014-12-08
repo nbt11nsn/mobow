@@ -38,16 +38,27 @@ require_once(__DIR__ .'./../../db.php');
 </div><!--main-wrapper-->
 <div id="frame">
 <div id = "overviewinfo">
-<div> Antal kontrakt: </div> 
-<div> Antal uthyrda stationer: 
-		<?php 
-$isql2 = "SELECT SUM(stn) FROM kontrakt";		
+<div> 		<?php 
+//Skriver ut antal teckanade avtal
+$isql2 = "SELECT count(ID) FROM kontrakt";		
 	$iresult = mysqli_query($con, $isql2);
 	if (mysqli_num_rows($iresult) != 0) {
-      while($irows = mysqli_fetch_assoc($iresult)) {	  
-	  
-	  echo "<div>"."Du har för närvarande ".$irows['SUM(stn)']." stationer uthyrda"."</div>";
+      while($irows = mysqli_fetch_assoc($iresult)) {	    
+	  echo "<div>"."Du har för närvarande ".$irows['count(ID)']." tecknade avtal"."</div>";	
+    }
+  }
+  mysqli_free_result($iresult);	
+	?>
+	</div> 
 	
+<div> 
+		<?php 
+		//Skriver ut antal uthyrda stationer
+$isql3 = "SELECT SUM(stn) FROM kontrakt";		
+	$iresult = mysqli_query($con, $isql3);
+	if (mysqli_num_rows($iresult) != 0) {
+      while($irows = mysqli_fetch_assoc($iresult)) {	  	  
+	  echo "<div>"."Du har för närvarande ".$irows['SUM(stn)']." stationer uthyrda"."</div>";	
     }
   }
   mysqli_free_result($iresult);	
@@ -56,22 +67,40 @@ $isql2 = "SELECT SUM(stn) FROM kontrakt";
 
 
 
-<div> Framtida kontroller: </div> 
+<div> 		
+<?php 
+//Skriver ut senaste och nästa besök
+$isql4 = "SELECT kontorsnamn, sbesok FROM kontrakt ";
+	$iresult = mysqli_query($con, $isql4);
+	if (mysqli_num_rows($iresult) != 0) {
+      while($irows = mysqli_fetch_assoc($iresult)) { 
+	  	  	  $startDate = $irows['sbesok'];
+		$endDate = date("Y-m-d", strtotime("$startDate +6 month"));
+		 
+	  echo "<div>"."Senaste besöket på ".$irows['kontorsnamn']." var: ".$irows['sbesok']."</div><div>"."Nästa besök är: ".$endDate."</div>";
+
+
+	}
+  }
+  mysqli_free_result($iresult);	
+
+	?> 
+	</div> 
 
 
 
 	<form action="" method="post" id = "postRows">
 		<select name = "dropdown" id = "invoicedropdown">		
 		<?php 
-	$isql = "SELECT * FROM kontaktperson JOIN kontrakt on kontrakt.kontaktpersonid = kontaktperson.ID";		
+	$isql = "SELECT * FROM kontaktperson JOIN kontrakt on kontrakt.kontaktpersonid = kontaktperson.anvnamn";		
 	$iresult = mysqli_query($con, $isql);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	  
-	  if(isset($_POST['dropdown']) && $irows['ID'] == $_POST['dropdown']){
-	  	  echo "<option value=".$irows['ID']." selected='selected' >".$irows['fornamn']."</option>";
+	  if(isset($_POST['dropdown']) && $irows['anvnamn'] == $_POST['dropdown']){
+	  	  echo "<option value=".$irows['anvnamn']." selected='selected' >".$irows['fornamn']."</option>";
 	  }
 	else{
-	  echo "<option value=".$irows['ID'].">".$irows['fornamn']." ".$irows['efternamn'].", ".$irows['kontorsnamn']."</option>";
+	  echo "<option value=".$irows['anvnamn'].">".$irows['fornamn']." ".$irows['efternamn'].", ".$irows['kontorsnamn']."</option>";
 	}
     }
   }
