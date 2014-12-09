@@ -112,7 +112,7 @@ $isql4 = "SELECT kontorsnamn, sbesok
 		</form>
 				<?php 
 		if(isset($_POST["choicebutton"])){
-			$isql6 = "SELECT kontorsnamn, fornamn, efternamn, mobil, mejl 
+			$isql6 = "SELECT kontorsnamn, fornamn, efternamn, mobil, mejl, tele 
 						FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn 
 							WHERE kontaktperson.anvnamn = '".$_POST['dropdown']."'";
 	$iresult = mysqli_query($con, $isql6);
@@ -120,6 +120,7 @@ $isql4 = "SELECT kontorsnamn, sbesok
       while($irows2 = mysqli_fetch_assoc($iresult)) {
 	  echo "<div id='invoicelistframe'>"
 	  ."Företag: ".$irows2['kontorsnamn']."<br /> "
+	  ."Företags telenr: ".$irows2['tele']."<br /> "
 	  ."Namn: ".$irows2['fornamn']." ".$irows2['efternamn']."<br /> "
 	  ."Telenr: ".$irows2['mobil']."<br /> "
 	  ."Mejl: ".$irows2['mejl']."</div></a>";
