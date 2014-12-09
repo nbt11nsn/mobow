@@ -24,6 +24,7 @@ defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../../db.php');
 defined('THE_MENUE') || define('THE_MENUE', TRUE);
 require_once("include/menuebar.php");
+$isql = "SELECT * FROM faktura NATURAL JOIN kontrakt";
 
 ?>
 <div id = "invoiceframe">
@@ -77,8 +78,6 @@ require_once("include/menuebar.php");
 	<form action="" method="post" id = "postRows">
 		<select name = "dropdown" id = "invoicedropdown">		
 		<?php 	
-		$isql = "SELECT ID, kontorsnamn 
-					FROM faktura NATURAL JOIN kontrakt";
 	$iresult = mysqli_query($con, $isql);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	  
@@ -96,9 +95,7 @@ require_once("include/menuebar.php");
 		</form>
 				<?php 
 		if(isset($_POST["choicebutton"])){
-			$isql2 = "SELECT url, namn, datum 
-						FROM faktura LEFT OUTER JOIN kontrakt ON kontrakt.ID = faktura.agarid 
-							WHERE kontrakt.ID = '".$_POST['dropdown']."' ORDER BY Datum DESC";
+			$isql2 = "SELECT * FROM faktura LEFT OUTER JOIN kontrakt ON kontrakt.ID = faktura.agarid WHERE kontrakt.ID = '".$_POST['dropdown']."' ORDER BY Datum DESC";
 	$iresult = mysqli_query($con, $isql2);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows2 = mysqli_fetch_assoc($iresult)) {
