@@ -63,22 +63,27 @@ $iresult = mysqli_query($con, $isql2);
 if (mysqli_num_rows($iresult) != 0) {
   $irows = mysqli_fetch_assoc($iresult);
 }	  
-echo '<ul><li>
+echo '<ul>';
+echo'
+<li>
 <label for="kontor">Namn: </label>
 <input type="text" align="left"  maxlength="50" value = "'.$irows["kontorsnamn"].'"  name="kontor" id="kontor" />
 </li>
 <li>
 <label for="sbesok">Senaste besök: </label>
 <input type="date" align="left" value = "'.$irows["sbesok"].'"  name="sbesok" id="sbesok" />
-</li>
+</li>';
+echo'
 <li>
 <label for="telefonenbr">Telefon: </label>
 <input type="tel" align="left"  maxlength="20" value = "'.$irows["tele"].'"  name="telefonenbr" id="telefonenbr" />
-</li>
+</li>';
+echo'
 <li>
 <label for="stn">Antal stationer: </label>
 <input type="number" align="left"  value = "'.$irows["stn"].'" maxlength="11" value="stn" name="stn" name="stn" />
-</li>
+</li>';
+echo'
 <li>
 <label for="hemsida" >Hemsida (kom ihåg http://): </label>
 <input type="url" align="left" value = "'.$irows["hemsida"].'" maxlength="256" value="hemsida" name="hemsida" id="hemsida" />
@@ -98,7 +103,8 @@ echo '<ul><li>
 <li>
 <label for="backcolor">Bakgrundsfärg: </label>
 <input type="color" align="left"  value = "'.$irows["backcolor"].'" maxlength="7" value="backcolor" name="backcolor" id="backcolor" />
-</li>
+</li>';
+echo'
 <li>
 <label for="postnr">Postnummer: </label>
 <input type="number" align="left"  value = "'.$irows["postnr"].'" maxlength="11" value="postnr" name="postnr" id="postnr" />
@@ -110,7 +116,8 @@ echo '<ul><li>
 <li>
 <label for="gata">Gata: </label>
 <input type="text"  align="left" value = "'.$irows["gata"].'" maxlength="100" value="gata" name="gata" id="gata" />
-</li>
+</li>';
+echo'
 <li>
 <label for="logga">Nuvarande bild: </label>';
 if(isset($irows["logurl"])){
