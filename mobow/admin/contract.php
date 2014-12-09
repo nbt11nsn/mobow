@@ -23,8 +23,14 @@ defined('THE_MENUE') || define('THE_MENUE', TRUE);
 require_once("include/menuebar.php");
 defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../../db.php');
-$isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID
-LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID";
+$adm = mysqli_real_escape_string($con, $_SESSION['admin']);
+$usr = mysqli_real_escape_string($con, $_SESSION['username']);
+if($adm){
+    $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID";
+}
+else{
+    $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontaktperson.anvnamn = '$usr'";
+}
 ?>
 
 <div id = "frame">
@@ -50,7 +56,7 @@ mysqli_free_result($iresult);
 
 <?php
 
-if(isset($_POST['accept'])) 
+if(isset($_POST['accept'])&&is_numeric($_POST['contracts'])) 
 {
 $isql2 = "SELECT kontrakt.ID, kontorsnamn, sbesok, tele, logurl, gata, stn, allminfo, currinfo, hemsida, forecolor, backcolor, postnr, stad FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontrakt.ID = '".$_POST['contracts']."'";
 $iresult = mysqli_query($con, $isql2);

@@ -38,7 +38,6 @@ require_once("include/head.php");
 <script language="javascript" type="text/javascript" src = "include/googlemap.js"></script>
 <script type="text/javascript">
     var obj = <?php echo json_encode($places, JSON_UNESCAPED_UNICODE); ?>;
-	var openinghours = <?php echo json_encode($open, JSON_UNESCAPED_UNICODE); ?>;
 </script>
 
 </head>
