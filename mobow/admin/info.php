@@ -40,7 +40,8 @@ require_once(__DIR__ .'./../../db.php');
 <div id = "overviewinfo">
 <div> 		<?php 
 //Skriver ut antal teckanade avtal
-$isql2 = "SELECT count(ID) FROM kontrakt";		
+$isql2 = "SELECT count(ID) 
+			FROM kontrakt";		
 	$iresult = mysqli_query($con, $isql2);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	    
@@ -54,7 +55,8 @@ $isql2 = "SELECT count(ID) FROM kontrakt";
 <div> 
 		<?php 
 		//Skriver ut antal uthyrda stationer
-$isql3 = "SELECT SUM(stn) FROM kontrakt";		
+$isql3 = "SELECT SUM(stn) 
+			FROM kontrakt";		
 	$iresult = mysqli_query($con, $isql3);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	  	  
@@ -70,7 +72,8 @@ $isql3 = "SELECT SUM(stn) FROM kontrakt";
 <div> 		
 <?php 
 //Skriver ut senaste och nästa besök
-$isql4 = "SELECT kontorsnamn, sbesok FROM kontrakt ";
+$isql4 = "SELECT kontorsnamn, sbesok 
+			FROM kontrakt ";
 	$iresult = mysqli_query($con, $isql4);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) { 
@@ -78,21 +81,20 @@ $isql4 = "SELECT kontorsnamn, sbesok FROM kontrakt ";
 		$endDate = date("Y-m-d", strtotime("$startDate +6 month"));
 		 
 	  echo "<div>"."Senaste besöket på ".$irows['kontorsnamn']." var: ".$irows['sbesok']."</div><div>"."Nästa besök är: ".$endDate."</div>";
-
-
 	}
   }
   mysqli_free_result($iresult);	
 
 	?> 
 	</div> 
-
-
+	
+	
 	<form action="" method="post" id = "postRows">
 		<select name = "dropdown" id = "invoicedropdown">		
 		<?php 
 		//Skriver ut kontaktpersonens info
-	$isql = "SELECT * FROM kontaktperson JOIN kontrakt on kontrakt.kontaktpersonid = kontaktperson.anvnamn";		
+	$isql = "SELECT anvnamn, fornamn, efternamn, kontorsnamn 
+				FROM kontaktperson JOIN kontrakt on kontrakt.kontaktpersonid = kontaktperson.anvnamn";		
 	$iresult = mysqli_query($con, $isql);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	  
@@ -106,8 +108,28 @@ $isql4 = "SELECT kontorsnamn, sbesok FROM kontrakt ";
   }
   mysqli_free_result($iresult);	
 	?>	
+		<input type="submit" name = "choicebutton" id = "choicebutton" value="Välj kontakt">
+		</form>
+				<?php 
+		if(isset($_POST["choicebutton"])){
+			$isql6 = "SELECT kontorsnamn, fornamn, efternamn, mobil, mejl 
+						FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn 
+							WHERE kontaktperson.anvnamn = '".$_POST['dropdown']."'";
+	$iresult = mysqli_query($con, $isql6);
+	if (mysqli_num_rows($iresult) != 0) {
+      while($irows2 = mysqli_fetch_assoc($iresult)) {
+	  echo "<div id='invoicelistframe'>"
+	  ."Företag: ".$irows2['kontorsnamn']."<br /> "
+	  ."Namn: ".$irows2['fornamn']." ".$irows2['efternamn']."<br /> "
+	  ."Telenr: ".$irows2['mobil']."<br /> "
+	  ."Mejl: ".$irows2['mejl']."</div></a>";
+		}
+	}
+	  mysqli_free_result($iresult);
+  }	
+	?>	
 </div>
-
+ </form>
 
 <?php
 defined('THE_FOOTER') || define('THE_FOOTER', TRUE);
