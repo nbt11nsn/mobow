@@ -58,7 +58,7 @@ if(isset($_POST['accept']))
 {
 $index = 0;
 $namesdays = array("mon","thue","wed","thur","fri","sat","sun");
-$isql2 = "SELECT veckonamn, oppet, stangt, kontraktid, veckodagarid FROM veckodagar LEFT OUTER JOIN oppettider on veckodagarid = veckodagar.ID WHERE kontraktid = '".$_POST['conts']."' ORDER BY veckodagarid";
+$isql2 = "SELECT veckonamn, oppet, stangt, kontraktid, veckodagarid, arStangt FROM veckodagar LEFT OUTER JOIN oppettider on veckodagarid = veckodagar.ID WHERE kontraktid = '".$_POST['conts']."' ORDER BY veckodagarid";
 $iresult = mysqli_query($con, $isql2);
 echo '<ul>';
 if (mysqli_num_rows($iresult) != 0) {
@@ -76,8 +76,14 @@ echo '<li>
 <input type="time" align="left" value = "'.$irows['stangt'].'"  name="'.$namesdays[$index].'_close" id="'.$namesdays[$index].'_close" />
 </div>
 <div id = "labels">
-<label>Stängt:</label>
-<input type="checkbox" class = "checkbox_" id="checkbox_'.$namesdays[$index++].'" value="Stängt"/>
+<label>Stängt:</label>';
+if($irows["arStangt"] != 0) {
+	echo '<input type="checkbox" class = "checkbox_" id="check_'.$namesdays[$index].'" name="check_'.$namesdays[$index++].'" value="Yes" checked/>';
+	}
+else { 
+	echo '<input type="checkbox" class = "checkbox_" id="check_'.$namesdays[$index].'" name="check_'.$namesdays[$index++].'"/>';
+	}
+echo '
 </div>
 </li>
 ';
@@ -102,7 +108,7 @@ if (mysqli_num_rows($iresult) != 0) {
 </div>
 <div id = "labels">
 <label>Stängt:</label>
-<input type="checkbox" class = "checkbox_" id="checkbox_'.$namesdays[$index++].'" value="Stängt"/>
+<input type="checkbox" class = "checkbox_" id="checkbox_'.$namesdays[$index++].'"/>
 </div>
 </li>
 ';	
@@ -118,21 +124,44 @@ if (mysqli_num_rows($iresult) != 0) {
 </form>';
 
 } 
-	
-
-
 
 if(isset($_POST['save'])) {
-    $sqlquery = "REPLACE INTO oppettider (kontraktid,veckodagarid,oppet,stangt)
-	VALUES (".$_POST['conts'].",1,'".$_POST['mon_open']."','".$_POST['mon_close']."'),	
-	(".mysqli_real_escape_string($con, $_POST['conts']).",3,'".mysqli_real_escape_string($con, $_POST['thue_open'])."','".mysqli_real_escape_string($con, $_POST['thue_close'])."'),
-	(".mysqli_real_escape_string($con, $_POST['conts']).",4,'".mysqli_real_escape_string($con, $_POST['wed_open'])."','".mysqli_real_escape_string($con, $_POST['wed_close'])."'),
-	(".mysqli_real_escape_string($con, $_POST['conts']).",5,'".mysqli_real_escape_string($con, $_POST['thur_open'])."','".mysqli_real_escape_string($con, $_POST['thur_close'])."'),
-	(".mysqli_real_escape_string($con, $_POST['conts']).",6,'".mysqli_real_escape_string($con, $_POST['fri_open'])."','".mysqli_real_escape_string($con, $_POST['fri_close'])."'),
-	(".mysqli_real_escape_string($con, $_POST['conts']).",2,'".mysqli_real_escape_string($con, $_POST['sat_open'])."','".mysqli_real_escape_string($con, $_POST['sat_close'])."'),
-	(".mysqli_real_escape_string($con, $_POST['conts']).",7,'".mysqli_real_escape_string($con, $_POST['sun_open'])."','".mysqli_real_escape_string($con, $_POST['sun_close'])."')
+$contractid = mysqli_real_escape_string($con, $_POST['conts']);
+$mon_o = mysqli_real_escape_string($con, $_POST['mon_open']);
+$mon_c = mysqli_real_escape_string($con, $_POST['mon_close']);
+$thue_o = mysqli_real_escape_string($con, $_POST['thue_open']);
+$thue_c = mysqli_real_escape_string($con, $_POST['thue_open']);
+$wed_o = mysqli_real_escape_string($con, $_POST['wed_open']);
+$wed_c = mysqli_real_escape_string($con, $_POST['wed_close']);
+$thur_o = mysqli_real_escape_string($con, $_POST['thur_open']);
+$thur_c = mysqli_real_escape_string($con, $_POST['thur_close']);
+$fri_o = mysqli_real_escape_string($con, $_POST['fri_open']);
+$fri_c = mysqli_real_escape_string($con, $_POST['fri_close']);
+$sat_o = mysqli_real_escape_string($con, $_POST['sat_open']);
+$sat_c = mysqli_real_escape_string($con, $_POST['sat_close']);
+$sun_o = mysqli_real_escape_string($con, $_POST['sun_open']);
+$sun_c = mysqli_real_escape_string($con, $_POST['sun_close']);
+$mon_is_c = isset($_POST['check_mon']);
+$thue_is_c = isset($_POST['check_thue']);
+$wed_is_c = isset($_POST['check_wed']);
+$thur_is_c = isset($_POST['check_thur']);
+$fri_is_c = isset($_POST['check_fri']);
+$sat_is_c = isset($_POST['check_sat']);
+$sun_is_c = isset($_POST['check_sun']);
+
+
+
+
+    $sqlquery = "REPLACE INTO oppettider (kontraktid,veckodagarid,oppet,stangt,arStangt)
+	VALUES (".$contractid.",1,'".$mon_o."','".$mon_c."', '".$mon_is_c."' ),	
+	(".$contractid.",2,'".$thue_o."','".$thue_c."', '".$thue_is_c."'),
+	(".$contractid.",3,'".$wed_o."','".$wed_c."', '".$wed_is_c."'),
+	(".$contractid.",4,'".$thur_o."','".$thur_c."', '".$thur_is_c."'),
+	(".$contractid.",5,'".$fri_o."','".$fri_c."', '".$fri_is_c."'),
+	(".$contractid.",6,'".$sat_o."','".$sat_c."', '".$sat_is_c."'),
+	(".$contractid.",7,'".$sun_o ."','".$sun_c."', '".$sun_is_c."')
 	;";	
-	mysqli_query($con, $sqlquery);  
+mysqli_query($con, $sqlquery);  
 }
 
 ?>
