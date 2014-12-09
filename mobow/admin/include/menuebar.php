@@ -5,7 +5,7 @@
   <nav>
     <ul>
       <li><a href="info.php" class="hemikon">H</a></li> 
-      <li><a href="#">Nytt kontrakt</a></li> 
+      <li><a href="newcontract.php">Nytt kontrakt</a></li> 
       <li><a href="invoice.php">Faktura</a></li>
       <li><a href="report.php">Felrapportering</a></li>
       <li class="gotsub"><a href="#">Editera</a>
