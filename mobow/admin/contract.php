@@ -85,7 +85,7 @@ if (mysqli_num_rows($resultikon) != 0) {
     {
       echo "<option value=".$ikons['ID']." selected='selected' >".$ikons['typ']."</option>";
     }
-    else {		
+    else {
       echo "<option value=".$ikons['ID']." >".$ikons['typ']."</option>";
     }	
   }
@@ -122,11 +122,11 @@ echo'
 </li>
 <li>
 <label for="forecolor">Förgrundsfärg: </label>
-<input type="color" align="left"  value = "'.$irows["forecolor"].'" maxlength="7" value="forecolor" name="forecolor" id="forecolor" />
+<input type="color" align="left"  value = "'.$irows["forecolor"].'" maxlength="7" name="forecolor" id="forecolor" />
 </li>
 <li>
 <label for="backcolor">Bakgrundsfärg: </label>
-<input type="color" align="left"  value = "'.$irows["backcolor"].'" maxlength="7" value="backcolor" name="backcolor" id="backcolor" />
+<input type="color" align="left"  value = "'.$irows["backcolor"].'" maxlength="7" name="backcolor" id="backcolor" />
 </li>';
 if($adm){
 echo'
@@ -201,12 +201,13 @@ if(isset($_POST['forrmimg'])&&isset($_POST['contracts'])){
   }
 }
 
-if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_POST['stad'])&&isset($_POST['contracts'])&&isset($_POST['kontor'])&&isset($_POST['sbesok']))
+if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_POST['stad'])&&isset($_POST['contracts'])&&isset($_POST['kontor'])&&isset($_POST['sbesok'])&&isset($_POST['typ']))
 {
     $error = false;
     $g=mysqli_real_escape_string($con,$_POST['gata']);
     $ss=mysqli_real_escape_string($con,$_POST['stad']);
     $k=mysqli_real_escape_string($con,$_POST['kontor']);
+    $ty=mysqli_real_escape_string($con,$_POST['typ']);
     if(is_numeric($_POST['stn'])){
         $s=$_POST['stn'];
     }
@@ -215,7 +216,7 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
         $c=$_POST['contracts'];
     }
     else{$error="Kontraktet finns inte";}
-    $sql3 = "UPDATE kontrakt, adress SET kontrakt.kontorsnamn = '$k', adress.gata = '$g', kontrakt.stn = '$s', adress.stad = '$ss'";
+    $sql3 = "UPDATE kontrakt, adress SET kontrakt.kontorsnamn = '$k', adress.gata = '$g', kontrakt.stn = '$s', adress.stad = '$ss', kontrakt.ikonid = '$ty'";
 
 
 
@@ -232,7 +233,8 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
             $err.='Filformatet stöds inte<br />';
         }
         if($ok==false){
-            echo $err;
+            echo "<div class='error'>$err</div>";
+            $error="Gick inte att ladda upp bilden";
         }
         else
         {
@@ -286,14 +288,14 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
     $sql3.=" WHERE kontrakt.adressid = adress.ID AND kontrakt.ID = '$c'";
     if(!$error){
         if(mysqli_query($con, $sql3)){
-            echo "<br /><br /><b>Uppdateringen lyckades</b>";
+            echo "<div class='ok'>Uppdateringen lyckades</div>";
         }
         else{
-            echo "<br /><br /><b>Uppdateringen misslyckades</b>";
+            echo "<div class='error'>Uppdateringen misslyckades</div>";
         }
     }
     else{
-        echo "<br /><br /><b>$error</b>";
+        echo "<div class='error'>$error</div>";
     }
 }
 
