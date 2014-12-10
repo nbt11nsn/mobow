@@ -37,10 +37,7 @@ require_once(__DIR__ .'./../../db.php');
 ?>
 
 <div id="frame">
-<div id = "overviewinfo">
-	</div> 
-	
-	
+
 	<form action="" method="post" id = "postRows">
 		<select name = "dropdown" id = "invoicedropdown">		
 		<?php 
@@ -66,7 +63,7 @@ require_once(__DIR__ .'./../../db.php');
 		$startDate = $irows['sbesok'];
 		$endDate = date("Y-m-d", strtotime("$startDate +6 month"));
 		if(isset($_POST["choicebutton"])){
-			$isql6 = "SELECT SUM(stn), postnr, stad, gata, kontorsnamn, fornamn, efternamn, mobil, mejl, sbesok 
+			$isql6 = "SELECT SUM(stn), postnr, stad, gata, kontorsnamn, fornamn, efternamn, mobil, mejl, sbesok, anvnamn 
 						FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn JOIN adress on kontrakt.ID = adress.ID
 							WHERE kontaktperson.anvnamn = '".$_POST['dropdown']."'";
 	$iresult = mysqli_query($con, $isql6);
@@ -81,6 +78,7 @@ require_once(__DIR__ .'./../../db.php');
 	  ."Adress: ".$irows2['gata'].", ".$irows2['postnr']." ".$irows2['stad']."<br /> "
 	  ."Organisationsnummer: ". " <br /> "	  
 	  ."Kontaktperson: ".$irows2['fornamn']." ".$irows2['efternamn']."<br /> "
+	  ."Användarnamn: ".$irows2['anvnamn']."<br /> "
 	  ."Telefonnummer: ".$irows2['mobil']."<br /> "
 	  ."Mejl: ".$irows2['mejl']."<br /> "
 	  ."Senaste faktura: ". "</div></a>";
