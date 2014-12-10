@@ -35,7 +35,7 @@ defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../../db.php');
 
 ?>
-</div><!--main-wrapper-->
+
 <div id="frame">
 <div id = "overviewinfo">
 <div> 		<?php 
@@ -111,20 +111,25 @@ $isql4 = "SELECT kontorsnamn, sbesok
 		<input type="submit" name = "choicebutton" id = "choicebutton" value="Välj kontakt">
 		</form>
 				<?php 
+		$startDate = $irows['sbesok'];
+		$endDate = date("Y-m-d", strtotime("$startDate +6 month"));
 		if(isset($_POST["choicebutton"])){
-			$isql6 = "SELECT postnr, stad, gata, kontorsnamn, fornamn, efternamn, mobil, mejl, tele 
+			$isql6 = "SELECT SUM(stn), postnr, stad, gata, kontorsnamn, fornamn, efternamn, mobil, mejl, sbesok 
 						FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn JOIN adress on kontrakt.ID = adress.ID
 							WHERE kontaktperson.anvnamn = '".$_POST['dropdown']."'";
 	$iresult = mysqli_query($con, $isql6);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows2 = mysqli_fetch_assoc($iresult)) {
+	  	
 	  echo "<div id='invoicelistframe'>"
 	  ."Företag: ".$irows2['kontorsnamn']."<br /> "
+	  ."Hyr antal stationer: ".$irows2['SUM(stn)']."<br /> "
+	  ."Senaste besök: ".$irows2['sbesok']."<br /> "
+	  ."Nästa besök: ".$endDate."<br /> "
 	  ."Adress: ".$irows2['gata'].", ".$irows2['postnr']." ".$irows2['stad']."<br /> "
-	  ."Organisationsnummer: ". " <br /> "
-	  ."Företags telenr: ".$irows2['tele']."<br /> "
+	  ."Organisationsnummer: ". " <br /> "	  
 	  ."Kontaktperson: ".$irows2['fornamn']." ".$irows2['efternamn']."<br /> "
-	  ."Kontaktpersons telenr: ".$irows2['mobil']."<br /> "
+	  ."Telefonnummer: ".$irows2['mobil']."<br /> "
 	  ."Mejl: ".$irows2['mejl']."<br /> "
 	  ."Senaste faktura: ". "</div></a>";
 		}
@@ -134,16 +139,10 @@ $isql4 = "SELECT kontorsnamn, sbesok
 	?>	
 </div>
  </form>
-
+</div><!--main-wrapper-->
 <?php
 defined('THE_FOOTER') || define('THE_FOOTER', TRUE);
 require_once("include/footer.php");
-?>
-
-<?php // Anteckningar
-
-// knapparna skall komma upp endast om ett företag har gjort en felrapport/editerat info. 
-// **KLAR**dirigera vidare vid ett knapptryck till rätt flik
 ?>
 
 
