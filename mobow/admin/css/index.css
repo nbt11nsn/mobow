@@ -104,9 +104,13 @@ background: #efefef;
   height: 100%;
   position:relative;
   left:540px;bottom:20px;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #ff6699;
   background: #CCC; 
   display: inline-block; 
   text-align: center;
+ 
 }
 
 #preview{
@@ -116,7 +120,10 @@ background: #efefef;
 	width: 100%;
     height: 100%;	
 	position:relative;
-	right:500px;bottom:850px;
+	border-style: solid;
+    border-width: 5px;
+    border-color: #ff6699;
+	right:500px;bottom:860px;
 }
 #invoicelistframe { 
 background: #efefef; 
@@ -128,7 +135,6 @@ background: #efefef;
 	width: 95%;
 	position:relative;
 	left:5px;top:0px;
-	color: #EA005A; 
 	font: 18px Arial,sans-serif;
 }
 #frame *{

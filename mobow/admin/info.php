@@ -112,18 +112,21 @@ $isql4 = "SELECT kontorsnamn, sbesok
 		</form>
 				<?php 
 		if(isset($_POST["choicebutton"])){
-			$isql6 = "SELECT kontorsnamn, fornamn, efternamn, mobil, mejl, tele 
-						FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn 
+			$isql6 = "SELECT postnr, stad, gata, kontorsnamn, fornamn, efternamn, mobil, mejl, tele 
+						FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn JOIN adress on kontrakt.ID = adress.ID
 							WHERE kontaktperson.anvnamn = '".$_POST['dropdown']."'";
 	$iresult = mysqli_query($con, $isql6);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows2 = mysqli_fetch_assoc($iresult)) {
 	  echo "<div id='invoicelistframe'>"
 	  ."Företag: ".$irows2['kontorsnamn']."<br /> "
+	  ."Adress: ".$irows2['gata'].", ".$irows2['postnr']." ".$irows2['stad']."<br /> "
+	  ."Organisationsnummer: ". " <br /> "
 	  ."Företags telenr: ".$irows2['tele']."<br /> "
-	  ."Namn: ".$irows2['fornamn']." ".$irows2['efternamn']."<br /> "
-	  ."Telenr: ".$irows2['mobil']."<br /> "
-	  ."Mejl: ".$irows2['mejl']."</div></a>";
+	  ."Kontaktperson: ".$irows2['fornamn']." ".$irows2['efternamn']."<br /> "
+	  ."Kontaktpersons telenr: ".$irows2['mobil']."<br /> "
+	  ."Mejl: ".$irows2['mejl']."<br /> "
+	  ."Senaste faktura: ". "</div></a>";
 		}
 	}
 	  mysqli_free_result($iresult);
