@@ -163,7 +163,8 @@ width: 50%;
 #postContracts input[type="tel"],
 #postContracts input[type="number"],
 #postContracts input[type="color"],
-#postContracts input[type="url"]
+#postContracts input[type="url"],
+#postContracts select
 {
     width:80%;
 }

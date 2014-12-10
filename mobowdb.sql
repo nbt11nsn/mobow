@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 10, 2014 at 01:06 PM
+-- Generation Time: Dec 10, 2014 at 03:13 PM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -80,11 +80,12 @@ CREATE TABLE IF NOT EXISTS `edit_foretag` (
   `forecolor` varchar(7) DEFAULT NULL,
   `backcolor` varchar(7) DEFAULT NULL,
   `ikonid` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
   `meddelande` text,
   `kontraktid` int(11) NOT NULL,
   PRIMARY KEY (`kontraktid`),
-  KEY `kontraktid` (`kontraktid`)
+  KEY `kontraktid` (`kontraktid`),
+  KEY `status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -92,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `edit_foretag` (
 --
 
 INSERT INTO `edit_foretag` (`currinfo`, `tele`, `logurl`, `logbredd`, `loghojd`, `hemsida`, `allminfo`, `forecolor`, `backcolor`, `ikonid`, `status`, `meddelande`, `kontraktid`) VALUES
-(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4);
+('', 12341234, NULL, NULL, NULL, 'http://sv.wikipedia.org/wiki/', '', '#abcdef', '#543210', NULL, 1, NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -282,6 +283,27 @@ INSERT INTO `kontrakt` (`ID`, `kontorsnamn`, `sbesok`, `currinfo`, `tele`, `stn`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `medstatus`
+--
+
+CREATE TABLE IF NOT EXISTS `medstatus` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Info` varchar(50) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `medstatus`
+--
+
+INSERT INTO `medstatus` (`ID`, `Info`) VALUES
+(1, 'Mottagen'),
+(2, 'Påbörjad'),
+(3, 'Avslutad');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `oppettider`
 --
 
@@ -370,6 +392,7 @@ INSERT INTO `veckodagar` (`ID`, `akro`, `veckonamn`) VALUES
 -- Constraints for table `edit_foretag`
 --
 ALTER TABLE `edit_foretag`
+  ADD CONSTRAINT `status_ibfk_1` FOREIGN KEY (`status`) REFERENCES `medstatus` (`ID`),
   ADD CONSTRAINT `kontrakt_ibfk_3` FOREIGN KEY (`kontraktid`) REFERENCES `kontrakt` (`ID`) ON DELETE CASCADE;
 
 --

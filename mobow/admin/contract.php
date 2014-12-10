@@ -42,10 +42,10 @@ if (mysqli_num_rows($iresult) != 0) {
   while($irows = mysqli_fetch_assoc($iresult)) {
       if($_POST['contracts'] == $irows['ID'])
     {
-      echo "<option value=".$irows['ID']." selected='selected' >".$irows['kontorsnamn']."</option>";
+      echo "<option value=".$irows['ID']." selected='selected' >".$irows['kontorsnamn']." (".$irows['gata'].")</option>";
     }
     else {		
-      echo "<option value=".$irows['ID'].">".$irows['kontorsnamn']."</option>";
+      echo "<option value=".$irows['ID'].">".$irows['kontorsnamn']." (".$irows['gata'].")</option>";
     }	
   }
 }
@@ -58,22 +58,44 @@ mysqli_free_result($iresult);
 
 if(isset($_POST['accept'])&&is_numeric($_POST['contracts'])) 
 {
-$isql2 = "SELECT kontrakt.ID, kontorsnamn, sbesok, tele, logurl, gata, stn, allminfo, currinfo, hemsida, forecolor, backcolor, postnr, stad FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontrakt.ID = '".$_POST['contracts']."'";
+$isql2 = "SELECT kontrakt.ID, kontorsnamn, sbesok, tele, logurl, gata, stn, allminfo, currinfo, hemsida, forecolor, backcolor, postnr, stad, ikonid FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID WHERE kontrakt.ID = '".$_POST['contracts']."'";
 $iresult = mysqli_query($con, $isql2);
+$sqlikon = "SELECT ID, typ FROM ikontyp";
+$resultikon = mysqli_query($con, $sqlikon);
 if (mysqli_num_rows($iresult) != 0) {
   $irows = mysqli_fetch_assoc($iresult);
 }	  
 echo '<ul>';
 if($adm){
-echo'
+echo"
 <li>
-<label for="kontor">Namn: </label>
-<input type="text" align="left"  maxlength="50" value = "'.$irows["kontorsnamn"].'"  name="kontor" id="kontor" />
+<label for='kontor'>Namn: </label>
+<input type='text' align='left'  maxlength='50' value = '".$irows['kontorsnamn']."'  name='kontor' id='kontor' />
 </li>
 <li>
-<label for="sbesok">Senaste besök: </label>
-<input type="date" align="left" value = "'.$irows["sbesok"].'"  name="sbesok" id="sbesok" />
-</li>';}
+<label for='sbesok'>Senaste besök: </label>
+<input type='date' align='left' value = '".$irows['sbesok']."' name='sbesok' id='sbesok' />
+</li>
+<li>
+<label for='typ'>Typ av verksamhet: </label>
+<select name='typ' id='typ'>";
+if (mysqli_num_rows($resultikon) != 0) {
+  while($ikons = mysqli_fetch_assoc($resultikon)) {
+      if($irows['ikonid'] == $ikons['ID'])
+    {
+      echo "<option value=".$ikons['ID']." selected='selected' >".$ikons['typ']."</option>";
+    }
+    else {		
+      echo "<option value=".$ikons['ID']." >".$ikons['typ']."</option>";
+    }	
+  }
+}
+mysqli_free_result($resultikon);
+}
+echo"
+</select> 
+</li>
+";
 echo'
 <li>
 <label for="telefonenbr">Telefon: </label>
@@ -131,7 +153,7 @@ if(isset($irows["logurl"])){
   else{
   echo"<input type='submit' name='forrmimg' id='forrmimg' value='Ta bort bild' />";
   }
-  echo"</li><li><label for='logo'>Byt bild:</label>";
+  echo"</li><li><br /><label for='logo'>Byt bild (jpeg,bmp,gif,png <2MB):</label>";
 }
 else{
   echo"Ingen bild vald</li><li><label for='logo'>Välj bild:</label>";
@@ -169,7 +191,7 @@ if(isset($_POST['rmimg'])&&isset($_POST['contracts'])){
 if(isset($_POST['forrmimg'])&&isset($_POST['contracts'])){
   if(is_numeric($_POST['contracts'])){
     $c=$_POST['contracts'];
-    $sqlquery = "REPLACE INTO edit_foretag (kontraktid,logurl, logbredd, loghojd) VALUES($c,NULL,NULL,NULL)";
+    $sqlquery = "INSERT INTO edit_foretag(kontraktid, logurl, logbredd, loghojd)VALUES($c,NULL,NULL,NULL) ON DUPLICATE KEY UPDATE logurl=NULL, logbredd=NULL, loghojd=NULL";
     if(mysqli_query($con, $sqlquery)){
       echo "<br /><br /><b>Förfrågan om att ta bort bild skickat till admin</b>";
     }
@@ -272,6 +294,97 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
     }
     else{
         echo "<br /><br /><b>$error</b>";
+    }
+}
+
+if(isset($_POST['forsave']))
+{
+    $error = false;
+    if(is_numeric($_POST['contracts'])){
+        $c=$_POST['contracts'];
+    }
+    else{$error="Kontraktet finns inte";}
+
+    if(!empty($_FILES['logo']['name'])){
+        $ok=true;
+        $err="Error: ";
+        $allow = array("image/jpeg", "image/gif", "image/bmp", "image/png");
+        if($_FILES["logo"]["size"] > 2000000) {
+            $ok=false;
+            $err.='För stor fil!<br />';
+        }
+        if(!in_array($_FILES['logo']['type'], $allow)){
+            $ok=false;
+            $err.='Filformatet stöds inte!<br />';
+        }
+        if($ok==false){
+            $imgexist = false;
+            echo "<div class='error'>$err</div>";
+            $error="Gick inte att ladda upp bilden";
+        }
+        else
+        {
+            $tmp_path = $_FILES['logo']['tmp_name'];
+            $li = getimagesize($tmp_path);
+            $lw = $li[0];
+            $lh = $li[1];
+            $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
+            $target = "image/logo/tmp"."kontrakt".$c.".".$ext;
+            $abs_dir = __DIR__."/../".$target;
+            if(move_uploaded_file($tmp_path, $abs_dir)){
+                $imgexist = true;
+            }
+            else{
+                $imgexist = false;
+                $error="Gick inte att ladda upp bilden";
+            }
+        }
+    }
+    else{
+        $imgexist = false;
+    }
+    if(isset($_POST['currinfo'])){
+        $ci=mysqli_real_escape_string($con,nl2br($_POST['currinfo']));
+    }else{$ci="";}
+
+    if(isset($_POST['allminfo'])){
+        $a=mysqli_real_escape_string($con,nl2br($_POST['allminfo']));
+    }else{$a="";}
+
+    if(isset($_POST['hemsida'])){
+        $h=mysqli_real_escape_string($con,$_POST['hemsida']);
+    }else{$h="";}
+    $sql3.= ", kontrakt.hemsida = '$h'";
+
+    if(isset($_POST['forecolor'])){
+        $f=mysqli_real_escape_string($con,$_POST['forecolor']);
+    }else{$f="";}
+    $sql3.= ", kontrakt.forecolor = '$f'";
+
+    if(isset($_POST['backcolor'])){
+        $b=mysqli_real_escape_string($con,$_POST['backcolor']);
+    }else{$b="";}
+
+    if(isset($_POST['telefonenbr'])){
+        $t=mysqli_real_escape_string($con,$_POST['telefonenbr']);
+    }else{$t="";}
+
+if($imgexist){
+    $sql3 = "INSERT INTO edit_foretag(kontraktid, currinfo, tele, logurl, logbredd, loghojd, hemsida, allminfo, forecolor, backcolor)VALUES('$c','$ci','$t','$target','$lw','$lh','$h','$a','$f','$b') ON DUPLICATE KEY UPDATE currinfo='$ci', tele='$t', logurl='$target',logbredd='$lw',loghojd='$lh',hemsida='$h',allminfo='$a',forecolor='$f',backcolor='$b'";
+}
+else{
+    $sql3 = "INSERT INTO edit_foretag(kontraktid, currinfo, tele, hemsida, allminfo, forecolor, backcolor)VALUES('$c','$ci','$t','$h','$a','$f','$b') ON DUPLICATE KEY UPDATE currinfo='$ci',tele='$t',hemsida='$h',allminfo='$a',forecolor='$f',backcolor='$b'";
+}
+    if(!$error){
+        if(mysqli_query($con, $sql3)){
+            echo "<div class='ok'>Förfrågan om uppdatering av information är skickat till administratör</div>";
+        }
+        else{
+            echo "<div class='error'>Gick inte att skicka förfrågan om uppdatering</div>";
+        }
+    }
+    else{
+        echo "<div class='error'>$error</div>";
     }
 }
 ?>
