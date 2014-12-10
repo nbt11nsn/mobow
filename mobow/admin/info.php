@@ -38,54 +38,6 @@ require_once(__DIR__ .'./../../db.php');
 
 <div id="frame">
 <div id = "overviewinfo">
-<div> 		<?php 
-//Skriver ut antal teckanade avtal
-$isql2 = "SELECT count(ID) 
-			FROM kontrakt";		
-	$iresult = mysqli_query($con, $isql2);
-	if (mysqli_num_rows($iresult) != 0) {
-      while($irows = mysqli_fetch_assoc($iresult)) {	    
-	  echo "<div>"."Du har för närvarande ".$irows['count(ID)']." tecknade avtal"."</div>";	
-    }
-  }
-  mysqli_free_result($iresult);	
-	?>
-	</div> 
-	
-<div> 
-		<?php 
-		//Skriver ut antal uthyrda stationer
-$isql3 = "SELECT SUM(stn) 
-			FROM kontrakt";		
-	$iresult = mysqli_query($con, $isql3);
-	if (mysqli_num_rows($iresult) != 0) {
-      while($irows = mysqli_fetch_assoc($iresult)) {	  	  
-	  echo "<div>"."Du har för närvarande ".$irows['SUM(stn)']." stationer uthyrda"."</div>";	
-    }
-  }
-  mysqli_free_result($iresult);	
-	?>
-</div> 
-
-
-
-<div> 		
-<?php 
-//Skriver ut senaste och nästa besök
-$isql4 = "SELECT kontorsnamn, sbesok 
-			FROM kontrakt ";
-	$iresult = mysqli_query($con, $isql4);
-	if (mysqli_num_rows($iresult) != 0) {
-      while($irows = mysqli_fetch_assoc($iresult)) { 
-	  	  	  $startDate = $irows['sbesok'];
-		$endDate = date("Y-m-d", strtotime("$startDate +6 month"));
-		 
-	  echo "<div>"."Senaste besöket på ".$irows['kontorsnamn']." var: ".$irows['sbesok']."</div><div>"."Nästa besök är: ".$endDate."</div>";
-	}
-  }
-  mysqli_free_result($iresult);	
-
-	?> 
 	</div> 
 	
 	

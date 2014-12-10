@@ -68,12 +68,6 @@ require_once("include/menuebar.php");
         <div id="upload_response"></div>
 		 <div id = "listframe">	
 		 </form>
-		<?php
-		 //ALLA filer som ligger i databasen genom URL. sedan visas filnamet i 
-		 //en numrerad lista. en ladda hem knapp skall finnas för att kunna få hem fakturan igen.
-		//skapa en array som hämtar info från URL i databasen och skriver ut dessa i en numrerad lista med namnet på pdf:en
-		//target_blank på alla flikar för att öppna dom i nytt fönster
-		?>
 	<form action="" method="post" id = "postRows">
 		<select name = "dropdown" id = "invoicedropdown">		
 		<?php 	
