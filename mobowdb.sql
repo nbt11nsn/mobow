@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 10, 2014 at 03:13 PM
+-- Generation Time: Dec 10, 2014 at 03:28 PM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -107,9 +107,12 @@ CREATE TABLE IF NOT EXISTS `edit_kntper` (
   `efternamn` varchar(50) DEFAULT NULL,
   `mobil` int(11) DEFAULT NULL,
   `mejl` varchar(50) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `status` int(11) NOT NULL,
   `meddelande` mediumtext,
-  PRIMARY KEY (`ID`)
+  `kontraktid` int(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `kontraktid` (`kontraktid`),
+  KEY `status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -394,6 +397,13 @@ INSERT INTO `veckodagar` (`ID`, `akro`, `veckonamn`) VALUES
 ALTER TABLE `edit_foretag`
   ADD CONSTRAINT `status_ibfk_1` FOREIGN KEY (`status`) REFERENCES `medstatus` (`ID`),
   ADD CONSTRAINT `kontrakt_ibfk_3` FOREIGN KEY (`kontraktid`) REFERENCES `kontrakt` (`ID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `edit_kntper`
+--
+ALTER TABLE `edit_kntper`
+  ADD CONSTRAINT `kontrakt_ibfk_5` FOREIGN KEY (`kontraktid`) REFERENCES `kontrakt` (`ID`),
+  ADD CONSTRAINT `status_ibfk_2` FOREIGN KEY (`status`) REFERENCES `medstatus` (`ID`);
 
 --
 -- Constraints for table `faktura`
