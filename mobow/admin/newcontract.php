@@ -29,8 +29,6 @@ require_once(__DIR__ .'./../../db.php');
     <form action='' method='post' id ='postContracts' enctype="multipart/form-data">
 
 <?php
-
-	  
 echo '<ul><li>
 <label for="kontor">Namn: </label>
 <input type="text" align="left"  maxlength="50" value = ""  name="kontor" id="kontor" />
