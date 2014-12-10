@@ -64,6 +64,7 @@ if (mysqli_num_rows($iresult) != 0) {
   $irows = mysqli_fetch_assoc($iresult);
 }	  
 echo '<ul>';
+if($adm){
 echo'
 <li>
 <label for="kontor">Namn: </label>
@@ -72,17 +73,18 @@ echo'
 <li>
 <label for="sbesok">Senaste besök: </label>
 <input type="date" align="left" value = "'.$irows["sbesok"].'"  name="sbesok" id="sbesok" />
-</li>';
+</li>';}
 echo'
 <li>
 <label for="telefonenbr">Telefon: </label>
 <input type="tel" align="left"  maxlength="20" value = "'.$irows["tele"].'"  name="telefonenbr" id="telefonenbr" />
 </li>';
+if($adm){
 echo'
 <li>
 <label for="stn">Antal stationer: </label>
 <input type="number" align="left"  value = "'.$irows["stn"].'" maxlength="11" value="stn" name="stn" name="stn" />
-</li>';
+</li>';}
 echo'
 <li>
 <label for="hemsida" >Hemsida (kom ihåg http://): </label>
@@ -104,6 +106,7 @@ echo'
 <label for="backcolor">Bakgrundsfärg: </label>
 <input type="color" align="left"  value = "'.$irows["backcolor"].'" maxlength="7" value="backcolor" name="backcolor" id="backcolor" />
 </li>';
+if($adm){
 echo'
 <li>
 <label for="postnr">Postnummer: </label>
@@ -116,13 +119,18 @@ echo'
 <li>
 <label for="gata">Gata: </label>
 <input type="text"  align="left" value = "'.$irows["gata"].'" maxlength="100" value="gata" name="gata" id="gata" />
-</li>';
+</li>';}
 echo'
 <li>
 <label for="logga">Nuvarande bild: </label>';
 if(isset($irows["logurl"])){
   echo"<img id='logga' style='width:50px;' src='./../".$irows['logurl']."' />";
+  if($adm){
   echo"<input type='submit' name='rmimg' id='rmimg' value='Ta bort bild' />";
+  }
+  else{
+  echo"<input type='submit' name='forrmimg' id='forrmimg' value='Ta bort bild' />";
+  }
   echo"</li><li><label for='logo'>Byt bild:</label>";
 }
 else{
@@ -132,8 +140,14 @@ echo'
 <input type="file" accept="image/*" align="left" maxlength="256" name="logo" id="logo" />
 </li>
 <li class="submit">
-<input type="reset" name="rst" id="rst" value="Återställ" />
-<input type="submit" name="save" id="save" value="Spara" />
+<input type="reset" name="rst" id="rst" value="Återställ" />';
+if($adm){
+echo'
+<input type="submit" name="save" id="save" value="Spara" />';}
+else{
+echo'
+<input type="submit" name="forsave" id="forsave" value="Spara" />';}
+echo'
 </li>
 </ul>
 </form>';
@@ -143,12 +157,24 @@ if(isset($_POST['rmimg'])&&isset($_POST['contracts'])){
   if(is_numeric($_POST['contracts'])){
     $c=$_POST['contracts'];
     $sqlquery = "UPDATE kontrakt SET kontrakt.logurl=NULL, kontrakt.logbredd=NULL, kontrakt.loghojd=NULL WHERE kontrakt.ID='$c'";
-    mysqli_query($con, $sqlquery);
     if(mysqli_query($con, $sqlquery)){
       echo "<br /><br /><b>Uppdateringen lyckades</b>";
     }
     else{
       echo "<br /><br /><b>Uppdateringen misslyckades</b>";
+    }
+  }
+}
+
+if(isset($_POST['forrmimg'])&&isset($_POST['contracts'])){
+  if(is_numeric($_POST['contracts'])){
+    $c=$_POST['contracts'];
+    $sqlquery = "REPLACE INTO edit_foretag (kontraktid,logurl, logbredd, loghojd) VALUES($c,NULL,NULL,NULL)";
+    if(mysqli_query($con, $sqlquery)){
+      echo "<br /><br /><b>Förfrågan om att ta bort bild skickat till admin</b>";
+    }
+    else{
+      echo "<br /><br /><b>Gick inte att ta emot uppdatering</b>";
     }
   }
 }
