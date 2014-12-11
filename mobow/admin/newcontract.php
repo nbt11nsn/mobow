@@ -29,9 +29,15 @@ require_once(__DIR__ .'./../../db.php');
     <form action='' method='post' id ='postContracts' enctype="multipart/form-data">
 
 <?php
-echo '<ul><li>
+echo '<ul><fieldset>
+<legend><b>Kontor</b></legend>
+<li>
 <label for="kontor">Namn: </label>
 <input type="text" align="left"  maxlength="50" value = ""  name="kontor" id="kontor" />
+</li>
+<li>
+<label for="ocrnr">OCR nummer: </label>
+<input type="text" align="left"  maxlength="50" value = ""  name="ocr" id="ocr" />
 </li>
 <li>
 <label for="sbesok">Senaste besök: </label>
@@ -59,29 +65,60 @@ echo '<ul><li>
 </li>
 <li>
 <label for="forecolor">Förgrundsfärg: </label>
-<input type="color" align="left"  value = "" maxlength="7" value="forecolor" name="forecolor" id="forecolor" />
+<input type="color" align="left"  value = "" maxlength="7" name="forecolor" id="forecolor" />
 </li>
 <li>
 <label for="backcolor">Bakgrundsfärg: </label>
-<input type="color" align="left"  value = "" maxlength="7" value="backcolor" name="backcolor" id="backcolor" />
-</li>
-<li>
-<label for="postnr">Postnummer: </label>
-<input type="number" align="left"  value = "" maxlength="11" value="postnr" name="postnr" id="postnr" />
-</li>
-<li>
-<label for="stad">Stad: </label>
-<input type="text" align="left"  value = "" maxlength="100" value="stad" name="stad" id="stad" />
-</li>
-<li>
-<label for="gata">Gata: </label>
-<input type="text"  align="left" value = "" maxlength="100" value="gata" name="gata" id="gata" />
+<input type="color" align="left"  value = "#FFFFFF" maxlength="7" name="backcolor" id="backcolor" />
 </li>
 <li>
 <label for="logga">Nuvarande bild: </label>
 Ingen bild vald</li><li><label for="logo">Välj bild:</label>
 <input type="file" accept="image/*" align="left" maxlength="256" name="logo" id="logo" />
 </li>
+</fieldset>
+<fieldset>
+<legend><b>Adress</b></legend>
+<li>
+<label for="postnr">Postnummer: </label>
+<input type="number" align="left"  value = "" maxlength="11"  name="postnr" id="postnr" />
+</li>
+<li>
+<label for="stad">Stad: </label>
+<input type="text" align="left"  value = "" maxlength="100"  name="stad" id="stad" />
+</li>
+<li>
+<label for="gata">gata: </label>
+<input type="text" align="left"  value = "" maxlength="100"  name="gata" id="gata" />
+</li>
+</fieldset>
+<fieldset>
+<legend><b>Användare</b></legend>
+<li>
+<label for="anvnamn">Användarnamn: </label>
+<input type="text"  align="left" value = "" maxlength="100"  name="username" id="username" />
+</li>
+<li>
+<label for="fornamn">Förnamn: </label>
+<input type="text"  align="left" value = "" maxlength="100" value="frstnme" name="frstnme" id="frstnme" />
+</li>
+<li>
+<label for="efternamn">Efternamn: </label>
+<input type="text"  align="left" value = "" maxlength="100"name="lstnme" id="lstnme" />
+</li>
+<li>
+<label for="mobil">Mobil nummer: </label>
+<input type="text"  align="left" value = "" maxlength="100" name="mobile" id="mobile" />
+</li>
+<li>
+<label for="mejl">Mejl: </label>
+<input type="text"  align="left" value = "" maxlength="100"  name="mail" id="mail" />
+</li>
+<li>
+<label for="losen">Lösenord: </label>
+<input type="text"  align="left" value = "" maxlength="100" name="password" id="password" />
+</li>
+</fieldset>
 <li class="submit">
 <input type="reset" name="rst" id="rst" value="Återställ" />
 <input type="submit" name="save" id="save" value="Spara" />
@@ -96,27 +133,52 @@ if(isset($_POST['rmimg'])&&isset($_POST['contracts'])){
     $sqlquery = "UPDATE kontrakt SET kontrakt.logurl=NULL, kontrakt.logbredd=NULL, kontrakt.loghojd=NULL WHERE kontrakt.ID='$c'";
     mysqli_query($con, $sqlquery);
     if(mysqli_query($con, $sqlquery)){
-      echo "<br /><br /><b>Uppdateringen lyckades</b>";
+      echo "<br /><br /><b>Sparningen lyckades</b>";
     }
     else{
-      echo "<br /><br /><b>Uppdateringen misslyckades</b>";
+      echo "<br /><br /><b>Sparningen misslyckades</b>";
     }
   }
 }
 
-if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_POST['stad'])&&isset($_POST['kontor'])&&isset($_POST['sbesok']))
+if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_POST['stad'])&&isset($_POST['kontor'])&&isset($_POST['sbesok'])
+&&isset($_POST['ocr'])&&isset($_POST['username'])&&isset($_POST['frstnme'])&&isset($_POST['lstnme'])&&isset($_POST['mobile'])
+&&isset($_POST['mail'])&&isset($_POST['password'])&&isset($_POST['telefonenbr'])&&isset($_POST['hemsida'])&&isset($_POST['allminfo'])
+&&isset($_POST['currinfo'])&&isset($_POST['forecolor'])&&isset($_POST['backcolor'])&&isset($_POST['postnr'])&&isset($_POST['logo']))
 {
-    $error = false;
-    $g=mysqli_real_escape_string($con,$_POST['gata']);
-    $ss=mysqli_real_escape_string($con,$_POST['stad']);
-    $k=mysqli_real_escape_string($con,$_POST['kontor']);
-    if(is_numeric($_POST['stn'])){
-        $s=$_POST['stn'];
-    }
-    else{$error="Ogiltigt antal stationer";}
- 
-    $sql3 = "INSERT INTO kontrakt, adress SET kontrakt.kontorsnamn = '$k', adress.gata = '$g', kontrakt.stn = '$s', adress.stad = '$ss'";
+	$gata=mysqli_real_escape_string($con,$_POST['gata']);
+    $stad=mysqli_real_escape_string($con,$_POST['stad']);
+    $kont=mysqli_real_escape_string($con,$_POST['kontor']);
+	$stn=mysqli_real_escape_string($con,$_POST['stn']);
+	$sbesok=mysqli_real_escape_string($con,$_POST['sbesok']);
+	$ocr=mysqli_real_escape_string($con,$_POST['ocr']);
+	$usrn=mysqli_real_escape_string($con,$_POST['username']);
+	$frst=mysqli_real_escape_string($con,$_POST['frstnme']);
+	$lst=mysqli_real_escape_string($con,$_POST['lstnme']);
+	$mob=mysqli_real_escape_string($con,$_POST['mobile']);
+	$mail=mysqli_real_escape_string($con,$_POST['mail']);
+	$pass=mysqli_real_escape_string($con,$_POST['password']);
+	$tef=mysqli_real_escape_string($con,$_POST['telefonenbr']);
+	$web=mysqli_real_escape_string($con,$_POST['hemsida']);
+	$ainf=mysqli_real_escape_string($con,$_POST['allminfo']);
+	$cinf=mysqli_real_escape_string($con,$_POST['currinfo']);
+	$fc=mysqli_real_escape_string($con,$_POST['forecolor']);
+	$bc=mysqli_real_escape_string($con,$_POST['backcolor']);
+	$zip=mysqli_real_escape_string($con,$_POST['postnr']);
+	$logo=mysqli_real_escape_string($con,$_POST['logo']);
 
+	$error = false;
+	
+	
+   
+    if(!(is_numeric($stn)&&is_numeric($zip)){
+		$error="Ogiltigt antal stationer";
+	}
+ 
+    $insertAdress = "INSERT INTO adress values(null,'".$zip."','".$stad."','".$gata."',null,null)";
+	$adressid = "SELECT LAST_INSERT_ID();";
+	$insertContract = "INSERT INTO kontrakt values(0,'".$kont."','".$sbesok."','".$cinf."',
+	'".$stn."',null,null,null,'".$web."','".$ainf."','".$fc."','".$bc."','".$usrn."','".$adressid."', 1, 0)";
 
 
     if(!empty($_FILES['logo']['name'])){
@@ -151,38 +213,8 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
             }
         }
     }
-    if(isset($_POST['sbesok'])){
-        $d=mysqli_real_escape_string($con,$_POST['sbesok']);
-    }else{$d="";}
-    $sql3.= ", kontrakt.sbesok= '$d'";
-    if(isset($_POST['currinfo'])){
-        $ci=mysqli_real_escape_string($con,nl2br($_POST['currinfo']));
-    }else{$ci="";}
-    $sql3.= ", kontrakt.currinfo = '$ci'";
-    if(isset($_POST['allminfo'])){
-        $a=mysqli_real_escape_string($con,nl2br($_POST['allminfo']));
-    }else{$a="";}
-    $sql3.= ", kontrakt.allminfo = '$a'";
-    if(isset($_POST['postnr']) && is_numeric($_POST['postnr'])){
-        $p=$_POST['postnr'];
-    }else{$p="";}
-    $sql3.= ", adress.postnr = '$p'";
-    if(isset($_POST['hemsida'])){
-        $h=mysqli_real_escape_string($con,$_POST['hemsida']);
-    }else{$h="";}
-    $sql3.= ", kontrakt.hemsida = '$h'";
-    if(isset($_POST['forecolor'])){
-        $f=mysqli_real_escape_string($con,$_POST['forecolor']);
-    }else{$f="";}
-    $sql3.= ", kontrakt.forecolor = '$f'";
-    if(isset($_POST['backcolor'])){
-        $b=mysqli_real_escape_string($con,$_POST['backcolor']);
-    }else{$b="";}
-    $sql3.= ", kontrakt.backcolor = '$b'";
-    if(isset($_POST['telefonenbr'])){
-        $t=mysqli_real_escape_string($con,$_POST['telefonenbr']);
-    }else{$t="";}
-    $sql3.= ", kontrakt.tele = '$t'";   
+	
+    
     if(!$error){
 		echo $sql3;
         if(mysqli_query($con, $sql3)){
