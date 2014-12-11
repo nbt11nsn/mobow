@@ -48,7 +48,7 @@ require_once(__DIR__ .'./../../db.php');
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	  
 	  if(isset($_POST['dropdown']) && $irows['anvnamn'] == $_POST['dropdown']){
-	  	  echo "<option value=".$irows['anvnamn']." selected='selected' >".$irows['fornamn']."</option>";
+	  	  echo "<option value=".$irows['anvnamn']." selected='selected' >".$irows['fornamn']." ".$irows['efternamn'].", ".$irows['kontorsnamn']."</option>";
 	  }
 	else{
 	  echo "<option value=".$irows['anvnamn'].">".$irows['fornamn']." ".$irows['efternamn'].", ".$irows['kontorsnamn']."</option>";
@@ -63,20 +63,20 @@ require_once(__DIR__ .'./../../db.php');
 		$startDate = $irows['sbesok'];
 		$endDate = date("Y-m-d", strtotime("$startDate +6 month"));
 		if(isset($_POST["choicebutton"])){
-			$isql6 = "SELECT kontorsnamn,kontrakt.orgnr, kontrakt.ID, SUM(stn), fornamn, efternamn, anvnamn, mobil, mejl, sbesok, url, datum, postnr, stad, gata, foretag.namn 
+			$isql6 = "SELECT kontorsnamn,kontrakt.orgnr, kontrakt.ID, stn, fornamn, efternamn, kontaktperson.anvnamn, mobil, mejl, sbesok, url, datum, postnr, stad, gata, foretag.namn 
 						FROM kontaktperson
-							LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn
+							LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = anvnamn
 							JOIN adress ON adress.ID = kontrakt.ID
 							JOIN foretag ON foretag.orgnr = kontrakt.orgnr
 							LEFT OUTER JOIN faktura ON faktura.agarid = kontrakt.ID GROUP BY kontorsnamn
-							   ";
+							HAVING kontaktperson.anvnamn = '".$_POST['dropdown']."'";
 	$iresult = mysqli_query($con, $isql6);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows2 = mysqli_fetch_assoc($iresult)) {	  	
 	  echo "<div id='invoicelistframe'>"
 	  ."Koncern: ".$irows2['namn']."<br /> "
 	  ."Kontor: ".$irows2['kontorsnamn']."<br /> "
-	  ."Hyr antal stationer: ".$irows2['SUM(stn)']."<br /> "
+	  ."Hyr antal stationer: ".$irows2['stn']."<br /> "
 	  ."Senaste besök: ".$irows2['sbesok']."<br /> "
 	  ."Nästa besök: ".$endDate."<br /> "
 	  ."Adress: ".$irows2['gata'].", ".$irows2['postnr']." ".$irows2['stad']."<br /> "
