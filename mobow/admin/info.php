@@ -63,26 +63,26 @@ require_once(__DIR__ .'./../../db.php');
 		$startDate = $irows['sbesok'];
 		$endDate = date("Y-m-d", strtotime("$startDate +6 month"));
 		if(isset($_POST["choicebutton"])){
-			$isql6 = "SELECT SUM(stn), postnr, stad, gata, kontorsnamn, fornamn, efternamn, mobil, mejl, sbesok, anvnamn, foretagid 
-						FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn JOIN adress on kontrakt.ID = adress.ID
+			$isql6 = "SELECT SUM(stn), postnr, stad, gata, kontorsnamn, fornamn, efternamn, mobil, mejl, sbesok, anvnamn, foretag.orgnr, foretag.namn, url, datum
+						FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn LEFT OUTER JOIN faktura on kontrakt.ID = faktura.agarid JOIN adress on kontrakt.ID = adress.ID  JOIN foretag ON foretag.orgnr = kontrakt.orgnr
 							WHERE kontaktperson.anvnamn = '".$_POST['dropdown']."'";
 	$iresult = mysqli_query($con, $isql6);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows2 = mysqli_fetch_assoc($iresult)) {
 	  	
 	  echo "<div id='invoicelistframe'>"
-	  ."Koncern: ".$irows2['kontorsnamn']."<br /> "
+	  ."Koncern: ".$irows2['namn']."<br /> "
 	  ."Kontor: ".$irows2['kontorsnamn']."<br /> "
 	  ."Hyr antal stationer: ".$irows2['SUM(stn)']."<br /> "
 	  ."Senaste besök: ".$irows2['sbesok']."<br /> "
 	  ."Nästa besök: ".$endDate."<br /> "
 	  ."Adress: ".$irows2['gata'].", ".$irows2['postnr']." ".$irows2['stad']."<br /> "
-	  ."Organisationsnummer: ".$irows2['foretagid']." <br /> "	  
+	  ."Organisationsnummer: ".$irows2['orgnr']." <br /> "	  
 	  ."Kontaktperson: ".$irows2['fornamn']." ".$irows2['efternamn']."<br /> "
 	  ."Användarnamn: ".$irows2['anvnamn']."<br /> "
 	  ."Telefonnummer: ".$irows2['mobil']."<br /> "
 	  ."Mejl: ".$irows2['mejl']."<br /> "
-	  ."Senaste faktura: ". "</div></a>";
+	  ."Senaste faktura: ".$irows2['url'].", ".$irows2['datum']."</div></a>";
 		}
 	}
 	  mysqli_free_result($iresult);
