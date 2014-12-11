@@ -63,13 +63,16 @@ require_once(__DIR__ .'./../../db.php');
 		$startDate = $irows['sbesok'];
 		$endDate = date("Y-m-d", strtotime("$startDate +6 month"));
 		if(isset($_POST["choicebutton"])){
-			$isql6 = "SELECT SUM(stn), postnr, stad, gata, kontorsnamn, fornamn, efternamn, mobil, mejl, sbesok, anvnamn, foretag.orgnr, foretag.namn, url, datum
-						FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn LEFT OUTER JOIN faktura on kontrakt.ID = faktura.agarid JOIN adress on kontrakt.ID = adress.ID  JOIN foretag ON foretag.orgnr = kontrakt.orgnr
-							WHERE kontaktperson.anvnamn = '".$_POST['dropdown']."'";
+			$isql6 = "SELECT kontorsnamn,kontrakt.orgnr, kontrakt.ID, SUM(stn), fornamn, efternamn, anvnamn, mobil, mejl, sbesok, url, datum, postnr, stad, gata, foretag.namn 
+						FROM kontaktperson
+							LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn
+							JOIN adress ON adress.ID = kontrakt.ID
+							JOIN foretag ON foretag.orgnr = kontrakt.orgnr
+							LEFT OUTER JOIN faktura ON faktura.agarid = kontrakt.ID GROUP BY kontorsnamn
+							   ";
 	$iresult = mysqli_query($con, $isql6);
 	if (mysqli_num_rows($iresult) != 0) {
-      while($irows2 = mysqli_fetch_assoc($iresult)) {
-	  	
+      while($irows2 = mysqli_fetch_assoc($iresult)) {	  	
 	  echo "<div id='invoicelistframe'>"
 	  ."Koncern: ".$irows2['namn']."<br /> "
 	  ."Kontor: ".$irows2['kontorsnamn']."<br /> "
@@ -82,7 +85,7 @@ require_once(__DIR__ .'./../../db.php');
 	  ."Användarnamn: ".$irows2['anvnamn']."<br /> "
 	  ."Telefonnummer: ".$irows2['mobil']."<br /> "
 	  ."Mejl: ".$irows2['mejl']."<br /> "
-	  ."Senaste faktura: ".$irows2['url'].", ".$irows2['datum']."</div></a>";
+	  ."Senaste faktura: ".$irows2['datum']." ".$irows2['url']."</div></a>";
 		}
 	}
 	  mysqli_free_result($iresult);
