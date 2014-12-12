@@ -229,7 +229,6 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
 	'".$mail."','".$pass."', 0);";
 	
 
-    echo $insertAdress." ".$insertNewUser." ".$insertContract;
     if(!$error){		
         if(mysqli_query($con, $insertAdress." ".$insertNewUser." ".$insertContract)){			
             echo "<br /><br /><b>Uppdateringen lyckades</b>";
