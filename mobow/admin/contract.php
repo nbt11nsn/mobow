@@ -158,17 +158,11 @@ if(isset($irows["logurl"])){
 else{
   echo"Ingen bild vald</li><li><label for='logo'>Välj bild:</label>";
 }
-echo'
-<input type="file" accept="image/*" align="left" maxlength="256" name="logo" id="logo" />
-</li>
+echo'<input type="file" accept="image/*" align="left" maxlength="256" name="logo" id="logo" /></li>
 <li class="submit">
 <input type="reset" name="rst" id="rst" value="Återställ" />';
-if($adm){
-echo'
-<input type="submit" name="save" id="save" value="Spara" />';}
-else{
-echo'
-<input type="submit" name="forsave" id="forsave" value="Spara" />';}
+if($adm){echo'<input type="submit" name="save" id="save" value="Spara" />';}
+else{echo'<input type="submit" name="forsave" id="forsave" value="Spara" />';}
 echo'
 </li>
 </ul>
