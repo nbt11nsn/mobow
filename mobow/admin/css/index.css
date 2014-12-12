@@ -312,6 +312,11 @@ text-align: left;
 
 /* ############### name attribute .<name> ############### */
 
+/* dölj innehåll */
+.hide{
+    display:none;
+}
+
 /* generella inställningar för submit */
 .submit {
   text-align: center;

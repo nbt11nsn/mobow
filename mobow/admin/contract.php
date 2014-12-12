@@ -11,6 +11,20 @@ defined('THE_HEAD') || define('THE_HEAD', TRUE);
 include_once("include/head.php");
 ?>
 
+<script>
+$(document).ready(function(){
+    var selClone = $('#contracts').clone();
+    $('#comp').change(function(){
+        var val = $(this).val();
+        $('#contracts').html(selClone.html())
+        if(val != ""){
+            $('#contracts option[class!='+val+']').remove();
+        }
+    });
+});
+</script> 
+
+
 </head>
 <body>
 <?php
@@ -26,26 +40,49 @@ require_once(__DIR__ .'./../../db.php');
 $adm = mysqli_real_escape_string($con, $_SESSION['admin']);
 $usr = mysqli_real_escape_string($con, $_SESSION['username']);
 if($adm){
-    $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID";
+    $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata, orgnr FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID";
+    $sqlorg = "SELECT orgnr, namn FROM foretag ORDER BY orgnr";
 }
 else{
-    $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontaktperson.anvnamn = '$usr'";
+    $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata, orgnr FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontaktperson.anvnamn = '$usr'";
 }
 ?>
 
 <div id = "frame">
     <form action='' method='post' id ='postContracts' enctype="multipart/form-data">
-    <select name='contracts' id='contracts'>
-<?php 
+
+<?php
+if($adm){
+    echo"<select name='comp' id='comp'>
+<option value=''>Välj organisationsnummer</option>";
+    $orgresult = mysqli_query($con, $sqlorg);
+    if (mysqli_num_rows($orgresult) != 0) {
+    while($rows = mysqli_fetch_assoc($orgresult)) {
+    if($_POST['comp'] == $rows['orgnr'])
+    {
+    echo "<option value=".$rows['orgnr']." selected='selected'>".$rows['orgnr']." (".$rows['namn'].")</option>";
+    }
+    else{
+    echo "<option value=".$rows['orgnr'].">".$rows['orgnr']." (".$rows['namn'].")</option>";
+    }	
+    }
+    }
+    echo"</select>";
+    mysqli_free_result($orgresult);
+}
+    else{
+    echo"<input type='hidden' name='comp' value=''>";
+    }
+    echo"<select name='contracts' id='contracts'>";
 $iresult = mysqli_query($con, $isql);
 if (mysqli_num_rows($iresult) != 0) {
   while($irows = mysqli_fetch_assoc($iresult)) {
       if($_POST['contracts'] == $irows['ID'])
     {
-      echo "<option value=".$irows['ID']." selected='selected' >".$irows['kontorsnamn']." (".$irows['gata'].")</option>";
+      echo "<option value=".$irows['ID']." class='".$irows['orgnr']."' selected='selected' >".$irows['kontorsnamn']." (".$irows['gata'].")</option>";
     }
     else {		
-      echo "<option value=".$irows['ID'].">".$irows['kontorsnamn']." (".$irows['gata'].")</option>";
+      echo "<option value=".$irows['ID']." class='".$irows['orgnr']."'>".$irows['kontorsnamn']." (".$irows['gata'].")</option>";
     }	
   }
 }
