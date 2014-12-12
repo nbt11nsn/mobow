@@ -230,7 +230,7 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
 	
 
     if(!$error){		
-        if(mysqli_query($con, $insertAdress." ".$insertNewUser." ".$insertContract)){			
+        if(mysqli_query($con, $insertAdress)&& mysqli_query($con, $insertNewUser)&&mysqli_query($con, $insertContract)){			
             echo "<br /><br /><b>Uppdateringen lyckades</b>";
         }
         else{
