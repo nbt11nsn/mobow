@@ -4,7 +4,6 @@ SESSION_start();
 <!DOCTYPE html>
 <html>
 <head>
-<script src= "js/blink.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="css/default.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="css/index.css" />
 <?php
@@ -39,7 +38,7 @@ require_once(__DIR__ .'./../../db.php');
 <div id="frame">
 
 	<form action="" method="post" id = "postRows">
-		<select name = "dropdown" id = "invoicedropdown">		
+		<select name = "dropdown" id = "">		
 		<?php 
 		//Skriver ut kontaktpersonens info
 	$isql = "SELECT anvnamn, fornamn, efternamn, kontorsnamn 
@@ -63,11 +62,12 @@ require_once(__DIR__ .'./../../db.php');
 		$startDate = $irows['sbesok'];
 		$endDate = date("Y-m-d", strtotime("$startDate +6 month"));
 		if(isset($_POST["choicebutton"])){
-			$isql6 = "SELECT kontorsnamn, kontrakt.orgnr, kontrakt.ID, stn, fornamn, efternamn, kontaktperson.anvnamn, mobil, mejl, sbesok, url, datum, postnr, stad, gata, foretag.namn
+			$isql6 = "SELECT logurl, hemsida, typ, kontorsnamn, kontrakt.orgnr, kontrakt.ID, stn, fornamn, efternamn, kontaktperson.anvnamn, mobil, mejl, sbesok, url, datum, postnr, stad, gata, foretag.namn
 						FROM kontaktperson
 							LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = anvnamn
 							JOIN adress ON adress.ID = kontrakt.ID
 							JOIN foretag ON foretag.orgnr = kontrakt.orgnr
+							JOIN ikontyp
 							LEFT OUTER JOIN faktura ON faktura.agarid = kontrakt.ID GROUP BY kontorsnamn
 							HAVING kontaktperson.anvnamn = '".$_POST['dropdown']."'";
 	$iresult = mysqli_query($con, $isql6);
@@ -76,6 +76,8 @@ require_once(__DIR__ .'./../../db.php');
 	  echo "<div id='invoicelistframe'>"
 	  ."Koncern: ".$irows2['namn']."<br /> "
 	  ."Kontor: ".$irows2['kontorsnamn']."<br /> "
+	  ."Kontorstyp: ".$irows2['typ']."<br /> "
+	  ."Hemsida: "."<a target='_blank' href = '".$irows2['hemsida']."' >".$irows2['hemsida']."</a>"."<br/>"
 	  ."Hyr antal stationer: ".$irows2['stn']."<br /> "
 	  ."Senaste besök: ".$irows2['sbesok']."<br /> "
 	  ."Nästa besök: ".$endDate."<br /> "
@@ -85,9 +87,10 @@ require_once(__DIR__ .'./../../db.php');
 	  ."Användarnamn: ".$irows2['anvnamn']."<br /> "
 	  ."Telefonnummer: ".$irows2['mobil']."<br /> "
 	  ."Mejl: ".$irows2['mejl']."<br /> "
-	  ."Senaste faktura: "."<a target='_blank' href = '../".$irows2['url']."' >".$irows2['datum']."</a>";
-	  
-	  //".$irows2['datum']." ".$irows2['url']."</div>";
+	  ."Senaste faktura: "."<a target='_blank' href = '../".$irows2['url']."'>".$irows2['datum']."</a>"."<br/>";
+		
+		echo "<img id='logga' style='width:50px;' src='./../".$irows2['logurl']."' />";
+
 		}
 	}
 	  mysqli_free_result($iresult);
