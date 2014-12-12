@@ -59,8 +59,7 @@ require_once(__DIR__ .'./../../db.php');
 		<input type="submit" name = "choicebutton" id = "choicebutton" value="Välj kontakt">
 		</form>
 				<?php 
-		$startDate = $irows['sbesok'];
-		$endDate = date("Y-m-d", strtotime("$startDate +6 month"));
+		
 		if(isset($_POST["choicebutton"])){
 			$isql6 = "SELECT logurl, hemsida, typ, kontorsnamn, kontrakt.orgnr, kontrakt.ID, stn, fornamn, efternamn, kontaktperson.anvnamn, mobil, mejl, sbesok, url, datum, postnr, stad, gata, foretag.namn
 						FROM kontaktperson
@@ -70,9 +69,12 @@ require_once(__DIR__ .'./../../db.php');
 							JOIN ikontyp
 							LEFT OUTER JOIN faktura ON faktura.agarid = kontrakt.ID GROUP BY kontorsnamn
 							HAVING kontaktperson.anvnamn = '".$_POST['dropdown']."'";
+
 	$iresult = mysqli_query($con, $isql6);
 	if (mysqli_num_rows($iresult) != 0) {
-      while($irows2 = mysqli_fetch_assoc($iresult)) {	  	
+      while($irows2 = mysqli_fetch_assoc($iresult)) {	
+		$startDate = $irows2['sbesok'];
+		$endDate = date("Y-m-d", strtotime("$startDate +6 month"));	  
 	  echo "<div id='invoicelistframe'>"
 	  ."Koncern: ".$irows2['namn']."<br /> "
 	  ."Kontor: ".$irows2['kontorsnamn']."<br /> "
