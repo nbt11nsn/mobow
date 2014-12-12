@@ -144,7 +144,7 @@ if(isset($_POST['rmimg'])&&isset($_POST['contracts'])){
 if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_POST['stad'])&&isset($_POST['kontor'])&&isset($_POST['sbesok'])
 &&isset($_POST['ocr'])&&isset($_POST['username'])&&isset($_POST['frstnme'])&&isset($_POST['lstnme'])&&isset($_POST['mobile'])
 &&isset($_POST['mail'])&&isset($_POST['password'])&&isset($_POST['telefonenbr'])&&isset($_POST['hemsida'])&&isset($_POST['allminfo'])
-&&isset($_POST['currinfo'])&&isset($_POST['forecolor'])&&isset($_POST['backcolor'])&&isset($_POST['postnr'])&&isset($_POST['logo']))
+&&isset($_POST['currinfo'])&&isset($_POST['forecolor'])&&isset($_POST['backcolor'])&&isset($_POST['postnr']))
 {
 	$gata=mysqli_real_escape_string($con,$_POST['gata']);
     $stad=mysqli_real_escape_string($con,$_POST['stad']);
@@ -165,7 +165,7 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
 	$fc=mysqli_real_escape_string($con,$_POST['forecolor']);
 	$bc=mysqli_real_escape_string($con,$_POST['backcolor']);
 	$zip=mysqli_real_escape_string($con,$_POST['postnr']);
-	$logo=mysqli_real_escape_string($con,$_POST['logo']);
+	$logo=mysqli_real_escape_string($con,$_FILES['logo']['name']);
 
 	$error = false;
 	
@@ -175,12 +175,6 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
 		$error="Ogiltigt antal stationer";
 	}
  
-    $insertAdress = "INSERT INTO adress values(null,'".$zip."','".$stad."','".$gata."',null,null)";
-	$adressid = "SELECT LAST_INSERT_ID();";
-	$insertContract = "INSERT INTO kontrakt values(0,'".$kont."','".$sbesok."','".$cinf."',
-	'".$stn."',null,null,null,'".$web."','".$ainf."','".$fc."','".$bc."','".$usrn."','".$adressid."', 1, 0)";
-
-
     if(!empty($_FILES['logo']['name'])){
         $ok=true;
         $err="Error: ";
@@ -213,11 +207,19 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
             }
         }
     }
+	 $insertAdress = "INSERT INTO adress values(null,'".$zip."','".$stad."','".$gata."',null,null)";
+	$adressid = "SELECT LAST_INSERT_ID();";
+	$insertContract = "INSERT INTO kontrakt values(0,'".$kont."','".$sbesok."','".$cinf."',
+	'".$stn."','".$target."','".$lw."','".$lh."','".$web."','".$ainf."','".$fc."','".$bc."','".$usrn."','".$adressid."', 1, 0)";
+	$insertNewUser = "INSERT INTO kontaktperson values('".$usrn."','".$frst."','".$lst."','".$mob."',
+	'".$mail."','".$pass."')";
 	
-    
+
+    echo $insertAdress." ".$insertNewUser." ".$insertContract;
     if(!$error){
 		echo $sql3;
-        if(mysqli_query($con, $sql3)){
+        if(mysqli_query($con, $insertAdress." ".$insertNewUser." ".$insertContract)){		
+			
             echo "<br /><br /><b>Uppdateringen lyckades</b>";
         }
         else{
