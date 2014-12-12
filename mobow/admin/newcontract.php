@@ -91,6 +91,14 @@ Ingen bild vald</li><li><label for="logo">Välj bild:</label>
 <label for="gata">gata: </label>
 <input type="text" align="left"  value = "" maxlength="100"  name="gata" id="gata" />
 </li>
+<li>
+<label for="lng">longitud: </label>
+<input type="text"  align="left" value = "" maxlength="100" name="lng" id="lng" />
+</li>
+<li>
+<label for="lat">latitude: </label>
+<input type="text"  align="left" value = "" maxlength="100" name="lat" id="lat" />
+</li>
 </fieldset>
 <fieldset>
 <legend><b>Användare</b></legend>
@@ -144,7 +152,7 @@ if(isset($_POST['rmimg'])&&isset($_POST['contracts'])){
 if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_POST['stad'])&&isset($_POST['kontor'])&&isset($_POST['sbesok'])
 &&isset($_POST['ocr'])&&isset($_POST['username'])&&isset($_POST['frstnme'])&&isset($_POST['lstnme'])&&isset($_POST['mobile'])
 &&isset($_POST['mail'])&&isset($_POST['password'])&&isset($_POST['telefonenbr'])&&isset($_POST['hemsida'])&&isset($_POST['allminfo'])
-&&isset($_POST['currinfo'])&&isset($_POST['forecolor'])&&isset($_POST['backcolor'])&&isset($_POST['postnr']))
+&&isset($_POST['currinfo'])&&isset($_POST['forecolor'])&&isset($_POST['backcolor'])&&isset($_POST['postnr'])&&isset($_POST['lng'])&&isset($_POST['lat']))
 {
 	$gata=mysqli_real_escape_string($con,$_POST['gata']);
     $stad=mysqli_real_escape_string($con,$_POST['stad']);
@@ -166,7 +174,8 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
 	$bc=mysqli_real_escape_string($con,$_POST['backcolor']);
 	$zip=mysqli_real_escape_string($con,$_POST['postnr']);
 	$logo=mysqli_real_escape_string($con,$_FILES['logo']['name']);
-
+	$lat=mysqli_real_escape_string($con,$_POST['lat']);
+	$lng=mysqli_real_escape_string($con,$_POST['lng']);
 	$error = false;
 	
 	
@@ -197,29 +206,32 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
             $lw = $li[0];
             $lh = $li[1];
             $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
-            $target = "image/logo/"."kontrakt".$c.".".$ext;
+            $target = "image/logo/"."kontrakt".$kont.".".$ext;
             $abs_dir = __DIR__."/../".$target;
-            if(move_uploaded_file($tmp_path, $abs_dir)){
-                $sql3.= ", kontrakt.logurl = '$target', kontrakt.logbredd = '$lw', kontrakt.loghojd = '$lh'";
+            if(move_uploaded_file($tmp_path, $abs_dir)){               
             }
             else{
                 $error="Gick inte att ladda upp bilden";
             }
         }
     }
-	 $insertAdress = "INSERT INTO adress values(null,'".$zip."','".$stad."','".$gata."',null,null)";
-	$adressid = "SELECT LAST_INSERT_ID();";
-	$insertContract = "INSERT INTO kontrakt values(0,'".$kont."','".$sbesok."','".$cinf."',
-	'".$stn."','".$target."','".$lw."','".$lh."','".$web."','".$ainf."','".$fc."','".$bc."','".$usrn."','".$adressid."', 1, 0)";
+	
+
+
+	
+	 $insertAdress = "INSERT INTO adress values(null,'".$zip."','".$stad."','".$gata."',".$lng.",".$lat.");";
+	$adressid = "(SELECT LAST_INSERT_ID())";
+	
+	$insertContract = "INSERT INTO kontrakt values(null,'".$kont."','".$sbesok."','".$cinf."','".$mob."',
+	".$stn.",'".$target."','".$lw."','".$lh."','".$web."','".$ainf."','".$fc."','".$bc."','".$usrn."',".$adressid.", 1, '".$ocr."');";
+	
 	$insertNewUser = "INSERT INTO kontaktperson values('".$usrn."','".$frst."','".$lst."','".$mob."',
-	'".$mail."','".$pass."')";
+	'".$mail."','".$pass."', 0);";
 	
 
     echo $insertAdress." ".$insertNewUser." ".$insertContract;
-    if(!$error){
-		echo $sql3;
-        if(mysqli_query($con, $insertAdress." ".$insertNewUser." ".$insertContract)){		
-			
+    if(!$error){		
+        if(mysqli_query($con, $insertAdress." ".$insertNewUser." ".$insertContract)){			
             echo "<br /><br /><b>Uppdateringen lyckades</b>";
         }
         else{
