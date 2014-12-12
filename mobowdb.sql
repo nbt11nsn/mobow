@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 10 dec 2014 kl 15:44
+-- Tid vid skapande: 12 dec 2014 kl 12:26
 -- Serverversion: 5.6.20
 -- PHP-version: 5.5.15
 
@@ -126,13 +126,13 @@ CREATE TABLE IF NOT EXISTS `faktura` (
 --
 
 INSERT INTO `faktura` (`ID`, `namn`, `url`, `agarid`, `datum`) VALUES
-(1, 'faktura1faktura1faktura1faktura1faktura1faktura1fa', 'faktura\\faktura1.pdf', 1, '2014-12-01'),
-(2, 'faktura2', 'faktura\\faktura2.pdf', 2, '2014-12-03'),
-(3, 'faktura3', 'faktura\\faktura1.pdf', 1, '2014-11-04'),
-(4, 'faktura4', 'faktura\\faktura1.pdf', 1, '2013-07-16'),
-(5, 'faktura5', 'faktura\\faktura1.pdf', 1, '2014-12-10'),
-(6, 'faktura6', 'faktura\\faktura1.pdf', 1, '2014-08-19'),
-(7, 'faktura7', 'faktura\\faktura1.pdf', 2, '2014-08-19');
+(1, 'faktura1faktura1faktura1faktura1faktura1faktura1fa', 'faktura/faktura1.pdf', 1, '2014-12-01'),
+(2, 'faktura2', 'faktura/faktura2.pdf', 2, '2014-12-03'),
+(3, 'faktura3', 'faktura/faktura1.pdf', 3, '2014-11-04'),
+(4, 'faktura4', 'faktura/faktura1.pdf', 4, '2013-07-16'),
+(5, 'faktura5', 'faktura/faktura1.pdf', 5, '2014-12-10'),
+(6, 'faktura6', 'faktura/faktura1.pdf', 1, '2014-08-19'),
+(7, 'faktura7', 'faktura/faktura1.pdf', 2, '2014-08-19');
 
 -- --------------------------------------------------------
 
@@ -175,8 +175,10 @@ CREATE TABLE IF NOT EXISTS `foretag` (
 
 INSERT INTO `foretag` (`orgnr`, `namn`) VALUES
 ('133737-1337', 'leet org.'),
+('225454-3458', 'Rubinola AB'),
 ('262648-2356', 'Solen AB'),
 ('454545-4545', 'Gevalia AB'),
+('548795-3251', 'Svarta hålet AB'),
 ('556345-1201', 'Wayne och Margareta''s Coffee Aktiebolag');
 
 -- --------------------------------------------------------
@@ -220,10 +222,12 @@ CREATE TABLE IF NOT EXISTS `kontaktperson` (
 --
 
 INSERT INTO `kontaktperson` (`anvnamn`, `fornamn`, `efternamn`, `mobil`, `mejl`, `losen`, `admin`) VALUES
+('AdminM', 'Administrator', 'Mobow', 123456789, 'nbt11nsn@student.hig.se', '$2y$10$eBrVNjh2cgMgJRty0o2nC.oMUaHON/OaCYR18.2rIhTDV0OrwdPJm', 1),
+('AndersB', 'Anders', 'Blomkvist', 723548795, 'nbt11nsn@student.hig.se', '$2y$10$eBrVNjh2cgMgJRty0o2nC.oMUaHON/OaCYR18.2rIhTDV0OrwdPJm', 0),
 ('KarlL', 'Karl', 'Lundh', 345678912, 'nbt11nsn@student.hig.se', '$2y$10$Uat1/q0s8A6X2.SG9HKCkeB6xPzbYHtjZe.9iEO43EmoaVEv2Tfm2', 0),
+('MattiasD', 'Mattias', 'Didriksson', 732154879, 'nbt11nsn@student.hig.se', '$2y$10$eBrVNjh2cgMgJRty0o2nC.oMUaHON/OaCYR18.2rIhTDV0OrwdPJm', 0),
 ('NiklasS', 'Niklas', 'Sjögren', 234567891, 'nbt11nsn@student.hig.se', '$2y$10$Uat1/q0s8A6X2.SG9HKCkeB6xPzbYHtjZe.9iEO43EmoaVEv2Tfm2', 0),
-('admin', 'administrator', 'mobow', 123456789, 'nbt11nsn@student.hig.se', '$2y$10$eBrVNjh2cgMgJRty0o2nC.oMUaHON/OaCYR18.2rIhTDV0OrwdPJm', 1),
-('test', 'Rickard', 'Hedlund', 456789123, 'nbt11nsn@student.hig.se', '$2y$10$Uat1/q0s8A6X2.SG9HKCkeB6xPzbYHtjZe.9iEO43EmoaVEv2Tfm2', 0);
+('RickardH', 'Rickard', 'Hedlund', 456789123, 'nbt11nsn@student.hig.se', '$2y$10$Uat1/q0s8A6X2.SG9HKCkeB6xPzbYHtjZe.9iEO43EmoaVEv2Tfm2', 0);
 
 -- --------------------------------------------------------
 
@@ -256,12 +260,12 @@ CREATE TABLE IF NOT EXISTS `kontrakt` (
 --
 
 INSERT INTO `kontrakt` (`ID`, `kontorsnamn`, `sbesok`, `currinfo`, `tele`, `stn`, `logurl`, `logbredd`, `loghojd`, `hemsida`, `allminfo`, `forecolor`, `backcolor`, `kontaktpersonid`, `adressid`, `ikonid`, `orgnr`) VALUES
-(1, 'Gevalia', '2014-06-05', '', '24241', 3, NULL, NULL, NULL, 'http://www.google.com/', 'random grejs', '#000000', '#ffffff', 'admin', 1, 1, '454545-4545'),
-(2, 'Gevalia Söder', '2014-09-16', 'sfdlkjsfdjkllkjdsf', '', 3, 'image/logo/logo0.png', 32, 32, 'http://www.aftonbladet.se/', '', '#ff00ff', '#000000', 'NiklasS', 2, 2, '454545-4545'),
-(3, 'Rubinola', '2014-05-05', NULL, '', 2, 'image/logo/04earth.png', 256, 256, 'http://www.gd.se/', 'massa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text', '#000000', '#ffffff', 'NiklasS', 3, 1, '262648-2356'),
-(4, 'Solen', '2014-09-16', '', '012341234', 2, 'image/logo/08saturn.png', 256, 256, 'http://sv.wikipedia.org/wiki/', '', '#abcdef', '#543210', 'KarlL', 4, 1, '556345-1201'),
-(5, 'Svarta hålet', '2014-09-16', NULL, NULL, 10000, 'image/logo/blackhole.png', 256, 256, NULL, 'HEJHEJHEJHEJ', '#FF0000', '#00FFFF', 'test', 5, 2, '454545-4545'),
-(6, 'Wayne''s Coffee', '2014-05-28', NULL, '', 1, 'image/logo/wayne.jpg', 100, 100, 'http://www.waynescoffee.se/menyer.aspx', 'Vi på Wayne´s Coffee vill ge människor en möjlighet att ta en paus i vardagen, en stund av avkoppling. Wayne´s Coffee har blivit känt som ”det tredje rummet”, en mötesplats mellan arbetet och hemmet. En frizon där vänner träffas och tar en fika tillsammans. I våra caféer erbjudes  kaffe av eget märke, bakverk från eget bageri och mat med naturliga råvaror av hög kvalité.<br />\r\n', '#000000', '#ffffff', 'admin', 6, 2, '262648-2356');
+(1, 'Gevalia', '2014-06-05', '', '026-78458', 3, NULL, NULL, NULL, 'http://www.google.com/', 'random grejs', '#000000', '#ffffff', 'NiklasS', 1, 1, '454545-4545'),
+(2, 'Gevalia Söder', '2014-09-16', 'sfdlkjsfdjkllkjdsf', '026-54875', 5, 'image/logo/logo0.png', 32, 32, 'http://www.aftonbladet.se/', '', '#ff00ff', '#000000', 'AdminM', 2, 2, '454545-4545'),
+(3, 'Rubinola', '2014-05-05', NULL, '0122-32648', 3, 'image/logo/04earth.png', 256, 256, 'http://www.gd.se/', 'massa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text<br />\r\nmassa text massa text massa text', '#000000', '#ffffff', 'KarlL', 3, 1, '225454-3458'),
+(4, 'Solen', '2014-09-16', '', '012341234', 2, 'image/logo/08saturn.png', 256, 256, 'http://sv.wikipedia.org/wiki/', '', '#abcdef', '#543210', 'MattiasD', 4, 1, '262648-2356'),
+(5, 'Svarta hålet', '2014-09-16', NULL, '020-548454', 15, 'image/logo/blackhole.png', 256, 256, NULL, 'HEJHEJHEJHEJ', '#FF0000', '#00FFFF', 'RickardH', 5, 2, '548795-3251'),
+(6, 'Wayne''s Coffee', '2014-05-28', NULL, '026-52454', 1, 'image/logo/wayne.jpg', 100, 100, 'http://www.waynescoffee.se/menyer.aspx', 'Vi på Wayne´s Coffee vill ge människor en möjlighet att ta en paus i vardagen, en stund av avkoppling. Wayne´s Coffee har blivit känt som ”det tredje rummet”, en mötesplats mellan arbetet och hemmet. En frizon där vänner träffas och tar en fika tillsammans. I våra caféer erbjudes  kaffe av eget märke, bakverk från eget bageri och mat med naturliga råvaror av hög kvalité.<br />\r\n', '#000000', '#ffffff', 'AndersB', 6, 2, '556345-1201');
 
 -- --------------------------------------------------------
 
