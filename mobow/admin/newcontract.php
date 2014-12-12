@@ -171,7 +171,7 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
 	
 	
    
-    if(!(is_numeric($stn)&&is_numeric($zip)){
+    if(!(is_numeric($stn)&&is_numeric($zip))){
 		$error="Ogiltigt antal stationer";
 	}
  
