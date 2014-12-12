@@ -41,7 +41,7 @@ echo '<ul><fieldset>
 </li>
 <li>
 <label for="sbesok">Senaste besök: </label>
-<input type="date" align="left" value = ""  name="sbesok" id="sbesok" />
+<input type="date" align="left" value = "'.date("Y-m-d").'"  name="sbesok" id="sbesok" />
 </li>
 <li>
 <label for="telefonenbr">Telefon: </label>
