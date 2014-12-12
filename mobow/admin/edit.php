@@ -22,7 +22,7 @@ defined('THE_MENUE') || define('THE_MENUE', TRUE);
 require_once("include/menuebar.php");
 if(isset($_POST['chpasswd'])||isset($_POST['achpasswd'])){
     defined('THE_FUNC') || define('THE_FUNC', TRUE);
-    require(__DIR__ .'./../../functions.php');
+    require_once(__DIR__ .'./../../functions.php');
     if(isset($_POST['chpasswd'])){
         echo upasswd($_POST, false);
     }
@@ -34,7 +34,7 @@ if(isset($_POST['chpasswd'])||isset($_POST['achpasswd'])){
 <div id="center">
 <div id="frame_edit">
     <form action="" method="post" id="passchange">
-    <fieldset><legend><b>Uppdatera ditt lösenord</b></legend>
+    <fieldset style="border:0"><legend><b>Uppdatera ditt lösenord</b></legend>
 	<ul>
     <li>
     <label for="gpasswd">Gammalt lösenord: </label>
@@ -62,7 +62,7 @@ if($_SESSION['admin']){
     $resultat = mysqli_query($con, $sqliquery);
     echo"<div id='frame_admedit'>
     <form action='' method='post' id='admchange'>
-    <fieldset><legend><b>Byt lösenord på användare</b></legend>
+    <fieldset style='border:0'><legend><b>Byt lösenord på användare</b></legend>
 	<ul>
     <li><select name='uuid' id='uuid'>";
     if (mysqli_num_rows($resultat) != 0){

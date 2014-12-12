@@ -12,7 +12,18 @@ include_once("include/head.php");
 ?>
 <link rel="stylesheet" type="text/css" media="screen" href="css/opening.css" />
 
-
+<script>
+$(document).ready(function(){
+    var selClone = $('#conts').clone();
+    $('#comp').change(function(){
+        var val = $(this).val();
+        $('#conts').html(selClone.html())
+        if(val != ""){
+            $('#conts option[class!='+val+']').remove();
+        }
+    });
+});
+</script> 
 </head>
 <body>
 <?php
@@ -26,14 +37,37 @@ require_once("include/menuebar.php");
 defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../../db.php');
 $isql = "SELECT * FROM kontrakt";
+$adm = mysqli_real_escape_string($con, $_SESSION['admin']);
 
 $keys = array('Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag', 'Söndag');
+if($adm){
+$sqlorg = "SELECT orgnr, namn FROM foretag ORDER BY orgnr";
+}
 
 
 ?>
 <div id = "frame">
 <div id = "frameOpening">
     <form action='' method='post' id ='postOpeninghours' enctype="multipart/form-data">
+
+<?php
+    if($adm){
+        echo"<select name='comp' id='comp'>
+<option value=''>Välj organisationsnummer</option>";
+        $orgresult = mysqli_query($con, $sqlorg);
+        if (mysqli_num_rows($orgresult) != 0) {
+            while($rows = mysqli_fetch_assoc($orgresult)) {
+                echo "<option value=".$rows['orgnr'].">".$rows['orgnr']." (".$rows['namn'].")</option>";   
+            }
+        }
+        echo"</select>";
+        mysqli_free_result($orgresult);
+    }
+    else{
+        echo"<input type='hidden' name='comp' value=''>";
+    }
+?>
+
     <select name='conts' id='conts'>
 <?php 
 $iresult = mysqli_query($con, $isql);
@@ -41,10 +75,10 @@ if (mysqli_num_rows($iresult) != 0) {
   while($irows = mysqli_fetch_assoc($iresult)) {
       if($_POST['conts'] == $irows['ID'])
     {
-      echo "<option value=".$irows['ID']." selected='selected' >".$irows['kontorsnamn']."</option>";
+      echo "<option value='".$irows['ID']."' class='".$irows['orgnr']."' selected='selected' >".$irows['kontorsnamn']."</option>";
     }
     else {		
-      echo "<option value=".$irows['ID'].">".$irows['kontorsnamn']."</option>";
+      echo "<option value='".$irows['ID']."' class='".$irows['orgnr']."'>".$irows['kontorsnamn']."</option>";
     }	
   }
 }

@@ -40,11 +40,11 @@ require_once(__DIR__ .'./../../db.php');
 $adm = mysqli_real_escape_string($con, $_SESSION['admin']);
 $usr = mysqli_real_escape_string($con, $_SESSION['username']);
 if($adm){
-    $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata, orgnr FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID";
+    $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata, orgnr FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID ORDER BY kontorsnamn";
     $sqlorg = "SELECT orgnr, namn FROM foretag ORDER BY orgnr";
 }
 else{
-    $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata, orgnr FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontaktperson.anvnamn = '$usr'";
+    $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata, orgnr FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontaktperson.anvnamn = '$usr' ORDER BY kontorsnamn";
 }
 ?>
 
@@ -58,13 +58,7 @@ if($adm){
     $orgresult = mysqli_query($con, $sqlorg);
     if (mysqli_num_rows($orgresult) != 0) {
     while($rows = mysqli_fetch_assoc($orgresult)) {
-    if($_POST['comp'] == $rows['orgnr'])
-    {
-    echo "<option value=".$rows['orgnr']." selected='selected'>".$rows['orgnr']." (".$rows['namn'].")</option>";
-    }
-    else{
-    echo "<option value=".$rows['orgnr'].">".$rows['orgnr']." (".$rows['namn'].")</option>";
-    }	
+    echo "<option value=".$rows['orgnr'].">".$rows['orgnr']." (".$rows['namn'].")</option>";	
     }
     }
     echo"</select>";
