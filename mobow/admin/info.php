@@ -64,7 +64,7 @@ require_once(__DIR__ .'./../../db.php');
 			$isql6 = "SELECT logurl, hemsida, typ, kontorsnamn, kontrakt.orgnr, kontrakt.ID, stn, fornamn, efternamn, kontaktperson.anvnamn, mobil, mejl, sbesok, url, datum, postnr, stad, gata, foretag.namn
 						FROM kontaktperson
 							LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = anvnamn
-							JOIN adress ON adress.ID = kontrakt.ID
+							JOIN adress ON adress.ID = adressid
 							JOIN foretag ON foretag.orgnr = kontrakt.orgnr
 							JOIN ikontyp
 							LEFT OUTER JOIN faktura ON faktura.agarid = kontrakt.ID GROUP BY kontorsnamn
