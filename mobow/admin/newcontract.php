@@ -23,6 +23,8 @@ defined('THE_MENUE') || define('THE_MENUE', TRUE);
 require_once("include/menuebar.php");
 defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../../db.php');
+$getCompanies = "SELECT * FROM foretag";
+$getIcons = "SELECT * FROM ikontyp";
 ?>
 
 <div id = "frame">
@@ -30,16 +32,41 @@ require_once(__DIR__ .'./../../db.php');
 
 <?php
 echo '<ul><fieldset>
-<legend><b>Kontor</b></legend>
+<legend><b>Välj Företag</b></legend>
+<select name="old_ocr" id="old_ocr">';
+$iresult = mysqli_query($con, $getCompanies);
+if (mysqli_num_rows($iresult) != 0) {
+  while($irows = mysqli_fetch_assoc($iresult)) {
+   echo "<option value=".$irows['orgnr']." class='".$irows['orgnr']."'>".$irows['namn']." ".$irows['orgnr']." </option>";
+    	
+  }
+}
+
+
+
+
+echo '</select></fieldset>
+<fieldset>
+<legend><b>Nytt Företag</b></legend>
 <li>
-<label for="kontor">Namn: </label>
-<input type="text" align="left"  maxlength="50" value = ""  name="kontor" id="kontor" />
+<label for="fnamn">Företags namn: </label>
+<input type="text" align="left"  maxlength="50" value = ""  name="cname" id="cname" />
 </li>
 <li>
 <label for="ocrnr">OCR nummer: </label>
 <input type="text" align="left"  maxlength="50" value = ""  name="ocr" id="ocr" />
 </li>
 <li>
+<label for="nyttforetag">Nytt företag: </label>
+<input type="checkbox" align="left"  maxlength="50" value = ""  name="cnew" id="cnew" />
+</li>
+</fieldset>
+<fieldset>
+<legend><b>Kontor</b></legend>
+<li>
+<label for="kontor">Namn: </label>
+<input type="text" align="left"  maxlength="50" value = ""  name="kontor" id="kontor" />
+</li>
 <label for="sbesok">Senaste besök: </label>
 <input type="date" align="left" value = "'.date("Y-m-d").'"  name="sbesok" id="sbesok" />
 </li>
@@ -76,6 +103,19 @@ echo '<ul><fieldset>
 Ingen bild vald</li><li><label for="logo">Välj bild:</label>
 <input type="file" accept="image/*" align="left" maxlength="256" name="logo" id="logo" />
 </li>
+<li>
+<label for="ikontyp">Ikon typ: </label>
+<select name="icon_type" id="icon_type">
+';
+
+$iresult = mysqli_query($con, $getIcons);
+if (mysqli_num_rows($iresult) != 0) {
+  while($irows = mysqli_fetch_assoc($iresult)) {
+   echo "<option value=".$irows['ID']." class='".$irows['ID']."'>".$irows['typ']."</option>";    	
+  }
+}
+
+echo '</select></li>
 </fieldset>
 <fieldset>
 <legend><b>Adress</b></legend>
@@ -150,16 +190,17 @@ if(isset($_POST['rmimg'])&&isset($_POST['contracts'])){
 }
 
 if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_POST['stad'])&&isset($_POST['kontor'])&&isset($_POST['sbesok'])
-&&isset($_POST['ocr'])&&isset($_POST['username'])&&isset($_POST['frstnme'])&&isset($_POST['lstnme'])&&isset($_POST['mobile'])
+&&isset($_POST['username'])&&isset($_POST['frstnme'])&&isset($_POST['lstnme'])&&isset($_POST['mobile'])
 &&isset($_POST['mail'])&&isset($_POST['password'])&&isset($_POST['telefonenbr'])&&isset($_POST['hemsida'])&&isset($_POST['allminfo'])
 &&isset($_POST['currinfo'])&&isset($_POST['forecolor'])&&isset($_POST['backcolor'])&&isset($_POST['postnr'])&&isset($_POST['lng'])&&isset($_POST['lat']))
 {
+
+$error = false;
 	$gata=mysqli_real_escape_string($con,$_POST['gata']);
     $stad=mysqli_real_escape_string($con,$_POST['stad']);
     $kont=mysqli_real_escape_string($con,$_POST['kontor']);
 	$stn=mysqli_real_escape_string($con,$_POST['stn']);
-	$sbesok=mysqli_real_escape_string($con,$_POST['sbesok']);
-	$ocr=mysqli_real_escape_string($con,$_POST['ocr']);
+	$sbesok=mysqli_real_escape_string($con,$_POST['sbesok']);	
 	$usrn=mysqli_real_escape_string($con,$_POST['username']);
 	$frst=mysqli_real_escape_string($con,$_POST['frstnme']);
 	$lst=mysqli_real_escape_string($con,$_POST['lstnme']);
@@ -175,11 +216,9 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
 	$zip=mysqli_real_escape_string($con,$_POST['postnr']);
 	$logo=mysqli_real_escape_string($con,$_FILES['logo']['name']);
 	$lat=mysqli_real_escape_string($con,$_POST['lat']);
-	$lng=mysqli_real_escape_string($con,$_POST['lng']);
-	$error = false;
-	
-	
-   
+	$lng=mysqli_real_escape_string($con,$_POST['lng']);	
+	$icon_type = mysqli_real_escape_string($con,$_POST['icon_type']);	
+	   
     if(!(is_numeric($stn)&&is_numeric($zip))){
 		$error="Ogiltigt antal stationer";
 	}
@@ -215,22 +254,29 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
             }
         }
     }
+
+	$ocr=mysqli_real_escape_string($con,$_POST['old_ocr']);	
+	
+if(isset($_POST['cnew'])){
+	$cname = mysqli_real_escape_string($con,$_POST['cname']);
+	$ocr=mysqli_real_escape_string($con,$_POST['ocr']);
+	$insertCompany = "INSERT INTO foretag VALUES('".$ocr."', '".$cname."')";
+	if(!mysqli_query($con, $insertCompany)){
+	$error = "Gick inte att skapa ett nytt företag";
+		}	
+	}
 	
 
-
 	
-	 $insertAdress = "INSERT INTO adress values(null,'".$zip."','".$stad."','".$gata."',".$lng.",".$lat.");";
-	$adressid = "(SELECT LAST_INSERT_ID())";
-	
+	$insertAdress = "INSERT INTO adress values(null,'".$zip."','".$stad."','".$gata."',".$lng.",".$lat.");";
+	$adressid = "(SELECT LAST_INSERT_ID())";	
 	$insertContract = "INSERT INTO kontrakt values(null,'".$kont."','".$sbesok."','".$cinf."','".$mob."',
-	".$stn.",'".$target."','".$lw."','".$lh."','".$web."','".$ainf."','".$fc."','".$bc."','".$usrn."',".$adressid.", 1, '".$ocr."');";
-	
+	".$stn.",'".$target."','".$lw."','".$lh."','".$web."','".$ainf."','".$fc."','".$bc."','".$usrn."',".$adressid.", '".$icon_type."', '".$ocr."');";
 	$insertNewUser = "INSERT INTO kontaktperson values('".$usrn."','".$frst."','".$lst."','".$mob."',
 	'".$mail."','".$pass."', 0);";
-	
 
     if(!$error){		
-        if(mysqli_query($con, $insertAdress)&& mysqli_query($con, $insertNewUser)&&mysqli_query($con, $insertContract)){			
+        if(mysqli_query($con, $insertNewUser)&&mysqli_query($con, $insertAdress)&&mysqli_query($con, $insertContract)){			
             echo "<br /><br /><b>Uppdateringen lyckades</b>";
         }
         else{
