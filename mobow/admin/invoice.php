@@ -10,8 +10,6 @@ require_once('include/checksession.php');
 defined('THE_HEAD') || define('THE_HEAD', TRUE);
 include_once("include/head.php");
 ?>
-<link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
-<script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
 <?php
@@ -20,70 +18,121 @@ require_once("include/header.php");
 ?>
 <div id="main-wrapper">
 <?php
-defined('THE_DB') || define('THE_DB', TRUE);
-require_once(__DIR__ .'./../../db.php');
-defined('THE_MENUE') || define('THE_MENUE', TRUE);
-require_once("include/menuebar.php");
+    defined('THE_DB') || define('THE_DB', TRUE);
+    require_once(__DIR__ .'./../../db.php');
+    defined('THE_MENUE') || define('THE_MENUE', TRUE);
+    require_once("include/menuebar.php");
+    $adm = mysqli_real_escape_string($con, $_SESSION['admin']);
+    echo" <div id='invoiceframe'>";
+if(isset($_POST['upfak'])){
+    $error=false;
+    if(!isset($_POST['receiver'])&&!is_numeric($_POST['receiver'])){
+	$error="Ingen mottagare vald";
+    }
+    if(!isset($_POST['fnamn'])){
+	$error="Ogiltigt namn";
+    }
+    if(!isset($_POST['dat_fil'])){
+	$error="Ogiltigt datum";
+    }
+    if(!empty($_FILES['pdf_fil']['name'])){
+        $ok=true;
+        $err="Error: ";
+        $allow = array("application/pdf");
+        if($_FILES["pdf_fil"]["size"] > 2000000) {
+            $ok=false;
+            $err.='För stor fil<br />';
+        }
+        if(!in_array($_FILES['pdf_fil']['type'], $allow)){
+            $ok=false;
+            $err.='Filformatet stöds inte<br />';
+        }
+        if($ok==false){
+            echo "<div class='error'>$err</div>";
+            $error="Gick inte att ladda upp fakturan";
+        }
+        else
+        {
+            $tmp_path = $_FILES['pdf_fil']['tmp_name'];
+            $target = "faktura/"."faktura".$c.".pdf";
+            $abs_dir = __DIR__."/../".$target;
+	    if(file_exists($abs_dir)){
+		$error="Filen finns redan";
+	    }
+            else if(move_uploaded_file($tmp_path, $abs_dir)){
+                $sql3.= ", kontrakt.logurl = '$target', kontrakt.logbredd = '$lw', kontrakt.loghojd = '$lh'";
+            }
+            else{
+                $error="Gick inte att ladda upp fakturan";
+            }
+        }
+    }
 
-?>
 
-<div id = "invoiceframe">
-
-  <div class="upload_form_cont" >
-    <form id="upload_form" enctype="multipart/form-data" method="post" action="upload.php">
-      <div>
-        <div>
-	  <label for="image_file">Ladda upp en fil</label>
-	</div>
-        <div>
-	  <input type="file" name="image_file" id="image_file" onchange="fileSelected();" />
-	</div>
-      </div>
-      <div>
-        <input type="button" id = "uploadbutton" value="Ladda upp" onclick="startUploading()" />
-      </div>	
-		 <div id = "listframe">	
-		 </form>
-	<form action="" method="post" id = "postRows">
-		<select name = "dropdown" id = "invoicedropdown">		
-		
-		<?php 	
-		$isql = "SELECT ID, kontorsnamn 
-					FROM faktura NATURAL JOIN kontrakt";
-	$iresult = mysqli_query($con, $isql);
-	if (mysqli_num_rows($iresult) != 0) {
-      while($irows = mysqli_fetch_assoc($iresult)) {	  
-	  if(isset($_POST['dropdown']) && $irows['ID'] == $_POST['dropdown']){
-	  	  echo "<option value=".$irows['ID']." selected='selected' >".$irows['kontorsnamn']."</option>";
-	  }
-	else{
-	  echo "<option value=".$irows['ID'].">".$irows['kontorsnamn']."</option>";
+}
+if($adm){
+    echo"
+<div class='upload_pdf' >
+    <form id='upload_form' enctype='multipart/form-data' method='post' action=''>
+        <label for='fnamn'>Namn på fakturan:</label>
+        <input type='text' value='' id='fnamn' name='fnamn' maxlength='50' />";
+    $sqlkont="SELECT kontorsnamn, ID, orgnr FROM kontrakt ORDER BY kontorsnamn";
+    $kont = mysqli_query($con, $sqlkont);
+    echo"
+    <label for='receiver'>Fakturan tillhör:</label>
+    <select name='receiver' id='receiver'>";
+    if (mysqli_num_rows($kont) != 0) {
+	while($row = mysqli_fetch_assoc($kont)) {
+	    echo"<option value=".$row['ID'].">".$row['kontorsnamn']."</option>";
 	}
     }
-  }
-  mysqli_free_result($iresult);	
-	?>	
-	<input type="submit" name = "choicebutton" id = "choicebutton" value="Välj kontrakt">
-		</form>
-				<?php 
-		if(isset($_POST["choicebutton"])){
-			$isql2 = "SELECT url, namn, datum 
-						FROM faktura LEFT OUTER JOIN kontrakt ON kontrakt.ID = faktura.agarid 
-							WHERE kontrakt.ID = '".$_POST['dropdown']."' ORDER BY Datum DESC";
-	$iresult = mysqli_query($con, $isql2);
-	if (mysqli_num_rows($iresult) != 0) {
-      while($irows2 = mysqli_fetch_assoc($iresult)) {
-	  echo "<a target='_blank' href = '../".$irows2['url']."' ><div id='invoicelistframe'>".$irows2['namn']." ".$irows2['datum']."</div></a>";
-		}
-	}
-	  mysqli_free_result($iresult);
-  }	
-	?>	
-      </div>
-      </div>
+    echo"</select>";
+    mysqli_free_result($kont);
+    echo"
+        <label for='dat_fil'>Datum:</label>
+        <input type='date' name='dat_fil' id='dat_fil' value='".date('Y-m-d')."' />
+	<label for='pdf_fil'>Ladda upp en faktura</label>
+	<input type='file' name='pdf_fil' id='pdf_fil' />
+        <input type='reset' name='rst' id='rst' value='Återställ' />
+	<input type='submit' id='upfak' name='upfak' accept='application/pdf' value='Ladda upp faktura' />
     </form>
-  </div>  
-</div>
+</div>";
+}
+?>
+	<div id="listframe">
+	    <form action="" method="post" id = "postRows">
+		<select name = "dropdown" id = "invoicedropdown">		
+		    <?php
+		    $isql = "SELECT ID, kontorsnamn FROM faktura NATURAL JOIN kontrakt";
+		    $iresult = mysqli_query($con, $isql);
+		    if (mysqli_num_rows($iresult) != 0) {
+			while($irows = mysqli_fetch_assoc($iresult)) {
+			    if(isset($_POST['dropdown']) && $irows['ID'] == $_POST['dropdown']){ 
+				echo "<option value=".$irows['ID']." selected='selected' >".$irows['kontorsnamn']."</option>";
+			    }
+			    else{
+				echo "<option value=".$irows['ID'].">".$irows['kontorsnamn']."</option>";
+			    }
+			}
+		    }
+		    mysqli_free_result($iresult);	
+		    ?>	
+		    <input type="submit" name = "choicebutton" id = "choicebutton" value="Välj kontrakt">
+	    </form>
+	    <?php
+	    if(isset($_POST["choicebutton"])){
+		$isql2 = "SELECT url, namn, datum FROM faktura LEFT OUTER JOIN kontrakt ON kontrakt.ID = faktura.agarid WHERE kontrakt.ID = '".$_POST['dropdown']."' ORDER BY Datum DESC";
+		$iresult = mysqli_query($con, $isql2);
+		if (mysqli_num_rows($iresult) != 0) {
+		    while($irows2 = mysqli_fetch_assoc($iresult)) {
+			echo "<a target='_blank' href = '../".$irows2['url']."' ><div id='invoicelistframe'>".$irows2['namn']." ".$irows2['datum']."</div></a>";
+		    }
+		}
+		mysqli_free_result($iresult);
+	    }	
+	?>	
+	</div>
+    </div>
 </div><!--main-wrapper-->
 
 <?php
