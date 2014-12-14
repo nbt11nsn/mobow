@@ -61,14 +61,12 @@ require_once(__DIR__ .'./../../db.php');
 				<?php 
 		
 		if(isset($_POST["choicebutton"])){
-			$isql6 = "SELECT logurl, hemsida, typ, kontorsnamn, kontrakt.orgnr, kontrakt.ID, stn, fornamn, efternamn, kontaktperson.anvnamn, mobil, mejl, sbesok, url, datum, postnr, stad, gata, foretag.namn
-						FROM kontaktperson
-							LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = anvnamn
-							JOIN adress ON adress.ID = adressid
-							JOIN foretag ON foretag.orgnr = kontrakt.orgnr
-							JOIN ikontyp
-							LEFT OUTER JOIN faktura ON faktura.agarid = kontrakt.ID GROUP BY kontorsnamn
-							HAVING kontaktperson.anvnamn = '".$_POST['dropdown']."'";
+			$isql6 = "SELECT logurl, hemsida, typ, kontorsnamn, kontrakt.orgnr, stn, fornamn, efternamn,
+			kontaktperson.anvnamn, mobil, mejl, sbesok, url, datum, postnr, stad, gata, foretag.namn
+			FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = anvnamn JOIN adress ON adress.ID = adressid 
+			JOIN foretag ON foretag.orgnr = kontrakt.orgnr JOIN ikontyp ON ikontyp.id = ikonid
+			LEFT OUTER JOIN faktura ON faktura.agarid = kontrakt.ID WHERE kontaktperson.anvnamn = '".$_POST['dropdown']."'
+			ORDER BY faktura.datum LIMIT 1";
 
 	$iresult = mysqli_query($con, $isql6);
 	if (mysqli_num_rows($iresult) != 0) {
