@@ -24,17 +24,20 @@ require_once("include/header.php");
     require_once("include/menuebar.php");
     $adm = mysqli_real_escape_string($con, $_SESSION['admin']);
     echo" <div id='invoiceframe'>";
-if(isset($_POST['upfak'])){
+if(isset($_POST['upfak']) && $adm){
     $error=false;
     if(!isset($_POST['receiver'])&&!is_numeric($_POST['receiver'])){
 	$error="Ingen mottagare vald";
-    }
+    }else{$c=$_POST['receiver'];}
+
     if(!isset($_POST['fnamn'])){
 	$error="Ogiltigt namn";
-    }
+    }else{$fn=$_POST['fnamn'];}
+
     if(!isset($_POST['dat_fil'])){
 	$error="Ogiltigt datum";
-    }
+    }else{$df=$_POST['dat_fil'];}
+
     if(!empty($_FILES['pdf_fil']['name'])){
         $ok=true;
         $err="Error: ";
@@ -54,13 +57,13 @@ if(isset($_POST['upfak'])){
         else
         {
             $tmp_path = $_FILES['pdf_fil']['tmp_name'];
-            $target = "faktura/"."faktura".$c.".pdf";
+            $target = "faktura/"."faktura".$c."_".$df."_".$fn.".pdf";
             $abs_dir = __DIR__."/../".$target;
 	    if(file_exists($abs_dir)){
 		$error="Filen finns redan";
 	    }
             else if(move_uploaded_file($tmp_path, $abs_dir)){
-                $sql3.= ", kontrakt.logurl = '$target', kontrakt.logbredd = '$lw', kontrakt.loghojd = '$lh'";
+                $sqlq= "INSERT INTO faktura (namn, url, agarid, datum) VALUES('$fn', '$target', '$c', '$df')";
             }
             else{
                 $error="Gick inte att ladda upp fakturan";
@@ -69,6 +72,17 @@ if(isset($_POST['upfak'])){
     }
     else{
 	$error="Ingen faktura vald att ladda upp";
+    }
+    if(!$error){
+        if(mysqli_query($con, $sqlq)){
+            echo "<div class='ok'>Uppladdningen lyckades</div>";
+        }
+        else{
+            echo "<div class='error'>Uppladdningen misslyckades</div>";
+        }
+    }
+    else{
+        echo "<div class='error'>$error</div>";
     }
 }
 if($adm){
