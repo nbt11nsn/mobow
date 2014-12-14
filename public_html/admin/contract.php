@@ -1,5 +1,7 @@
 <?php
 SESSION_start();
+error_reporting(-1);
+ini_set('display_errors', 'On');
 ?>
 <!DOCTYPE html>
 <html>
@@ -71,7 +73,7 @@ if($adm){
 $iresult = mysqli_query($con, $isql);
 if (mysqli_num_rows($iresult) != 0) {
   while($irows = mysqli_fetch_assoc($iresult)) {
-      if($_POST['contracts'] == $irows['ID'])
+      if(isset($_POST['contracts']) && $_POST['contracts'] == $irows['ID'])
     {
       echo "<option value=".$irows['ID']." class='".$irows['orgnr']."' selected='selected' >".$irows['kontorsnamn']." (".$irows['gata'].")</option>";
     }

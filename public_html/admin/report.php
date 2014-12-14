@@ -22,9 +22,7 @@ require_once("include/menuebar.php");
 defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../../db.php');
 
-$isql = "SELECT fronid, anvnamn FROM felmeddelande JOIN kontaktperson ON
-fronid = kontaktperson.ID WHERE tillid = (SELECT ID FROM kontaktperson
-WHERE anvnamn = '".$_SESSION['username']."') GROUP BY fronid";
+$isql = "SELECT felmeddelande.fronid, kontrakt.kontorsnamn FROM felmeddelande JOIN kontrakt ON felmeddelande.fronid = kontrakt.ID WHERE felmeddelande.tillid = (SELECT kontrakt.ID FROM kontrakt WHERE kontrakt.kontaktpersonid = '".mysqli_real_escape_string($con, $_SESSION['username'])."') GROUP BY felmeddelande.fronid";
 
 
 $currentContract = 1;
@@ -41,12 +39,12 @@ $currentContract = 1;
 	<?php 
 	
 	$iresult = mysqli_query($con, $isql);
-	if (mysqli_num_rows($iresult) != 0) {
+	if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	  
-		  echo "<option value=".$irows['ID'].">".$irows['anvnamn']."</option>";}	
-	 }      
-  
-  mysqli_free_result($iresult);	
+		  echo "<option value=".$irows['ID'].">".$irows['anvnamn']."</option>";
+      }
+    mysqli_free_result($iresult);	
+	}
 	?>
     </select> 		
     <input type="submit" name = "accept" id = "accept" value="Välj">  

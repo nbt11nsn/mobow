@@ -77,7 +77,7 @@ $sqlorg = "SELECT orgnr, namn FROM foretag ORDER BY orgnr";
 $iresult = mysqli_query($con, $isql);
 if (mysqli_num_rows($iresult) != 0) {
   while($irows = mysqli_fetch_assoc($iresult)) {
-      if($_POST['conts'] == $irows['ID'])
+      if(isset($_POST['conts']) && $_POST['conts'] == $irows['ID'])
     {
       echo "<option value='".$irows['ID']."' class='".$irows['orgnr']."' selected='selected' >".$irows['kontorsnamn']."</option>";
     }
