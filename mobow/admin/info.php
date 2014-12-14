@@ -56,7 +56,7 @@ require_once(__DIR__ .'./../../db.php');
   }
   mysqli_free_result($iresult);	
 	?>	
-		<input type="submit" name = "choicebutton" id = "infochoicebutton" value="Välj kontakt">
+		<input type="submit" name = "choicebutton" id = "infochoicebutton" value="Välj kontakt">		
 		</form>
 				<?php 
 		
@@ -73,6 +73,7 @@ require_once(__DIR__ .'./../../db.php');
       while($irows2 = mysqli_fetch_assoc($iresult)) {	
 		$startDate = $irows2['sbesok'];
 		$endDate = date("Y-m-d", strtotime("$startDate +6 month"));	  
+	
 	  echo "<div id='infolistframe'>"
 	  ."Koncern: ".$irows2['namn']."<br /> "
 	  ."Kontor: ".$irows2['kontorsnamn']."<br /> "
