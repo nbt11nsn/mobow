@@ -118,7 +118,7 @@ if($adm){
 	    <form action="" method="post" id = "postRows">
 		<select name = "dropdown" id = "invoicedropdown">		
 		    <?php
-		    $isql = "SELECT ID, kontorsnamn FROM faktura NATURAL JOIN kontrakt";
+		    $isql = "SELECT kontrakt.ID, kontorsnamn FROM kontrakt LEFT OUTER JOIN faktura on kontrakt.ID = faktura.agarid";
 		    $iresult = mysqli_query($con, $isql);
 		    if (mysqli_num_rows($iresult) != 0) {
 			while($irows = mysqli_fetch_assoc($iresult)) {
