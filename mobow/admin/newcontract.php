@@ -65,9 +65,9 @@ echo '</select></fieldset>
 <legend><b>Kontor</b></legend>
 <li>
 <label for="kontor">Namn: </label>
-<input type="text" align="left"  maxlength="50" value = ""  name="kontor" id="kontor" />
+<input required type="text" align="left"  maxlength="50" value = ""  name="kontor" id="kontor" />
 </li>
-<label for="sbesok">Senaste besök: </label>
+<label required for="sbesok">Senaste besök: </label>
 <input type="date" align="left" value = "'.date("Y-m-d").'"  name="sbesok" id="sbesok" />
 </li>
 <li>
@@ -75,8 +75,8 @@ echo '</select></fieldset>
 <input type="tel" align="left"  maxlength="20" value = ""  name="telefonenbr" id="telefonenbr" />
 </li>
 <li>
-<label for="stn">Antal stationer: </label>
-<input type="number" align="left"  value = "" maxlength="11" value="stn" name="stn" name="stn" />
+<label required for="stn">Antal stationer: </label>
+<input type="number" align="left"  value = "1" maxlength="11" value="stn" name="stn" name="stn" />
 </li>
 <li>
 <label for="hemsida" >Hemsida (kom ihåg http://): </label>
@@ -121,38 +121,38 @@ echo '</select></li>
 <legend><b>Adress</b></legend>
 <li>
 <label for="postnr">Postnummer: </label>
-<input type="number" align="left"  value = "" maxlength="11"  name="postnr" id="postnr" />
+<input required type="number" align="left"  value = "" maxlength="11"  name="postnr" id="postnr" />
 </li>
 <li>
 <label for="stad">Stad: </label>
-<input type="text" align="left"  value = "" maxlength="100"  name="stad" id="stad" />
+<input required type="text" align="left"  value = "" maxlength="100"  name="stad" id="stad" />
 </li>
 <li>
 <label for="gata">gata: </label>
-<input type="text" align="left"  value = "" maxlength="100"  name="gata" id="gata" />
+<input required type="text" align="left"  value = "" maxlength="100"  name="gata" id="gata" />
 </li>
 <li>
 <label for="lng">longitud: </label>
-<input type="text"  align="left" value = "" maxlength="100" name="lng" id="lng" />
+<input required type="text"  align="left" value = "" maxlength="100" name="lng" id="lng" />
 </li>
 <li>
 <label for="lat">latitude: </label>
-<input type="text"  align="left" value = "" maxlength="100" name="lat" id="lat" />
+<input required type="text"  align="left" value = "" maxlength="100" name="lat" id="lat" />
 </li>
 </fieldset>
 <fieldset>
 <legend><b>Användare</b></legend>
 <li>
 <label for="anvnamn">Användarnamn: </label>
-<input type="text"  align="left" value = "" maxlength="100"  name="username" id="username" />
+<input required type="text"  align="left" value = "" maxlength="100"  name="username" id="username" />
 </li>
 <li>
 <label for="fornamn">Förnamn: </label>
-<input type="text"  align="left" value = "" maxlength="100" value="frstnme" name="frstnme" id="frstnme" />
+<input required type="text"  align="left" value = "" maxlength="100" value="frstnme" name="frstnme" id="frstnme" />
 </li>
 <li>
 <label for="efternamn">Efternamn: </label>
-<input type="text"  align="left" value = "" maxlength="100"name="lstnme" id="lstnme" />
+<input required type="text"  align="left" value = "" maxlength="100"name="lstnme" id="lstnme" />
 </li>
 <li>
 <label for="mobil">Mobil nummer: </label>
@@ -160,11 +160,11 @@ echo '</select></li>
 </li>
 <li>
 <label for="mejl">Mejl: </label>
-<input type="text"  align="left" value = "" maxlength="100"  name="mail" id="mail" />
+<input required type="text"  align="left" value = "" maxlength="100"  name="mail" id="mail" />
 </li>
 <li>
 <label for="losen">Lösenord: </label>
-<input type="text"  align="left" value = "" maxlength="100" name="password" id="password" />
+<input required type="text"  align="left" value = "" maxlength="100" name="password" id="password" />
 </li>
 </fieldset>
 <li class="submit">
@@ -189,10 +189,11 @@ if(isset($_POST['rmimg'])&&isset($_POST['contracts'])){
   }
 }
 
-if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_POST['stad'])&&isset($_POST['kontor'])&&isset($_POST['sbesok'])
-&&isset($_POST['username'])&&isset($_POST['frstnme'])&&isset($_POST['lstnme'])&&isset($_POST['mobile'])
-&&isset($_POST['mail'])&&isset($_POST['password'])&&isset($_POST['telefonenbr'])&&isset($_POST['hemsida'])&&isset($_POST['allminfo'])
-&&isset($_POST['currinfo'])&&isset($_POST['forecolor'])&&isset($_POST['backcolor'])&&isset($_POST['postnr'])&&isset($_POST['lng'])&&isset($_POST['lat']))
+if(!empty($_POST['save'])&&!empty($_POST['gata'])&&!empty($_POST['stn'])&&!empty($_POST['stad'])
+&&!empty($_POST['kontor'])&&!empty($_POST['sbesok'])&&!empty($_POST['username'])&&!empty($_POST['frstnme'])
+&&!empty($_POST['lstnme'])&&!empty($_POST['mail'])&&!empty($_POST['password'])
+&&!empty($_POST['forecolor'])&&!empty($_POST['backcolor'])&&!empty($_POST['postnr'])
+&&!empty($_POST['lng'])&&!empty($_POST['lat']))
 {
 
 $error = false;
@@ -222,7 +223,9 @@ $error = false;
     if(!(is_numeric($stn)&&is_numeric($zip))){
 		$error="Ogiltigt antal stationer";
 	}
- 
+ $target = "";
+ $lh = "";
+ $lw = "";
     if(!empty($_FILES['logo']['name'])){
         $ok=true;
         $err="Error: ";
@@ -270,9 +273,9 @@ if(isset($_POST['cnew'])){
 	
 	$insertAdress = "INSERT INTO adress values(null,'".$zip."','".$stad."','".$gata."',".$lng.",".$lat.");";
 	$adressid = "(SELECT LAST_INSERT_ID())";	
-	$insertContract = "INSERT INTO kontrakt values(null,'".$kont."','".$sbesok."','".$cinf."','".$mob."',
-	".$stn.",'".$target."','".$lw."','".$lh."','".$web."','".$ainf."','".$fc."','".$bc."','".$usrn."',".$adressid.", '".$icon_type."', '".$ocr."');";
-	$insertNewUser = "INSERT INTO kontaktperson values('".$usrn."','".$frst."','".$lst."','".$mob."',
+	$insertContract = "INSERT INTO kontrakt values(null,'".$kont."','".$sbesok."', ".isEmpty($cinf).",".isEmpty($tef).",
+	".$stn.",".isEmpty($target).",".isEmpty($lw).",".isEmpty($lh).",".isEmpty($web).",".isEmpty($ainf).",'".$fc."','".$bc."','".$usrn."',".$adressid.", '".$icon_type."', '".$ocr."');";
+	$insertNewUser = "INSERT INTO kontaktperson values('".$usrn."','".$frst."','".$lst."',".isEmpty($mob).",
 	'".$mail."','".$pass."', 0);";
 
     if(!$error){		
@@ -287,6 +290,14 @@ if(isset($_POST['cnew'])){
         echo "<br /><br /><b>$error</b>";
     }
 }
+
+function isEmpty($value){
+if(trim($value) == '')
+{return "NULL";}
+return "'".$value."'";
+}
+
+
 ?>
 </div><!--frame-->
 </div><!--main-wrapper-->
