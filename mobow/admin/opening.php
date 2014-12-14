@@ -36,9 +36,13 @@ defined('THE_MENUE') || define('THE_MENUE', TRUE);
 require_once("include/menuebar.php");
 defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../../db.php');
-$isql = "SELECT * FROM kontrakt";
 $adm = mysqli_real_escape_string($con, $_SESSION['admin']);
-
+if($adm){
+$isql = "SELECT * FROM kontrakt";
+}
+else{
+$isql = "SELECT * FROM kontrakt WHERE kontaktpersonid = '".mysqli_real_escape_string($con,$_SESSION['username'])."'";
+}
 $keys = array('Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag', 'Söndag');
 if($adm){
 $sqlorg = "SELECT orgnr, namn FROM foretag ORDER BY orgnr";
@@ -136,9 +140,9 @@ if (mysqli_num_rows($iresult) != 0) {
 <label>Stänger: </label>
 </div>
 <div class = "times">
-<input type="time" align="left"  maxlength="50" value = ""  name="'.$namesdays[$index].'_open" id="'.$namesdays[$index].'_open" />
+<input type="time" align="left"  maxlength="50" value = "00:00"  name="'.$namesdays[$index].'_open" id="'.$namesdays[$index].'_open" />
 
-<input type="time" align="left" value = ""  name="'.$namesdays[$index].'_close" id="'.$namesdays[$index].'_close" />
+<input type="time" align="left" value = "00:00"  name="'.$namesdays[$index].'_close" id="'.$namesdays[$index].'_close" />
 </div>
 <div id = "labels">
 <label>Stängt:</label>
