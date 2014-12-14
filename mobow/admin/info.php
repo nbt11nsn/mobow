@@ -38,7 +38,7 @@ require_once(__DIR__ .'./../../db.php');
 <div id="frame">
 
 	<form action="" method="post" id = "postRows">
-		<select name = "dropdown" id = "">		
+		<select name = "dropdown" id = "infodropdown">		
 		<?php 
 		//Skriver ut kontaktpersonens info
 	$isql = "SELECT anvnamn, fornamn, efternamn, kontorsnamn 
@@ -56,7 +56,7 @@ require_once(__DIR__ .'./../../db.php');
   }
   mysqli_free_result($iresult);	
 	?>	
-		<input type="submit" name = "choicebutton" id = "choicebutton" value="Välj kontakt">
+		<input type="submit" name = "choicebutton" id = "infochoicebutton" value="Välj kontakt">
 		</form>
 				<?php 
 		
@@ -73,7 +73,7 @@ require_once(__DIR__ .'./../../db.php');
       while($irows2 = mysqli_fetch_assoc($iresult)) {	
 		$startDate = $irows2['sbesok'];
 		$endDate = date("Y-m-d", strtotime("$startDate +6 month"));	  
-	  echo "<div id='invoicelistframe'>"
+	  echo "<div id='infolistframe'>"
 	  ."Koncern: ".$irows2['namn']."<br /> "
 	  ."Kontor: ".$irows2['kontorsnamn']."<br /> "
 	  ."Kontorstyp: ".$irows2['typ']."<br /> "
@@ -89,7 +89,7 @@ require_once(__DIR__ .'./../../db.php');
 	  ."Mejl: ".$irows2['mejl']."<br /> "
 	  ."Senaste faktura: "."<a target='_blank' href = '../".$irows2['url']."'>".$irows2['datum']."</a>"."<br/>";
 		
-		echo "<img id='logga' style='width:50px;' src='./../".$irows2['logurl']."' />";
+	   echo "Logga som används i kartfunktionen: <img id='logga' src='./../".$irows2['logurl']."' />";
 
 		}
 	}

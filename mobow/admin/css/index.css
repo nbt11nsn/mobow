@@ -16,6 +16,7 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
 #passframe {
   text-align: center;
 }
+
 #frame { 
   width: 1024px; 
   min-height: 800px;
@@ -48,6 +49,9 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
   display: inline-block;
   text-align: center;
 }
+
+
+/* #########################FAKTURA BÖRJAN############################# */
 #invoiceframe { 
   width: 1024px; 
   min-height: 800px;
@@ -55,10 +59,10 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
   background: #ccc; 
   display: inline-block; 
 }
+
 #invoiceframe option{
 background: #efefef; 
 }
-
 
 #uploadbutton{
 	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
@@ -71,6 +75,7 @@ background: #efefef;
 	font: 18px Arial,sans-serif;
 
 }
+
 #invoicedropdown{
 	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
 	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
@@ -84,6 +89,7 @@ background: #efefef;
 	font: 18px Arial,sans-serif;
 	border: hidden;
 }
+
 #choicebutton{
 	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
 	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
@@ -110,18 +116,6 @@ background: #efefef;
   text-align: center;
 }
 
-#preview{
-	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
-    min-height: 800px;
-	min-width: 500px;
-	width: 100%;
-    height: 100%;	
-	position:relative;
-	border-style: solid;
-    border-width: 5px;
-    border-color: #ff6699;
-	right:500px;bottom:860px;
-}
 #invoicelistframe { 
 background: #efefef; 
 	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
@@ -135,20 +129,60 @@ background: #efefef;
 	float: right;
 	font: 18px Arial,sans-serif;
 }
+
+#preview{
+	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+    min-height: 800px;
+	min-width: 500px;
+	width: 100%;
+    height: 100%;	
+	position:relative;
+	border-style: solid;
+    border-width: 5px;
+    border-color: #ff6699;
+	right:500px;bottom:860px;
+}
+/* #########################FAKTURA SLUT############################# */
+/* #########################INFO BÖRJAN############################# */
+#logga{
+  display: inline-block;
+  width:50px;
+  float: right;
+  position: relative;
+  bottom: 15px;
+  right: 160px;
+}
+
+#infodropdown{
+	margin-top: 10px;
+	margin-left: 10px;
+	float: left;
+}
+
+#infochoicebutton{
+  display: inline-block;
+  text-align: center;
+  margin-left: 50px; 
+}
+
 #infolistframe{
 background: #efefef; 
 	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
 	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
 	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
 	box-shadow: 0px 0px 5px rgba(0,0,0,1);
-	width: 95%;
+	width: 510px;
+	height: 350px;
+	position: fixed;
+	padding-left: 5px;
+	padding-top: 25px;
 	margin-top: 20px;
-	text-align: center;
-	margin-right: 10px;
-	float: right;
+	text-align: left;
+	margin-right: 10px;	
 	font: 18px Arial,sans-serif;
 	}
-
+/* #########################INFO SLUT############################# */
+/* #########################KONTRAKT BÖRJAN############################# */
 #frame *{
 margin: 0;
 }
@@ -206,7 +240,8 @@ padding-top: 5px;
 vertical-align: middle;
 max-width: 100%;
 }
-
+/* #########################KONTRAKT SLUT############################# */
+/* #########################EDITERA KONTRAKT BÖRJAN############################# */
 #editContract {
 margin-left: auto;
 margin-right: auto;
