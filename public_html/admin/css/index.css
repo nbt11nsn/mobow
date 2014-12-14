@@ -1,0 +1,649 @@
+/*
+mobow-färgkoder [fyll gärna i resterande färgkoder]
+#CCC
+#EA005A
+#969
+#F2F2F2
+*/
+
+fieldset {
+padding-bottom: 10px;
+paddin-top: 10px;
+}
+
+
+#passchange {
+  display: inline-block;
+  text-align: center;
+}
+#accept {
+  display: inline-block;
+  text-align: center;
+}
+#passframe {
+  text-align: center;
+}
+
+#frame { 
+  width: 1024px; 
+  min-height: 800px;
+  height: 100%;
+  background: #fff; 
+  display: inline-block; 
+  text-align: center;
+  padding:25px 0px;
+}
+#frame_edit{}
+#frame_admedit{}
+#frame_edit, #frame_admedit {
+  position:relative;
+  left:-50%;
+  float:left;
+  color: #000;
+  width: 400px;
+  height: 350px;
+  padding: 25px;
+  margin-top: 50px;
+  -moz-box-shadow: 0px 0px 10px #888;
+  -o-box-shadow: 0px 0px 10px #888;
+  -webkit-box-shadow: 0px 0px 10px #888;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -o-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+}
+
+#admchange{
+  display: inline-block;
+  text-align: center;
+}
+
+
+/* #########################FAKTURA BÖRJAN############################# */
+#invoiceframe { 
+  width: 1024px; 
+  min-height: 800px;
+  height: 100%;
+  background: #ccc; 
+  display: inline-block; 
+}
+
+#invoiceframe option{
+background: #efefef; 
+}
+
+#uploadbutton{
+	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
+	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
+	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
+	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+	border-radius: 10px;  	
+	padding: 10px 20px;
+	color: #EA005A; 
+	font: 18px Arial,sans-serif;
+
+}
+
+#invoicedropdown{
+	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
+	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
+	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
+	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+	border-radius: 10px;  
+	margin-top: 10px;
+	margin-left: 10px;
+	float: left;
+	color: #EA005A; 
+	font: 18px Arial,sans-serif;
+	border: hidden;
+}
+
+#choicebutton{
+	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
+	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
+	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
+	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+	border-radius: 10px;  	
+	color: #EA005A;
+	margin-top: 10px;
+	margin-right: 10px;
+	float: right;
+	font: 18px Arial,sans-serif;
+	border: hidden;
+}
+
+#listframe { 
+  width: 63%; 
+  min-height: 800px;
+  height: 100%;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #ff6699;
+  background: #CCC; 
+  display: inline-block; 
+  text-align: center;
+}
+
+#invoicelistframe { 
+background: #efefef; 
+	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
+	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
+	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
+	box-shadow: 0px 0px 5px rgba(0,0,0,1);
+	width: 95%;
+	margin-top: 20px;
+	text-align: center;
+	margin-right: 10px;
+	float: right;
+	font: 18px Arial,sans-serif;
+}
+
+#preview{
+	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+    min-height: 800px;
+	min-width: 500px;
+	width: 100%;
+    height: 100%;	
+	position:relative;
+	border-style: solid;
+    border-width: 5px;
+    border-color: #ff6699;
+	right:500px;bottom:860px;
+}
+/* #########################FAKTURA SLUT############################# */
+/* #########################INFO BÖRJAN############################# */
+#logga{
+  display: inline-block;
+  width:50px;
+  float: right;
+  position: relative;
+  bottom: 15px;
+  right: 160px;
+}
+
+#infodropdown{
+	margin-top: 10px;
+	margin-left: 10px;
+	float: left;
+}
+
+#infochoicebutton{
+  display: inline-block;
+  text-align: center;
+  margin-left: 50px; 
+}
+
+#infolistframe{
+background: #efefef; 
+	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
+	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
+	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
+	box-shadow: 0px 0px 5px rgba(0,0,0,1);
+	width: 510px;
+	height: 350px;
+	position: fixed;
+	padding-left: 5px;
+	padding-top: 25px;
+	margin-top: 20px;
+	text-align: left;
+	margin-right: 10px;	
+	font: 18px Arial,sans-serif;
+	}
+	
+/* #########################INFO SLUT############################# */
+/* #########################KONTRAKT BÖRJAN############################# */
+#frame *{
+margin: 0;
+}
+
+#postContracts *{
+ text-align: center;
+margin-left: auto;
+margin-right: auto;
+padding-top: 5px;
+padding-top: 5px;
+vertical-align: middle;
+max-width: 100%;
+}
+
+#postContracts {
+margin-left: auto;
+margin-right: auto;
+width: 50%;
+}
+
+#postContracts input[type="text"],
+#postContracts textarea,
+#postContracts input[type="date"],
+#postContracts input[type="tel"],
+#postContracts input[type="number"],
+#postContracts input[type="color"],
+#postContracts input[type="url"],
+#postContracts select
+{
+    width:80%;
+}
+
+#postContracts input{
+text-align: left;
+}
+
+#postContracts input[type="reset"]{
+text-align: center;
+}
+
+#postContracts input[type="submit"]{
+text-align: center;
+}
+
+#postContracts textarea{
+text-align: left;
+}
+
+#editContract *{
+ text-align: center;
+margin-left: auto;
+margin-right: auto;
+padding-top: 5px;
+padding-top: 5px;
+vertical-align: middle;
+max-width: 100%;
+}
+/* #########################KONTRAKT SLUT############################# */
+/* #########################EDITERA KONTRAKT BÖRJAN############################# */
+#editContract {
+margin-left: auto;
+margin-right: auto;
+width: 50%;
+}
+
+#editContract input{
+text-align: left;
+}
+
+#editContract textarea{
+text-align: left;
+}
+
+
+#messageframecompany {
+  width: 1024px; 
+  height: 250px; 
+  background: #fff;
+}
+#messageframeadmin {
+  width: 1024px;
+  height: 250px;
+  background: #fff;
+}
+#overviewinfo{
+  width: 1024px; 
+  height: 250px; 
+  background: #fff;
+  text-align: left;
+  font: 18px Arial,sans-serif;
+}
+
+*{
+  margin:0;
+  padding:0;
+}
+
+/* ################################################################## */
+/* ################################################################## */
+/* Allting nedan är uppstrukturerat och kontrollerat att det fungerar */
+/* ################################################################## */
+/* ################################################################## */
+
+/* ############### id attribute #<id> ############### */
+
+#center{
+    position: relative;
+    left: 50%;
+    float: left;
+}
+
+/* Huvudområde längst ned på sidan*/
+#footer-wrapper {
+  width: 100%;
+  height: 10px;
+}
+
+/* generella inställningar för huvudmeny */
+#huvudmeny {
+  width: 100%; 
+  height: auto;
+padding-bottom:10px;
+}
+
+/* Snygga till login-wrapper */
+#login-wrapper {
+  margin: 0px auto;
+  width: 400px;
+  height: 200px;
+  padding: 50px;
+  margin-top: 150px;
+  -moz-box-shadow: 0px 0px 10px #888;
+  -o-box-shadow: 0px 0px 10px #888;
+  -webkit-box-shadow: 0px 0px 10px #888;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -o-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+}
+
+/* Huvudområde längst upp på sidan */
+#header-wrapper {
+  width: 100%;
+  height: 110px;
+}
+
+/* Huvudområdet i mitten av sidan */
+#main-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+/* Företagslogga längst upp på alla sidor */
+#mobowpic {
+  width: 500px; 
+  height: 103px;
+}
+
+#password{
+    width:360px;
+}
+
+#rmimg{
+  width: 120px;
+  margin-left: 25px;
+}
+
+#forrmimg{
+  width: 120px;
+  margin-left: 25px;
+}
+
+#username{
+    width:360px;
+}
+
+/* ############### name attribute .<name> ############### */
+
+/* dölj innehåll */
+.hide{
+    display:none;
+}
+
+/* generella inställningar för submit */
+.submit {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.ok{
+    background-color: #cfc;
+    color: #000;
+    font-weight: bold;
+    display: inline-block;
+    width: 1024px;
+}
+
+.error{
+    background-color: #fcc;
+    color: #000;
+    font-weight: bold;
+    display: inline-block;
+    width: 1024px;
+}
+
+/* ############### tag attribute  ############### */
+
+b{
+    font-weight:bold;
+}
+
+/* generella inställningar för body */
+body{
+  background: #F2F2F2; 
+  color:#969;
+  padding:10px;
+  text-align: center;
+}
+
+/* Form höjd, marginal och padding */
+form ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+form ul li {
+  margin: 1em 0 0 0;
+  padding: 0;
+}
+
+form * {
+  line-height: 1em;
+  text-align:left;
+}
+
+/* ändra färg på border när fältet är markerat */
+form *:focus {
+  border: 2px solid #000;
+  outline: none;
+}
+
+/* enskilda fält */
+input, textarea {
+  background: #fee;
+}
+
+select{
+  background: #fff;
+}
+
+input, textarea, select{
+  font-size: 1em;
+  border: 2px solid #999;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  display: block;
+  margin: 0;
+  padding: .5em;
+}
+
+/* Gör bakgrunden lätt grön när fälten är ifyllda */
+input:valid , textarea:valid{
+  background: #efe;
+}
+
+/* Knappar [typ button,reset eller submit] */
+input[type="button"], input[type="reset"], input[type="submit"] {
+  display: inline;
+  margin: 0 5px;
+  margin-left:20px;
+  width: 10em;
+  padding: 10px;
+  border: 2px solid #f06;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+  box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+  color: #fff;
+  background: #EA005A;
+  font-weight: bold;
+  -webkit-appearance: none;
+  text-align:center;
+}
+
+input[type="submit"]:hover, input[type="submit"]:active, input[type="reset"]:hover, input[type="reset"]:active, input[type="button"]:hover, input[type="button"]:active {
+  cursor: pointer;
+  background: #fff;
+  color: #EA005A;
+}
+
+input[type="button"]:active, input[type="button"]:active {
+  background: #eee;
+  -moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8) inset;
+  -webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8) inset;
+  box-shadow: 0 0 .5em rgba(0, 0, 0, .8) inset;
+}
+
+/* style för label */
+label {
+  clear: left;
+  text-align: right;
+  width: 15%;
+  font-family: Times New Roman;
+  font-weight: bold;
+  font-size: 16px;
+  color: #606060;
+}
+
+/*#####################################################*/
+/*#####################################################*/
+/*############### huvudmeny ###########################*/
+/*#####################################################*/
+/*#####################################################*/
+
+/* generella inställningar för nav */
+nav{
+  margin: 50px auto 0;
+  text-align: center;
+  width: 1024px;
+}
+
+nav ul{
+  list-style:none;
+  position:relative;
+  display:inline-block;
+}
+nav ul:after{
+  content:'';
+  clear:both;
+  display:block;
+}
+nav ul li{
+  float:left;
+  position:relative;
+  background-color: #f0f0f0;
+  background-image: -webkit-gradient(linear,left top, left bottom,from(#fefefe), color-stop(0.5,#f0f0f0), color-stop(0.51, #e6e6e6));
+  background-image: -moz-linear-gradient(#fefefe 0%, #f0f0f0 50%, #e6e6e6 51%);
+  background-image: -o-linear-gradient(#fefefe 0%, #f0f0f0 50%, #e6e6e6 51%);
+  background-image: -ms-linear-gradient(#fefefe 0%, #f0f0f0 50%, #e6e6e6 51%);
+  background-image: linear-gradient(#fefefe 0%, #f0f0f0 50%, #e6e6e6 51%);
+  border-right: 1px solid rgba(9, 9, 9, 0.125);
+  box-shadow: 1px -1px 0 rgba(255, 255, 255, 0.6) inset;
+  -moz-box-shadow: 1px -1px 0 rgba(255, 255, 255, 0.6) inset;
+  -webkit-box-shadow: 1px -1px 0 rgba(255, 255, 255, 0.6) inset;
+}
+nav > ul > li > ul > li:last-child:after{
+  border-radius:0 0 5px 5px;
+}
+nav ul li:after{
+  content:'.';
+  text-indent:-9999px;
+  overflow:hidden;
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  z-index:1;
+  opacity:0;	
+  /* Gradients! */	
+  background-image:-webkit-gradient(linear, left top, right top, from(rgba(168,168,168,0.5)),color-stop(0.5,rgba(168,168,168,0)), to(rgba(168,168,168,0.5)));
+  background-image:-moz-linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));
+  background-image:-o-linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));
+  background-image:-ms-linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));
+  background-image:linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));
+  box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff,1px 0 0 #a3a3a3,2px 0 0 #fff;
+  -moz-box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff,1px 0 0 #a3a3a3,2px 0 0 #fff;
+  -webkit-box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff,1px 0 0 #a3a3a3,2px 0 0 #fff;
+  -moz-transition:0.25s all;
+  -webkit-transition:0.25s all;
+  -o-transition:0.25s all;
+  transition:0.25s all;
+}
+nav > ul > li:first-child{
+  border-radius: 5px 0 0 5px;
+}
+nav > ul > li:first-child:after,
+nav > ul > li.selected:first-child:after{
+  box-shadow:1px 0 0 #a3a3a3,2px 0 0 #fff;
+  -moz-box-shadow:1px 0 0 #a3a3a3,2px 0 0 #fff;
+  -webkit-box-shadow:1px 0 0 #a3a3a3,2px 0 0 #fff;
+  border-radius:5px 0 0 5px;
+}
+nav ul li:hover > ul{
+  display:block;
+}
+nav ul li:hover:after,
+nav ul li.selected:after,
+nav ul li:target:after{
+    opacity:1;
+}
+nav ul li.selected:hover:after,
+nav ul li:target:hover:after{
+  opacity:1;
+}
+nav ul:hover li.selected:after,
+nav ul:hover li:target:after{
+  opacity:0;
+}
+nav > ul > li:last-child{
+  border-radius: 0 5px 5px 0;
+}
+nav > ul > li:last-child:after,
+nav > ul > li.selected:last-child:after{
+  box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff;
+  -moz-box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff;
+  -webkit-box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff;
+  border-radius:0 5px 5px 0;
+}
+nav ul li a{
+  display:block;
+  text-decoration:none;
+  color: #5d5d5d;
+  font: 18px Arial,sans-serif;
+  padding: 10px 30px 10px;
+  position: relative;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.6);
+  z-index:2;
+  text-decoration:none;
+  white-space:nowrap;
+}
+nav ul ul{
+  position:absolute;
+  top:100%;
+  display:none;
+}
+nav ul ul li{
+  float:none;
+  position:relative;
+}
+nav ul ul li:last-child{
+  border-radius:0 0 5px 5px !important;  
+}
+
+nav ul a.hemikon{
+  background:url('../../image/home.png') no-repeat center center;
+  display: block;
+  overflow: hidden;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-indent: -9999px;
+  width: 16px;
+}
+
+nav ul a.logikon{
+  background:url('../../image/logout.png') no-repeat center center;
+  display: block;
+  overflow: hidden;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-indent: -9999px;
+  width: 16px;
+}

@@ -1,0 +1,4 @@
+######## Du befinner dig nu i server-rooten ########
+
+#######################################
+include_once("../db.php"); //använd för databaskoppling

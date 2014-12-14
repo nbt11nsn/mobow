@@ -1,0 +1,198 @@
+#mobowpic  img{
+  width: 100%;
+  height: auto;
+  float: left;
+}
+#mobowpic {
+  padding-left: 2%;
+  width: 40%;
+  vertical-align:top;
+}
+
+#content {
+  width: 500px;
+  overflow: hidden;
+}
+
+#google_container {
+  width: 100%; 
+  margin-left : auto;
+  margin-right : auto;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box; 
+  border-top:thick solid #ccc;
+  border-bottom:thick solid #ccc;
+  height: 100%;
+}
+
+#googleMap {
+  min-height: 500px;
+  height: 100%;
+  width: 1000px;
+  max-width: 100%;
+  min-width: 768px;
+  margin: 0 auto;
+}
+
+#header-wrapper {
+  width: 100%;
+  height: auto;
+  min-height: 135px;
+  display: inline-block;
+  background: #f2f2f2;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  border-top-style: solid;
+  border-top-color: #CCC;
+  border-top-width: thick; 
+  border-bottom-style: solid;
+  border-bottom-color: #CCC;
+  border-bottom-width: thick; 
+}
+
+html, body {
+  height: 100%;
+ }
+ 
+body {
+  margin: 0px;
+  padding: 0px;	  
+}
+ 
+#wrapper {
+  width: 100%;
+  min-height: 100%;
+  height: auto !important;     
+}
+
+.clear {
+    clear: both;
+}
+
+/* ##### infoWindow design  ##### */
+
+.aDcrocleft{
+  position: absolute; 
+  left: 6px; 
+  transform: skewX(22.5deg) translateZ(0px);
+  -webkit-transform: skewX(22.5deg) translateZ(0px);
+  -moz-transform: skewX(22.5deg) translateZ(0px);
+  -ms-transform: skewX(22.5deg) translateZ(0px);
+  transform-origin: 0px 0px 0px; 
+  -webkit-transform-origin: 0px 0px 0px; 
+  -moz-transform-origin: 0px 0px 0px; 
+  -ms-transform-origin: 0px 0px 0px;   
+  height: 24px; 
+  width: 10px; 
+  box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 5px;
+  background-color: rgb(255, 255, 255);
+}
+
+.aDcrocright{
+  position: absolute; 
+  left: 0px;
+  transform: skewX(-22.5deg) translateZ(0px);
+  -webkit-transform: skewX(-22.5deg) translateZ(0px);
+  -moz-transform: skewX(-22.5deg) translateZ(0px);
+  -ms-transform: skewX(-22.5deg) translateZ(0px);
+  transform-origin: 10px 0px 0px; 
+  -webkit-transform-origin: 10px 0px 0px; 
+  -moz-transform-origin: 10px 0px 0px; 
+  -ms-transform-origin: 10px 0px 0px; 
+  height: 24px; 
+  width: 10px; 
+  box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 5px; 
+  -webkit-box-shadow: rgba(0, 0, 0, 0.7) 0px 1px 5px;
+  background-color: rgb(255, 255, 255);
+}
+
+.arrowDiv{position: absolute; left: 117px; top: 339px; opacity: 0.8;}
+
+/*.arrowDivleft{position: absolute; overflow: hidden; left: -6px; top: -1px; width: 16px; height: 30px;}*/
+
+.arrowDivleft{position: absolute; overflow: hidden; left: -12px; top: 0px; width: 16px; height: 30px;}
+/*.arrowDivright{position: absolute; overflow: hidden; left: 10px; top: -1px; width: 16px; height: 30px;}*/
+
+.arrowDivright{position: absolute; overflow: hidden; left: 4px; top: 0px; width: 16px; height: 30px;}
+
+.closeDiv{
+  width:16px;
+  height:16px;
+  overflow:hidden;
+  position: absolute;
+/*  transform: translateZ(0px);*/
+  right: 8px;
+  top: 5px;
+  cursor: pointer;
+}
+
+.containerDiv{
+  position: absolute; 
+  left: 0px; 
+  top: 0px; 
+  border-radius: 4px; 
+  width: 251px; 
+  height: 340px; 
+  background-color: rgb(255, 255, 255);
+  box-shadow:8px 8px 16px #222;
+  -webkit-box-shadow:8px 8px 16px #222;
+  opacity: 0.6;
+}
+
+.contentDiv{
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 320px;
+  font-family:Roboto, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+/*  text-align:center;*/
+/*  padding:5px 20px 10px;*/
+}
+
+.inDiv{position: absolute; left: 0px; top: 0px;}
+
+.infowindow{
+  width:253px;
+  height:342px;
+  position:absolute;
+  left:445px;
+  top:47px;
+}
+
+.innerDiv{top: 9px; position: absolute; left: 15px; width: 230px; height: 324px; padding-top:10px;}
+
+.iw_close{
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+  width: 16px;
+  height: 16px;
+}
+
+/* ##### infoWindow innehåll ##### */
+.kontorsnamn{
+    font-family: Roboto,Arial,sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    direction: ltr;
+}
+
+.meterDiv{
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    bottom:5px;
+    left: 5px;
+    font-weight: bold;
+}
+
+.imge{
+    float:right;
+}
+
+.address, .oppet, .stn, .allminfo, .hemsida, .tele{
+    font-size: 12px;
+    direction: ltr;
+}
