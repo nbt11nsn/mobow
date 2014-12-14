@@ -248,7 +248,7 @@ $error = false;
             $lw = $li[0];
             $lh = $li[1];
             $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
-            $target = "../logo/"."kontrakt".$kont.".".$ext;
+            $target = "image/logo/"."kontrakt".$kont.".".$ext;
             $abs_dir = __DIR__."/../".$target;
             if(move_uploaded_file($tmp_path, $abs_dir)){               
             }

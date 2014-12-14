@@ -57,7 +57,7 @@ if(isset($_POST['upfak']) && $adm){
         else
         {
             $tmp_path = $_FILES['pdf_fil']['tmp_name'];
-            $target = "../faktura/"."faktura".$c."_".$df."_".$fn.".pdf";
+            $target = "faktura/"."faktura".$c."_".$df."_".$fn.".pdf";
             $abs_dir = __DIR__."/../".$target;
 	    if(file_exists($abs_dir)){
 		$error="Filen finns redan";
