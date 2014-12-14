@@ -57,7 +57,7 @@ if(isset($_POST['upfak']) && $adm){
         else
         {
             $tmp_path = $_FILES['pdf_fil']['tmp_name'];
-            $target = "faktura/"."faktura".$c."_".$df."_".$fn.".pdf";
+            $target = "../faktura/"."faktura".$c."_".$df."_".$fn.".pdf";
             $abs_dir = __DIR__."/../".$target;
 	    if(file_exists($abs_dir)){
 		$error="Filen finns redan";
@@ -118,7 +118,7 @@ if($adm){
 	    <form action="" method="post" id = "postRows">
 		<select name = "dropdown" id = "invoicedropdown">		
 		    <?php
-		    $isql = "SELECT kontrakt.ID, kontorsnamn FROM kontrakt LEFT OUTER JOIN faktura on kontrakt.ID = faktura.agarid";
+		    $isql = "SELECT DISTINCT kontrakt.ID, kontorsnamn FROM kontrakt LEFT OUTER JOIN faktura on kontrakt.ID = faktura.agarid";
 		    $iresult = mysqli_query($con, $isql);
 		    if (mysqli_num_rows($iresult) != 0) {
 			while($irows = mysqli_fetch_assoc($iresult)) {

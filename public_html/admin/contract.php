@@ -268,7 +268,7 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
             $lw = $li[0];
             $lh = $li[1];
             $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
-            $target = "image/logo/"."kontrakt".$c.".".$ext;
+            $target = "../logo/"."kontrakt".$c.".".$ext;
             $abs_dir = __DIR__."/../".$target;
             if(move_uploaded_file($tmp_path, $abs_dir)){
                 $sql3.= ", kontrakt.logurl = '$target', kontrakt.logbredd = '$lw', kontrakt.loghojd = '$lh'";
