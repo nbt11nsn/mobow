@@ -18,7 +18,6 @@ echo"<div id = 'huvudmeny'>
           <li><a href='contract.php'>Kontrakt</a></li>
         </ul>
       </li>
-      <li><a href='order.php'>Beställning</a></li>
       <li><a href='companymessage.php'>Meddelande</a></li>
       <li><a href='logout.php' class='logikon'>L</a></li>
     </ul>
@@ -39,7 +38,6 @@ echo"<div id = 'huvudmeny'>
           <li><a href='contract.php'>Kontrakt</a></li>
         </ul>
       </li>
-      <li><a href='order.php'>Beställning</a></li>
       <li><a href='companymessage.php'>Meddelande</a></li>
       <li><a href='logout.php' class='logikon'>L</a></li>
     </ul>

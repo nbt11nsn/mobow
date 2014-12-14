@@ -26,7 +26,9 @@ defined('THE_MENUE') || define('THE_MENUE', TRUE);
 require_once("include/menuebar.php");
 
 ?>
+
 <div id = "invoiceframe">
+
   <div class="upload_form_cont" >
     <form id="upload_form" enctype="multipart/form-data" method="post" action="upload.php">
       <div>
@@ -39,37 +41,12 @@ require_once("include/menuebar.php");
       </div>
       <div>
         <input type="button" id = "uploadbutton" value="Ladda upp" onclick="startUploading()" />
-      </div>
-	  	
-      <div id="fileinfo">
-        <div id="filename"></div>
-        <div id="filesize"></div>
-        <div id="filetype"></div>
-        <div id="filedim"></div>
-      </div>
-      <div id="error">Fel filformat
-      </div>
-      <div id="error2">Ett fel har inträffat under uppladdningen
-      </div>
-      <div id="abort">Uppladdningen avbröts
-      </div>
-      <div id="warnsize">Filen är för stor
-      </div>
-      <div id="progress_info">
-        <div id="progress"></div>
-        <div id="progress_percent">&nbsp;</div>
-        <div class="clear_both"></div>
-        <div>
-          <div id="speed">&nbsp;</div>
-          <div id="remaining">&nbsp;</div>
-          <div id="b_transfered">&nbsp;</div>
-          <div class="clear_both"></div>
-        </div>
-        <div id="upload_response"></div>
+      </div>	
 		 <div id = "listframe">	
 		 </form>
 	<form action="" method="post" id = "postRows">
 		<select name = "dropdown" id = "invoicedropdown">		
+		
 		<?php 	
 		$isql = "SELECT ID, kontorsnamn 
 					FROM faktura NATURAL JOIN kontrakt";
@@ -105,7 +82,6 @@ require_once("include/menuebar.php");
       </div>
       </div>
     </form>
-    <img id="preview"  />
   </div>  
 </div>
 </div><!--main-wrapper-->
