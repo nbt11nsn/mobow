@@ -67,7 +67,7 @@ if($adm){
     else{
     echo"<input type='hidden' name='comp' value=''>";
     }
-    echo"<select name='contracts' id='contracts'>";
+    echo"<select required name='contracts' id='contracts'>";
 $iresult = mysqli_query($con, $isql);
 if (mysqli_num_rows($iresult) != 0) {
   while($irows = mysqli_fetch_assoc($iresult)) {
@@ -101,15 +101,15 @@ if($adm){
 echo"
 <li>
 <label for='kontor'>Namn: </label>
-<input type='text' align='left'  maxlength='50' value = '".$irows['kontorsnamn']."'  name='kontor' id='kontor' />
+<input required type='text' align='left'  maxlength='50' value = '".$irows['kontorsnamn']."'  name='kontor' id='kontor' />
 </li>
 <li>
 <label for='sbesok'>Senaste besök: </label>
-<input type='date' align='left' value = '".$irows['sbesok']."' name='sbesok' id='sbesok' />
+<input required type='date' align='left' value = '".$irows['sbesok']."' name='sbesok' id='sbesok' />
 </li>
 <li>
 <label for='typ'>Typ av verksamhet: </label>
-<select name='typ' id='typ'>";
+<select required name='typ' id='typ'>";
 if (mysqli_num_rows($resultikon) != 0) {
   while($ikons = mysqli_fetch_assoc($resultikon)) {
       if($irows['ikonid'] == $ikons['ID'])
@@ -136,7 +136,7 @@ if($adm){
 echo'
 <li>
 <label for="stn">Antal stationer: </label>
-<input type="number" align="left"  value = "'.$irows["stn"].'" maxlength="11" value="stn" name="stn" name="stn" />
+<input required type="number" align="left"  value = "'.$irows["stn"].'" maxlength="11" value="stn" name="stn" name="stn" />
 </li>';}
 echo'
 <li>
@@ -167,11 +167,11 @@ echo'
 </li>
 <li>
 <label for="stad">Stad: </label>
-<input type="text" align="left"  value = "'.$irows["stad"].'" maxlength="100" value="stad" name="stad" id="stad" />
+<input required type="text" align="left"  value = "'.$irows["stad"].'" maxlength="100" value="stad" name="stad" id="stad" />
 </li>
 <li>
 <label for="gata">Gata: </label>
-<input type="text"  align="left" value = "'.$irows["gata"].'" maxlength="100" value="gata" name="gata" id="gata" />
+<input required type="text"  align="left" value = "'.$irows["gata"].'" maxlength="100" value="gata" name="gata" id="gata" />
 </li>';}
 echo'
 <li>
