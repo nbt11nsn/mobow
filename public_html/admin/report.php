@@ -22,8 +22,7 @@ require_once("include/menuebar.php");
 defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../../db.php');
 
-$isql = "SELECT felmeddelande.fronid, kontrakt.kontorsnamn FROM felmeddelande JOIN kontrakt ON felmeddelande.fronid = kontrakt.ID WHERE felmeddelande.tillid = (SELECT kontrakt.ID FROM kontrakt WHERE kontrakt.kontaktpersonid = '".mysqli_real_escape_string($con, $_SESSION['username'])."') GROUP BY felmeddelande.fronid";
-
+$isql = "SELECT felmeddelande.ID, kontorsnamn, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN kontrakt ON kontaktpersonid = anvnamn WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."'";
 
 $currentContract = 1;
 ?>
@@ -35,79 +34,84 @@ $currentContract = 1;
 <div id = "frame">
   <div id = "text">
     <form action="" method="post" id = "postContracts">
-    <select name = "contracts">
+    <select name = "contracts" id = "contracts">
 	<?php 
 	
 	$iresult = mysqli_query($con, $isql);
 	if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	  
-		  echo "<option value=".$irows['ID'].">".$irows['anvnamn']."</option>";
+		  echo "<option value=".$irows['ID'].">".$irows['anvnamn']." ".$irows["orgnr"]."</option>";
       }
     mysqli_free_result($iresult);	
 	}
 	?>
     </select> 		
     <input type="submit" name = "accept" id = "accept" value="Välj">  
+	<input type="submit" name = "send" id = "send" value="Skicka">	
    <?php 
 
-
-	
-	
-	if(isset($_POST['save'])) 
-	{
-	$sql3 = "UPDATE kontrakt, adress SET gata = '".$_POST["gata"]."', stn = '".$_POST["stn"]."', oppet = '".mysqli_real_escape_string($con, nl2br($_POST["oppet"]))."', allminfo = '".mysqli_real_escape_string($con, nl2br($_POST["allminfo"]))."',
-	hemsida = '".$_POST["hemsida"]."', forecolor = '".$_POST["forecolor"]."',	backcolor = '".$_POST["backcolor"]."', postnr = '".$_POST["postnr"]."',
-	stad = '".$_POST["stad"]."', gata = '".$_POST["gata"]."', tele = '".$_POST["telefonenbr"]."', logurl = '".$_POST["logo"]."' WHERE kontrakt.ID = '".$_POST['contracts']."'";
-	mysqli_query($con, $sql3);	
-	}
-	//kontorsnamn, tele, stn, multipart logo(url + bred + höjd), hemsida, oppet,
-	//allminfo, forecolor, backcolor, ikonID, postnr, stad, gata, googlemap long lat,
 	
 	 if(isset($_POST['accept'])) {
 
-	 $isql3 = "SELECT* FROM felmeddelande JOIN kontaktperson ON kontaktperson.ID = fronid
-WHERE tillid = (SELECT ID FROM kontaktperson WHERE anvnamn = '".$_SESSION['username']."')";
-
-   $iresult = mysqli_query($con, $isql3);
-	if (mysqli_num_rows($iresult) != 0) {
-	$irows = mysqli_fetch_assoc($iresult);
-	 }
+	 $isql3 = "SELECT feltext, Info, text, orgnr, fronid, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
+	 ON feltyp.ID = felmeddelande.feltypid JOIN medstatus ON medstatus.id = felmeddelande.status JOIN kontrakt ON kontaktpersonid = anvnamn
+	 WHERE felmeddelande.ID = ".mysqli_real_escape_string($con,$_POST['contracts']);
+	 $options = "SELECT ID, info FROM medstatus";
+	$iresultoptions = mysqli_query($con, $options);
+	$iresult = mysqli_query($con, $isql3);
+	
+	if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0 && $iresultoptions !== FALSE && mysqli_num_rows($iresultoptions)) {
+	$irows = mysqli_fetch_assoc($iresult);	
 	echo  '<form action="" method="post" id = "messages">
       <ul>	
-	  <label for="topic">Ämne: </label>
-	  <input type="text" readonly align="left"  value = "'.$irows["amne"].'" maxlength="50" value="amne" name="amne" />
+	  <li>
+	  <label>Från: </label>
+	  <input type="text" readonly align="left"  value = "'.$irows["anvnamn"].'" maxlength="50" id="frm" name="frm" />
+	</li>
+	 <li>
+	  <label>Status: </label>
+	  <input type="text" readonly align="left"  value = "'.$irows["Info"].'" maxlength="50" id="infoinput" name="infoinput" />
 	</li>
 	<li>
-	  <label for="message" >Meddelande: </label>
-	 <textarea cols="40" rows="5" readonly input type="text" value="meddelande" name="meddelande">'.strip_tags($irows["meddelande"]).'</textarea>
+	  <label>Ämne </label>
+	  <input type="text" readonly align="left" maxlength="50" name = "feltext" id = "feltext" value = "'.$irows["feltext"].'" />
 	</li>
 	<li>
-	  <label for="Topic" >Ämne </label>
-	  <input type="text" align="left" maxlength="50" value = "Re: '.$irows["amne"].'" name="newTopic" />
+	  <label>Meddelande: </label>
+	 <textarea cols="40" rows="5" readonly input type="text" name="meddelande">'.strip_tags($irows["text"]).'</textarea>
+	</li>
+	<li>
+	  <label>Ämne </label>
+	  <select name="infooptions" id="infooptions">';
+	  
+	  while($irowsO = mysqli_fetch_assoc($iresultoptions)){
+	  echo "<option value=".$irowsO['ID'].">".$irowsO['info']."</option>";    	
+	  }
+	
+	echo '</select>
 	</li>
 	<li>
 	  <label for="newMessage">Nytt Meddelande: </label>
-	   <textarea cols="40" rows="5" input type="text" name="newMessage"></textarea>
+	   <textarea cols="40" rows="5" input type="text" name="newMessage" id = "newMessage"></textarea>
 	</li>	
       </ul>
     </form>
-		';
-   
+	';
+   }
   }
   
-  if(isset($_POST['send'])){
-  $sqli4 = 'INSERT INTO felmeddelande VALUES(null,"'.$_POST["newMessage"].'",0,1,1, 0, "'.$_POST["newTopic"].'")';
-
-  //"INSERT INTO felmeddelande VALUES(0,'".$_POST['newMessage']."',0,1,".$irows['tillid'].", ".$irows['fronid'].", '".$_POST['newTopic']."')";
-
-  mysqli_query($con, $sqli4);
-  
+  if(isset($_POST['send'])){ 
+  $message = mysqli_real_escape_string($con, $_POST["newMessage"]);
+    $io = mysqli_real_escape_string($con, $_POST["infooptions"]);
+	$new_txt = mysqli_real_escape_string($con, $_POST["feltext"]);
+	$usrname = mysqli_real_escape_string($con, $_SESSION["username"]);
+	$fromusr = mysqli_real_escape_string($con, $_POST["frm"]);
+   $sqli4 = "INSERT INTO felmeddelande VALUES(0, '".$message."', ". $io.",
+   (SELECT ID FROM feltyp WHERE feltext = '".$new_txt."' LIMIT 1), '".$usrname."',
+   '".$fromusr."');"; 
+	mysqli_query($con, $sqli4);  
   }
-  
-		?>
-		
-		
-		<input type="submit" name = "send" id = "send" value="Skicka"> 	
+?>
 	
    </form>
   </div>
