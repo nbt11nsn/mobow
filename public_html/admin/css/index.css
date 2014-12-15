@@ -174,19 +174,23 @@ min-width: 500px;
 }
 
 #infodropdowntop{
-	margin-top: 10px;
-	margin-left: 10px;
-	float: left;
+  display: inline-block;
 }
 #infodropdownbottom fieldset{
 padding: 10px;
 }
 
 #infodropdownbottom{
-	text-align: left;
-	margin-top: 10px;
-	margin-left: 10px;
-	float: left;
+  display: inline-block;
+  padding-top: 10px;
+}
+#infotextframebot{
+text-align: center;
+margin-left: auto;
+margin-right: auto;
+padding-top: 5px;
+background: #efe;
+min-width: 500px;
 }
 
 #infochoicebutton{
