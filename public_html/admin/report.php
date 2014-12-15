@@ -21,10 +21,18 @@ defined('THE_MENUE') || define('THE_MENUE', TRUE);
 require_once("include/menuebar.php");
 defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../../db.php');
+$isadmin = mysqli_real_escape_string($con, $_SESSION['admin']);
+if($isadmin){
+$isql = "SELECT felmeddelande.ID, kontorsnamn,  orgnr, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn
+ = fronid JOIN kontrakt ON kontaktpersonid = anvnamn WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."'";
+}
+else
+{
+$isql = "SELECT felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN kontaktperson ON anvnamn
+ = fronid JOIN feltyp ON medstatus = feltyp.ID WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."'";
+ echo $isql;
+}
 
-$isql = "SELECT felmeddelande.ID, kontorsnamn, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN kontrakt ON kontaktpersonid = anvnamn WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."'";
-
-$currentContract = 1;
 ?>
 <div id="main-wrapper">
 <?php
@@ -40,7 +48,7 @@ $currentContract = 1;
 	$iresult = mysqli_query($con, $isql);
 	if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	  
-		  echo "<option value=".$irows['ID'].">".$irows['anvnamn']." ".$irows["orgnr"]."</option>";
+		  echo "<option value=".$irows['ID'].">".$irows['anvnamn']." ".$irows["feltext"]."</option>";
       }
     mysqli_free_result($iresult);	
 	}
@@ -53,10 +61,13 @@ $currentContract = 1;
 	
 	 if(isset($_POST['accept'])) {
 
-	 $isql3 = "SELECT feltext, Info, text, orgnr, fronid, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
-	 ON feltyp.ID = felmeddelande.feltypid JOIN medstatus ON medstatus.id = felmeddelande.status JOIN kontrakt ON kontaktpersonid = anvnamn
+	 $isql3 = "SELECT feltext, Info, text, fronid, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
+	 ON feltyp.ID = felmeddelande.feltypid JOIN medstatus ON medstatus.id = felmeddelande.status
 	 WHERE felmeddelande.ID = ".mysqli_real_escape_string($con,$_POST['contracts']);
 	 $options = "SELECT ID, info FROM medstatus";
+	 
+	 
+	 
 	$iresultoptions = mysqli_query($con, $options);
 	$iresult = mysqli_query($con, $isql3);
 	
