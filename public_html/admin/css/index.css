@@ -151,16 +151,21 @@ background: #efefef;
 }
 /* #########################FAKTURA SLUT############################# */
 /* #########################INFO BÖRJAN############################# */
-/*
-KOLLIDERAR MED #logga SOM FINNS RAD 319 KAN FIXAS GENOM ATT DÖP OM DENNA TILL NÅGOT ANNAT
-#logga{
+
+#infotextframe{
+readonly;
+text-align: left; 
+min-width: 500px;
+}
+
+#infologga{
   display: inline-block;
   width:50px;
   float: right;
   position: relative;
   bottom: 15px;
   right: 160px;
-}*/
+}
 
 #infodropdown{
 	margin-top: 10px;
