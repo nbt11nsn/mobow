@@ -47,7 +47,7 @@ $isql = "SELECT felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN konta
 	$iresult = mysqli_query($con, $isql);
 	if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	  
-		  echo "<option value=".$irows['ID'].">".$irows['anvnamn']." ".$irows["feltext"]."</option>";
+		  echo "<option value=".$irows['ID'].">".$irows['anvnamn']." ".$irows['feltext']."</option>";
       }
     mysqli_free_result($iresult);	
 	}

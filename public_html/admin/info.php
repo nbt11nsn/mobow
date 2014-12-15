@@ -42,8 +42,15 @@ require_once(__DIR__ .'./../../db.php');
 		
 		<?php 
 		//Skriver ut kontaktpersonens info i dropdownmenyn
+		$isadmin = mysqli_real_escape_string($con,$_SESSION['admin']);
+		if($isadmin){
 	$isql = "SELECT anvnamn, fornamn, efternamn, kontorsnamn 
-				FROM kontaktperson JOIN kontrakt on kontrakt.kontaktpersonid = kontaktperson.anvnamn";		
+				FROM kontaktperson JOIN kontrakt on kontrakt.kontaktpersonid = kontaktperson.anvnamn";
+}
+else{
+$isql = "SELECT anvnamn, fornamn, efternamn, kontorsnamn 
+				FROM kontaktperson JOIN kontrakt on kontrakt.kontaktpersonid = kontaktperson.anvnamn WHERE anvnamn = '".mysqli_real_escape_string($con,$_SESSION['username'])."'";
+}				
 	$iresult = mysqli_query($con, $isql);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	  
@@ -137,18 +144,20 @@ require_once(__DIR__ .'./../../db.php');
 		
 		<fieldset>
 		<legend><b>Övrig information</b></legend>
-		
+		<label for="hem">Hemsidan: </label>
 		<a href = "'.$irows2['hemsida'].'"  target="_blank">
 		<input type="text" value="Gå till hemsidan" readonly id = "infotextframebot"/>
 		</a>			
-		</fieldset>	';
+			';
 		
-		if(isset($_POST['url']) != null){ 
-		echo '<a href = "../'.$irows2['url'].'" target="_blank">
-		<input type="text" value="Öppna senaste fakturan'.$irows2['datum'].'" readonly id = "infotextframebot"/>
+		if(isset($irows2['url'])){ 
+		echo '
+		<label for="fakt">Faktura: </label>
+		<a href = "../'.$irows2['url'].'" target="_blank">
+		<input type="text" value="Öppna senaste fakturan" readonly id = "infotextframebot"/>
 		</a>';
 		}
-					
+			echo '</fieldset>';		
 
 		
 		}
