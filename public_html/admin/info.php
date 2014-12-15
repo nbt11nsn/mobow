@@ -137,20 +137,23 @@ require_once(__DIR__ .'./../../db.php');
 		
 		<fieldset>
 		<legend><b>Övrig information</b></legend>
-		<label for="hem">Hemsida: </label>
+		
+		<a href = "'.$irows2['hemsida'].'"  target="_blank">
+		<input type="text" value="Gå till hemsidan" readonly id = "infotextframebot"/>
+		</a>			
+		</fieldset>	';
+		
+		if(isset($_POST['url']) != null){ 
+		echo '<a href = "../'.$irows2['url'].'" target="_blank">
+		<input type="text" value="Öppna senaste fakturan'.$irows2['datum'].'" readonly id = "infotextframebot"/>
+		</a>';
+		}
+					
 
-		<form action="https://www.google.se/" target="_blank" >
-		<input type="submit" value="Hemsidan">
-		</form>
-		<a href = "google.com" target="_blank">
-		<input type="text" value="'.$irows2['datum'].'" readonly id = "infotextframe"/>
-		</a>	
-		</fieldset>
-		';
+		
 		}
 		
 	}
-	//<input type="text"  value="'."<a target='_blank' href = '../".$irows2['url']."'>".$irows2['datum']."</a>".'" id = "infotextframe"/>
 	  mysqli_free_result($iresult);
   }	
 
