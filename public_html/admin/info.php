@@ -35,12 +35,13 @@ require_once(__DIR__ .'./../../db.php');
 
 ?>
 
-<div id="frame">
+<div id="infoframe">
 
 	<form action="" method="post" id = "postRows">
-		<select name = "dropdown" id = "infodropdown">		
+		<select name = "dropdown" id = "infodropdowntop">		
+		
 		<?php 
-		//Skriver ut kontaktpersonens info
+		//Skriver ut kontaktpersonens info i dropdownmenyn
 	$isql = "SELECT anvnamn, fornamn, efternamn, kontorsnamn 
 				FROM kontaktperson JOIN kontrakt on kontrakt.kontaktpersonid = kontaktperson.anvnamn";		
 	$iresult = mysqli_query($con, $isql);
@@ -56,8 +57,10 @@ require_once(__DIR__ .'./../../db.php');
   }
   mysqli_free_result($iresult);	
 	?>	
+	
 		<input type="submit" name = "choicebutton" id = "infochoicebutton" value="Välj kontakt">		
 		</form>
+		<form action="" method="post" id = "infodropdownbottom">
 				<?php 
 		
 		if(isset($_POST["choicebutton"])){
@@ -89,71 +92,68 @@ require_once(__DIR__ .'./../../db.php');
 	  ."Telefonnummer: ".$irows2['mobil']."<br /> "
 	  ."Mejl: ".$irows2['mejl']."<br /> "
 	  ."Senaste faktura: "."<a target='_blank' href = '../".$irows2['url']."'>".$irows2['datum']."</a>"."<br/>";
-		*/
-	   echo "Logga som används i kartfunktionen: <img id='infologga' src='./../".$irows2['logurl']."' />";
+		
+	   echo "Logga som används i kartfunktionen: <img id='infologga' src='./../".$irows2['logurl']."' />";*/
 	   
-	   echo '<li>
-		<label for="fnamn">Företags namn: </label>
-		<input type="text" value="'.$irows2['namn'].'" readonly id = "infotextframe"/>
-			</li>
-			<li>
-		<label for="fnamn">Kontors namn: </label>
+	   echo '	   
+	   <fieldset>
+		<legend><b>Information</b></legend>
+	    <label for="knamn">Företag: </label>
+	    <input type="text" value="'.$irows2['namn'].'" readonly id = "infotextframe"/>
+		
+		<label for="knamn">Kontor: </label>
 		<input type="text" value="'.$irows2['kontorsnamn'].'" readonly id = "infotextframe"/>
-			</li>
-			<li>
-		<label for="fnamn">Kontorstyp: </label>
+			
+		<label for="typ">Kontorstyp: </label>
 		<input type="text" value="'.$irows2['typ'].'" readonly id = "infotextframe"/>
-			</li>
-			<li>
-		<label for="fnamn">Hemsida: </label>
-		<input type="button" value="'."<a target='_blank' href = '".$irows2['hemsida']."' >".$irows2['hemsida']."</a>".'" id = "infotextframe"/>
-			</li>
-			<li>
-		<label for="fnamn">Hyr antal stationer: </label>
+	
+		<label for="stn">Hyr antal stationer: </label>
 		<input type="text" value="'.$irows2['stn'].'" readonly id = "infotextframe"/>
-			</li>
-			<li>
-		<label for="fnamn">Senaste besök: </label>
+			
+		<label for="senaste">Senaste besök: </label>
 		<input type="text" value="'.$irows2['sbesok'].'" readonly id = "infotextframe"/>
-			</li>
-			<li>
-		<label for="fnamn">Nästa besök: </label>
+			
+		<label for="nasta">Nästa besök: </label>
 		<input type="text" value="'.$endDate.'" readonly id = "infotextframe"/>
-			</li>
-			<li>
-		<label for="fnamn">Adress: </label>
+			
+		<label for="adress">Adress: </label>
 		<input type="text" value="'.$irows2['gata'].", ".$irows2['postnr']." ".$irows2['stad'].'" readonly id = "infotextframe"/>
-			</li>
-			<li>
-		<label for="fnamn">Organisationsnummer: </label>
+			
+		<label for="org">Organisationsnummer: </label>
 		<input type="text" value="'.$irows2['orgnr'].'" readonly id = "infotextframe"/>
-			</li>
-			<li>
-		<label for="fnamn">Kontaktperson: </label>
+			
+		<label for="pers">Kontaktperson: </label>
 		<input type="text" value="'.$irows2['fornamn']." ".$irows2['efternamn'].'" readonly id = "infotextframe"/>
-			</li>
-			<li>
-		<label for="fnamn">Användarnamn: </label>
+			
+		<label for="anv">Användarnamn: </label>
 		<input type="text" value="'.$irows2['anvnamn'].'" readonly id = "infotextframe"/>
-			</li>
-			<li>
-		<label for="fnamn">Telefon: </label>
+			
+		<label for="tele">Telefon: </label>
 		<input type="text" value="'.$irows2['mobil'].'" readonly id = "infotextframe"/>
-			</li>
-			<li>
-		<label for="fnamn">Mejl: </label>
+			
+		<label for="mejl">Mejl: </label>
 		<input type="text" value="'.$irows2['mejl'].'" readonly id = "infotextframe"/>
-			</li>
-			<li>
-		<label for="fnamn">Senaste faktura: </label>
-		<input type="button" value="'."<a target='_blank' href = '../".$irows2['url']."'>".$irows2['datum']."</a>".'" id = "infotextframe"/>
-			</li>
-			';
+		</fieldset>
+		
+		<fieldset>
+		<legend><b>Övrig information</b></legend>
+		<label for="hem">Hemsida: </label>
 
+		<form action="https://www.google.se/" target="_blank" >
+		<input type="submit" value="Hemsidan">
+		</form>
+		<a href = "google.com" target="_blank">
+		<input type="text" value="'.$irows2['datum'].'" readonly id = "infotextframe"/>
+		</a>	
+		</fieldset>
+		';
 		}
+		
 	}
+	//<input type="text"  value="'."<a target='_blank' href = '../".$irows2['url']."'>".$irows2['datum']."</a>".'" id = "infotextframe"/>
 	  mysqli_free_result($iresult);
   }	
+
 	?>	
 </div>
  </form>

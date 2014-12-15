@@ -155,9 +155,12 @@ background: #efefef;
 /* #########################FAKTURA SLUT############################# */
 /* #########################INFO BÖRJAN############################# */
 
-#infotextframe{
-readonly;
-text-align: left; 
+#infotextframe{	
+text-align: left;
+margin-left: auto;
+margin-right: auto;
+padding-top: 5px;
+background: #efe;
 min-width: 500px;
 }
 
@@ -170,7 +173,17 @@ min-width: 500px;
   right: 160px;
 }
 
-#infodropdown{
+#infodropdowntop{
+	margin-top: 10px;
+	margin-left: 10px;
+	float: left;
+}
+#infodropdownbottom fieldset{
+padding: 10px;
+}
+
+#infodropdownbottom{
+	text-align: left;
 	margin-top: 10px;
 	margin-left: 10px;
 	float: left;
@@ -199,6 +212,15 @@ background: #efefef;
 	font: 18px Arial,sans-serif;
 	}
 	
+#infoframe {
+  width: 1024px; 
+  min-height: 800px;
+  height: 100%;
+  background: #fff; 
+  display: inline-block; 
+  text-align: center;
+  padding:25px 0px;
+	}
 /* #########################INFO SLUT############################# */
 /* #########################KONTRAKT BÖRJAN############################# */
 #frame *{
