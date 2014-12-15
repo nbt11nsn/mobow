@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.0.10deb1
 -- http://www.phpmyadmin.net
 --
--- Värd: 127.0.0.1
--- Tid vid skapande: 15 dec 2014 kl 13:47
--- Serverversion: 5.6.20
--- PHP-version: 5.5.15
+-- Host: localhost
+-- Generation Time: Dec 15, 2014 at 01:55 PM
+-- Server version: 5.5.40-0ubuntu0.14.04.1
+-- PHP Version: 5.5.9-1ubuntu4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Databas: `mobowdb`
+-- Database: `mobowdb`
 --
 CREATE DATABASE IF NOT EXISTS `mobowdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `mobowdb`;
@@ -25,20 +25,21 @@ USE `mobowdb`;
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `adress`
+-- Table structure for table `adress`
 --
 
 CREATE TABLE IF NOT EXISTS `adress` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `postnr` int(11) DEFAULT NULL,
   `stad` varchar(100) NOT NULL,
   `gata` varchar(100) NOT NULL,
   `lng` double NOT NULL,
-  `lat` double NOT NULL
+  `lat` double NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
--- Dumpning av Data i tabell `adress`
+-- Dumping data for table `adress`
 --
 
 INSERT INTO `adress` (`ID`, `postnr`, `stad`, `gata`, `lng`, `lat`) VALUES
@@ -52,19 +53,20 @@ INSERT INTO `adress` (`ID`, `postnr`, `stad`, `gata`, `lng`, `lat`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `bestallning`
+-- Table structure for table `bestallning`
 --
 
 CREATE TABLE IF NOT EXISTS `bestallning` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `datum` date NOT NULL,
-  `foretagsid` int(11) NOT NULL
+  `foretagsid` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `edit_foretag`
+-- Table structure for table `edit_foretag`
 --
 
 CREATE TABLE IF NOT EXISTS `edit_foretag` (
@@ -80,11 +82,14 @@ CREATE TABLE IF NOT EXISTS `edit_foretag` (
   `ikonid` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
   `meddelande` text,
-  `kontraktid` int(11) NOT NULL
+  `kontraktid` int(11) NOT NULL,
+  PRIMARY KEY (`kontraktid`),
+  KEY `kontraktid` (`kontraktid`),
+  KEY `status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumpning av Data i tabell `edit_foretag`
+-- Dumping data for table `edit_foretag`
 --
 
 INSERT INTO `edit_foretag` (`currinfo`, `tele`, `logurl`, `logbredd`, `loghojd`, `hemsida`, `allminfo`, `forecolor`, `backcolor`, `ikonid`, `status`, `meddelande`, `kontraktid`) VALUES
@@ -93,40 +98,45 @@ INSERT INTO `edit_foretag` (`currinfo`, `tele`, `logurl`, `logbredd`, `loghojd`,
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `edit_kntper`
+-- Table structure for table `edit_kntper`
 --
 
 CREATE TABLE IF NOT EXISTS `edit_kntper` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `fornamn` varchar(50) DEFAULT NULL,
   `efternamn` varchar(50) DEFAULT NULL,
   `mobil` int(11) DEFAULT NULL,
   `mejl` varchar(50) DEFAULT NULL,
   `status` int(11) NOT NULL,
   `meddelande` mediumtext,
-  `kontraktid` int(11) NOT NULL
+  `kontraktid` int(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `kontraktid` (`kontraktid`),
+  KEY `status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `faktura`
+-- Table structure for table `faktura`
 --
 
 CREATE TABLE IF NOT EXISTS `faktura` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `namn` varchar(50) NOT NULL,
   `url` varchar(100) NOT NULL,
   `agarid` int(11) NOT NULL,
-  `datum` date NOT NULL
+  `datum` date NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `agarid` (`agarid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
--- Dumpning av Data i tabell `faktura`
+-- Dumping data for table `faktura`
 --
 
 INSERT INTO `faktura` (`ID`, `namn`, `url`, `agarid`, `datum`) VALUES
-(1, 'faktura1faktura1faktura1faktura1faktura1faktura1fa', 'faktura/faktura1.pdf', 1, '2014-12-01'),
+(1, 'faktura1faktura1', 'faktura/faktura1.pdf', 1, '2014-12-01'),
 (2, 'faktura2', 'faktura/faktura2.pdf', 2, '2014-12-03'),
 (3, 'faktura3', 'faktura/faktura1.pdf', 3, '2014-11-04'),
 (4, 'faktura4', 'faktura/faktura1.pdf', 4, '2013-07-16'),
@@ -137,20 +147,25 @@ INSERT INTO `faktura` (`ID`, `namn`, `url`, `agarid`, `datum`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `felmeddelande`
+-- Table structure for table `felmeddelande`
 --
 
 CREATE TABLE IF NOT EXISTS `felmeddelande` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `text` text NOT NULL,
   `medstatus` int(11) NOT NULL DEFAULT '1',
   `feltypid` int(11) NOT NULL,
   `fronid` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `tillid` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
+  `tillid` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `fronid` (`fronid`),
+  KEY `tillid` (`tillid`),
+  KEY `status` (`medstatus`),
+  KEY `feltypid` (`feltypid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
--- Dumpning av Data i tabell `felmeddelande`
+-- Dumping data for table `felmeddelande`
 --
 
 INSERT INTO `felmeddelande` (`ID`, `text`, `medstatus`, `feltypid`, `fronid`, `tillid`) VALUES
@@ -162,16 +177,17 @@ INSERT INTO `felmeddelande` (`ID`, `text`, `medstatus`, `feltypid`, `fronid`, `t
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `feltyp`
+-- Table structure for table `feltyp`
 --
 
 CREATE TABLE IF NOT EXISTS `feltyp` (
-`ID` int(11) NOT NULL,
-  `feltext` varchar(100) NOT NULL
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `feltext` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumpning av Data i tabell `feltyp`
+-- Dumping data for table `feltyp`
 --
 
 INSERT INTO `feltyp` (`ID`, `feltext`) VALUES
@@ -180,16 +196,17 @@ INSERT INTO `feltyp` (`ID`, `feltext`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `foretag`
+-- Table structure for table `foretag`
 --
 
 CREATE TABLE IF NOT EXISTS `foretag` (
   `orgnr` varchar(20) NOT NULL,
-  `namn` varchar(50) NOT NULL
+  `namn` varchar(50) NOT NULL,
+  PRIMARY KEY (`orgnr`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumpning av Data i tabell `foretag`
+-- Dumping data for table `foretag`
 --
 
 INSERT INTO `foretag` (`orgnr`, `namn`) VALUES
@@ -203,17 +220,18 @@ INSERT INTO `foretag` (`orgnr`, `namn`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `ikontyp`
+-- Table structure for table `ikontyp`
 --
 
 CREATE TABLE IF NOT EXISTS `ikontyp` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `imgurl` varchar(256) NOT NULL,
-  `typ` varchar(100) NOT NULL
+  `typ` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Dumpning av Data i tabell `ikontyp`
+-- Dumping data for table `ikontyp`
 --
 
 INSERT INTO `ikontyp` (`ID`, `imgurl`, `typ`) VALUES
@@ -223,7 +241,7 @@ INSERT INTO `ikontyp` (`ID`, `imgurl`, `typ`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `kontaktperson`
+-- Table structure for table `kontaktperson`
 --
 
 CREATE TABLE IF NOT EXISTS `kontaktperson` (
@@ -233,11 +251,13 @@ CREATE TABLE IF NOT EXISTS `kontaktperson` (
   `mobil` varchar(20) DEFAULT NULL,
   `mejl` varchar(50) NOT NULL,
   `losen` varchar(256) NOT NULL,
-  `admin` tinyint(1) NOT NULL
+  `admin` tinyint(1) NOT NULL,
+  PRIMARY KEY (`anvnamn`),
+  UNIQUE KEY `anvnamn` (`anvnamn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumpning av Data i tabell `kontaktperson`
+-- Dumping data for table `kontaktperson`
 --
 
 INSERT INTO `kontaktperson` (`anvnamn`, `fornamn`, `efternamn`, `mobil`, `mejl`, `losen`, `admin`) VALUES
@@ -251,11 +271,11 @@ INSERT INTO `kontaktperson` (`anvnamn`, `fornamn`, `efternamn`, `mobil`, `mejl`,
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `kontrakt`
+-- Table structure for table `kontrakt`
 --
 
 CREATE TABLE IF NOT EXISTS `kontrakt` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `kontorsnamn` varchar(50) NOT NULL,
   `sbesok` date NOT NULL DEFAULT '0000-00-00',
   `currinfo` text,
@@ -271,11 +291,18 @@ CREATE TABLE IF NOT EXISTS `kontrakt` (
   `kontaktpersonid` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `adressid` int(11) NOT NULL,
   `ikonid` int(11) NOT NULL,
-  `orgnr` varchar(20) NOT NULL
+  `orgnr` varchar(20) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `adressid` (`adressid`),
+  KEY `ikonid` (`ikonid`),
+  KEY `kontaktpersonid` (`kontaktpersonid`),
+  KEY `foretagid` (`orgnr`),
+  KEY `foretagid_2` (`orgnr`),
+  KEY `orgnr` (`orgnr`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
--- Dumpning av Data i tabell `kontrakt`
+-- Dumping data for table `kontrakt`
 --
 
 INSERT INTO `kontrakt` (`ID`, `kontorsnamn`, `sbesok`, `currinfo`, `tele`, `stn`, `logurl`, `logbredd`, `loghojd`, `hemsida`, `allminfo`, `forecolor`, `backcolor`, `kontaktpersonid`, `adressid`, `ikonid`, `orgnr`) VALUES
@@ -290,16 +317,17 @@ INSERT INTO `kontrakt` (`ID`, `kontorsnamn`, `sbesok`, `currinfo`, `tele`, `stn`
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `medstatus`
+-- Table structure for table `medstatus`
 --
 
 CREATE TABLE IF NOT EXISTS `medstatus` (
-`ID` int(11) NOT NULL,
-  `Info` varchar(50) NOT NULL
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Info` varchar(50) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- Dumpning av Data i tabell `medstatus`
+-- Dumping data for table `medstatus`
 --
 
 INSERT INTO `medstatus` (`ID`, `Info`) VALUES
@@ -310,7 +338,7 @@ INSERT INTO `medstatus` (`ID`, `Info`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `oppettider`
+-- Table structure for table `oppettider`
 --
 
 CREATE TABLE IF NOT EXISTS `oppettider` (
@@ -318,11 +346,13 @@ CREATE TABLE IF NOT EXISTS `oppettider` (
   `veckodagarid` int(11) NOT NULL,
   `oppet` time DEFAULT NULL,
   `stangt` time DEFAULT NULL,
-  `arStangt` tinyint(1) NOT NULL
+  `arStangt` tinyint(1) NOT NULL,
+  PRIMARY KEY (`kontraktid`,`veckodagarid`),
+  KEY `veckodagarid` (`veckodagarid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumpning av Data i tabell `oppettider`
+-- Dumping data for table `oppettider`
 --
 
 INSERT INTO `oppettider` (`kontraktid`, `veckodagarid`, `oppet`, `stangt`, `arStangt`) VALUES
@@ -337,260 +367,104 @@ INSERT INTO `oppettider` (`kontraktid`, `veckodagarid`, `oppet`, `stangt`, `arSt
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `probest`
+-- Table structure for table `probest`
 --
 
 CREATE TABLE IF NOT EXISTS `probest` (
   `bestallningsid` int(11) NOT NULL,
   `produktid` int(11) NOT NULL,
-  `antal` int(11) NOT NULL
+  `antal` int(11) NOT NULL,
+  PRIMARY KEY (`bestallningsid`,`produktid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `produkt`
+-- Table structure for table `produkt`
 --
 
 CREATE TABLE IF NOT EXISTS `produkt` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `maxbest` int(11) NOT NULL DEFAULT '0',
   `namn` varchar(100) NOT NULL,
   `bildurl` varchar(256) DEFAULT NULL,
-  `info` mediumtext
+  `info` mediumtext,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `veckodagar`
+-- Table structure for table `veckodagar`
 --
 
 CREATE TABLE IF NOT EXISTS `veckodagar` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `akro` varchar(4) NOT NULL,
-  `veckonamn` varchar(8) NOT NULL
+  `veckonamn` varchar(8) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
--- Dumpning av Data i tabell `veckodagar`
+-- Dumping data for table `veckodagar`
 --
 
 INSERT INTO `veckodagar` (`ID`, `akro`, `veckonamn`) VALUES
-(1, 'Mån', 'Måndag'),
-(2, 'Tis', 'Tisdag'),
-(3, 'Ons', 'Onsdag'),
-(4, 'Tors', 'Torsdag'),
-(5, 'Fre', 'Fredag'),
-(6, 'Lör', 'Lördag'),
-(7, 'Sön', 'Söndag');
+(1, 'Sön', 'Söndag'),
+(2, 'Mån', 'Måndag'),
+(3, 'Tis', 'Tisdag'),
+(4, 'Ons', 'Onsdag'),
+(5, 'Tors', 'Torsdag'),
+(6, 'Fre', 'Fredag'),
+(7, 'Lör', 'Lördag');
 
 --
--- Index för dumpade tabeller
+-- Constraints for dumped tables
 --
 
 --
--- Index för tabell `adress`
---
-ALTER TABLE `adress`
- ADD PRIMARY KEY (`ID`);
-
---
--- Index för tabell `bestallning`
---
-ALTER TABLE `bestallning`
- ADD PRIMARY KEY (`ID`);
-
---
--- Index för tabell `edit_foretag`
+-- Constraints for table `edit_foretag`
 --
 ALTER TABLE `edit_foretag`
- ADD PRIMARY KEY (`kontraktid`), ADD KEY `kontraktid` (`kontraktid`), ADD KEY `status` (`status`);
+  ADD CONSTRAINT `kontrakt_ibfk_3` FOREIGN KEY (`kontraktid`) REFERENCES `kontrakt` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `status_ibfk_1` FOREIGN KEY (`status`) REFERENCES `medstatus` (`ID`);
 
 --
--- Index för tabell `edit_kntper`
+-- Constraints for table `edit_kntper`
 --
 ALTER TABLE `edit_kntper`
- ADD PRIMARY KEY (`ID`), ADD KEY `kontraktid` (`kontraktid`), ADD KEY `status` (`status`);
+  ADD CONSTRAINT `kontrakt_ibfk_5` FOREIGN KEY (`kontraktid`) REFERENCES `kontrakt` (`ID`),
+  ADD CONSTRAINT `status_ibfk_2` FOREIGN KEY (`status`) REFERENCES `medstatus` (`ID`);
 
 --
--- Index för tabell `faktura`
+-- Constraints for table `faktura`
 --
 ALTER TABLE `faktura`
- ADD PRIMARY KEY (`ID`), ADD KEY `agarid` (`agarid`);
+  ADD CONSTRAINT `kontrakt_ibfk_2` FOREIGN KEY (`agarid`) REFERENCES `kontrakt` (`ID`);
 
 --
--- Index för tabell `felmeddelande`
+-- Constraints for table `felmeddelande`
 --
 ALTER TABLE `felmeddelande`
- ADD PRIMARY KEY (`ID`), ADD KEY `fronid` (`fronid`), ADD KEY `tillid` (`tillid`), ADD KEY `status` (`medstatus`), ADD KEY `feltypid` (`feltypid`);
+  ADD CONSTRAINT `felmeddelande_ibfk_1` FOREIGN KEY (`fronid`) REFERENCES `kontaktperson` (`anvnamn`),
+  ADD CONSTRAINT `felmeddelande_ibfk_2` FOREIGN KEY (`tillid`) REFERENCES `kontaktperson` (`anvnamn`),
+  ADD CONSTRAINT `felmeddelande_ibfk_3` FOREIGN KEY (`medstatus`) REFERENCES `medstatus` (`ID`),
+  ADD CONSTRAINT `felmeddelande_ibfk_4` FOREIGN KEY (`feltypid`) REFERENCES `feltyp` (`ID`);
 
 --
--- Index för tabell `feltyp`
---
-ALTER TABLE `feltyp`
- ADD PRIMARY KEY (`ID`);
-
---
--- Index för tabell `foretag`
---
-ALTER TABLE `foretag`
- ADD PRIMARY KEY (`orgnr`);
-
---
--- Index för tabell `ikontyp`
---
-ALTER TABLE `ikontyp`
- ADD PRIMARY KEY (`ID`);
-
---
--- Index för tabell `kontaktperson`
---
-ALTER TABLE `kontaktperson`
- ADD PRIMARY KEY (`anvnamn`), ADD UNIQUE KEY `anvnamn` (`anvnamn`);
-
---
--- Index för tabell `kontrakt`
+-- Constraints for table `kontrakt`
 --
 ALTER TABLE `kontrakt`
- ADD PRIMARY KEY (`ID`), ADD KEY `adressid` (`adressid`), ADD KEY `ikonid` (`ikonid`), ADD KEY `kontaktpersonid` (`kontaktpersonid`), ADD KEY `foretagid` (`orgnr`), ADD KEY `foretagid_2` (`orgnr`), ADD KEY `orgnr` (`orgnr`);
+  ADD CONSTRAINT `adress_ibfk_1` FOREIGN KEY (`adressid`) REFERENCES `adress` (`ID`),
+  ADD CONSTRAINT `ikon_ibfk_1` FOREIGN KEY (`ikonid`) REFERENCES `ikontyp` (`ID`),
+  ADD CONSTRAINT `kontrakt_ibfk_1` FOREIGN KEY (`kontaktpersonid`) REFERENCES `kontaktperson` (`anvnamn`),
+  ADD CONSTRAINT `orgnr_ibfk_1` FOREIGN KEY (`orgnr`) REFERENCES `foretag` (`orgnr`);
 
 --
--- Index för tabell `medstatus`
---
-ALTER TABLE `medstatus`
- ADD PRIMARY KEY (`ID`);
-
---
--- Index för tabell `oppettider`
+-- Constraints for table `oppettider`
 --
 ALTER TABLE `oppettider`
- ADD PRIMARY KEY (`kontraktid`,`veckodagarid`), ADD KEY `veckodagarid` (`veckodagarid`);
-
---
--- Index för tabell `probest`
---
-ALTER TABLE `probest`
- ADD PRIMARY KEY (`bestallningsid`,`produktid`);
-
---
--- Index för tabell `produkt`
---
-ALTER TABLE `produkt`
- ADD PRIMARY KEY (`ID`);
-
---
--- Index för tabell `veckodagar`
---
-ALTER TABLE `veckodagar`
- ADD PRIMARY KEY (`ID`);
-
---
--- AUTO_INCREMENT för dumpade tabeller
---
-
---
--- AUTO_INCREMENT för tabell `adress`
---
-ALTER TABLE `adress`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT för tabell `bestallning`
---
-ALTER TABLE `bestallning`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT för tabell `edit_kntper`
---
-ALTER TABLE `edit_kntper`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT för tabell `faktura`
---
-ALTER TABLE `faktura`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
---
--- AUTO_INCREMENT för tabell `felmeddelande`
---
-ALTER TABLE `felmeddelande`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
---
--- AUTO_INCREMENT för tabell `feltyp`
---
-ALTER TABLE `feltyp`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT för tabell `ikontyp`
---
-ALTER TABLE `ikontyp`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT för tabell `kontrakt`
---
-ALTER TABLE `kontrakt`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
---
--- AUTO_INCREMENT för tabell `medstatus`
---
-ALTER TABLE `medstatus`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT för tabell `produkt`
---
-ALTER TABLE `produkt`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT för tabell `veckodagar`
---
-ALTER TABLE `veckodagar`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
---
--- Restriktioner för dumpade tabeller
---
-
---
--- Restriktioner för tabell `edit_foretag`
---
-ALTER TABLE `edit_foretag`
-ADD CONSTRAINT `kontrakt_ibfk_3` FOREIGN KEY (`kontraktid`) REFERENCES `kontrakt` (`ID`) ON DELETE CASCADE,
-ADD CONSTRAINT `status_ibfk_1` FOREIGN KEY (`status`) REFERENCES `medstatus` (`ID`);
-
---
--- Restriktioner för tabell `edit_kntper`
---
-ALTER TABLE `edit_kntper`
-ADD CONSTRAINT `kontrakt_ibfk_5` FOREIGN KEY (`kontraktid`) REFERENCES `kontrakt` (`ID`),
-ADD CONSTRAINT `status_ibfk_2` FOREIGN KEY (`status`) REFERENCES `medstatus` (`ID`);
-
---
--- Restriktioner för tabell `faktura`
---
-ALTER TABLE `faktura`
-ADD CONSTRAINT `kontrakt_ibfk_2` FOREIGN KEY (`agarid`) REFERENCES `kontrakt` (`ID`);
-
---
--- Restriktioner för tabell `felmeddelande`
---
-ALTER TABLE `felmeddelande`
-ADD CONSTRAINT `felmeddelande_ibfk_1` FOREIGN KEY (`fronid`) REFERENCES `kontaktperson` (`anvnamn`),
-ADD CONSTRAINT `felmeddelande_ibfk_2` FOREIGN KEY (`tillid`) REFERENCES `kontaktperson` (`anvnamn`),
-ADD CONSTRAINT `felmeddelande_ibfk_3` FOREIGN KEY (`medstatus`) REFERENCES `medstatus` (`ID`),
-ADD CONSTRAINT `felmeddelande_ibfk_4` FOREIGN KEY (`feltypid`) REFERENCES `feltyp` (`ID`);
-
---
--- Restriktioner för tabell `kontrakt`
---
-ALTER TABLE `kontrakt`
-ADD CONSTRAINT `adress_ibfk_1` FOREIGN KEY (`adressid`) REFERENCES `adress` (`ID`),
-ADD CONSTRAINT `ikon_ibfk_1` FOREIGN KEY (`ikonid`) REFERENCES `ikontyp` (`ID`),
-ADD CONSTRAINT `kontrakt_ibfk_1` FOREIGN KEY (`kontaktpersonid`) REFERENCES `kontaktperson` (`anvnamn`),
-ADD CONSTRAINT `orgnr_ibfk_1` FOREIGN KEY (`orgnr`) REFERENCES `foretag` (`orgnr`);
-
---
--- Restriktioner för tabell `oppettider`
---
-ALTER TABLE `oppettider`
-ADD CONSTRAINT `veckodagar_ibfk_1` FOREIGN KEY (`veckodagarid`) REFERENCES `veckodagar` (`ID`);
+  ADD CONSTRAINT `veckodagar_ibfk_1` FOREIGN KEY (`veckodagarid`) REFERENCES `kontrakt` (`ID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
