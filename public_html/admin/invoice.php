@@ -88,7 +88,7 @@ if(isset($_POST['upfak']) && $adm){
 if($adm){
     echo"
 <div class='upload_pdf' >
-    <form id='upload_form' enctype='multipart/form-data' method='post' action=''>
+    <form id='upload_form' enctype='multipart/form-data' method='post' action=''><fieldset><legend class='center'><b>Ladda upp faktura</b></legend>
 <ul>
 <li class='center'><label for='fnamn'>Namn på fakturan:</label>
         <input required type='text' value='' id='fnamn' name='fnamn' maxlength='50' /></li>";
@@ -109,7 +109,7 @@ if($adm){
 	<input required type='file' name='pdf_fil' id='pdf_fil' /></li>
         <li class='center'><input type='reset' name='rst' id='rst' value='Återställ' />
 	<input type='submit' id='upfak' name='upfak' accept='application/pdf' value='Ladda upp faktura' /></li></ul>
-    </form>
+    </fieldset></form>
 </div>";
 }
 ?>
