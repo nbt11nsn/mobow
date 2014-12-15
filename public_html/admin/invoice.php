@@ -23,7 +23,7 @@ require_once("include/header.php");
     defined('THE_MENUE') || define('THE_MENUE', TRUE);
     require_once("include/menuebar.php");
     $adm = mysqli_real_escape_string($con, $_SESSION['admin']);
-    echo" <div id='invoiceframe'>";
+    echo" <div id='invoiceframe'><div id='center' style='padding-top:25px;'>";
 if(isset($_POST['upfak']) && $adm){
     $error=false;
     if(!isset($_POST['receiver'])&&!is_numeric($_POST['receiver'])){
@@ -147,6 +147,7 @@ if($adm){
 	?>	
 	</div>
     </div>
+    </div><!--invoiceframe-->
 </div><!--main-wrapper-->
 
 <?php

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 15, 2014 at 12:52 AM
+-- Generation Time: Dec 15, 2014 at 12:41 PM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `faktura` (
 --
 
 INSERT INTO `faktura` (`ID`, `namn`, `url`, `agarid`, `datum`) VALUES
-(1, 'faktura1faktura1faktura1faktura1faktura1faktura1fa', 'faktura/faktura1.pdf', 1, '2014-12-01'),
+(1, 'faktura1faktura1', 'faktura/faktura1.pdf', 1, '2014-12-01'),
 (2, 'faktura2', 'faktura/faktura2.pdf', 2, '2014-12-03'),
 (3, 'faktura3', 'faktura/faktura1.pdf', 3, '2014-11-04'),
 (4, 'faktura4', 'faktura/faktura1.pdf', 4, '2013-07-16'),
@@ -427,8 +427,8 @@ ALTER TABLE `faktura`
 -- Constraints for table `felmeddelande`
 --
 ALTER TABLE `felmeddelande`
-  ADD CONSTRAINT `felmeddelande_ibfk_2` FOREIGN KEY (`tillid`) REFERENCES `kontrakt` (`ID`),
-  ADD CONSTRAINT `felmeddelande_ibfk_1` FOREIGN KEY (`fronid`) REFERENCES `kontrakt` (`ID`);
+  ADD CONSTRAINT `felmeddelande_ibfk_1` FOREIGN KEY (`fronid`) REFERENCES `kontrakt` (`ID`),
+  ADD CONSTRAINT `felmeddelande_ibfk_2` FOREIGN KEY (`tillid`) REFERENCES `kontrakt` (`ID`);
 
 --
 -- Constraints for table `kontrakt`
