@@ -151,6 +151,8 @@ background: #efefef;
 }
 /* #########################FAKTURA SLUT############################# */
 /* #########################INFO BÖRJAN############################# */
+/*
+KOLLIDERAR MED #logga SOM FINNS RAD 319 KAN FIXAS GENOM ATT DÖP OM DENNA TILL NÅGOT ANNAT
 #logga{
   display: inline-block;
   width:50px;
@@ -158,7 +160,7 @@ background: #efefef;
   position: relative;
   bottom: 15px;
   right: 160px;
-}
+}*/
 
 #infodropdown{
 	margin-top: 10px;
@@ -199,7 +201,6 @@ margin: 0;
  text-align: center;
 margin-left: auto;
 margin-right: auto;
-padding-top: 5px;
 padding-top: 5px;
 vertical-align: middle;
 max-width: 100%;
@@ -313,6 +314,10 @@ text-align: left;
   width: 100%; 
   height: auto;
 padding-bottom:10px;
+}
+
+#logga{
+  width:50px;
 }
 
 /* Snygga till login-wrapper */

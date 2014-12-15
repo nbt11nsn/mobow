@@ -179,7 +179,7 @@ echo'
 <li>
 <label for="logga">Nuvarande bild: </label>';
 if(isset($irows["logurl"])){
-  echo"<img id='logga' style='width:50px;' src='./../".$irows['logurl']."' />";
+  echo"<img id='logga' src='./../".$irows['logurl']."' />";
   if($adm){
   echo"<input type='submit' name='rmimg' id='rmimg' value='Ta bort bild' />";
   }
