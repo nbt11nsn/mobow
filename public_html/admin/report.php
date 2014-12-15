@@ -28,9 +28,8 @@ $isql = "SELECT felmeddelande.ID, kontorsnamn,  orgnr, anvnamn FROM felmeddeland
 }
 else
 {
-$isql = "SELECT felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN kontaktperson ON anvnamn
- = fronid JOIN feltyp ON medstatus = feltyp.ID WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."'";
- echo $isql;
+$isql = "SELECT felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
+ ON feltypid = feltyp.ID WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."'";
 }
 
 ?>
@@ -62,8 +61,10 @@ $isql = "SELECT felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN konta
 	 if(isset($_POST['accept'])) {
 
 	 $isql3 = "SELECT feltext, Info, text, fronid, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
-	 ON feltyp.ID = felmeddelande.feltypid JOIN medstatus ON medstatus.id = felmeddelande.status
+	 ON feltyp.ID = felmeddelande.feltypid JOIN medstatus ON medstatus.id = felmeddelande.medstatus
 	 WHERE felmeddelande.ID = ".mysqli_real_escape_string($con,$_POST['contracts']);
+	
+	 
 	 $options = "SELECT ID, info FROM medstatus";
 	 
 	 
@@ -91,14 +92,16 @@ $isql = "SELECT felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN konta
 	  <label>Meddelande: </label>
 	 <textarea cols="40" rows="5" readonly input type="text" name="meddelande">'.strip_tags($irows["text"]).'</textarea>
 	</li>
-	<li>
-	  <label>Ämne </label>
+	<li>';
+	
+	if($isadmin){
+	 echo '<label>Status</label>
 	  <select name="infooptions" id="infooptions">';
 	  
 	  while($irowsO = mysqli_fetch_assoc($iresultoptions)){
 	  echo "<option value=".$irowsO['ID'].">".$irowsO['info']."</option>";    	
 	  }
-	
+	}
 	echo '</select>
 	</li>
 	<li>
@@ -113,13 +116,25 @@ $isql = "SELECT felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN konta
   
   if(isset($_POST['send'])){ 
   $message = mysqli_real_escape_string($con, $_POST["newMessage"]);
+  if($isadmin){
     $io = mysqli_real_escape_string($con, $_POST["infooptions"]);
+	}
+	else {
+	 $io = mysqli_real_escape_string($con, $_POST["infoinput"]);
+	}
 	$new_txt = mysqli_real_escape_string($con, $_POST["feltext"]);
 	$usrname = mysqli_real_escape_string($con, $_SESSION["username"]);
 	$fromusr = mysqli_real_escape_string($con, $_POST["frm"]);
+	if($isadmin){
    $sqli4 = "INSERT INTO felmeddelande VALUES(0, '".$message."', ". $io.",
    (SELECT ID FROM feltyp WHERE feltext = '".$new_txt."' LIMIT 1), '".$usrname."',
    '".$fromusr."');"; 
+   }
+   else {
+    $sqli4 = "INSERT INTO felmeddelande VALUES(0, '".$message."', (SELECT ID FROM medstatus WHERE Info = '".$io."' LIMIT 1),
+   (SELECT ID FROM feltyp WHERE feltext = '".$new_txt."' LIMIT 1), '".$usrname."',
+   '".$fromusr."');";    
+   }
 	mysqli_query($con, $sqli4);  
   }
 ?>
