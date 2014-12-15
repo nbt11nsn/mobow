@@ -63,7 +63,7 @@ paddin-top: 10px;
   width: 1024px; 
   min-height: 800px;
   height: 100%;
-  background: #ccc; 
+  background: #fcfcfc; 
   display: inline-block; 
 }
 
@@ -112,8 +112,8 @@ background: #efefef;
 }
 
 #listframe { 
-  width: 63%; 
-  min-height: 800px;
+  width: 400px;
+  min-height: 400px;
   height: 100%;
   border-style: solid;
   border-width: 5px;
@@ -121,6 +121,9 @@ background: #efefef;
   background: #CCC; 
   display: inline-block; 
   text-align: center;
+  position: relative;
+  left: -50%;
+  float: left;
 }
 
 #invoicelistframe { 
@@ -151,16 +154,21 @@ background: #efefef;
 }
 /* #########################FAKTURA SLUT############################# */
 /* #########################INFO BÖRJAN############################# */
-/*
-KOLLIDERAR MED #logga SOM FINNS RAD 319 KAN FIXAS GENOM ATT DÖP OM DENNA TILL NÅGOT ANNAT
-#logga{
+
+#infotextframe{
+readonly;
+text-align: left; 
+min-width: 500px;
+}
+
+#infologga{
   display: inline-block;
   width:50px;
   float: right;
   position: relative;
   bottom: 15px;
   right: 160px;
-}*/
+}
 
 #infodropdown{
 	margin-top: 10px;
@@ -309,6 +317,17 @@ text-align: left;
   height: 10px;
 }
 
+#forrmimg{
+  width: 120px;
+  margin-left: 25px;
+}
+
+/* Huvudområde längst upp på sidan */
+#header-wrapper {
+  width: 100%;
+  height: 110px;
+}
+
 /* generella inställningar för huvudmeny */
 #huvudmeny {
   width: 100%; 
@@ -335,12 +354,6 @@ padding-bottom:10px;
   -webkit-border-radius: 10px 10px 10px 10px;
 }
 
-/* Huvudområde längst upp på sidan */
-#header-wrapper {
-  width: 100%;
-  height: 110px;
-}
-
 /* Huvudområdet i mitten av sidan */
 #main-wrapper {
   width: 100%;
@@ -362,9 +375,14 @@ padding-bottom:10px;
   margin-left: 25px;
 }
 
-#forrmimg{
-  width: 120px;
-  margin-left: 25px;
+#upload_form input[type="text"],
+#upload_form input[type="date"],
+#upload_form select,
+#upload_form input[type="file"]
+
+{
+  margin: 0 auto;
+  width: 75%;
 }
 
 #username{
@@ -373,15 +391,21 @@ padding-bottom:10px;
 
 /* ############### name attribute .<name> ############### */
 
+.center{
+    text-align: center;
+}
+
+.error{
+    background-color: #fcc;
+    color: #000;
+    font-weight: bold;
+    display: inline-block;
+    width: 1024px;
+}
+
 /* dölj innehåll */
 .hide{
     display:none;
-}
-
-/* generella inställningar för submit */
-.submit {
-  text-align: center;
-  margin-top: 20px;
 }
 
 .ok{
@@ -392,12 +416,19 @@ padding-bottom:10px;
     width: 1024px;
 }
 
-.error{
-    background-color: #fcc;
-    color: #000;
-    font-weight: bold;
-    display: inline-block;
-    width: 1024px;
+/* generella inställningar för submit */
+.submit {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.upload_pdf{
+  width: 400px;
+  padding: 0 10px;
+  margin: 0 auto;
+  position: relative;
+  left: -50%;
+  float: left;
 }
 
 /* ############### tag attribute  ############### */

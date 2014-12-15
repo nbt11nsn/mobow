@@ -74,7 +74,7 @@ require_once(__DIR__ .'./../../db.php');
 		$startDate = $irows2['sbesok'];
 		$endDate = date("Y-m-d", strtotime("$startDate +6 month"));	  
 	
-	  echo "<div id='infolistframe'>"
+	  /*echo "<div id='infolistframe'>"
 	  ."Koncern: ".$irows2['namn']."<br /> "
 	  ."Kontor: ".$irows2['kontorsnamn']."<br /> "
 	  ."Kontorstyp: ".$irows2['typ']."<br /> "
@@ -89,8 +89,66 @@ require_once(__DIR__ .'./../../db.php');
 	  ."Telefonnummer: ".$irows2['mobil']."<br /> "
 	  ."Mejl: ".$irows2['mejl']."<br /> "
 	  ."Senaste faktura: "."<a target='_blank' href = '../".$irows2['url']."'>".$irows2['datum']."</a>"."<br/>";
-		
-	   echo "Logga som används i kartfunktionen: <img id='logga' src='./../".$irows2['logurl']."' />";
+		*/
+	   echo "Logga som används i kartfunktionen: <img id='infologga' src='./../".$irows2['logurl']."' />";
+	   
+	   echo '<li>
+		<label for="fnamn">Företags namn: </label>
+		<input type="text" value="'.$irows2['namn'].'" readonly id = "infotextframe"/>
+			</li>
+			<li>
+		<label for="fnamn">Kontors namn: </label>
+		<input type="text" value="'.$irows2['kontorsnamn'].'" readonly id = "infotextframe"/>
+			</li>
+			<li>
+		<label for="fnamn">Kontorstyp: </label>
+		<input type="text" value="'.$irows2['typ'].'" readonly id = "infotextframe"/>
+			</li>
+			<li>
+		<label for="fnamn">Hemsida: </label>
+		<input type="button" value="'."<a target='_blank' href = '".$irows2['hemsida']."' >".$irows2['hemsida']."</a>".'" id = "infotextframe"/>
+			</li>
+			<li>
+		<label for="fnamn">Hyr antal stationer: </label>
+		<input type="text" value="'.$irows2['stn'].'" readonly id = "infotextframe"/>
+			</li>
+			<li>
+		<label for="fnamn">Senaste besök: </label>
+		<input type="text" value="'.$irows2['sbesok'].'" readonly id = "infotextframe"/>
+			</li>
+			<li>
+		<label for="fnamn">Nästa besök: </label>
+		<input type="text" value="'.$endDate.'" readonly id = "infotextframe"/>
+			</li>
+			<li>
+		<label for="fnamn">Adress: </label>
+		<input type="text" value="'.$irows2['gata'].", ".$irows2['postnr']." ".$irows2['stad'].'" readonly id = "infotextframe"/>
+			</li>
+			<li>
+		<label for="fnamn">Organisationsnummer: </label>
+		<input type="text" value="'.$irows2['orgnr'].'" readonly id = "infotextframe"/>
+			</li>
+			<li>
+		<label for="fnamn">Kontaktperson: </label>
+		<input type="text" value="'.$irows2['fornamn']." ".$irows2['efternamn'].'" readonly id = "infotextframe"/>
+			</li>
+			<li>
+		<label for="fnamn">Användarnamn: </label>
+		<input type="text" value="'.$irows2['anvnamn'].'" readonly id = "infotextframe"/>
+			</li>
+			<li>
+		<label for="fnamn">Telefon: </label>
+		<input type="text" value="'.$irows2['mobil'].'" readonly id = "infotextframe"/>
+			</li>
+			<li>
+		<label for="fnamn">Mejl: </label>
+		<input type="text" value="'.$irows2['mejl'].'" readonly id = "infotextframe"/>
+			</li>
+			<li>
+		<label for="fnamn">Senaste faktura: </label>
+		<input type="button" value="'."<a target='_blank' href = '../".$irows2['url']."'>".$irows2['datum']."</a>".'" id = "infotextframe"/>
+			</li>
+			';
 
 		}
 	}
