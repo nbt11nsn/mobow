@@ -89,27 +89,26 @@ if($adm){
     echo"
 <div class='upload_pdf' >
     <form id='upload_form' enctype='multipart/form-data' method='post' action=''>
-        <label for='fnamn'>Namn på fakturan:</label>
-        <input required type='text' value='' id='fnamn' name='fnamn' maxlength='50' />";
+<ul>
+<li class='center'><label for='fnamn'>Namn på fakturan:</label>
+        <input required type='text' value='' id='fnamn' name='fnamn' maxlength='50' /></li>";
     $sqlkont="SELECT kontorsnamn, ID, orgnr FROM kontrakt ORDER BY kontorsnamn";
     $kont = mysqli_query($con, $sqlkont);
-    echo"
-    <label for='receiver'>Fakturan tillhör:</label>
+    echo"<li class='center'><label for='receiver'>Fakturan tillhör:</label>
     <select required name='receiver' id='receiver'>";
     if (mysqli_num_rows($kont) != 0) {
 	while($row = mysqli_fetch_assoc($kont)) {
 	    echo"<option value=".$row['ID'].">".$row['kontorsnamn']."</option>";
 	}
     }
-    echo"</select>";
+    echo"</select></li>";
     mysqli_free_result($kont);
-    echo"
-        <label for='dat_fil'>Datum:</label>
-        <input required type='date' name='dat_fil' id='dat_fil' value='".date('Y-m-d')."' />
-	<label for='pdf_fil'>Ladda upp en faktura</label>
-	<input required type='file' name='pdf_fil' id='pdf_fil' />
-        <input type='reset' name='rst' id='rst' value='Återställ' />
-	<input type='submit' id='upfak' name='upfak' accept='application/pdf' value='Ladda upp faktura' />
+    echo"<li class='center'><label for='dat_fil'>Datum:</label>
+        <input required type='date' name='dat_fil' id='dat_fil' value='".date('Y-m-d')."' /></li>
+<li class='center'><label for='pdf_fil'>Ladda upp en faktura</label>
+	<input required type='file' name='pdf_fil' id='pdf_fil' /></li>
+        <li class='center'><input type='reset' name='rst' id='rst' value='Återställ' />
+	<input type='submit' id='upfak' name='upfak' accept='application/pdf' value='Ladda upp faktura' /></li></ul>
     </form>
 </div>";
 }
