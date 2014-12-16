@@ -76,7 +76,7 @@ $isql = "SELECT anvnamn, fornamn, efternamn, kontorsnamn
 			FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = anvnamn JOIN adress ON adress.ID = adressid 
 			JOIN foretag ON foretag.orgnr = kontrakt.orgnr JOIN ikontyp ON ikontyp.id = ikonid
 			LEFT OUTER JOIN faktura ON faktura.agarid = kontrakt.ID WHERE kontaktperson.anvnamn = '".$_POST['dropdown']."'
-			ORDER BY faktura.datum LIMIT 1";
+			ORDER BY faktura.datum DESC LIMIT 1";
 
 	$iresult = mysqli_query($con, $isql6);
 	if (mysqli_num_rows($iresult) != 0) {
