@@ -23,13 +23,14 @@ defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../../db.php');
 $isadmin = mysqli_real_escape_string($con, $_SESSION['admin']);
 if($isadmin){
-$isql = "SELECT felmeddelande.ID, kontorsnamn,feltext,  orgnr, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn
- = fronid JOIN kontrakt ON kontaktpersonid = anvnamn JOIN feltyp ON feltypid = feltyp.ID WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."'";
-}
+$isql = "SELECT Info, felmeddelande.ID, kontorsnamn,feltext,  orgnr, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn
+ = fronid JOIN kontrakt ON kontaktpersonid = anvnamn JOIN feltyp ON feltypid = feltyp.ID JOIN medstatus ON medstatus.ID = felmeddelande.medstatus WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."'";
+echo $isql;
+ }
 else
 {
-$isql = "SELECT felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
- ON feltypid = feltyp.ID WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."'";
+$isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
+ ON feltypid = feltyp.ID JOIN medstatus ON medstatus.ID = felmeddelande.medstatus WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."'";
 }
 
 ?>
@@ -49,7 +50,7 @@ $isql = "SELECT felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN konta
 	$iresult = mysqli_query($con, $isql);
 	if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	  
-		  echo "<option value=".$irows['ID']." class = '".$irows['svarat']."' >".$irows['anvnamn']." ".$irows['feltext']."</option>";
+		  echo "<option value=".$irows['ID']." class = '".$irows['medstatus']."' >".$irows['anvnamn']." ".$irows['feltext']."</option>";
       }
     mysqli_free_result($iresult);	
 	}
@@ -167,6 +168,7 @@ $isql = "SELECT felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN konta
    (SELECT ID FROM feltyp WHERE feltext = '".$new_txt."' LIMIT 1), '".$usrname."',
    '".$fromusr."');";   
    }
+   echo $sqli4;
 	mysqli_query($con, $sqli4);  
   }
 ?>
