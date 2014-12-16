@@ -3,7 +3,11 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
+<<<<<<< HEAD
+-- Tid vid skapande: 16 dec 2014 kl 12:44
+=======
 -- Tid vid skapande: 16 dec 2014 kl 12:22
+>>>>>>> origin/master
 -- Serverversion: 5.6.20
 -- PHP-version: 5.5.15
 
@@ -149,11 +153,18 @@ INSERT INTO `faktura` (`ID`, `namn`, `url`, `agarid`, `datum`) VALUES
 CREATE TABLE IF NOT EXISTS `felmeddelande` (
 `ID` int(11) NOT NULL,
   `text` text NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `medstatus` int(11) NOT NULL DEFAULT '1',
   `feltypid` int(11) NOT NULL,
-  `fronid` int(11) NOT NULL,
-  `tillid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `fronid` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `tillid` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Dumpning av Data i tabell `felmeddelande`
+--
+
+INSERT INTO `felmeddelande` (`ID`, `text`, `medstatus`, `feltypid`, `fronid`, `tillid`) VALUES
+(7, 'Hej', 4, 2, 'AndersB', 'AdminM');
 
 -- --------------------------------------------------------
 
@@ -164,7 +175,16 @@ CREATE TABLE IF NOT EXISTS `felmeddelande` (
 CREATE TABLE IF NOT EXISTS `feltyp` (
 `ID` int(11) NOT NULL,
   `feltext` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumpning av Data i tabell `feltyp`
+--
+
+INSERT INTO `feltyp` (`ID`, `feltext`) VALUES
+(1, 'Tjena'),
+(2, 'Hej'),
+(3, 'Hej');
 
 -- --------------------------------------------------------
 
@@ -288,7 +308,7 @@ INSERT INTO `kontrakt` (`ID`, `kontorsnamn`, `sbesok`, `currinfo`, `tele`, `stn`
 CREATE TABLE IF NOT EXISTS `medstatus` (
 `ID` int(11) NOT NULL,
   `Info` varchar(50) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumpning av Data i tabell `medstatus`
@@ -297,7 +317,8 @@ CREATE TABLE IF NOT EXISTS `medstatus` (
 INSERT INTO `medstatus` (`ID`, `Info`) VALUES
 (1, 'Mottagen'),
 (2, 'Påbörjad'),
-(3, 'Avslutad');
+(3, 'Avslutad'),
+(4, 'Skickad');
 
 -- --------------------------------------------------------
 
@@ -505,12 +526,12 @@ MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 -- AUTO_INCREMENT för tabell `felmeddelande`
 --
 ALTER TABLE `felmeddelande`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT för tabell `feltyp`
 --
 ALTER TABLE `feltyp`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT för tabell `ikontyp`
 --
@@ -525,7 +546,7 @@ MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 -- AUTO_INCREMENT för tabell `medstatus`
 --
 ALTER TABLE `medstatus`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT för tabell `produkt`
 --
@@ -564,8 +585,8 @@ ADD CONSTRAINT `kontrakt_ibfk_2` FOREIGN KEY (`agarid`) REFERENCES `kontrakt` (`
 -- Restriktioner för tabell `felmeddelande`
 --
 ALTER TABLE `felmeddelande`
-ADD CONSTRAINT `felmeddelande_ibfk_1` FOREIGN KEY (`fronid`) REFERENCES `kontrakt` (`ID`),
-ADD CONSTRAINT `felmeddelande_ibfk_2` FOREIGN KEY (`tillid`) REFERENCES `kontrakt` (`ID`);
+ADD CONSTRAINT `felmeddelande_ifbk_1` FOREIGN KEY (`fronid`) REFERENCES `kontaktperson` (`anvnamn`),
+ADD CONSTRAINT `felmeddelande_ifbk_2` FOREIGN KEY (`tillid`) REFERENCES `kontaktperson` (`anvnamn`);
 
 --
 -- Restriktioner för tabell `kontrakt`
