@@ -53,7 +53,7 @@ echo '</select></fieldset>
 <input type="text" align="left"  maxlength="50" value = ""  name="cname" id="cname" />
 </li>
 <li>
-<label for="ocrnr">OCR nummer: </label>
+<label for="ocrnr">Organisationsnummer: </label>
 <input type="text" align="left"  maxlength="50" value = ""  name="ocr" id="ocr" />
 </li>
 <li>

@@ -83,33 +83,21 @@ $isql = "SELECT anvnamn, fornamn, efternamn, kontorsnamn
       while($irows2 = mysqli_fetch_assoc($iresult)) {	
 		$startDate = $irows2['sbesok'];
 		$endDate = date("Y-m-d", strtotime("$startDate +6 month"));	  
-	
-	  /*echo "<div id='infolistframe'>"
-	  ."Koncern: ".$irows2['namn']."<br /> "
-	  ."Kontor: ".$irows2['kontorsnamn']."<br /> "
-	  ."Kontorstyp: ".$irows2['typ']."<br /> "
-	  ."Hemsida: "."<a target='_blank' href = '".$irows2['hemsida']."' >".$irows2['hemsida']."</a>"."<br/>"
-	  ."Hyr antal stationer: ".$irows2['stn']."<br /> "
-	  ."Senaste besök: ".$irows2['sbesok']."<br /> "
-	  ."Nästa besök: ".$endDate."<br /> "
-	  ."Adress: ".$irows2['gata'].", ".$irows2['postnr']." ".$irows2['stad']."<br /> "
-	  ."Organisationsnummer: ".$irows2['orgnr']." <br /> "	  
-	  ."Kontaktperson: ".$irows2['fornamn']." ".$irows2['efternamn']."<br /> "
-	  ."Användarnamn: ".$irows2['anvnamn']."<br /> "
-	  ."Telefonnummer: ".$irows2['mobil']."<br /> "
-	  ."Mejl: ".$irows2['mejl']."<br /> "
-	  ."Senaste faktura: "."<a target='_blank' href = '../".$irows2['url']."'>".$irows2['datum']."</a>"."<br/>";
-		
-	   echo "Logga som används i kartfunktionen: <img id='infologga' src='./../".$irows2['logurl']."' />";*/
 	   
 	   echo '	   
 	   <fieldset>
 		<legend><b>Information</b></legend>
-	    <label for="knamn">Företag: </label>
+	    <label for="fnamn">Företag: </label>
 	    <input type="text" value="'.$irows2['namn'].'" readonly id = "infotextframe"/>
 		
 		<label for="knamn">Kontor: </label>
 		<input type="text" value="'.$irows2['kontorsnamn'].'" readonly id = "infotextframe"/>
+		
+		<label for="adress">Adress: </label>
+		<input type="text" value="'.$irows2['gata'].", ".$irows2['postnr']." ".$irows2['stad'].'" readonly id = "infotextframe"/>
+		
+		<label for="org">Organisationsnummer: </label>
+		<input type="text" value="'.$irows2['orgnr'].'" readonly id = "infotextframe"/>
 			
 		<label for="typ">Kontorstyp: </label>
 		<input type="text" value="'.$irows2['typ'].'" readonly id = "infotextframe"/>
@@ -121,13 +109,7 @@ $isql = "SELECT anvnamn, fornamn, efternamn, kontorsnamn
 		<input type="text" value="'.$irows2['sbesok'].'" readonly id = "infotextframe"/>
 			
 		<label for="nasta">Nästa besök: </label>
-		<input type="text" value="'.$endDate.'" readonly id = "infotextframe"/>
-			
-		<label for="adress">Adress: </label>
-		<input type="text" value="'.$irows2['gata'].", ".$irows2['postnr']." ".$irows2['stad'].'" readonly id = "infotextframe"/>
-			
-		<label for="org">Organisationsnummer: </label>
-		<input type="text" value="'.$irows2['orgnr'].'" readonly id = "infotextframe"/>
+		<input type="text" value="'.$endDate.'" readonly id = "infotextframe"/>		
 			
 		<label for="pers">Kontaktperson: </label>
 		<input type="text" value="'.$irows2['fornamn']." ".$irows2['efternamn'].'" readonly id = "infotextframe"/>
