@@ -140,7 +140,7 @@ Cmap.prototype.initialize = function(){
 	lng = parseFloat(obj[i].lng);
 	var point = new google.maps.LatLng(lat, lng);
 	var htm = makeHTML(i);
-	var icon = {url:obj[i].imgurl, size:new google.maps.Size(32,32)};
+	var icon = {url:obj[i].opimgurl, size:new google.maps.Size(32,32)};
 	var marker = new google.maps.Marker({
 	    map:this.map,
 	    position:point,
