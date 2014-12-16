@@ -3,11 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
-<<<<<<< HEAD
--- Tid vid skapande: 16 dec 2014 kl 12:44
-=======
--- Tid vid skapande: 16 dec 2014 kl 12:22
->>>>>>> origin/master
+-- Tid vid skapande: 16 dec 2014 kl 12:49
 -- Serverversion: 5.6.20
 -- PHP-version: 5.5.15
 
@@ -39,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `adress` (
   `gata` varchar(100) NOT NULL,
   `lng` double NOT NULL,
   `lat` double NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Dumpning av Data i tabell `adress`
@@ -52,9 +48,7 @@ INSERT INTO `adress` (`ID`, `postnr`, `stad`, `gata`, `lng`, `lat`) VALUES
 (4, 95391, 'Haparanda', 'Kukkolaforsen 184', 24.0548527, 65.9591007),
 (5, 95336, 'Haparanda', 'Norrskensvägen 2', 24.1324517, 65.8429222),
 (6, 80302, 'Gävle', 'Alderholmsgatan 7', 17.16285760793459, 60.6786653779345),
-(7, 80252, 'Gävle', 'Mobowgatan 52', 17.192, 60.673),
-(8, 8, 'g', 'g', 17.196, 60.674),
-(9, 2, 't', 't', 1, 1);
+(7, 80252, 'Gävle', 'Mobowgatan 52', 17.192, 60.673);
 
 -- --------------------------------------------------------
 
@@ -133,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `faktura` (
 --
 
 INSERT INTO `faktura` (`ID`, `namn`, `url`, `agarid`, `datum`) VALUES
-(1, 'faktura1faktura1faktur 1faktura1faktura1faktura1fa', 'faktura/faktura1.pdf', 1, '2014-12-01'),
+(1, 'faktura1faktura1faktura1faktura1faktura1faktura1fa', 'faktura/faktura1.pdf', 1, '2014-12-01'),
 (2, 'faktura2', 'faktura/faktura2.pdf', 2, '2014-12-03'),
 (3, 'faktura3', 'faktura/faktura1.pdf', 3, '2014-11-04'),
 (4, 'faktura4', 'faktura/faktura1.pdf', 4, '2013-07-16'),
@@ -283,7 +277,7 @@ CREATE TABLE IF NOT EXISTS `kontrakt` (
   `adressid` int(11) NOT NULL,
   `ikonid` int(11) NOT NULL,
   `orgnr` varchar(20) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Dumpning av Data i tabell `kontrakt`
@@ -506,7 +500,7 @@ ALTER TABLE `veckodagar`
 -- AUTO_INCREMENT för tabell `adress`
 --
 ALTER TABLE `adress`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT för tabell `bestallning`
 --
@@ -541,7 +535,7 @@ MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT för tabell `kontrakt`
 --
 ALTER TABLE `kontrakt`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT för tabell `medstatus`
 --

@@ -50,7 +50,7 @@ $isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	$iresult = mysqli_query($con, $isql);
 	if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	  
-		  echo "<option value=".$irows['ID']." class = '".$irows['medstatus']."' >".$irows['anvnamn']." ".$irows['feltext']."</option>";
+		  echo "<option value=".$irows['ID']." class = '".$irows['Info']."' >".$irows['anvnamn']." ".$irows['feltext']."</option>";
       }
     mysqli_free_result($iresult);	
 	}
