@@ -25,7 +25,7 @@ $isadmin = mysqli_real_escape_string($con, $_SESSION['admin']);
 if($isadmin){
 $isql = "SELECT Info, felmeddelande.ID, kontorsnamn,feltext,  orgnr, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn
  = fronid JOIN kontrakt ON kontaktpersonid = anvnamn JOIN feltyp ON feltypid = feltyp.ID JOIN medstatus ON medstatus.ID = felmeddelande.medstatus WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."'";
-echo $isql;
+
  }
 else
 {
@@ -47,10 +47,11 @@ $isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	if(!$isadmin){
 	echo "<option value= -1> Ny Felrapport </option>";
 	}
+	else echo "<option> Välj Felrapport </option>";
 	$iresult = mysqli_query($con, $isql);
 	if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	  
-		  echo "<option value=".$irows['ID']." class = '".$irows['Info']."' >".$irows['anvnamn']." ".$irows['feltext']."</option>";
+		  echo "<option value=".$irows['ID']." class = '".$irows['Info']."' >".$irows['anvnamn']." ".$irows['feltext']." ".$irows['Info']."</option>";
       }
     mysqli_free_result($iresult);	
 	}
@@ -168,7 +169,7 @@ $isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
    (SELECT ID FROM feltyp WHERE feltext = '".$new_txt."' LIMIT 1), '".$usrname."',
    '".$fromusr."');";   
    }
-   echo $sqli4;
+
 	mysqli_query($con, $sqli4);  
   }
 ?>
