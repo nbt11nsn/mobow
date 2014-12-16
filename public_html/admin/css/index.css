@@ -6,17 +6,21 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
 #F2F2F2
 */
 
-.Skickad{
-background-color: #FC5E5E;
+
+.Skickad {
+background-color: red;
+font-weight: bold;
+text-decoration: underline;
 }
 .Mottagen {
-background-color: #FCBD5E;
+background-color: yellow;
 }
 .Påbörjad {
-background-color: #FCFC5E;
+background-color: red;
 }
 .Avslutad {
-background-color: #78FC5E;
+background-color: green;
+font-weight: italic;
 }
 
 fieldset {
