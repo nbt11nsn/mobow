@@ -349,6 +349,7 @@ text-align: left;
     position: relative;
     left: 50%;
     float: left;
+	padding: 25px;
 }
 
 /* Huvudområde längst ned på sidan*/
@@ -703,9 +704,10 @@ nav ul ul{
 nav ul ul li{
   float:none;
   position:relative;
+  z-index: 10;
 }
 nav ul ul li:last-child{
-  border-radius:0 0 5px 5px !important;  
+  border-radius:0 0 5px 5px !important; 
 }
 
 nav ul a.hemikon{
