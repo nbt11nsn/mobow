@@ -31,6 +31,109 @@ $getIcons = "SELECT * FROM ikontyp";
     <form action='' method='post' id ='postContracts' enctype="multipart/form-data">
 
 <?php
+if(!empty($_POST['save'])&&!empty($_POST['gata'])&&!empty($_POST['stn'])&&!empty($_POST['stad'])
+&&!empty($_POST['kontor'])&&!empty($_POST['sbesok'])&&!empty($_POST['username'])&&!empty($_POST['frstnme'])
+&&!empty($_POST['lstnme'])&&!empty($_POST['mail'])&&!empty($_POST['password'])
+&&!empty($_POST['forecolor'])&&!empty($_POST['backcolor'])&&!empty($_POST['postnr'])
+&&!empty($_POST['lng'])&&!empty($_POST['lat']))
+{
+
+$error = false;
+	$gata=mysqli_real_escape_string($con,$_POST['gata']);
+    $stad=mysqli_real_escape_string($con,$_POST['stad']);
+    $kont=mysqli_real_escape_string($con,$_POST['kontor']);
+	$stn=mysqli_real_escape_string($con,$_POST['stn']);
+	$sbesok=mysqli_real_escape_string($con,$_POST['sbesok']);	
+	$usrn=mysqli_real_escape_string($con,$_POST['username']);
+	$frst=mysqli_real_escape_string($con,$_POST['frstnme']);
+	$lst=mysqli_real_escape_string($con,$_POST['lstnme']);
+	$mob=mysqli_real_escape_string($con,$_POST['mobile']);
+	$mail=mysqli_real_escape_string($con,$_POST['mail']);
+	$pass= password_hash(mysqli_real_escape_string($con,$_POST['password']), PASSWORD_DEFAULT);
+	$tef=mysqli_real_escape_string($con,$_POST['telefonenbr']);
+	$web=mysqli_real_escape_string($con,$_POST['hemsida']);
+	$ainf=mysqli_real_escape_string($con,$_POST['allminfo']);
+	$cinf=mysqli_real_escape_string($con,$_POST['currinfo']);
+	$fc=mysqli_real_escape_string($con,$_POST['forecolor']);
+	$bc=mysqli_real_escape_string($con,$_POST['backcolor']);
+	$zip=mysqli_real_escape_string($con,$_POST['postnr']);
+	$logo=mysqli_real_escape_string($con,$_FILES['logo']['name']);
+	$lat=mysqli_real_escape_string($con,$_POST['lat']);
+	$lng=mysqli_real_escape_string($con,$_POST['lng']);	
+	$icon_type = mysqli_real_escape_string($con,$_POST['icon_type']);	
+	   
+    if(!(is_numeric($stn)&&is_numeric($zip))){
+		$error="Ogiltigt antal stationer";
+	}
+ $target = "";
+ $lh = "";
+ $lw = "";
+    if(!empty($_FILES['logo']['name'])){
+        $ok=true;
+        $err="Error: ";
+        $allow = array("image/jpeg", "image/gif", "image/bmp", "image/png");
+        if($_FILES["logo"]["size"] > 2000000) {
+            $ok=false;
+            $err.='För stor fil<br />';
+        }
+        if(!in_array($_FILES['logo']['type'], $allow)){
+            $ok=false;
+            $err.='Filformatet stöds inte<br />';
+        }
+        if($ok==false){
+            echo $err;
+        }
+        else
+        {
+            $tmp_path = $_FILES['logo']['tmp_name'];
+            $li = getimagesize($tmp_path);
+            $lw = $li[0];
+            $lh = $li[1];
+            $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
+            $target = "image/logo/"."kontrakt".$kont.".".$ext;
+            $abs_dir = __DIR__."/../".$target;
+            if(move_uploaded_file($tmp_path, $abs_dir)){               
+            }
+            else{
+                $error="Gick inte att ladda upp bilden";
+            }
+        }
+    }
+
+	$ocr=mysqli_real_escape_string($con,$_POST['old_ocr']);	
+	
+if(isset($_POST['cnew'])){
+	$cname = mysqli_real_escape_string($con,$_POST['cname']);
+	$ocr=mysqli_real_escape_string($con,$_POST['ocr']);
+	$insertCompany = "INSERT INTO foretag VALUES('".$ocr."', '".$cname."')";
+	if(!mysqli_query($con, $insertCompany)){
+	$error = "Gick inte att skapa ett nytt företag";
+		}	
+	}
+	
+
+	
+	$insertAdress = "INSERT INTO adress values(null,'".$zip."','".$stad."','".$gata."',".$lng.",".$lat.");";
+	$adressid = "(SELECT LAST_INSERT_ID())";	
+	$insertContract = "INSERT INTO kontrakt values(null,'".$kont."','".$sbesok."', ".isEmpty($cinf).",".isEmpty($tef).",
+	".$stn.",".isEmpty($target).",".isEmpty($lw).",".isEmpty($lh).",".isEmpty($web).",".isEmpty($ainf).",'".$fc."','".$bc."','".$usrn."',".$adressid.", '".$icon_type."', '".$ocr."');";
+	$insertNewUser = "INSERT INTO kontaktperson values('".$usrn."','".$frst."','".$lst."',".isEmpty($mob).",
+	'".$mail."','".$pass."', 0);";
+
+    if(!$error){		
+        if(mysqli_query($con, $insertNewUser)&&mysqli_query($con, $insertAdress)&&mysqli_query($con, $insertContract)){			
+            echo "<br /><br /><b>Uppdateringen lyckades</b>";
+        }
+        else{
+            echo "<br /><br /><b>Uppdateringen misslyckades</b>";
+        }
+    }
+    else{
+        echo "<br /><br /><b>$error</b>";
+    }
+}
+
+
 echo '<ul><fieldset>
 <legend><b>Välj Företag</b></legend>
 <select name="old_ocr" id="old_ocr">';
@@ -53,7 +156,7 @@ echo '</select></fieldset>
 <input type="text" align="left"  maxlength="50" value = ""  name="cname" id="cname" />
 </li>
 <li>
-<label for="ocrnr">OCR nummer: </label>
+<label for="ocrnr">Organisationsnummer: </label>
 <input type="text" align="left"  maxlength="50" value = ""  name="ocr" id="ocr" />
 </li>
 <li>
@@ -189,107 +292,6 @@ if(isset($_POST['rmimg'])&&isset($_POST['contracts'])){
   }
 }
 
-if(!empty($_POST['save'])&&!empty($_POST['gata'])&&!empty($_POST['stn'])&&!empty($_POST['stad'])
-&&!empty($_POST['kontor'])&&!empty($_POST['sbesok'])&&!empty($_POST['username'])&&!empty($_POST['frstnme'])
-&&!empty($_POST['lstnme'])&&!empty($_POST['mail'])&&!empty($_POST['password'])
-&&!empty($_POST['forecolor'])&&!empty($_POST['backcolor'])&&!empty($_POST['postnr'])
-&&!empty($_POST['lng'])&&!empty($_POST['lat']))
-{
-
-$error = false;
-	$gata=mysqli_real_escape_string($con,$_POST['gata']);
-    $stad=mysqli_real_escape_string($con,$_POST['stad']);
-    $kont=mysqli_real_escape_string($con,$_POST['kontor']);
-	$stn=mysqli_real_escape_string($con,$_POST['stn']);
-	$sbesok=mysqli_real_escape_string($con,$_POST['sbesok']);	
-	$usrn=mysqli_real_escape_string($con,$_POST['username']);
-	$frst=mysqli_real_escape_string($con,$_POST['frstnme']);
-	$lst=mysqli_real_escape_string($con,$_POST['lstnme']);
-	$mob=mysqli_real_escape_string($con,$_POST['mobile']);
-	$mail=mysqli_real_escape_string($con,$_POST['mail']);
-	$pass= password_hash(mysqli_real_escape_string($con,$_POST['password']), PASSWORD_DEFAULT);
-	$tef=mysqli_real_escape_string($con,$_POST['telefonenbr']);
-	$web=mysqli_real_escape_string($con,$_POST['hemsida']);
-	$ainf=mysqli_real_escape_string($con,$_POST['allminfo']);
-	$cinf=mysqli_real_escape_string($con,$_POST['currinfo']);
-	$fc=mysqli_real_escape_string($con,$_POST['forecolor']);
-	$bc=mysqli_real_escape_string($con,$_POST['backcolor']);
-	$zip=mysqli_real_escape_string($con,$_POST['postnr']);
-	$logo=mysqli_real_escape_string($con,$_FILES['logo']['name']);
-	$lat=mysqli_real_escape_string($con,$_POST['lat']);
-	$lng=mysqli_real_escape_string($con,$_POST['lng']);	
-	$icon_type = mysqli_real_escape_string($con,$_POST['icon_type']);	
-	   
-    if(!(is_numeric($stn)&&is_numeric($zip))){
-		$error="Ogiltigt antal stationer";
-	}
- $target = "";
- $lh = "";
- $lw = "";
-    if(!empty($_FILES['logo']['name'])){
-        $ok=true;
-        $err="Error: ";
-        $allow = array("image/jpeg", "image/gif", "image/bmp", "image/png");
-        if($_FILES["logo"]["size"] > 2000000) {
-            $ok=false;
-            $err.='För stor fil<br />';
-        }
-        if(!in_array($_FILES['logo']['type'], $allow)){
-            $ok=false;
-            $err.='Filformatet stöds inte<br />';
-        }
-        if($ok==false){
-            echo $err;
-        }
-        else
-        {
-            $tmp_path = $_FILES['logo']['tmp_name'];
-            $li = getimagesize($tmp_path);
-            $lw = $li[0];
-            $lh = $li[1];
-            $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
-            $target = "image/logo/"."kontrakt".$kont.".".$ext;
-            $abs_dir = __DIR__."/../".$target;
-            if(move_uploaded_file($tmp_path, $abs_dir)){               
-            }
-            else{
-                $error="Gick inte att ladda upp bilden";
-            }
-        }
-    }
-
-	$ocr=mysqli_real_escape_string($con,$_POST['old_ocr']);	
-	
-if(isset($_POST['cnew'])){
-	$cname = mysqli_real_escape_string($con,$_POST['cname']);
-	$ocr=mysqli_real_escape_string($con,$_POST['ocr']);
-	$insertCompany = "INSERT INTO foretag VALUES('".$ocr."', '".$cname."')";
-	if(!mysqli_query($con, $insertCompany)){
-	$error = "Gick inte att skapa ett nytt företag";
-		}	
-	}
-	
-
-	
-	$insertAdress = "INSERT INTO adress values(null,'".$zip."','".$stad."','".$gata."',".$lng.",".$lat.");";
-	$adressid = "(SELECT LAST_INSERT_ID())";	
-	$insertContract = "INSERT INTO kontrakt values(null,'".$kont."','".$sbesok."', ".isEmpty($cinf).",".isEmpty($tef).",
-	".$stn.",".isEmpty($target).",".isEmpty($lw).",".isEmpty($lh).",".isEmpty($web).",".isEmpty($ainf).",'".$fc."','".$bc."','".$usrn."',".$adressid.", '".$icon_type."', '".$ocr."');";
-	$insertNewUser = "INSERT INTO kontaktperson values('".$usrn."','".$frst."','".$lst."',".isEmpty($mob).",
-	'".$mail."','".$pass."', 0);";
-
-    if(!$error){		
-        if(mysqli_query($con, $insertNewUser)&&mysqli_query($con, $insertAdress)&&mysqli_query($con, $insertContract)){			
-            echo "<br /><br /><b>Uppdateringen lyckades</b>";
-        }
-        else{
-            echo "<br /><br /><b>Uppdateringen misslyckades</b>";
-        }
-    }
-    else{
-        echo "<br /><br /><b>$error</b>";
-    }
-}
 
 function isEmpty($value){
 if(trim($value) == '')
