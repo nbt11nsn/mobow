@@ -101,21 +101,23 @@ $iresult = mysqli_query($con, $isql2);
 echo '<ul>';
 if (mysqli_num_rows($iresult) != 0) {
   while($irows = mysqli_fetch_assoc($iresult)){ 
+  $isclosed = $irows["arStangt"];
 echo '<li>
 <label for="'.$irows["veckonamn"].'" id="day">'.$irows["veckonamn"].': </label></li><li>
 
-<div id = "openingFrame">
-<div id = "labels">
+<div id = "openingFrame" class = "background'.$isclosed.'">
+
+<div id = openingHours>
 <label>Öppnar: </label>
-<label>Stänger: </label>
-</div>
-<div class = "times">
 <input type="time" align="left"  maxlength="50" value = "'.$irows['oppet'].'"  name="'.$namesdays[$index].'_open" id="'.$namesdays[$index].'_open" />
+</div>
+<div id = closingHours>
+<label>Stänger: </label>
 <input type="time" align="left" value = "'.$irows['stangt'].'"  name="'.$namesdays[$index].'_close" id="'.$namesdays[$index].'_close" />
 </div>
 <div id = "labels">
 <label>Stängt:</label>';
-if($irows["arStangt"] != 0) {
+if($isclosed != 0) {
 	echo '<input type="checkbox" class = "checkbox_" id="check_'.$namesdays[$index].'" name="check_'.$namesdays[$index++].'" value="Yes" checked/>';
 	}
 else { 
@@ -134,16 +136,18 @@ if (mysqli_num_rows($iresult) != 0) {
 	echo '<li>
 <label for="'.$irows["veckonamn"].'" id="day">'.$irows["veckonamn"].': </label></li><li>
 
-<div id = "openingFrame">
-<div id = "labels">
-<label>Öppnar: </label>
-<label>Stänger: </label>
-</div>
-<div class = "times">
-<input type="time" align="left"  maxlength="50" value = "00:00"  name="'.$namesdays[$index].'_open" id="'.$namesdays[$index].'_open" />
+<div id = "openingFrame" class = "background0">
 
+<div id = openingHours>
+<label>Öppnar: </label>
+<input type="time" align="left"  maxlength="50" value = "00:00"  name="'.$namesdays[$index].'_open" id="'.$namesdays[$index].'_open" />
+</div>
+
+<div id = closingHours>
+<label>Stänger: </label>
 <input type="time" align="left" value = "00:00"  name="'.$namesdays[$index].'_close" id="'.$namesdays[$index].'_close" />
 </div>
+
 <div id = "labels">
 <label>Stängt:</label>
 <input type="checkbox" class = "checkbox_" id="checkbox_'.$namesdays[$index++].'"/>
