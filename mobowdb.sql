@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 16, 2014 at 02:03 PM
+-- Generation Time: Dec 16, 2014 at 02:31 PM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -404,6 +404,27 @@ CREATE TABLE IF NOT EXISTS `produkt` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `specialtider`
+--
+
+CREATE TABLE IF NOT EXISTS `specialtider` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `kontraktid` int(11) NOT NULL,
+  `specstart` date NOT NULL,
+  `specslut` date NOT NULL,
+  `veckodagarid` int(11) NOT NULL,
+  `altoppet` time NOT NULL,
+  `altstangt` time NOT NULL,
+  `stangt` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`ID`),
+  KEY `kontraktid` (`kontraktid`),
+  KEY `kontraktid_2` (`kontraktid`,`veckodagarid`),
+  KEY `veckodagarid` (`veckodagarid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `veckodagar`
 --
 
@@ -474,6 +495,13 @@ ALTER TABLE `kontrakt`
 --
 ALTER TABLE `oppettider`
   ADD CONSTRAINT `veckodagar_ibfk_1` FOREIGN KEY (`veckodagarid`) REFERENCES `veckodagar` (`ID`);
+
+--
+-- Constraints for table `specialtider`
+--
+ALTER TABLE `specialtider`
+  ADD CONSTRAINT `specialtider_ibfk_2` FOREIGN KEY (`veckodagarid`) REFERENCES `kontrakt` (`ID`),
+  ADD CONSTRAINT `specialtider_ibfk_1` FOREIGN KEY (`kontraktid`) REFERENCES `feltyp` (`ID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
