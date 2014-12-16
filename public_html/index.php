@@ -13,6 +13,15 @@ if($iresult = mysqli_query($con, $isql)){
       mysqli_free_result($iresult);
   }
 }
+$openhours = array();// innehåller alla dagens öppettider
+if($result = mysqli_query($con, $sqloppen)){
+  if (mysqli_num_rows($iresult) != 0) {
+      while($rows = mysqli_fetch_assoc($result)) {
+          $openhours[] = $rows;
+      }
+      mysqli_free_result($result);
+  }
+}
 
 mysqli_close($con);
 ?>
@@ -28,6 +37,7 @@ require_once("include/head.php");
 <script language="javascript" type="text/javascript" src = "include/googlemap.js"></script>
 <script type="text/javascript">
     var obj = <?php echo json_encode($places, JSON_UNESCAPED_UNICODE); ?>;
+    var oppen = <?php echo json_encode($openhours, JSON_UNESCAPED_UNICODE); ?>;
 </script>
 
 </head>
