@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 16 dec 2014 kl 12:49
+-- Tid vid skapande: 16 dec 2014 kl 13:21
 -- Serverversion: 5.6.20
 -- PHP-version: 5.5.15
 
@@ -158,7 +158,8 @@ CREATE TABLE IF NOT EXISTS `felmeddelande` (
 --
 
 INSERT INTO `felmeddelande` (`ID`, `text`, `medstatus`, `feltypid`, `fronid`, `tillid`) VALUES
-(7, 'Hej', 4, 2, 'AndersB', 'AdminM');
+(4, 'sdfaserasefhzsdfhasdfhsdfhsdfh', 1, 1, 'AndersB', 'AdminM'),
+(7, 'Hej', 1, 2, 'AndersB', 'AdminM');
 
 -- --------------------------------------------------------
 
@@ -309,10 +310,10 @@ CREATE TABLE IF NOT EXISTS `medstatus` (
 --
 
 INSERT INTO `medstatus` (`ID`, `Info`) VALUES
-(1, 'Mottagen'),
+(1, 'Skickad'),
 (2, 'Påbörjad'),
 (3, 'Avslutad'),
-(4, 'Skickad');
+(4, 'Mottagen');
 
 -- --------------------------------------------------------
 
@@ -430,7 +431,7 @@ ALTER TABLE `faktura`
 -- Index för tabell `felmeddelande`
 --
 ALTER TABLE `felmeddelande`
- ADD PRIMARY KEY (`ID`), ADD KEY `fronid` (`fronid`), ADD KEY `tillid` (`tillid`);
+ ADD PRIMARY KEY (`ID`), ADD KEY `fronid` (`fronid`), ADD KEY `tillid` (`tillid`), ADD KEY `medstatus` (`medstatus`), ADD KEY `feltypid` (`feltypid`);
 
 --
 -- Index för tabell `feltyp`
@@ -580,7 +581,9 @@ ADD CONSTRAINT `kontrakt_ibfk_2` FOREIGN KEY (`agarid`) REFERENCES `kontrakt` (`
 --
 ALTER TABLE `felmeddelande`
 ADD CONSTRAINT `felmeddelande_ifbk_1` FOREIGN KEY (`fronid`) REFERENCES `kontaktperson` (`anvnamn`),
-ADD CONSTRAINT `felmeddelande_ifbk_2` FOREIGN KEY (`tillid`) REFERENCES `kontaktperson` (`anvnamn`);
+ADD CONSTRAINT `felmeddelande_ifbk_2` FOREIGN KEY (`tillid`) REFERENCES `kontaktperson` (`anvnamn`),
+ADD CONSTRAINT `felmeddelande_ifbk_3` FOREIGN KEY (`medstatus`) REFERENCES `medstatus` (`ID`),
+ADD CONSTRAINT `felmeddelande_ifbk_4` FOREIGN KEY (`feltypid`) REFERENCES `feltyp` (`ID`);
 
 --
 -- Restriktioner för tabell `kontrakt`
