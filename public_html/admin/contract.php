@@ -383,12 +383,10 @@ if(isset($_POST['forsave']))
     if(isset($_POST['hemsida'])){
         $h=mysqli_real_escape_string($con,$_POST['hemsida']);
     }else{$h="";}
-    $sql3.= ", kontrakt.hemsida = '$h'";
 
     if(isset($_POST['forecolor'])){
         $f=mysqli_real_escape_string($con,$_POST['forecolor']);
     }else{$f="";}
-    $sql3.= ", kontrakt.forecolor = '$f'";
 
     if(isset($_POST['backcolor'])){
         $b=mysqli_real_escape_string($con,$_POST['backcolor']);

@@ -6,6 +6,20 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
 #F2F2F2
 */
 
+.Skickad{
+background-color: #FC5E5E;
+font-weight: bold;
+}
+.Mottagen {
+background-color: #FCBD5E;
+}
+.Påbörjad {
+background-color: #FCFC5E;
+}
+.Avslutad {
+background-color: #78FC5E;
+}
+
 fieldset {
 padding-bottom: 10px;
 paddin-top: 10px;
@@ -37,7 +51,7 @@ paddin-top: 10px;
 #frame_admedit{}
 #frame_edit, #frame_admedit {
   position:relative;
-  left:-50%;
+  left:-53%;
   float:left;
   color: #000;
   width: 400px;
@@ -89,6 +103,7 @@ background: #efefef;
 	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
 	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
 	border-radius: 10px;  
+	width: 170px; 
 	margin-top: 10px;
 	margin-left: 10px;
 	float: left;
@@ -122,7 +137,7 @@ background: #efefef;
   display: inline-block; 
   text-align: center;
   position: relative;
-  left: -50%;
+  left: -53%;
   float: left;
 }
 
@@ -335,6 +350,7 @@ text-align: left;
     position: relative;
     left: 50%;
     float: left;
+	padding: 25px;
 }
 
 /* Huvudområde längst ned på sidan*/
@@ -457,7 +473,7 @@ padding-bottom:10px;
   padding: 0 10px;
   margin: 0 auto;
   position: relative;
-  left: -50%;
+  left: -53%;
   float: left;
 }
 
@@ -680,6 +696,7 @@ nav ul li a{
   z-index:2;
   text-decoration:none;
   white-space:nowrap;
+
 }
 nav ul ul{
   position:absolute;
@@ -689,9 +706,11 @@ nav ul ul{
 nav ul ul li{
   float:none;
   position:relative;
+  z-index: 10;
+  text-align: center:
 }
 nav ul ul li:last-child{
-  border-radius:0 0 5px 5px !important;  
+  border-radius:0 0 5px 5px !important; 
 }
 
 nav ul a.hemikon{

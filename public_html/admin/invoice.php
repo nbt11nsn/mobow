@@ -23,7 +23,7 @@ require_once("include/header.php");
     defined('THE_MENUE') || define('THE_MENUE', TRUE);
     require_once("include/menuebar.php");
     $adm = mysqli_real_escape_string($con, $_SESSION['admin']);
-    echo" <div id='invoiceframe'><div id='center' style='padding-top:25px;'>";
+    echo" <div id='invoiceframe'><div id='center'>";
 if(isset($_POST['upfak']) && $adm){
     $error=false;
     if(!isset($_POST['receiver'])&&!is_numeric($_POST['receiver'])){
@@ -116,9 +116,17 @@ if($adm){
 	<div id="listframe">
 	    <form action="" method="post" id = "postRows">
 		<select name = "dropdown" id = "invoicedropdown">		
-		    <?php
-		    $isql = "SELECT DISTINCT kontrakt.ID, kontorsnamn FROM kontrakt LEFT OUTER JOIN faktura on kontrakt.ID = faktura.agarid";
-		    $iresult = mysqli_query($con, $isql);
+		    <?php	
+		$isadmin = mysqli_real_escape_string($con,$_SESSION['admin']);			
+		if($isadmin){
+		    $isql = "SELECT DISTINCT kontrakt.ID, kontorsnamn 
+			FROM kontrakt LEFT OUTER JOIN faktura on kontrakt.ID = faktura.agarid";
+			}
+			else{
+			$isql = "SELECT DISTINCT kontaktpersonid, kontrakt.ID, kontorsnamn 
+			FROM kontrakt LEFT OUTER JOIN faktura on kontrakt.ID = faktura.agarid WHERE kontaktpersonid = '".mysqli_real_escape_string($con,$_SESSION['username'])."'";
+		    }
+			$iresult = mysqli_query($con, $isql);
 		    if (mysqli_num_rows($iresult) != 0) {
 			while($irows = mysqli_fetch_assoc($iresult)) {
 			    if(isset($_POST['dropdown']) && $irows['ID'] == $_POST['dropdown']){ 
