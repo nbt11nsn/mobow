@@ -91,7 +91,6 @@ mysqli_free_result($iresult);
 <?php
 if(isset($_POST['accept'])&&isset($_POST['conts'])) 
 {
-    $index = 0;
     $who = mysqli_real_escape_string($con, $_POST['conts']);
     $sqldays = "SELECT ID, akro, veckonamn FROM veckodagar";
     $resultdays = mysqli_query($con, $sqldays);
