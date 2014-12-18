@@ -110,15 +110,28 @@ if(isset($_POST['accept'])&&isset($_POST['conts']))
     mysqli_free_result($resultsql2);
     echo"<ul>";
     foreach($namedays as $day){
-	echo"<li><label for='".$day['veckonamn']."' id='day'>".$day['veckonamn'].": </label></li><li><div id='openingFrame' class='background0'><div id='openingHours'><label>Öppnar: </label><input type='time' align='left' maxlength='50' value='";
-	echo (isset($oppettiderna[$day['ID']])?$oppettiderna[$day['ID']]['oppet']:"");
-	echo"'  name='".$day['akro']."_open' id='".$day['akro']."_open' /></div><div id = closingHours><label>Stänger: </label><input type='time' align='left' value='";
-	echo (isset($oppettiderna[$day['ID']])?$oppettiderna[$day['ID']]['stangt']:"");
-	echo"' name='".$day['akro']."_close' id='".$day['akro']."_close' /></div><div id='labels'><label>Stängt:</label><input type='checkbox' class='checkbox_' ";
-	echo (isset($oppettiderna[$day['ID']])?"":"checked");
-	echo" id='check_".$day['akro']."' name='check_".$day['akro']."' /></div></li>;";
+        echo"<li><label for='".$day['veckonamn']."' id='day'>".$day['veckonamn'].": </label></li><li>";
+        echo"<table id='openingFrame' class='background0'>";
+        echo"<tr>
+<td><label>Öppnar: </label></td>
+<td><label>Stänger: </label></td>
+<td><label>Stängt:</label></td>
+</tr>";
+        echo"<tr>
+<td id='openingHours'><input type='time' align='left' maxlength='50' value='";
+        echo (isset($oppettiderna[$day['ID']])?$oppettiderna[$day['ID']]['oppet']:"");
+        echo"' name='".$day['akro']."_open' id='".$day['akro']."_open' /></td>
+<td id='closingHours'><input type='time' align='left' value='";
+        echo (isset($oppettiderna[$day['ID']])?$oppettiderna[$day['ID']]['stangt']:"");
+        echo"' name='".$day['akro']."_close' id='".$day['akro']."_close' /></td>
+<td><input type='checkbox' class='checkbox_' ";
+        echo (isset($oppettiderna[$day['ID']])?"":"checked");
+        echo" id='check_".$day['akro']."' name='check_".$day['akro']."' /></td>
+</tr>";
+        echo"</table></li>";
     }
-    echo"</ul><div class='submit'>
+    echo"</ul>";
+echo"<div class='submit'>
 <input type='reset' name='rst' id='rst' value='Återställ' />
 <input type='submit' name='save' id='save' value='Spara' />
 </div></form>";
