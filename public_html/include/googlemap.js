@@ -41,18 +41,20 @@ function makeHTML(i){
     var max = {w:185, h:100};
     var imgSize = scaleImage(obj[i].logbredd, obj[i].loghojd, max.w, max.h);
     var address = "<p class='address'>Adress: <br />" + obj[i].gata + "<br />" + obj[i].stad + "</p>";
-    var oppet = (obj[i].oppet == null)? "":"<p class='oppet'><b>Öppettider: </b><br />"+ obj[i].oppet + "</p>";
+    // Detta var koden innan: var oppet = var oppet = "<p class='oppet'><b>Öppettider: </b><br />"+ obj[i].oppet + "</p>";
+	var oppettider = "<p class='oppettider'>Öppettider: <br />" + obj[i].oppet + " - " + obj[i].stangt + "</p>";
     var stn = "<p class='stn'>Antal stationer: " + obj[i].stn + "</p>";
 
     var image = (obj[i].logurl == null)? "":"<img class='imge' src='"+ obj[i].logurl + "' width='"+imgSize.w+"px' height='"+imgSize.h+"px' />";
 
     var allminfo = (obj[i].allminfo == null)? "":"<p class='allminfo'>" + obj[i].allminfo + "</p>";
+	var currinfo = (obj[i].currinfo == null)? "":"<p class='currinfo'>" + obj[i].currinfo + "</p>";
     var hemsida = (obj[i].hemsida == null)? "":"<p class='hemsida'><a style='color:"+obj[i].forecolor+"' href = '" + obj[i].hemsida + "' target = '_blank'>Vill du veta mer?</a></p>";
     var tele = (obj[i].tele == null)? "":"<p class='tele'>" + obj[i].tele + "</p>";
     var vagvisning = "<p class='hemsida'><a style='color:"+obj[i].forecolor+"' href='javascript:void(0)' onclick='cmap.direction("+obj[i].lat+","+obj[i].lng+");'>Vägbeskrivning</a></p>";
 
 
-    var html = image + "<div id='info_content'>" + name + address + allminfo + oppet + stn + tele + hemsida + vagvisning + "</div>";
+    var html = image + "<div id='info_content'>" + name + address + allminfo + currinfo + oppettider + stn + tele + hemsida + vagvisning + "</div>";
     return html;
 }
 
