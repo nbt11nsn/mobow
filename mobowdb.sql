@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 07 jan 2015 kl 13:18
+-- Tid vid skapande: 07 jan 2015 kl 14:06
 -- Serverversion: 5.6.20
 -- PHP-version: 5.5.15
 
@@ -42,25 +42,12 @@ CREATE TABLE IF NOT EXISTS `adress` (
 --
 
 INSERT INTO `adress` (`ID`, `postnr`, `stad`, `gata`, `lng`, `lat`) VALUES
-(1, 80320, 'Gävle', 'Stortorget 1', 17.1420337, 60.6748389),
 (2, 91232, 'Vilhelmina', 'Postgatan 3', 16.6547774, 64.6230765),
 (3, 80320, 'Gävle', 'Stortorget 1', 15.8253629, 60.2930402),
 (4, 95391, 'Haparanda', 'Kukkolaforsen 184', 24.0548527, 65.9591007),
 (5, 95336, 'Haparanda', 'Norrskensvägen 2', 24.1324517, 65.8429222),
 (6, 80302, 'Gävle', 'Alderholmsgatan 7', 17.16285760793459, 60.6786653779345),
 (7, 80252, 'Gävle', 'Mobowgatan 52', 17.192, 60.673);
-
--- --------------------------------------------------------
-
---
--- Tabellstruktur `bestallning`
---
-
-CREATE TABLE IF NOT EXISTS `bestallning` (
-`ID` int(11) NOT NULL,
-  `datum` date NOT NULL,
-  `foretagsid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -127,12 +114,10 @@ CREATE TABLE IF NOT EXISTS `faktura` (
 --
 
 INSERT INTO `faktura` (`ID`, `namn`, `url`, `agarid`, `datum`) VALUES
-(1, 'faktura1', 'faktura/faktura1.pdf', 1, '2014-12-01'),
 (2, 'faktura2', 'faktura/faktura2.pdf', 2, '2014-12-03'),
 (3, 'faktura3', 'faktura/faktura1.pdf', 3, '2014-11-04'),
 (4, 'faktura4', 'faktura/faktura1.pdf', 4, '2013-07-16'),
 (5, 'faktura5', 'faktura/faktura1.pdf', 5, '2014-12-10'),
-(6, 'faktura6', 'faktura/faktura1.pdf', 1, '2014-08-19'),
 (7, 'faktura7', 'faktura/faktura1.pdf', 2, '2014-08-19'),
 (8, '234567891', 'faktura/faktura8_2014-12-16_234567891.pdf', 8, '2014-12-16'),
 (9, '542845879', 'faktura/faktura8_2014-07-16_542845879.pdf', 8, '2014-07-16'),
@@ -286,7 +271,6 @@ CREATE TABLE IF NOT EXISTS `kontrakt` (
 --
 
 INSERT INTO `kontrakt` (`ID`, `kontorsnamn`, `sbesok`, `currinfo`, `tele`, `stn`, `logurl`, `logbredd`, `loghojd`, `hemsida`, `allminfo`, `forecolor`, `backcolor`, `kontaktpersonid`, `adressid`, `ikonid`, `orgnr`) VALUES
-(1, 'Gevalia', '2014-06-05', '', '026-78458', 3, NULL, NULL, NULL, 'http://www.google.com/', 'random grejs', '#000000', '#ffffff', 'NiklasS', 1, 2, '454545-4545'),
 (2, 'Gevalia Söder', '2014-09-16', 'sfdlkjsfdjkllkjdsf', '026-54875', 5, 'image/logo/logo0.png', 32, 32, 'http://www.aftonbladet.se/', '', '#ff00ff', '#000000', 'KarlL', 2, 2, '454545-4545'),
 (3, 'Gevalia Norr', '2014-06-04', '', '026-78458', 3, 'image/logo/04earth.png', 256, 256, 'http://www.google.com/', 'random grejs', '#000000', '#ffffff', 'KarlL', 3, 1, '225454-3458'),
 (4, 'Solen', '2014-09-16', '', '012341234', 2, 'image/logo/08saturn.png', 256, 256, 'http://sv.wikipedia.org/wiki/', '', '#abcdef', '#543210', 'MattiasD', 4, 1, '262648-2356'),
@@ -327,40 +311,6 @@ CREATE TABLE IF NOT EXISTS `oppettider` (
   `oppet` time DEFAULT NULL,
   `stangt` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumpning av Data i tabell `oppettider`
---
-
-INSERT INTO `oppettider` (`kontraktid`, `veckodagarid`, `oppet`, `stangt`) VALUES
-(1, 1, '14:00:00', '14:00:00'),
-(1, 5, '06:59:00', '14:12:00');
-
--- --------------------------------------------------------
-
---
--- Tabellstruktur `probest`
---
-
-CREATE TABLE IF NOT EXISTS `probest` (
-  `bestallningsid` int(11) NOT NULL,
-  `produktid` int(11) NOT NULL,
-  `antal` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Tabellstruktur `produkt`
---
-
-CREATE TABLE IF NOT EXISTS `produkt` (
-`ID` int(11) NOT NULL,
-  `maxbest` int(11) NOT NULL DEFAULT '0',
-  `namn` varchar(100) NOT NULL,
-  `bildurl` varchar(256) DEFAULT NULL,
-  `info` mediumtext
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -412,12 +362,6 @@ INSERT INTO `veckodagar` (`ID`, `akro`, `veckonamn`) VALUES
 -- Index för tabell `adress`
 --
 ALTER TABLE `adress`
- ADD PRIMARY KEY (`ID`);
-
---
--- Index för tabell `bestallning`
---
-ALTER TABLE `bestallning`
  ADD PRIMARY KEY (`ID`);
 
 --
@@ -487,18 +431,6 @@ ALTER TABLE `oppettider`
  ADD PRIMARY KEY (`kontraktid`,`veckodagarid`), ADD KEY `veckodagarid` (`veckodagarid`);
 
 --
--- Index för tabell `probest`
---
-ALTER TABLE `probest`
- ADD PRIMARY KEY (`bestallningsid`,`produktid`);
-
---
--- Index för tabell `produkt`
---
-ALTER TABLE `produkt`
- ADD PRIMARY KEY (`ID`);
-
---
 -- Index för tabell `specialtider`
 --
 ALTER TABLE `specialtider`
@@ -519,11 +451,6 @@ ALTER TABLE `veckodagar`
 --
 ALTER TABLE `adress`
 MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
---
--- AUTO_INCREMENT för tabell `bestallning`
---
-ALTER TABLE `bestallning`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT för tabell `edit_kntper`
 --
@@ -560,11 +487,6 @@ MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 ALTER TABLE `medstatus`
 MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT för tabell `produkt`
---
-ALTER TABLE `produkt`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT för tabell `specialtider`
 --
 ALTER TABLE `specialtider`
@@ -577,6 +499,12 @@ MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- Restriktioner för dumpade tabeller
 --
+
+--
+-- Restriktioner för tabell `adress`
+--
+ALTER TABLE `adress`
+ADD CONSTRAINT `adress_ibfk_10` FOREIGN KEY (`ID`) REFERENCES `kontrakt` (`adressid`) ON DELETE CASCADE;
 
 --
 -- Restriktioner för tabell `edit_foretag`
@@ -596,14 +524,14 @@ ADD CONSTRAINT `status_ibfk_2` FOREIGN KEY (`status`) REFERENCES `medstatus` (`I
 -- Restriktioner för tabell `faktura`
 --
 ALTER TABLE `faktura`
-ADD CONSTRAINT `kontrakt_ibfk_2` FOREIGN KEY (`agarid`) REFERENCES `kontrakt` (`ID`);
+ADD CONSTRAINT `kontrakt_ibfk_2` FOREIGN KEY (`agarid`) REFERENCES `kontrakt` (`ID`) ON DELETE CASCADE;
 
 --
 -- Restriktioner för tabell `felmeddelande`
 --
 ALTER TABLE `felmeddelande`
-ADD CONSTRAINT `felmeddelande_ifbk_1` FOREIGN KEY (`fronid`) REFERENCES `kontaktperson` (`anvnamn`),
-ADD CONSTRAINT `felmeddelande_ifbk_2` FOREIGN KEY (`tillid`) REFERENCES `kontaktperson` (`anvnamn`),
+ADD CONSTRAINT `felmeddelande_ifbk_1` FOREIGN KEY (`fronid`) REFERENCES `kontaktperson` (`anvnamn`) ON DELETE CASCADE,
+ADD CONSTRAINT `felmeddelande_ifbk_2` FOREIGN KEY (`tillid`) REFERENCES `kontaktperson` (`anvnamn`) ON DELETE CASCADE,
 ADD CONSTRAINT `felmeddelande_ifbk_3` FOREIGN KEY (`medstatus`) REFERENCES `medstatus` (`ID`),
 ADD CONSTRAINT `felmeddelande_ifbk_4` FOREIGN KEY (`feltypid`) REFERENCES `feltyp` (`ID`);
 
@@ -614,12 +542,13 @@ ALTER TABLE `kontrakt`
 ADD CONSTRAINT `adress_ibfk_1` FOREIGN KEY (`adressid`) REFERENCES `adress` (`ID`),
 ADD CONSTRAINT `ikon_ibfk_1` FOREIGN KEY (`ikonid`) REFERENCES `ikontyp` (`ID`),
 ADD CONSTRAINT `kontrakt_ibfk_1` FOREIGN KEY (`kontaktpersonid`) REFERENCES `kontaktperson` (`anvnamn`),
-ADD CONSTRAINT `orgnr_ibfk_1` FOREIGN KEY (`orgnr`) REFERENCES `foretag` (`orgnr`);
+ADD CONSTRAINT `orgnr_ibfk_1` FOREIGN KEY (`orgnr`) REFERENCES `foretag` (`orgnr`) ON DELETE CASCADE;
 
 --
 -- Restriktioner för tabell `oppettider`
 --
 ALTER TABLE `oppettider`
+ADD CONSTRAINT `kontraktid_ibfk_1` FOREIGN KEY (`kontraktid`) REFERENCES `kontrakt` (`ID`) ON DELETE CASCADE,
 ADD CONSTRAINT `veckodagar_ibfk_1` FOREIGN KEY (`veckodagarid`) REFERENCES `veckodagar` (`ID`);
 
 --

@@ -85,18 +85,19 @@ if (mysqli_num_rows($iresult) != 0) {
 mysqli_free_result($iresult);	
 ?>
 </select> 
-<input type="submit" name = "delete" id = "delete" value="Ta bort kontrakt">
-
+<input type="submit" name = "deleteContract" id = "delete" value="Ta bort kontrakt">
+<input type="submit" name = "deleteCompany" id = "delete" value="Ta bort företag">
 <?php
-if(isset($_POST['delete'])){
+if(isset($_POST['deleteContract'])){
 $c=mysqli_real_escape_string($con,$_POST['contracts']);
-echo '<p>Vill du verkligen ta bort '.$c.'?</p>
-<input type="submit" name = "yesdelete" id = "yesdelete" value="Ja">
+$sqlqueryGETContract = "SELECT kontorsnamn, orgnr FROM kontrakt WHERE ID = ".$c;
+$GETContract = mysqli_query($con,$sqlqueryGETContract);
+$rows = mysqli_fetch_assoc($GETContract);
+echo '<p>Vill du verkligen ta bort kontoret: '.$rows["kontorsnamn"].', '.$rows["orgnr"].'?</p>
+<input type="submit" name = "yesdeletecon" id = "yesdelete" value="Ja">
 <input type="submit" name = "nodelete" id = "nodelete" value="Nej">';}
 
-
-
-if(isset($_POST['yesdelete'])){
+if(isset($_POST['yesdeletecon'])){
   if(is_numeric($_POST['contracts'])){
     $c=mysqli_real_escape_string($con,$_POST['contracts']);
 	$sqlqueryInvoice = "DELETE FROM faktura WHERE agarid = '".$c."'";
@@ -117,7 +118,7 @@ reload = loc!=""?(loc=="true"):reload;
 
 function reloadPage() {
     if (!reload) 
-        window.location.replace(window.location+"?reload=true");
+        window.location.replace(window.location);
 }
 
 reloadPage();  </script>';	
@@ -129,7 +130,59 @@ reloadPage();  </script>';
   }
  }
 } 
-  
+
+
+
+
+if(isset($_POST['deleteCompany'])){
+$c=mysqli_real_escape_string($con,$_POST['comp']);
+if($c == "")
+{
+echo "<p>Du måste välja ett organisationsnummer..!</p>";
+}
+else {
+$sqlqueryGETContract = "SELECT namn, orgnr FROM foretag WHERE orgnr = '".$c."'";
+$GETContract = mysqli_query($con,$sqlqueryGETContract);
+$rows = mysqli_fetch_assoc($GETContract);
+echo '<p>Vill du verkligen ta bort företaget: '.$rows["namn"].', '.$rows["orgnr"].'?</p>
+<input type="submit" name = "yesdeletecom" id = "yesdelete" value="Ja">
+<input type="submit" name = "nodelete" id = "nodelete" value="Nej">';}
+}
+
+if(isset($_POST['yesdeletecom'])){
+  if(is_numeric($_POST['contracts'])){
+    $c=mysqli_real_escape_string($con,$_POST['contracts']);
+	$sqlqueryInvoice = "DELETE FROM faktura WHERE agarid = '".$c."'";
+	$sqlqueryGETAdressID = "(SELECT adressid FROM kontrakt WHERE id = ".$c.")";	
+    $sqlquery = "DELETE FROM kontrakt WHERE id = '".$c."'";	
+	$sqlqueryOpeningHours = "DELETE FROM oppettider WHERE kontraktid = ".$c;
+	if($GETAdressID = mysqli_query($con,$sqlqueryGETAdressID)){
+	$rows = mysqli_fetch_assoc($GETAdressID);
+	$sqlqueryAdress = "DELETE FROM adress WHERE ID = ".$rows['adressid'];	
+	echo $sqlqueryAdress;
+    if(mysqli_query($con, $sqlqueryInvoice)&&mysqli_query($con,$sqlquery)&&mysqli_query($con, $sqlqueryAdress)&&mysqli_query($con, $sqlqueryOpeningHours)){
+	
+	echo '<script type="text/javascript"> var reload = false;
+var loc=""+document.location;
+loc = loc.indexOf("?reload=")!=-1?loc.substring(loc.indexOf("?reload=")+10,loc.length):"";
+loc = loc.indexOf("&")!=-1?loc.substring(0,loc.indexOf("&")):loc;
+reload = loc!=""?(loc=="true"):reload;
+
+function reloadPage() {
+    if (!reload) 
+        window.location.replace(window.location);
+}
+
+reloadPage();  </script>';	
+      echo "<br /><br /><b>Uppdateringen lyckades</b>";
+    }
+    else{
+      echo "<br /><br /><b>Uppdateringen misslyckades</b>";
+    }
+  }
+ }
+}
+
 
 ?>
 </div><!--frame-->
