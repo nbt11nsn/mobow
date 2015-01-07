@@ -37,7 +37,6 @@ function scaleImage(currW, currH, maxW, maxH){
 }
 
 function makeHTML(i){
-console.dir(oppen[i]);	
     var name = "<p class='kontorsnamn'><h3>" + obj[i].kontorsnamn + "</h3></p>";
     var max = {w:185, h:100};
     var imgSize = scaleImage(obj[i].logbredd, obj[i].loghojd, max.w, max.h);
@@ -144,7 +143,7 @@ Cmap.prototype.initialize = function(){
 	lng = parseFloat(obj[i].lng);
 	var point = new google.maps.LatLng(lat, lng);
 	var htm = makeHTML(i);
-	var icon = {url:obj[i].opimgurl, size:new google.maps.Size(32,32)};
+	var icon = {url:obj[i].ikonurl, size:new google.maps.Size(32,32)};
 	var marker = new google.maps.Marker({
 	    map:this.map,
 	    position:point,

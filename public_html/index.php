@@ -2,8 +2,9 @@
 SESSION_start();
 defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../db.php');
-$isql = "SELECT * FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID";
-$sqloppen = "SELECT * FROM oppettider JOIN veckodagar ON oppettider.veckodagarid = veckodagar.ID WHERE veckodagarid= DAYOFWEEK(NOW())";
+//$isql = "SELECT * FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID";
+$isql = "SELECT * FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN (SELECT kontrakt.ID, IF (kontrakt.ID IN (SELECT kontrakt.ID FROM oppettider LEFT OUTER JOIN kontrakt ON oppettider.kontraktid = kontrakt.ID WHERE  veckodagarid = DAYOFWEEK(NOW()) AND oppet <= CURTIME() AND stangt >= CURTIME()), ikontyp.opimgurl, ikontyp.stimgurl) AS ikonurl FROM kontrakt LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID) AS ikon ON kontrakt.ID = ikon.ID";
+$sqloppen = "SELECT * FROM oppettider JOIN veckodagar ON oppettider.veckodagarid = veckodagar.ID WHERE veckodagar.ID = DAYOFWEEK(NOW())";
 $places = array();// innehåller alla platser ur databasen
 if($iresult = mysqli_query($con, $isql)){
   if (mysqli_num_rows($iresult) != 0) {	
