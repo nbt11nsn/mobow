@@ -169,7 +169,7 @@ if(isset($_POST['save'])) {
         $sqlquery .= $sqlrep;
     }
     mysqli_multi_query($con, $sqlquery);
-    while (mysqli_next_result($con)){;}
+    while (mysqli_more_result($con)){mysqli_next_result($con);}
 }
 
 ?>
