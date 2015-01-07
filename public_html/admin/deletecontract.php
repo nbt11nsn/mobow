@@ -77,7 +77,8 @@ if($adm){
     else{
     echo"<input type='hidden' name='comp' value=''>";
     }
-    echo"<select required name='contracts' id='contracts'>";
+    echo"<select name='contracts' id='contracts'>
+	<option value='' class = 'choosecontract'>Välj Kontrakt</option>";
 $iresult = mysqli_query($con, $isql);
 if (mysqli_num_rows($iresult) != 0) {
   while($irows = mysqli_fetch_assoc($iresult)) {
@@ -96,14 +97,19 @@ mysqli_free_result($iresult);
 <input type="submit" name = "deleteContract" id = "delete" value="Ta bort kontrakt">
 <input type="submit" name = "deleteCompany" id = "delete" value="Ta bort företag">
 <?php
-if(isset($_POST['deleteContract'])){
+if(isset($_POST['contracts'])&&isset($_POST['deleteContract'])){
+if($_POST['contracts']!=""){
 $c=mysqli_real_escape_string($con,$_POST['contracts']);
 $sqlqueryGETContract = "SELECT kontorsnamn, orgnr FROM kontrakt WHERE ID = ".$c;
 $GETContract = mysqli_query($con,$sqlqueryGETContract);
 $rows = mysqli_fetch_assoc($GETContract);
-echo '<p>Vill du verkligen ta bort kontoret: '.$rows["kontorsnamn"].', '.$rows["orgnr"].'?</p>
+echo '<p style="margin:10px">Vill du verkligen ta bort kontoret: '.$rows["kontorsnamn"].', '.$rows["orgnr"].'?</p>
 <input type="submit" name = "yesdeletecon" id = "yesdeletecon" value="Ja">
-<input type="submit" name = "nodelete" id = "nodelete" value="Nej">';}
+<input type="submit" name = "nodelete" id = "nodelete" value="Nej">';
+}else {
+echo "<p>Du måste välja ett kontrakt!</p>";
+ }
+}
 
 if(isset($_POST['yesdeletecon'])){
   if(is_numeric($_POST['contracts'])){
@@ -145,7 +151,7 @@ else {
 $sqlqueryGETContract = "SELECT namn, orgnr FROM foretag WHERE orgnr = '".$c."'";
 $GETContract = mysqli_query($con,$sqlqueryGETContract);
 $rows = mysqli_fetch_assoc($GETContract);
-echo '<p>Vill du verkligen ta bort företaget: '.$rows["namn"].', '.$rows["orgnr"].'?</p>
+echo '<p style="margin:10px">Vill du verkligen ta bort företaget: '.$rows["namn"].', '.$rows["orgnr"].'?</p>
 <input type="submit" name = "yesdeletecom" id = "yesdelete" value="Ja">
 <input type="submit" name = "nodelete" id = "nodelete" value="Nej">';}
 }
