@@ -32,6 +32,8 @@ $(document).ready(function(){
 <?php
 defined('THE_HEADER') || define('THE_HEADER', TRUE);
 require_once("include/header.php");
+defined('THE_ASESSION') || define('THE_ASESSION', TRUE);
+require_once('include/checkasession.php');
 ?>
 <div id="main-wrapper">
 <?php
@@ -46,7 +48,7 @@ if($adm){
     $sqlorg = "SELECT orgnr, namn FROM foretag ORDER BY orgnr";
 }
 else{
-    $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata, orgnr FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontaktperson.anvnamn = '$usr' ORDER BY kontorsnamn";
+   
 }
 ?>
 
@@ -60,8 +62,14 @@ if($adm){
     $orgresult = mysqli_query($con, $sqlorg);
     if (mysqli_num_rows($orgresult) != 0) {
     while($rows = mysqli_fetch_assoc($orgresult)) {
+	if(isset($_POST['comp']) && $_POST['comp'] == $rows['orgnr'])
+    {
+      echo "<option value=".$rows['orgnr']." selected='selected' >".$rows['orgnr']." (".$rows['namn'].")</option>";	
+	}
+	else {
     echo "<option value=".$rows['orgnr'].">".$rows['orgnr']." (".$rows['namn'].")</option>";	
-    }
+		}
+	 }
     }
     echo"</select>";
     mysqli_free_result($orgresult);
@@ -94,21 +102,14 @@ $sqlqueryGETContract = "SELECT kontorsnamn, orgnr FROM kontrakt WHERE ID = ".$c;
 $GETContract = mysqli_query($con,$sqlqueryGETContract);
 $rows = mysqli_fetch_assoc($GETContract);
 echo '<p>Vill du verkligen ta bort kontoret: '.$rows["kontorsnamn"].', '.$rows["orgnr"].'?</p>
-<input type="submit" name = "yesdeletecon" id = "yesdelete" value="Ja">
+<input type="submit" name = "yesdeletecon" id = "yesdeletecon" value="Ja">
 <input type="submit" name = "nodelete" id = "nodelete" value="Nej">';}
 
 if(isset($_POST['yesdeletecon'])){
   if(is_numeric($_POST['contracts'])){
     $c=mysqli_real_escape_string($con,$_POST['contracts']);
-	$sqlqueryInvoice = "DELETE FROM faktura WHERE agarid = '".$c."'";
-	$sqlqueryGETAdressID = "(SELECT adressid FROM kontrakt WHERE id = ".$c.")";	
     $sqlquery = "DELETE FROM kontrakt WHERE id = '".$c."'";	
-	$sqlqueryOpeningHours = "DELETE FROM oppettider WHERE kontraktid = ".$c;
-	if($GETAdressID = mysqli_query($con,$sqlqueryGETAdressID)){
-	$rows = mysqli_fetch_assoc($GETAdressID);
-	$sqlqueryAdress = "DELETE FROM adress WHERE ID = ".$rows['adressid'];	
-	echo $sqlqueryAdress;
-    if(mysqli_query($con, $sqlqueryInvoice)&&mysqli_query($con,$sqlquery)&&mysqli_query($con, $sqlqueryAdress)&&mysqli_query($con, $sqlqueryOpeningHours)){
+    if(mysqli_query($con, $sqlquery)){
 	
 	echo '<script type="text/javascript"> var reload = false;
 var loc=""+document.location;
@@ -129,7 +130,7 @@ reloadPage();  </script>';
     }
   }
  }
-} 
+ 
 
 
 
@@ -150,17 +151,10 @@ echo '<p>Vill du verkligen ta bort företaget: '.$rows["namn"].', '.$rows["orgnr
 }
 
 if(isset($_POST['yesdeletecom'])){
-  if(is_numeric($_POST['contracts'])){
-    $c=mysqli_real_escape_string($con,$_POST['contracts']);
-	$sqlqueryInvoice = "DELETE FROM faktura WHERE agarid = '".$c."'";
-	$sqlqueryGETAdressID = "(SELECT adressid FROM kontrakt WHERE id = ".$c.")";	
-    $sqlquery = "DELETE FROM kontrakt WHERE id = '".$c."'";	
-	$sqlqueryOpeningHours = "DELETE FROM oppettider WHERE kontraktid = ".$c;
-	if($GETAdressID = mysqli_query($con,$sqlqueryGETAdressID)){
-	$rows = mysqli_fetch_assoc($GETAdressID);
-	$sqlqueryAdress = "DELETE FROM adress WHERE ID = ".$rows['adressid'];	
-	echo $sqlqueryAdress;
-    if(mysqli_query($con, $sqlqueryInvoice)&&mysqli_query($con,$sqlquery)&&mysqli_query($con, $sqlqueryAdress)&&mysqli_query($con, $sqlqueryOpeningHours)){
+  if(isset($_POST['comp'])&&$_POST['comp']!=""){
+    $c=mysqli_real_escape_string($con,$_POST['comp']);	
+	$sqldeletecom = "DELETE FROM foretag WHERE orgnr = '".$c."'";	
+    if(mysqli_query($con, $sqldeletecom)){
 	
 	echo '<script type="text/javascript"> var reload = false;
 var loc=""+document.location;
@@ -181,7 +175,7 @@ reloadPage();  </script>';
     }
   }
  }
-}
+
 
 
 ?>

@@ -15,6 +15,11 @@ echo"<div id = 'huvudmeny'>
       <li><a href='newcontract.php'>Nytt kontrakt</a></li> 
       <li><a href='invoice.php'>Faktura</a></li>
 	  <li id='statuskoll'><a href='report.php'>Felrapportering</a></li>
+	  <li class='gotsub'><a href='#'>Ta bort</a>
+        <ul>
+		<li><a href='deletecontract.php'>Kontrakt & Företag</a></li>
+        <li><a href=''>Kontaktpersoner</a></li>
+		</ul>
       <li class='gotsub'><a href='#'>Editera</a>
         <ul>
           <li><a href='edit.php'>Inloggning</a></li>
