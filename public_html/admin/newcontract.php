@@ -7,6 +7,8 @@ SESSION_start();
 <?php
 defined('THE_SESSION') || define('THE_SESSION', TRUE);
 require_once('include/checksession.php');
+defined('THE_ASESSION') || define('THE_ASESSION', TRUE);
+require_once('include/checkasession.php');
 defined('THE_HEAD') || define('THE_HEAD', TRUE);
 include_once("include/head.php");
 ?>
