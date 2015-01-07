@@ -314,7 +314,6 @@ text-align: left;
 text-align: left;
 }
 
-
 #messageframecompany {
   width: 1024px; 
   height: 250px; 
@@ -351,6 +350,15 @@ text-align: left;
     left: 50%;
     float: left;
     padding: 25px;
+	}
+#meddelandeuppladdning{	
+	width: 510px;
+	position: absolute;
+	margin-top: -25px;
+	margin-left: -700px;
+	text-align: center;
+	margin-right: 10px;	
+	font: 18px Arial,sans-serif;
 }
 
 /* Huvudområde längst ned på sidan*/
@@ -363,7 +371,11 @@ text-align: left;
   width: 120px;
   margin-left: 25px;
 }
-
+#statuskoll{
+	background: #F00;
+	text-align: center;
+	font: 18px Arial,sans-serif;
+}
 /* Huvudområde längst upp på sidan */
 #header-wrapper {
   width: 100%;
@@ -374,7 +386,7 @@ text-align: left;
 #huvudmeny {
   width: 100%; 
   height: auto;
-padding-bottom:10px;
+  padding-bottom:10px;
 }
 
 #logga{

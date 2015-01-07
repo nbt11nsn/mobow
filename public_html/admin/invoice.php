@@ -51,8 +51,8 @@ if(isset($_POST['upfak']) && $adm){
             $err.='Filformatet stöds inte<br />';
         }
         if($ok==false){
-            echo "<div class='error'>$err</div>";
-            $error="Gick inte att ladda upp fakturan";
+            echo "<div class='error' id = 'meddelandeuppladdning'>$err</div>";
+            $error="Gick inte att ladda upp fakturan"; 
         }
         else
         {
@@ -66,7 +66,7 @@ if(isset($_POST['upfak']) && $adm){
                 $sqlq= "INSERT INTO faktura (namn, url, agarid, datum) VALUES('$fn', '$target', '$c', '$df')";
             }
             else{
-                $error="Gick inte att ladda upp fakturan";
+               $error="Gick inte att ladda upp fakturan";
             }
         }
     }
@@ -75,14 +75,14 @@ if(isset($_POST['upfak']) && $adm){
     }
     if(!$error){
         if(mysqli_query($con, $sqlq)){
-            echo "<div class='ok'>Uppladdningen lyckades</div>";
+            echo "<div class='ok' id = 'meddelandeuppladdning'>Uppladdningen lyckades</div>";
         }
         else{
-            echo "<div class='error'>Uppladdningen misslyckades</div>";
+            echo "<div class='error' id = 'meddelandeuppladdning'>Uppladdningen misslyckades</div>";
         }
     }
     else{
-        echo "<div class='error'>$error</div>";
+        echo "<div class='error' id = 'meddelandeuppladdning'>$error</div>";
     }
 }
 if($adm){
