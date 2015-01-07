@@ -65,7 +65,7 @@ $isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	 
 	if($_POST['reports'] == -1) {
 	$newmessage = true;
-
+	
 	echo  '<form action="" method="post" id = "messages">
       <ul>	
 	  <li>
@@ -83,36 +83,21 @@ $isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	<li>';
 	}
 	 else {
-		//$messageID = "SELECT ID, fronid FROM felmeddelande";
-	//	if (mysqli_num_rows($$messageID) != 0) {
-		//while($irows = mysqli_fetch_assoc($messageID)) {
-		//echo mysqli_query($con, $messageID);
-		//}
-		//$status = "UPDATE felmeddelande SET medstatus=4 WHERE ID = '".$messageID."'"; 
-		//mysqli_query($con, $status);	
-//}
-			
-		
-
-			$messageID = "SELECT ID, fronid FROM felmeddelande";
-			$iresult22 = mysqli_query($con, $messageID);
-		    if (mysqli_num_rows($iresult22) != 0) {
-			while($irows22 = mysqli_fetch_assoc($iresult22)) {
-			    if(isset($_POST['dropdown']) && $irows22['ID'] == $_POST['dropdown']){ 
-				echo "<option value=".$irows22['ID']." selected='selected' >".$irows22['kontorsnamn']."</option>";
-			    }
-			    else{
-				echo "<option value=".$irows22['ID'].">"."</option>";
-			    }
+			$messageID = "SELECT ID, medstatus, fronid FROM felmeddelande";
+			$iresult = mysqli_query($con, $messageID);
+		    if (mysqli_num_rows($iresult) != 0 ) {
+			while($irows = mysqli_fetch_assoc($iresult)) {
+			    if(isset($_POST['reports']) && $irows['ID'] == $_POST['reports']){
+				if($irows['medstatus'] == 1){				
+				$status = "UPDATE felmeddelande SET medstatus=4"; 
+					mysqli_query($con, $status);
+					}			
+			    }		  
 			}
 		    }
-		    mysqli_free_result($iresult22);
-		
-		
-		
-		
+		    mysqli_free_result($iresult);
+				
 
-		
 		
 	  $isql3 = "SELECT feltext, Info, text, fronid, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
 	 ON feltyp.ID = felmeddelande.feltypid JOIN medstatus ON medstatus.id = felmeddelande.medstatus
@@ -169,7 +154,7 @@ $isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
   	$new_txt = mysqli_real_escape_string($con, $_POST["feltext"]);
 	$usrname = mysqli_real_escape_string($con, $_SESSION["username"]);
 	$fromusr = mysqli_real_escape_string($con, $_POST["frm"]);
-	$io = "Oläst";
+	$io = 'Oläst';
   if($isadmin){
     $io = mysqli_real_escape_string($con, $_POST["infooptions"]);
 	}
