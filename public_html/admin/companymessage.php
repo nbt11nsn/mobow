@@ -22,12 +22,16 @@ defined('THE_MENUE') || define('THE_MENUE', TRUE);
 require_once("include/menuebar.php");
 ?>
 <div id = "frame">
-  <div id = "text">
-    <form action="" method="post" id = "accept">
-      <input type="submit" value="Godkänn">
-      <input type="submit" value="Neka">
-    </form>
-  </div>
+<?php 
+if($_SESSION['admin'])
+{
+    
+}
+else
+{
+    
+}
+?>
 </div><!--frame-->
 </div><!--main-wrapper-->
 <?php
