@@ -134,11 +134,9 @@ background: #efefef;
   border-width: 5px;
   border-color: #ff6699;
   background: #F2F2F2;
-  display: inline-block; 
   text-align: center;
-  position: relative;
-  left: -53%;
-  float: left;
+  margin-top: 5px;
+  display: inline-block;
 }
 
 #invoicelistframe { 
@@ -345,11 +343,11 @@ text-align: left;
 
 /* ############### id attribute #<id> ############### */
 
-#center{
-    position: relative;
-    left: 50%;
-    float: left;
+#center{ 
     padding: 25px;
+	width: 82%;
+	overflow: auto;
+	margin: 0px auto;
 	}
 #meddelandeuppladdning{	
 	width: 510px;
@@ -484,8 +482,6 @@ text-align: left;
   width: 400px;
   padding: 0 10px;
   margin: 0 auto;
-  position: relative;
-  left: -53%;
   float: left;
 }
 
@@ -743,4 +739,11 @@ nav ul a.logikon{
   padding-right: 10px;
   text-indent: -9999px;
   width: 16px;
+}
+
+th {
+display: table-cell;
+vertical-align: inherit;
+font-weight: bold;
+text-align: center;
 }
