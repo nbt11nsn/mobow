@@ -44,7 +44,7 @@ require_once(__DIR__ .'./../../db.php');
 $adm = mysqli_real_escape_string($con, $_SESSION['admin']);
 $usr = mysqli_real_escape_string($con, $_SESSION['username']);
 if($adm){
-    $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata, orgnr FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID ORDER BY kontorsnamn";
+    $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata, orgnr FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.ID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID ORDER BY kontorsnamn";
     $sqlorg = "SELECT orgnr, namn FROM foretag ORDER BY orgnr";
 }
 else{

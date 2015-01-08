@@ -42,11 +42,11 @@ require_once(__DIR__ .'./../../db.php');
 $adm = mysqli_real_escape_string($con, $_SESSION['admin']);
 $usr = mysqli_real_escape_string($con, $_SESSION['username']);
 if($adm){
-    $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata, orgnr FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID ORDER BY kontorsnamn";
+    $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata, orgnr FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.ID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID ORDER BY kontorsnamn";
     $sqlorg = "SELECT orgnr, namn FROM foretag ORDER BY orgnr";
 }
 else{
-    $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata, orgnr FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontaktperson.anvnamn = '$usr' ORDER BY kontorsnamn";
+    $isql = "SELECT kontrakt.ID, kontorsnamn, tele, logurl, gata, orgnr FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn LEFT OUTER JOIN adress ON kontrakt.ID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID WHERE kontaktperson.anvnamn = '$usr' ORDER BY kontorsnamn";
 }
 ?>
 
@@ -91,7 +91,7 @@ mysqli_free_result($iresult);
 
 if(isset($_POST['accept'])&&is_numeric($_POST['contracts'])) 
 {
-$isql2 = "SELECT kontrakt.ID, kontorsnamn, sbesok, tele, logurl, gata, stn, allminfo, currinfo, hemsida, forecolor, backcolor, postnr, stad, ikonid FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID WHERE kontrakt.ID = '".$_POST['contracts']."'";
+$isql2 = "SELECT kontrakt.ID, kontorsnamn, sbesok, tele, logurl, gata, stn, allminfo, currinfo, hemsida, forecolor, backcolor, postnr, stad, ikonid FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.ID = adress.ID WHERE kontrakt.ID = '".$_POST['contracts']."'";
 $iresult = mysqli_query($con, $isql2);
 $sqlikon = "SELECT ID, typ FROM ikontyp";
 $resultikon = mysqli_query($con, $sqlikon);
@@ -312,7 +312,7 @@ if(isset($_POST['save'])&&isset($_POST['gata'])&&isset($_POST['stn'])&&isset($_P
         $t=mysqli_real_escape_string($con,$_POST['telefonenbr']);
     }else{$t="";}
     $sql3.= ", kontrakt.tele = '$t'";
-    $sql3.=" WHERE kontrakt.adressid = adress.ID AND kontrakt.ID = '$c'";
+    $sql3.=" WHERE kontrakt.ID = adress.ID AND kontrakt.ID = '$c'";
     if(!$error){
         if(mysqli_query($con, $sql3)){
             echo "<div class='ok'>Uppdateringen lyckades</div>";
