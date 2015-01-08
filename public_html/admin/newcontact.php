@@ -65,8 +65,8 @@ $getIcons = "SELECT * FROM ikontyp";
 
 
 <?php
-if(isset($_POST['postContracts']&&!empty($_POST['username'])&&!empty($_POST['frstnme'])&&!empty($_POST['lstnme'])
-&&!empty($_POST['mobile'])&&!empty($_POST['mail'])&&!empty($_POST['password']))){
+if(isset($_POST['save'])&&!empty($_POST['username'])&&!empty($_POST['frstnme'])&&!empty($_POST['lstnme'])
+&&!empty($_POST['mobile'])&&!empty($_POST['mail'])&&!empty($_POST['password'])){
 
 }
 ?>
