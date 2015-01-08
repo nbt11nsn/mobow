@@ -747,3 +747,7 @@ vertical-align: inherit;
 font-weight: bold;
 text-align: center;
 }
+
+table {
+color: #000;
+}
