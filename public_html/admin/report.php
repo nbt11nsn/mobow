@@ -23,14 +23,13 @@ defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../../db.php');
 $isadmin = mysqli_real_escape_string($con, $_SESSION['admin']);
 if($isadmin){
-$isql = "SELECT Info, felmeddelande.ID, kontorsnamn,feltext,  orgnr, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn
- = fronid JOIN kontrakt ON kontaktpersonid = anvnamn JOIN feltyp ON feltypid = feltyp.ID JOIN medstatus ON medstatus.ID = felmeddelande.medstatus WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."'";
-
+$isql = "SELECT info, felmeddelande.ID, kontorsnamn,feltext,  orgnr, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn
+ = fronid JOIN kontrakt ON kontaktpersonid = anvnamn JOIN feltyp ON feltypid = feltyp.ID JOIN felstatus ON felstatus.ID = felmeddelande.medstatus WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."'";
  }
 else
 {
-$isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
- ON feltypid = feltyp.ID JOIN medstatus ON medstatus.ID = felmeddelande.medstatus WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."'";
+$isql = "SELECT info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
+ ON feltypid = feltyp.ID JOIN felstatus ON felstatus.ID = felmeddelande.medstatus WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."'";
 }
 
 ?>
@@ -83,16 +82,16 @@ $isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	<li>';
 	}
 		 else if($isadmin){					 
-				$status = "UPDATE felmeddelande SET medstatus=4 WHERE ID = ".$_POST['reports']; 
+				$status = "UPDATE felmeddelande SET felstatus=4 WHERE ID = ".$_POST['reports']; 
 					mysqli_query($con, $status);				
 					}			
 	
 
 	  $isql3 = "SELECT feltext, Info, text, fronid, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
-	 ON feltyp.ID = felmeddelande.feltypid JOIN medstatus ON medstatus.id = felmeddelande.medstatus
+	 ON feltyp.ID = felmeddelande.feltypid JOIN felstatus ON felstatus.id = felmeddelande.felstatus
 	 WHERE felmeddelande.ID = ".mysqli_real_escape_string($con,$_POST['reports']);
 	 
-	$options = "SELECT ID, info FROM medstatus";	
+	$options = "SELECT ID, info FROM felstatus";	
 	$iresultoptions = mysqli_query($con, $options);
 	$iresult = mysqli_query($con, $isql3);
 
@@ -167,7 +166,7 @@ $isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	$new_txt =  $lastId['feltext'];
    } 
    
-    $sqli4 = "INSERT INTO felmeddelande VALUES(0, '".$message."', (SELECT ID FROM medstatus WHERE Info = '".$io."' LIMIT 1),
+    $sqli4 = "INSERT INTO felmeddelande VALUES(0, '".$message."', (SELECT ID FROM felstatus WHERE Info = '".$io."' LIMIT 1),
    (SELECT ID FROM feltyp WHERE feltext = '".$new_txt."' LIMIT 1), '".$usrname."',
    '".$fromusr."');";   
    }
