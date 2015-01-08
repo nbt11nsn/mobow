@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 08, 2015 at 01:39 PM
+-- Generation Time: Jan 08, 2015 at 01:40 PM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `mobowdb`
 --
+CREATE DATABASE IF NOT EXISTS `mobowdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `mobowdb`;
 
 -- --------------------------------------------------------
 
