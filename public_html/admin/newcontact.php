@@ -62,3 +62,11 @@ $getIcons = "SELECT * FROM ikontyp";
 <input type="reset" name="rst" id="rst" value="Återställ" />
 <input type="submit" name="save" id="save" value="Spara" />
 </frame>
+
+
+<?php
+if(isset($_POST['postContracts']&&!empty($_POST['username'])&&!empty($_POST['frstnme'])&&!empty($_POST['lstnme'])
+&&!empty($_POST['mobile'])&&!empty($_POST['mail'])&&!empty($_POST['password']))){
+
+}
+?>
