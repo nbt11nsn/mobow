@@ -34,6 +34,8 @@ if(isset($_SESSION['admin']) && $_SESSION['admin'])
     $sumsg = "oläst meddelande";
     $pmsg = "meddelanden";
     $pumsg = "olästa meddelanden";
+    $approve = "Godkänn alla";
+    $deny = "Neka alla";
 
     $sqlcount = "SELECT (SELECT COUNT(*) FROM edit_foretag) + (SELECT COUNT(*) FROM edit_kntper) AS numberofmessage FROM DUAL";
     $rescount = mysqli_query($con, $sqlcount);
@@ -52,9 +54,10 @@ if(isset($_SESSION['admin']) && $_SESSION['admin'])
     else //Det finns meddelanden
     {
         echo"<table class='tmsg'>";
-        echo"<tr><td class='tnb'></td>";
+        echo"<tr>";
         if($nrofunreadmsg < 2){echo"<td class='tnb'>$nrofunreadmsg $sumsg.</td>";}
         else{echo"<td class='tnb'>$nrofunreadmsg $psmsg.</td>";}
+        echo"<td class='tnb'></td>";
         if($nrofmessage < 2){echo"<td class='tnb'>$nrofmessage $smsg.</td>";}
         else{echo"<td class='tnb'>$nrofmessage $pmsg.</td>";}
         echo"</tr>";
@@ -79,11 +82,16 @@ if(isset($_SESSION['admin']) && $_SESSION['admin'])
             $namn = $row['namn'];
             $info = $row['info'];
             echo"<tr>
-            <td>$contract</td>
-            <td>$namn</td>
-            <td>$info</td>
-            </tr>";
+             <td>$contract</td>
+             <td>$namn</td>
+             <td>$info</td>
+             </tr>";
         }
+        echo"<tr>
+             <td><input type='submit' name='appall' value='$approve'></td>
+             <td class='tnb'></td>
+             <td><input type='submit' name='denall' value='$deny'></td>
+             </tr>";
         echo"</table>";
     }
 }

@@ -479,20 +479,23 @@ text-align: left;
 }
 
 .tmsg {
-    border-collapse:collapse;
-    border-spacing:0;
-    border-color:#ccc;
+    border-width: 5px;
+    border-spacing: 3px;
+    border-style: double;
+    border-color: rgb(234, 0, 90);
+    border-collapse: collapse;
+    background-color: white;
 }
 
 .tmsg td {
+    border-style: dotted;
     padding:10px 5px;
-    border-style:solid;
-    border-width:1px;
-    overflow:hidden;
-    word-break:normal;
-    border-color:#ccc;
-    color:#333;
-    background-color:#fff;
+    border-width: 1px;
+    overflow: hidden;
+    word-break: normal;
+    border-color: #ccc;
+    color: #333;
+    background-color: #fff;
 }
 
 .tmsg .tnb {
