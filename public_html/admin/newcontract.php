@@ -111,8 +111,7 @@ if(isset($_POST['cnew'])){
 	$insertAdress = "INSERT INTO adress values(".$contractid.",'".$zip."','".$stad."','".$gata."',".$lng.",".$lat.");";
 	$insertContract = "INSERT INTO kontrakt values(null,'".$kont."','".$sbesok."', ".isEmpty($cinf).",".isEmpty($tef).",
 	".$stn.",".isEmpty($target).",".isEmpty($lw).",".isEmpty($lh).",".isEmpty($web).",".isEmpty($ainf).",'".$fc."','".$bc."','".$usrn."', '".$icon_type."', '".$ocr."');";
-	
-echo $insertContract;
+
     if(!$error){		
         if(mysqli_query($con, $insertContract)&&mysqli_query($con, $insertAdress)){			
             echo "<br /><br /><b>Uppdateringen lyckades</b>";
