@@ -82,12 +82,12 @@ $isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	</li>
 	<li>';
 	}
-	 else {
-				
+		 else if($isadmin){					 
 				$status = "UPDATE felmeddelande SET medstatus=4 WHERE ID = ".$_POST['reports']; 
 					mysqli_query($con, $status);				
 					}			
 	
+
 	  $isql3 = "SELECT feltext, Info, text, fronid, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
 	 ON feltyp.ID = felmeddelande.feltypid JOIN medstatus ON medstatus.id = felmeddelande.medstatus
 	 WHERE felmeddelande.ID = ".mysqli_real_escape_string($con,$_POST['reports']);

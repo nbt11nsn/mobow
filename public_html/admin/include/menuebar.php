@@ -11,7 +11,12 @@ echo"<div id = 'huvudmeny'>
   <nav>
     <ul>
       <li><a href='info.php' class='hemikon'>H</a></li> 
-      <li><a href='newcontract.php'>Nytt kontrakt</a></li> 
+	  <li class='gotsub'><a href='#'>Ny</a>
+        <ul>
+		<li><a href='newcontract.php'>Nytt Kontrakt</a></li>
+        <li><a href='newcontact.php'>Ny Kontakt</a></li>
+		</ul>
+      </li>
       <li><a href='invoice.php'>Faktura</a></li>
 	  <li ";
     if($num_rows != 0){echo "id='statuskoll'";}
