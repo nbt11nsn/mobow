@@ -51,12 +51,12 @@ if(isset($_SESSION['admin']) && $_SESSION['admin'])
     }
     else //Det finns meddelanden
     {
-        echo"<table>";
-        echo"<tr><td></td>";
-        if($nrofunreadmsg < 2){echo"<td>$nrofunreadmsg $sumsg.</td>";}
-        else{echo"<td>$nrofunreadmsg $psmsg.</td>";}
-        if($nrofmessage < 2){echo"<td>$nrofmessage $smsg.</td>";}
-        else{echo"<td>$nrofmessage $pmsg.</td>";}
+        echo"<table class='tmsg'>";
+        echo"<tr><td class='tnb'></td>";
+        if($nrofunreadmsg < 2){echo"<td class='tnb'>$nrofunreadmsg $sumsg.</td>";}
+        else{echo"<td class='tnb'>$nrofunreadmsg $psmsg.</td>";}
+        if($nrofmessage < 2){echo"<td class='tnb'>$nrofmessage $smsg.</td>";}
+        else{echo"<td class='tnb'>$nrofmessage $pmsg.</td>";}
         echo"</tr>";
         echo"<tr><th>$type</th><th>$req</th><th>$status</th></tr>";
         $sqlknt = "SELECT edit_kntper.kontaktid AS kid, medstatus.info AS info FROM edit_kntper LEFT OUTER JOIN medstatus ON medstatus.ID = edit_kntper.status";
