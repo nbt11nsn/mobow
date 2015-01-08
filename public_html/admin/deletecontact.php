@@ -36,7 +36,7 @@ defined('THE_ASESSION') || define('THE_ASESSION', TRUE);
 require_once('include/checkasession.php');
 ?>
 <div id="main-wrapper">
-<?php
+<?php  
 defined('THE_MENUE') || define('THE_MENUE', TRUE);
 require_once("include/menuebar.php");
 defined('THE_DB') || define('THE_DB', TRUE);

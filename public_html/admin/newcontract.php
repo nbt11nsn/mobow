@@ -26,6 +26,7 @@ require_once("include/menuebar.php");
 defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../../db.php');
 $getCompanies = "SELECT * FROM foretag";
+$getContacts = "SELECT * FROM kontaktperson";
 $getIcons = "SELECT * FROM ikontyp";
 ?>
 
@@ -33,9 +34,8 @@ $getIcons = "SELECT * FROM ikontyp";
     <form action='' method='post' id ='postContracts' enctype="multipart/form-data">
 
 <?php
-if(!empty($_POST['save'])&&!empty($_POST['gata'])&&!empty($_POST['stn'])&&!empty($_POST['stad'])
-&&!empty($_POST['kontor'])&&!empty($_POST['sbesok'])&&!empty($_POST['username'])&&!empty($_POST['frstnme'])
-&&!empty($_POST['lstnme'])&&!empty($_POST['mail'])&&!empty($_POST['password'])
+if(isset($_POST['save'])&&!empty($_POST['gata'])&&!empty($_POST['stn'])&&!empty($_POST['stad'])
+&&!empty($_POST['kontor'])&&!empty($_POST['sbesok'])&&!empty($_POST['old_usr'])
 &&!empty($_POST['forecolor'])&&!empty($_POST['backcolor'])&&!empty($_POST['postnr'])
 &&!empty($_POST['lng'])&&!empty($_POST['lat']))
 {
@@ -45,13 +45,7 @@ $error = false;
     $stad=mysqli_real_escape_string($con,$_POST['stad']);
     $kont=mysqli_real_escape_string($con,$_POST['kontor']);
 	$stn=mysqli_real_escape_string($con,$_POST['stn']);
-	$sbesok=mysqli_real_escape_string($con,$_POST['sbesok']);	
-	$usrn=mysqli_real_escape_string($con,$_POST['username']);
-	$frst=mysqli_real_escape_string($con,$_POST['frstnme']);
-	$lst=mysqli_real_escape_string($con,$_POST['lstnme']);
-	$mob=mysqli_real_escape_string($con,$_POST['mobile']);
-	$mail=mysqli_real_escape_string($con,$_POST['mail']);
-	$pass= password_hash(mysqli_real_escape_string($con,$_POST['password']), PASSWORD_DEFAULT);
+	$sbesok=mysqli_real_escape_string($con,$_POST['sbesok']);		
 	$tef=mysqli_real_escape_string($con,$_POST['telefonenbr']);
 	$web=mysqli_real_escape_string($con,$_POST['hemsida']);
 	$ainf=mysqli_real_escape_string($con,$_POST['allminfo']);
@@ -62,7 +56,8 @@ $error = false;
 	$logo=mysqli_real_escape_string($con,$_FILES['logo']['name']);
 	$lat=mysqli_real_escape_string($con,$_POST['lat']);
 	$lng=mysqli_real_escape_string($con,$_POST['lng']);	
-	$icon_type = mysqli_real_escape_string($con,$_POST['icon_type']);	
+	$icon_type = mysqli_real_escape_string($con,$_POST['icon_type']);
+	$usrn = mysqli_real_escape_string($con, $_POST["old_usr"]);
 	   
     if(!(is_numeric($stn)&&is_numeric($zip))){
 		$error="Ogiltigt antal stationer";
@@ -112,18 +107,14 @@ if(isset($_POST['cnew'])){
 	$error = "Gick inte att skapa ett nytt företag";
 		}	
 	}
-	
-
-	
-	$insertAdress = "INSERT INTO adress values(null,'".$zip."','".$stad."','".$gata."',".$lng.",".$lat.");";
-	$adressid = "(SELECT LAST_INSERT_ID())";	
+	$contractid = "(SELECT LAST_INSERT_ID())";	
+	$insertAdress = "INSERT INTO adress values(".$contractid.",'".$zip."','".$stad."','".$gata."',".$lng.",".$lat.");";
 	$insertContract = "INSERT INTO kontrakt values(null,'".$kont."','".$sbesok."', ".isEmpty($cinf).",".isEmpty($tef).",
-	".$stn.",".isEmpty($target).",".isEmpty($lw).",".isEmpty($lh).",".isEmpty($web).",".isEmpty($ainf).",'".$fc."','".$bc."','".$usrn."',".$adressid.", '".$icon_type."', '".$ocr."');";
-	$insertNewUser = "INSERT INTO kontaktperson values('".$usrn."','".$frst."','".$lst."',".isEmpty($mob).",
-	'".$mail."','".$pass."', 0);";
-
+	".$stn.",".isEmpty($target).",".isEmpty($lw).",".isEmpty($lh).",".isEmpty($web).",".isEmpty($ainf).",'".$fc."','".$bc."','".$usrn."', '".$icon_type."', '".$ocr."');";
+	
+echo $insertContract;
     if(!$error){		
-        if(mysqli_query($con, $insertNewUser)&&mysqli_query($con, $insertAdress)&&mysqli_query($con, $insertContract)){			
+        if(mysqli_query($con, $insertContract)&&mysqli_query($con, $insertAdress)){			
             echo "<br /><br /><b>Uppdateringen lyckades</b>";
         }
         else{
@@ -134,8 +125,6 @@ if(isset($_POST['cnew'])){
         echo "<br /><br /><b>$error</b>";
     }
 }
-
-
 echo '<ul><fieldset>
 <legend><b>Välj Företag</b></legend>
 <select name="old_ocr" id="old_ocr">';
@@ -146,9 +135,18 @@ if (mysqli_num_rows($iresult) != 0) {
     	
   }
 }
+echo '</select></fieldset>';
 
-
-
+echo '<ul><fieldset>
+<legend><b>Välj Användare</b></legend>
+<select name="old_usr" id="old_usr">';
+$iresult = mysqli_query($con, $getContacts);
+if (mysqli_num_rows($iresult) != 0) {
+  while($irows = mysqli_fetch_assoc($iresult)) {
+   echo "<option value=".$irows['anvnamn']." class='".$irows['anvnamn']."'>".$irows['anvnamn']." (".$irows['fornamn']." ".$irows['efternamn'].") </option>";
+    	
+  }
+}
 
 echo '</select></fieldset>
 <fieldset>
@@ -245,33 +243,6 @@ echo '</select></li>
 <input required type="text"  align="left" value = "" maxlength="100" name="lat" id="lat" />
 </li>
 </fieldset>
-<fieldset>
-<legend><b>Användare</b></legend>
-<li>
-<label for="anvnamn">Användarnamn: </label>
-<input required type="text"  align="left" value = "" maxlength="100"  name="username" id="username" />
-</li>
-<li>
-<label for="fornamn">Förnamn: </label>
-<input required type="text"  align="left" value = "" maxlength="100" value="frstnme" name="frstnme" id="frstnme" />
-</li>
-<li>
-<label for="efternamn">Efternamn: </label>
-<input required type="text"  align="left" value = "" maxlength="100"name="lstnme" id="lstnme" />
-</li>
-<li>
-<label for="mobil">Mobil nummer: </label>
-<input type="text"  align="left" value = "" maxlength="100" name="mobile" id="mobile" />
-</li>
-<li>
-<label for="mejl">Mejl: </label>
-<input required type="text"  align="left" value = "" maxlength="100"  name="mail" id="mail" />
-</li>
-<li>
-<label for="losen">Lösenord: </label>
-<input required type="text"  align="left" value = "" maxlength="100" name="password" id="password" />
-</li>
-</fieldset>
 <li class="submit">
 <input type="reset" name="rst" id="rst" value="Återställ" />
 <input type="submit" name="save" id="save" value="Spara" />
@@ -279,20 +250,6 @@ echo '</select></li>
 </ul>
 </form>';
 
-
-if(isset($_POST['rmimg'])&&isset($_POST['contracts'])){
-  if(is_numeric($_POST['contracts'])){
-    $c=$_POST['contracts'];
-    $sqlquery = "UPDATE kontrakt SET kontrakt.logurl=NULL, kontrakt.logbredd=NULL, kontrakt.loghojd=NULL WHERE kontrakt.ID='$c'";
-    mysqli_query($con, $sqlquery);
-    if(mysqli_query($con, $sqlquery)){
-      echo "<br /><br /><b>Sparningen lyckades</b>";
-    }
-    else{
-      echo "<br /><br /><b>Sparningen misslyckades</b>";
-    }
-  }
-}
 
 
 function isEmpty($value){
