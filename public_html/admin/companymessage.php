@@ -29,6 +29,10 @@ if(isset($_SESSION['admin']) && $_SESSION['admin'])
     $rescount = mysqli_query($con, $sqlcount);
     $asscount = mysqli_fetch_assoc($rescount);
     $nrofmessage = $asscount['numberofmessage'];
+    $sqlknt = "SELECT * FROM edit_kntper";
+    $resknt = mysqli_query($con, $sqlknt);
+    $sqlforetag = "SELECT * FROM edit_foretag";
+    $resforetag = mysqli_query($con, $sqlforetag);
 }
 else
 {
