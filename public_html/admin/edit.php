@@ -30,7 +30,7 @@ if(isset($_POST['chpasswd'])||isset($_POST['achpasswd'])){
         echo upasswd($_POST, true);
     }
 }
-?>
+?><div id="frame">  
 <div id="center">
 <div id="frame_edit">
     <form action="" method="post" id="passchange">
@@ -95,6 +95,7 @@ echo"
 }
 ?>
 </div><!--center-->
+</div>
 </div><!--main-wrapper-->
 <?php
 defined('THE_FOOTER') || define('THE_FOOTER', TRUE);
