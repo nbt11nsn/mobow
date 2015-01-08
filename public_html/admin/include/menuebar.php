@@ -18,7 +18,7 @@ echo"<div id = 'huvudmeny'>
 	  <li class='gotsub'><a href='#'>Ta bort</a>
         <ul>
 		<li><a href='deletecontract.php'>Kontrakt & Företag</a></li>
-        <li><a href=''>Kontaktpersoner</a></li>
+        <li><a href='deletecontact.php'>Kontaktpersoner</a></li>
 		</ul>
       <li class='gotsub'><a href='#'>Editera</a>
         <ul>
