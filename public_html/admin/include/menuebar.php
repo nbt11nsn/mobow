@@ -13,7 +13,7 @@ echo"<div id = 'huvudmeny'>
       <li><a href='info.php' class='hemikon'>H</a></li> 
       <li><a href='newcontract.php'>Nytt kontrakt</a></li> 
       <li><a href='invoice.php'>Faktura</a></li>
-	  <li";
+	  <li ";
     if($num_rows != 0){echo "id='statuskoll'";}
 echo"><a href='report.php'>Felrapportering</a></li>
 	  <li class='gotsub'><a href='#'>Ta bort</a>
