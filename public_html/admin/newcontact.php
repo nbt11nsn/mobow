@@ -58,15 +58,32 @@ $getIcons = "SELECT * FROM ikontyp";
 <label for="losen">Lösenord: </label>
 <input required type="text"  align="left" value = "" maxlength="100" name="password" id="password" />
 </li>
+<label for="administr">Administrator: </label>
+<input type="checkbox"  align="left" value = "" maxlength="100" name="admin" id="admin" />
+</li>
 </fieldset>
 <input type="reset" name="rst" id="rst" value="Återställ" />
 <input type="submit" name="save" id="save" value="Spara" />
 </frame>
 
 
-<?php
+<?php	
 if(isset($_POST['save'])&&!empty($_POST['username'])&&!empty($_POST['frstnme'])&&!empty($_POST['lstnme'])
 &&!empty($_POST['mobile'])&&!empty($_POST['mail'])&&!empty($_POST['password'])){
-
+	$name=mysqli_real_escape_string($con,$_POST['username']);
+    $first=mysqli_real_escape_string($con,$_POST['frstnme']);
+    $last=mysqli_real_escape_string($con,$_POST['lstnme']);
+	$mob=mysqli_real_escape_string($con,$_POST['mobile']);
+	$mail=mysqli_real_escape_string($con,$_POST['mail']);	
+	$pass=mysqli_real_escape_string($con,$_POST['password']);
+	$admincheck = 0;
+	
+	if (isset($_POST['admin'])) {
+	$admincheck = 1;}
+			$hash = password_hash($pass, PASSWORD_DEFAULT);			        
+		$insertContact = "INSERT INTO kontaktperson values('".$name."','".$first."','".$last."','".$mob."','".$mail."','".$pass."',".$admincheck.")";	
+		mysqli_query($con, $insertContact);	
+		$pass = "UPDATE kontaktperson SET losen = '$hash' WHERE anvnamn = '".$_POST['username']."'";
+		mysqli_query($con, $pass);	
 }
 ?>
