@@ -25,7 +25,10 @@ require_once("include/menuebar.php");
 <?php 
 if(isset($_SESSION['admin']) && $_SESSION['admin'])
 {
-    
+    $sqlcount = "SELECT (SELECT COUNT(*) FROM edit_foretag) + (SELECT COUNT(*) FROM edit_kntper) AS numberofmessage FROM DUAL";
+    $rescount = mysqli_query($con, $sqlcount);
+    $asscount = mysqli_fetch_assoc($rescount);
+    $nrofmessage = $asscount['numberofmessage'];
 }
 else
 {
