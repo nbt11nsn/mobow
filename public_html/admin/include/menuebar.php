@@ -14,7 +14,7 @@ echo"<div id = 'huvudmeny'>
 	  <li class='gotsub'><a href='#'>Skapa</a>
         <ul>
 		<li><a href='newcontract.php'>Nytt Kontrakt</a></li>
-        <li><a href='newcontact.php'>Ny Kontakt</a></li>
+        <li><a href='newcontact.php'>Ny Användare</a></li>
 		</ul>
       </li>
       <li><a href='invoice.php'>Faktura</a></li>
