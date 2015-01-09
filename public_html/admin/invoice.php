@@ -52,7 +52,7 @@ if(isset($_POST['upfak']) && $adm){
         }
         if($ok==false){
             echo "<div class='error' id = 'meddelandeuppladdning'>$err</div>";
-            $error="Gick inte att ladda upp fakturan"; 
+            $error="Gick inte att ladda upp Fakturan"; 
         }
         else
         {
@@ -71,7 +71,7 @@ if(isset($_POST['upfak']) && $adm){
         }
     }
     else{
-	$error="Ingen faktura vald att ladda upp";
+	$error="Ingen Faktura vald att ladda upp";
     }
     if(!$error){
         if(mysqli_query($con, $sqlq)){
@@ -88,13 +88,13 @@ if(isset($_POST['upfak']) && $adm){
 if($adm){
     echo"
 <div class='upload_pdf' >
-    <form id='upload_form' enctype='multipart/form-data' method='post' action=''><fieldset><legend class='center'><b>Ladda upp faktura</b></legend>
+    <form id='upload_form' enctype='multipart/form-data' method='post' action=''><fieldset><legend class='center'><b>Ladda upp Faktura</b></legend>
 <ul>
-<li class='center'><label for='fnamn'>Namn på fakturan:</label>
+<li class='center'><label for='fnamn'>Namn på Fakturan:</label>
         <input required type='text' value='' id='fnamn' name='fnamn' maxlength='50' /></li>";
     $sqlkont="SELECT kontorsnamn, ID, orgnr FROM kontrakt ORDER BY kontorsnamn";
     $kont = mysqli_query($con, $sqlkont);
-    echo"<li class='center'><label for='receiver'>Fakturan tillhör:</label>
+    echo"<li class='center'><label for='receiver'>Fakturan Tillhör:</label>
     <select required name='receiver' id='receiver'>";
     if (mysqli_num_rows($kont) != 0) {
 	while($row = mysqli_fetch_assoc($kont)) {
@@ -105,10 +105,10 @@ if($adm){
     mysqli_free_result($kont);
     echo"<li class='center'><label for='dat_fil'>Datum:</label>
         <input required type='date' name='dat_fil' id='dat_fil' value='".date('Y-m-d')."' /></li>
-<li class='center'><label for='pdf_fil'>Ladda upp en faktura</label>
+<li class='center'><label for='pdf_fil'>Ladda upp en Faktura</label>
 	<input required type='file' name='pdf_fil' id='pdf_fil' /></li>
         <li class='center'><input type='reset' name='rst' id='rst' value='Återställ' />
-	<input type='submit' id='upfak' name='upfak' accept='application/pdf' value='Ladda upp faktura' /></li></ul>
+	<input type='submit' id='upfak' name='upfak' accept='application/pdf' value='Ladda upp Faktura' /></li></ul>
     </fieldset></form>
 </div>";
 }
@@ -139,7 +139,7 @@ if($adm){
 		    }
 		    mysqli_free_result($iresult);	
 		    ?>	
-		    <input type="submit" name = "choicebutton" id = "choicebutton" value="Välj kontrakt">
+		    <input type="submit" name = "choicebutton" id = "choicebutton" value="Välj Kontrakt">
 	    
 	    <?php
 	    if(isset($_POST["choicebutton"])){
@@ -148,7 +148,7 @@ if($adm){
 		if (mysqli_num_rows($iresult) != 0) {
 		    while($irows2 = mysqli_fetch_assoc($iresult)) {
 			echo "<div id = 'invoicecontainer'><a target='_blank' href = '../".$irows2['url']."' ><div id='invoicelistframe'>".$irows2['namn']." ".$irows2['datum']."</div></a>
-			<input type='checkbox' id='invoices[]' name='invoices[]' value = ".$irows2['url']."  /></div>";
+			<input type='checkbox' id='invoices[]' class = 'invoicecheckbox' name='invoices[]' value = ".$irows2['url']."  /></div>";
 		    }
 			echo "<input type='submit' id='deleteinvoice' name='deleteinvoice' value = 'Ta bort fakturer' />";	
 		}
