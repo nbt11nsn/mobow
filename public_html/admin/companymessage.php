@@ -153,16 +153,44 @@ elseif(isset($_POST['rmv'])&&isset($_POST['msg']))//ta bort ett meddelande
             $msg = mysqli_real_escape_string($con, $_POST['msg']);
             if(is_numeric($msg)) // kontrakt
             {
-                $sqlq = "SELECT edit_foretag.currinfo AS nycurrinfo, edit_foretag.tele AS nytele, edit_foretag.logurl AS nylogurl, edit_foretag.logbredd AS nylogbredd, edit_foretag.loghojd AS nyloghojd, edit_foretag.hemsida AS nyhemsida, edit_foretag.allminfo AS nyallminfo, edit_foretag.forecolor AS nyforecolor, edit_foretag.backcolor AS nybackcolor, edit_foretag.ikonid AS nyikonid, kontrakt.currinfo, kontrakt.tele, kontrakt.logurl, kontrakt.logbredd, kontrakt.loghojd, kontrakt.hemsida, kontrakt.allminfo, kontrakt.forecolor, kontrakt.backcolor, kontrakt.ikonid FROM edit_foretag LEFT OUTER JOIN kontrakt ON edit_foretag.kontraktid = kontrakt.ID WHERE kontrakt.ID='$msg'";
+                $sqlq = "SELECT edit_foretag.status, edit_foretag.currinfo AS nycurrinfo, edit_foretag.tele AS nytele, edit_foretag.logurl AS nylogurl, edit_foretag.logbredd AS nylogbredd, edit_foretag.loghojd AS nyloghojd, edit_foretag.hemsida AS nyhemsida, edit_foretag.allminfo AS nyallminfo, edit_foretag.forecolor AS nyforecolor, edit_foretag.backcolor AS nybackcolor, edit_foretag.ikonid AS nyikonid, kontrakt.currinfo, kontrakt.tele, kontrakt.logurl, kontrakt.logbredd, kontrakt.loghojd, kontrakt.hemsida, kontrakt.allminfo, kontrakt.forecolor, kontrakt.backcolor, kontrakt.ikonid, kontrakt.kontorsnamn FROM edit_foretag LEFT OUTER JOIN kontrakt ON edit_foretag.kontraktid = kontrakt.ID WHERE kontrakt.ID='$msg'";
                 $resq = mysqli_query($con, $sqlq);
                 $assq = mysqli_fetch_assoc($resq);
+                if($assq['status'] == '1')
+                {
+                    $sqllast = "UPDATE edit_foretag SET status='2' WHERE  edit_foretag.kontraktid='$msg';";
+                    mysqli_query($con, $sqllast);
+                }
+                echo"<tr><th colspan='4'>$contract '".$assq['kontorsnamn']."'</th></tr>";
             }
             else // kontaktperson
             {
                 $msg = substr($msg, 1);
-                $sql = "SELECT edit_kntper.fornamn AS nyfornamn, edit_kntper.efternamn AS nyefternamn, edit_kntper.mobil AS nymobil, edit_kntper.mejl AS nymejl, kontaktperson.fornamn, kontaktperson.efternamn, kontaktperson.mobil, kontaktperson.mejl FROM edit_kntper LEFT OUTER JOIN kontaktperson ON kontaktperson.anvnamn = edit_kntper.kontaktid WHERE kontaktperson.anvnamn='$msg'";
+                $sqlq = "SELECT edit_kntper.status, edit_kntper.fornamn AS nyfornamn, edit_kntper.efternamn AS nyefternamn, edit_kntper.mobil AS nymobil, edit_kntper.mejl AS nymejl, kontaktperson.fornamn, kontaktperson.efternamn, kontaktperson.mobil, kontaktperson.mejl, kontaktperson.anvnamn FROM edit_kntper LEFT OUTER JOIN kontaktperson ON kontaktperson.anvnamn = edit_kntper.kontaktid WHERE kontaktperson.anvnamn='$msg'";
                 $resq = mysqli_query($con, $sqlq);
                 $assq = mysqli_fetch_assoc($resq);
+                if($assq['status'] == '1')
+                {
+                    $sqllast = "UPDATE edit_kntper SET status='2' WHERE  edit_kntper.kontaktid='$msg';";
+                    mysqli_query($con, $sqllast);
+                }
+                echo"<tr><th colspan='4'>$useracc '".$assq['anvnamn']."'</th></tr><tr><th colspan='2'>Föregående värde</th><th colspan='2'>Nytt värde</th></tr>";
+                if($assq['nyfornamn'] != null)
+                {
+                    echo "hej";
+                }
+                if($assq['nyefternamn'] != null)
+                {
+                    echo "hej";
+                }
+                if($assq['nymobil'] != null)
+                {
+                    echo "hej";
+                }
+                if($assq['nymejl'] != null)
+                {
+                    echo "hej";
+                }
             }
         }
 
@@ -189,4 +217,3 @@ require_once("include/footer.php");
 ?>
 </body>
 </html>
-
