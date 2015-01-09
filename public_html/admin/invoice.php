@@ -140,19 +140,34 @@ if($adm){
 		    mysqli_free_result($iresult);	
 		    ?>	
 		    <input type="submit" name = "choicebutton" id = "choicebutton" value="Välj kontrakt">
-	    </form>
+	    
 	    <?php
 	    if(isset($_POST["choicebutton"])){
-		$isql2 = "SELECT url, namn, datum FROM faktura LEFT OUTER JOIN kontrakt ON kontrakt.ID = faktura.agarid WHERE kontrakt.ID = '".$_POST['dropdown']."' ORDER BY Datum DESC";
+		$isql2 = "SELECT url, namn, faktura.ID, datum FROM faktura LEFT OUTER JOIN kontrakt ON kontrakt.ID = faktura.agarid WHERE kontrakt.ID = '".$_POST['dropdown']."' ORDER BY Datum DESC";
 		$iresult = mysqli_query($con, $isql2);
 		if (mysqli_num_rows($iresult) != 0) {
 		    while($irows2 = mysqli_fetch_assoc($iresult)) {
-			echo "<a target='_blank' href = '../".$irows2['url']."' ><div id='invoicelistframe'>".$irows2['namn']." ".$irows2['datum']."</div></a>";
+			echo "<div id = 'invoicecontainer'><a target='_blank' href = '../".$irows2['url']."' ><div id='invoicelistframe'>".$irows2['namn']." ".$irows2['datum']."</div></a>
+			<input type='checkbox' id='invoices[]' name='invoices[]' value = ".$irows2['url']."  /></div>";
 		    }
+			echo "<input type='submit' id='deleteinvoice' name='deleteinvoice' value = 'Ta bort fakturer' />";	
 		}
+				
 		mysqli_free_result($iresult);
-	    }	
-	?>	
+	    
+		}
+	if(isset($_POST[""]))
+		
+	?>
+	</form>
+	<?php if(isset($_POST['deleteinvoice']) && !empty($_POST['invoices'])){		
+		foreach($_POST['invoices'] as $invoices2 ){
+		unlink("../".$invoices2);
+		$sqldeleteinvoice = "DELETE FROM faktura WHERE url = ".$invoices2;		
+		mysqli_query($con, $sqldeleteinvoice);
+			}
+		 }
+		?>
 	</div>
     </div>
     </div><!--invoiceframe-->
