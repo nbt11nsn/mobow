@@ -150,7 +150,7 @@ if($adm){
 			echo "<div id = 'invoicecontainer'><a target='_blank' href = '../".$irows2['url']."' ><div id='invoicelistframe'>".$irows2['namn']." ".$irows2['datum']."</div></a>
 			<input type='checkbox' id='invoices[]' class = 'invoicecheckbox' name='invoices[]' value = ".$irows2['url']."  /></div>";
 		    }
-			echo "<input type='submit' id='deleteinvoice' name='deleteinvoice' value = 'Ta bort fakturer' />";	
+			echo "<input type='submit' id='deleteinvoice' name='deleteinvoice' value = 'Ta bort fakturor' />";	
 		}
 				
 		mysqli_free_result($iresult);
