@@ -74,7 +74,7 @@ if($adm){
     echo"<input type='hidden' name='comp' value=''>";
     }
     echo"<select name='contacts' id='contacts'>
-	<option value=''>Välj Kontakt</option>";
+	<option value=''>Välj Användare</option>";
 $iresult = mysqli_query($con, $isql);
 if (mysqli_num_rows($iresult) != 0) {
   while($irows = mysqli_fetch_assoc($iresult)) {
