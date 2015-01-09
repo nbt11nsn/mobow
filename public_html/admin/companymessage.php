@@ -121,11 +121,13 @@ if(isset($_SESSION['admin']) && $_SESSION['admin'])
         if(is_numeric($msg)) // kontrakt
         {
             $sql = "DELETE FROM edit_foretag WHERE kontraktid='$msg'";
+            mysqli_query($con, $sql);
         }
         else // kontaktperson
         {
             $msg = substr($msg, 1);
             $sql = "DELETE FROM edit_kntper WHERE kontaktid='$msg'";
+            mysqli_query($con, $sql);
         }
     }
 }
