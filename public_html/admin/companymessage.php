@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 SESSION_start();
 ?>
 <!DOCTYPE html>
@@ -39,12 +41,27 @@ if(isset($_SESSION['admin']) && $_SESSION['admin'])
     $open = "Öppna";
     $remove = "Ta bort";
 
-if(isset($_POST['app'])&&isset($_POST['msg']))//godkänn ett meddelande
+if(isset($_POST['app'])&&isset($_POST['omsg']))//godkänn ett meddelande
 {
-    $msg = mysqli_real_escape_string($con, $_POST['msg']);
+    $msg = mysqli_real_escape_string($con, $_POST['omsg']);
     if(is_numeric($msg)) // kontrakt
     {
-        $sqlsw = "UPDATE kontrakt SET currinfo = COALESCE((SELECT currinfo FROM edit_foretag WHERE kontraktid = '$msg'), currinfo), tele = COALESCE((SELECT tele FROM edit_foretag WHERE kontraktid = '$msg'), tele), logurl = COALESCE((SELECT logurl FROM edit_foretag WHERE kontraktid = '$msg'), logurl), logbredd = COALESCE((SELECT logbredd FROM edit_foretag WHERE kontraktid = '$msg'), logbredd), loghojd = COALESCE((SELECT loghojd FROM edit_foretag WHERE kontraktid = '$msg'), loghojd), hemsida = COALESCE((SELECT hemsida FROM edit_foretag WHERE kontraktid = '$msg'), hemsida), forecolor = COALESCE((SELECT forecolor FROM edit_foretag WHERE kontraktid = '$msg'), forecolor), backcolor = COALESCE((SELECT backcolor FROM edit_foretag WHERE kontraktid = '$msg'), backcolor), allminfo = COALESCE((SELECT allminfo FROM edit_foretag WHERE kontraktid = '$msg'), allminfo), ikonid = COALESCE((SELECT ikonid FROM edit_foretag WHERE kontraktid = '$msg'), ikonid) WHERE kontrakt.ID = '$msg'";
+        $sqllogo = "SELECT edit_foretag.logurl AS tmpurl, kontrakt.logurl AS url FROM edit_foretag JOIN kontrakt ON edit_foretag.kontraktid=kontrakt.ID WHERE kontraktid='$msg'";
+        $reslogo = mysqli_query($con, $sqllogo);
+        if(mysqli_num_rows($reslogo) != 0)//denna borde alltid validera 'true'
+        {
+            $asslogo = mysqli_fetch_assoc($reslogo);
+            if($asslogo['tmpurl'] === null){}// inget att göra
+            elseif($asslogo['tmpurl'] == '0') // ta bort logotyp
+            {
+                unlink( __DIR__."/../".$asslogo['url']);
+            }
+            else // byta logotyp
+            {
+                rename( __DIR__."/../".$asslogo['tmpurl'],  __DIR__."/../".$asslogo['url']);
+            }
+        }        
+        $sqlsw = "UPDATE kontrakt SET currinfo = COALESCE((SELECT currinfo FROM edit_foretag WHERE kontraktid = '$msg'), currinfo), tele = COALESCE((SELECT tele FROM edit_foretag WHERE kontraktid = '$msg'), tele), hemsida = COALESCE((SELECT hemsida FROM edit_foretag WHERE kontraktid = '$msg'), hemsida), forecolor = COALESCE((SELECT forecolor FROM edit_foretag WHERE kontraktid = '$msg'), forecolor), backcolor = COALESCE((SELECT backcolor FROM edit_foretag WHERE kontraktid = '$msg'), backcolor), allminfo = COALESCE((SELECT allminfo FROM edit_foretag WHERE kontraktid = '$msg'), allminfo), ikonid = COALESCE((SELECT ikonid FROM edit_foretag WHERE kontraktid = '$msg'), ikonid), logurl = IF((SELECT logurl FROM edit_foretag WHERE kontraktid = '$msg')='0', NULL, logurl), logbredd = IF((SELECT logbredd FROM edit_foretag WHERE kontraktid = '$msg')='0', NULL, COALESCE((SELECT logbredd FROM edit_foretag WHERE kontraktid = '$msg'), logbredd)), loghojd = IF((SELECT loghojd FROM edit_foretag WHERE kontraktid = '$msg')='0', NULL, COALESCE((SELECT loghojd FROM edit_foretag WHERE kontraktid = '$msg'), loghojd)) WHERE kontrakt.ID = '$msg'";
         $sql = "UPDATE edit_foretag SET status='4' WHERE  edit_foretag.kontraktid='$msg';";
         if(mysqli_query($con, $sqlsw) && mysqli_query($con, $sql))
         {echo"<p class='ok'>Uppdateringen godkänd</p>";}
@@ -62,9 +79,9 @@ if(isset($_POST['app'])&&isset($_POST['msg']))//godkänn ett meddelande
         {echo"<p class='error'>Uppdateringen gick inte att godkänna</p>";}
     }
 }
-elseif(isset($_POST['den'])&&isset($_POST['msg']))//neka ett meddelande
+elseif(isset($_POST['den'])&&isset($_POST['omsg']))//neka ett meddelande
 {
-    $msg = mysqli_real_escape_string($con, $_POST['msg']);
+    $msg = mysqli_real_escape_string($con, $_POST['omsg']);
     if(is_numeric($msg)) // kontrakt
     {
         $sql = "UPDATE edit_foretag SET status='3' WHERE  edit_foretag.kontraktid='$msg';";
@@ -83,9 +100,9 @@ elseif(isset($_POST['den'])&&isset($_POST['msg']))//neka ett meddelande
         {echo"<p class='error'>Uppdateringen gick inte att neka</p>";}
     }
 }
-elseif(isset($_POST['rmv'])&&isset($_POST['msg']))//ta bort ett meddelande
+elseif(isset($_POST['rmv'])&&isset($_POST['omsg']))//ta bort ett meddelande
 {
-    $msg = mysqli_real_escape_string($con, $_POST['msg']);
+    $msg = mysqli_real_escape_string($con, $_POST['omsg']);
     if(is_numeric($msg)) // kontrakt
     {
         $sql = "DELETE FROM edit_foretag WHERE kontraktid='$msg'";
@@ -139,20 +156,37 @@ elseif(isset($_POST['rmv'])&&isset($_POST['msg']))//ta bort ett meddelande
         {
             $id = $row['kid'];
             $info = $row['info'];
-            echo"<option value='!$id'>$useracc '$id' --- $status $info</option>";
+            if($id == $_POST['msg'])
+            {
+                echo"<option value='!$id' selected>$useracc '$id' --- $status $info</option>";
+            }
+            else
+            {
+                echo"<option value='!$id'>$useracc '$id' --- $status $info</option>";
+            }
         }
         while($row = mysqli_fetch_assoc($resforetag))
         {
             $id = $row['kid'];
             $namn = $row['namn'];
             $info = $row['info'];
-            echo"<option value='$id'>$contract '$namn' --- $status $info</option>";
+            if($id == $_POST['msg'])
+            {
+                echo"<option value='$id' selected>$contract '$namn' --- $status $info</option>";
+            }
+            else
+            {
+                echo"<option value='$id'>$contract '$namn' --- $status $info</option>";
+            }
         }
         echo"</select></td></tr>";
+        echo"<tr><td colspan='5'><input type='submit' name='ope' value='$open'></td></tr></form>";
 
         if(isset($_POST['ope'])&&isset($_POST['msg']))//öppna ett meddelande
         {
             $msg = mysqli_real_escape_string($con, $_POST['msg']);
+            echo"<form name='upmsg' method='post' action=''>";
+            echo"<input type='hidden' name='omsg' value='$msg' />";
             if(is_numeric($msg)) // kontrakt
             {
                 $sqlq = "SELECT * FROM (SELECT edit_foretag.status, edit_foretag.kontraktid, edit_foretag.currinfo AS nycurrinfo, edit_foretag.tele AS nytele, edit_foretag.logurl AS nylogurl, edit_foretag.logbredd AS nylogbredd, edit_foretag.loghojd AS nyloghojd, edit_foretag.hemsida AS nyhemsida, edit_foretag.allminfo AS nyallminfo, edit_foretag.forecolor AS nyforecolor, edit_foretag.backcolor AS nybackcolor, edit_foretag.ikonid AS nyikonid, ikontyp.typ AS nytyp FROM edit_foretag LEFT OUTER JOIN ikontyp ON edit_foretag.ikonid = ikontyp.ID) AS t1 LEFT OUTER JOIN (SELECT kontrakt.ID, kontrakt.currinfo, kontrakt.tele, kontrakt.logurl, kontrakt.logbredd, kontrakt.loghojd, kontrakt.hemsida, kontrakt.allminfo, kontrakt.forecolor, kontrakt.backcolor, kontrakt.ikonid, kontrakt.kontorsnamn, ikontyp.typ FROM kontrakt LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID) AS t2 ON t1.kontraktid = t2.ID WHERE t2.ID='$msg'";
@@ -163,7 +197,7 @@ elseif(isset($_POST['rmv'])&&isset($_POST['msg']))//ta bort ett meddelande
                     $sqllast = "UPDATE edit_foretag SET status='2' WHERE  edit_foretag.kontraktid='$msg';";
                     mysqli_query($con, $sqllast);
                 }
-                echo"<tr><th colspan='5'>$contract '".$assq['kontorsnamn']."'<br /><br /></th></tr><tr><th colspan='2'>Föregående värde</th><th></th><th colspan='2'>Nytt värde</th></tr>";
+                echo"<tr><th colspan='5'>$contract '".$assq['kontorsnamn']."'<br /><br /></th></tr><tr><th colspan='2'>Nuvarande värde</th><th></th><th colspan='2'>Nytt värde</th></tr>";
                 if($assq['nycurrinfo'] != null)
                 {
                     echo "<tr><td colspan='2' class='tdb'>".$assq['currinfo']."</td><td><b>Aktuellt:</b></td><td colspan='2' class='tdb'>".$assq['nycurrinfo']."</td></tr>";
@@ -174,7 +208,7 @@ elseif(isset($_POST['rmv'])&&isset($_POST['msg']))//ta bort ett meddelande
                 }
                 if($assq['nyhemsida'] != null)
                 {
-                    echo "<tr><td colspan='2' class='tdb'>".$assq['hemsida']."</td><td><b>Hemsida:</b></td><td colspan='2' class='tdb'>".$assq['nyhemsida']."</td></tr>";
+                    echo "<tr><td colspan='2' class='tdb'><a href='".$assq['hemsida']."' target='_blank'>".$assq['hemsida']."</a></td><td><b>Hemsida:</b></td><td colspan='2' class='tdb'><a href='".$assq['nyhemsida']."' target='_blank'>".$assq['nyhemsida']."</a></td></tr>";
                 }
                 if($assq['nyallminfo'] != null)
                 {
@@ -198,7 +232,7 @@ elseif(isset($_POST['rmv'])&&isset($_POST['msg']))//ta bort ett meddelande
                 }
                 elseif($assq['nylogurl'] != null)
                 {
-                    echo "<tr><td colspan='2' class='tdb'></td><td><b>Logotyp:</b></td><td colspan='2' class='tdb'></td></tr>";
+                    echo "<tr><td colspan='2' class='tdb'><img id='logga' src='./../".$assq['logurl']."' /></td><td><b>Logotyp:</b></td><td colspan='2' class='tdb'><img id='logga' src='./../".$assq['nylogurl']."' /></td></tr>";
                 }
             }
             else // kontaktperson
@@ -212,7 +246,7 @@ elseif(isset($_POST['rmv'])&&isset($_POST['msg']))//ta bort ett meddelande
                     $sqllast = "UPDATE edit_kntper SET status='2' WHERE  edit_kntper.kontaktid='$msg';";
                     mysqli_query($con, $sqllast);
                 }
-                echo"<tr><th colspan='5'>$useracc '".$assq['anvnamn']."'<br /><br /></th></tr><tr><th colspan='2'>Föregående värde</th><th></th><th colspan='2'>Nytt värde</th></tr>";
+                echo"<tr><th colspan='5'>$useracc '".$assq['anvnamn']."'<br /><br /></th></tr><tr><th colspan='2'>Nuvarande värde</th><th></th><th colspan='2'>Nytt värde</th></tr>";
                 if($assq['nyfornamn'] != null)
                 {
                     echo "<tr><td colspan='2' class='tdb'>".$assq['fornamn']."</td><td><b>Förnamn:</b></td><td colspan='2' class='tdb'>".$assq['nyfornamn']."</td></tr>";
@@ -230,16 +264,16 @@ elseif(isset($_POST['rmv'])&&isset($_POST['msg']))//ta bort ett meddelande
                     echo "<tr><td colspan='2' class='tdb'>".$assq['mejl']."</td><td><b>Mejl:</b></td><td colspan='2' class='tdb'>".$assq['nymejl']."</td></tr>";
                 }
             }
-        }
-        echo"<tr>
-             <td><input type='submit' name='ope' value='$open'></td>
-             <td><input type='submit' name='app' value='$approve'></td>
-             <td></td>
-             <td><input type='submit' name='den' value='$deny'></td>
+            echo"<tr>
              <td><input type='submit' name='rmv' value='$remove'></td>
+             <td></td>
+             <td></td>
+             <td><input type='submit' name='app' value='$approve'></td>
+             <td><input type='submit' name='den' value='$deny'></td>
              </tr>";
-        echo"</table>";
-        echo"</form>";
+            echo"</table>";
+            echo"</form>";
+        }
     }
 }
 else

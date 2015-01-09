@@ -400,24 +400,26 @@ if(isset($_POST['forsave']))
     }else{$t="NULL";}
 
 if($imgexist){
-    $sql3 = "INSERT INTO edit_foretag(kontraktid, currinfo, tele, logurl, logbredd, loghojd, hemsida, allminfo, forecolor, backcolor)VALUES($c,$ci,$t,$target,$lw,$lh,$h,$a,$f,$b) ON DUPLICATE KEY UPDATE currinfo=$ci, tele=$t, logurl=$target,logbredd=$lw,loghojd=$lh,hemsida=$h,allminfo=$a,forecolor=$f,backcolor=$b";
+    $sql3 = "INSERT INTO edit_foretag(kontraktid, currinfo, tele, logurl, logbredd, loghojd, hemsida, allminfo, forecolor, backcolor)VALUES($c,$ci,$t,'$target','$lw','$lh',$h,$a,$f,$b) ON DUPLICATE KEY UPDATE currinfo=$ci, tele=$t, logurl='$target',logbredd='$lw',loghojd='$lh',hemsida=$h,allminfo=$a,forecolor=$f,backcolor=$b";
 }
 else{
     $sql3 = "INSERT INTO edit_foretag(kontraktid, currinfo, tele, hemsida, allminfo, forecolor, backcolor)VALUES($c,$ci,$t,$h,$a,$f,$b) ON DUPLICATE KEY UPDATE currinfo=$ci,tele=$t,hemsida=$h,allminfo=$a,forecolor=$f,backcolor=$b";
 }
     if(!$error){
-        if(!($t=="NULL"&&$ci=="NULL"&&$h=="NULL"&&$a=="NULL"&&$f=="NULL"&&$b=="NULL"))
+        if(!isset($target)&&$t=="NULL"&&$ci=="NULL"&&$h=="NULL"&&$a=="NULL"&&$f=="NULL"&&$b=="NULL")
         {
-            if(mysqli_query($con, $sql3)){
-                echo "<div class='ok'>Förfrågan om uppdatering av information är skickat till administratör</div>";
-            }
-            else{
-                echo "<div class='error'>Gick inte att skicka förfrågan om uppdatering</div>";
-            }
+            echo "<div class='ok'>Ingen förändring behövs</div>";
         }
         else
         {
-            echo "<div class='ok'>Ingen förändring behövs</div>";
+            if(mysqli_query($con, $sql3))
+            {
+                echo "<div class='ok'>Förfrågan om uppdatering av information är skickat till administratör</div>";
+            }
+            else{
+                echo $sql3;
+                echo "<div class='error'>Gick inte att skicka förfrågan om uppdatering</div>";
+            }
         }
     }
     else{
