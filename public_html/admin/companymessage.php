@@ -153,13 +153,50 @@ elseif(isset($_POST['rmv'])&&isset($_POST['msg']))//ta bort ett meddelande
             $msg = mysqli_real_escape_string($con, $_POST['msg']);
             if(is_numeric($msg)) // kontrakt
             {
-                $sqlq = "SELECT edit_foretag.status, edit_foretag.currinfo AS nycurrinfo, edit_foretag.tele AS nytele, edit_foretag.logurl AS nylogurl, edit_foretag.logbredd AS nylogbredd, edit_foretag.loghojd AS nyloghojd, edit_foretag.hemsida AS nyhemsida, edit_foretag.allminfo AS nyallminfo, edit_foretag.forecolor AS nyforecolor, edit_foretag.backcolor AS nybackcolor, edit_foretag.ikonid AS nyikonid, kontrakt.currinfo, kontrakt.tele, kontrakt.logurl, kontrakt.logbredd, kontrakt.loghojd, kontrakt.hemsida, kontrakt.allminfo, kontrakt.forecolor, kontrakt.backcolor, kontrakt.ikonid, kontrakt.kontorsnamn FROM edit_foretag LEFT OUTER JOIN kontrakt ON edit_foretag.kontraktid = kontrakt.ID WHERE kontrakt.ID='$msg'";
+                $sqlq = "SELECT * FROM (SELECT edit_foretag.status, edit_foretag.kontraktid, edit_foretag.currinfo AS nycurrinfo, edit_foretag.tele AS nytele, edit_foretag.logurl AS nylogurl, edit_foretag.logbredd AS nylogbredd, edit_foretag.loghojd AS nyloghojd, edit_foretag.hemsida AS nyhemsida, edit_foretag.allminfo AS nyallminfo, edit_foretag.forecolor AS nyforecolor, edit_foretag.backcolor AS nybackcolor, edit_foretag.ikonid AS nyikonid, ikontyp.typ AS nytyp FROM edit_foretag LEFT OUTER JOIN ikontyp ON edit_foretag.ikonid = ikontyp.ID) AS t1 LEFT OUTER JOIN (SELECT kontrakt.ID, kontrakt.currinfo, kontrakt.tele, kontrakt.logurl, kontrakt.logbredd, kontrakt.loghojd, kontrakt.hemsida, kontrakt.allminfo, kontrakt.forecolor, kontrakt.backcolor, kontrakt.ikonid, kontrakt.kontorsnamn, ikontyp.typ FROM kontrakt LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID) AS t2 ON t1.kontraktid = t2.ID WHERE t2.ID='$msg'";
                 $resq = mysqli_query($con, $sqlq);
                 $assq = mysqli_fetch_assoc($resq);
                 if($assq['status'] == '1')
                 {
                     $sqllast = "UPDATE edit_foretag SET status='2' WHERE  edit_foretag.kontraktid='$msg';";
                     mysqli_query($con, $sqllast);
+                }
+                echo"<tr><th colspan='5'>$contract '".$assq['kontorsnamn']."'<br /><br /></th></tr><tr><th colspan='2'>Föregående värde</th><th></th><th colspan='2'>Nytt värde</th></tr>";
+                if($assq['nycurrinfo'] != null)
+                {
+                    echo "<tr><td colspan='2' class='tdb'>".$assq['currinfo']."</td><td><b>Aktuellt:</b></td><td colspan='2' class='tdb'>".$assq['nycurrinfo']."</td></tr>";
+                }
+                if($assq['nytele'] != null)
+                {
+                    echo "<tr><td colspan='2' class='tdb'>".$assq['tele']."</td><td><b>Telefonnummer:</b></td><td colspan='2' class='tdb'>".$assq['nytele']."</td></tr>";
+                }
+                if($assq['nyhemsida'] != null)
+                {
+                    echo "<tr><td colspan='2' class='tdb'>".$assq['hemsida']."</td><td><b>Hemsida:</b></td><td colspan='2' class='tdb'>".$assq['nyhemsida']."</td></tr>";
+                }
+                if($assq['nyallminfo'] != null)
+                {
+                    echo "<tr><td colspan='2' class='tdb'>".$assq['allminfo']."</td><td><b>Information:</b></td><td colspan='2' class='tdb'>".$assq['nyallminfo']."</td></tr>";
+                }
+                if($assq['nyforecolor'] != null)
+                {
+                    echo "<tr><td colspan='2' class='tdb' style='background-color:".$assq['forecolor'].";'></td><td><b>Förgrundsfärg:</b></td><td colspan='2' class='tdb' style='background-color:".$assq['nyforecolor'].";'></td></tr>";
+                }
+                if($assq['nybackcolor'] != null)
+                {
+                    echo "<tr><td colspan='2' class='tdb' style='background-color:".$assq['backcolor'].";'></td><td><b>Bakgrundsfärg:</b></td><td colspan='2' class='tdb' style='background-color:".$assq['nybackcolor'].";'></td></tr>";
+                }
+                if($assq['nyikonid'] != null)
+                {
+                    echo "<tr><td colspan='2' class='tdb'>".$assq['typ']."</td><td><b>Typ av verksamhet:</b></td><td colspan='2' class='tdb'>".$assq['nytyp']."</td></tr>";
+                }
+                if($assq['nylogurl'] == '0')
+                {
+                    echo "<tr><td colspan='2' class='tdb'><img id='logga' src='./../".$assq['logurl']."' /></td><td><b>Logotyp:</b></td><td colspan='2' class='tdb'>Borttagning av logotyp</td></tr>";
+                }
+                elseif($assq['nylogurl'] != null)
+                {
+                    echo "<tr><td colspan='2' class='tdb'></td><td><b>Logotyp:</b></td><td colspan='2' class='tdb'></td></tr>";
                 }
             }
             else // kontaktperson
@@ -173,22 +210,22 @@ elseif(isset($_POST['rmv'])&&isset($_POST['msg']))//ta bort ett meddelande
                     $sqllast = "UPDATE edit_kntper SET status='2' WHERE  edit_kntper.kontaktid='$msg';";
                     mysqli_query($con, $sqllast);
                 }
-                echo"<tr><th colspan='5'>$useracc '".$assq['anvnamn']."'</th></tr><tr><th></th><th colspan='2'>Föregående värde</th><th colspan='2'>Nytt värde</th></tr>";
+                echo"<tr><th colspan='5'>$useracc '".$assq['anvnamn']."'<br /><br /></th></tr><tr><th colspan='2'>Föregående värde</th><th></th><th colspan='2'>Nytt värde</th></tr>";
                 if($assq['nyfornamn'] != null)
                 {
-                    echo "<tr><td colspan='2' class='tdb'>".$assq['fornamn']."</td><td class='tnb'></td><td colspan='2' class='tdb'>".$assq['nyfornamn']."</td></tr>";
+                    echo "<tr><td colspan='2' class='tdb'>".$assq['fornamn']."</td><td><b>Förnamn:</b></td><td colspan='2' class='tdb'>".$assq['nyfornamn']."</td></tr>";
                 }
                 if($assq['nyefternamn'] != null)
                 {
-                    echo "<tr><td colspan='2' class='tdb'>".$assq['efternamn']."</td><td class='tnb'></td><td colspan='2' class='tdb'>".$assq['nyefternamn']."</td></tr>";
+                    echo "<tr><td colspan='2' class='tdb'>".$assq['efternamn']."</td><td><b>Efternamn:</b></td><td colspan='2' class='tdb'>".$assq['nyefternamn']."</td></tr>";
                 }
                 if($assq['nymobil'] != null)
                 {
-                    echo "<tr><td colspan='2'>".$assq['mobil']."</td><td class='tnb'></td><td colspan='2'>".$assq['nymobil']."</td></tr>";
+                    echo "<tr><td colspan='2' class='tdb'>".$assq['mobil']."</td><td><b>Mobil:</b></td><td colspan='2' class='tdb'>".$assq['nymobil']."</td></tr>";
                 }
                 if($assq['nymejl'] != null)
                 {
-                    echo "<tr><td colspan='2' class='tdb'>".$assq['mejl']."</td><td class='tnb'></td><td colspan='2' class='tdb'>".$assq['nymejl']."</td></tr>";
+                    echo "<tr><td colspan='2' class='tdb'>".$assq['mejl']."</td><td><b>Mejl:</b></td><td colspan='2' class='tdb'>".$assq['nymejl']."</td></tr>";
                 }
             }
         }

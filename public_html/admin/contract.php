@@ -372,42 +372,52 @@ if(isset($_POST['forsave']))
     else{
         $imgexist = false;
     }
-    if(isset($_POST['currinfo'])){
-        $ci=mysqli_real_escape_string($con,nl2br($_POST['currinfo']));
-    }else{$ci="";}
+    $sqlinfo= "SELECT kontrakt.ID, kontorsnamn, sbesok, tele, logurl, gata, stn, allminfo, currinfo, hemsida, forecolor, backcolor, postnr, stad, ikonid FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.ID = adress.ID WHERE kontrakt.ID = '".$_POST['contracts']."'";
+    $resinfo = mysqli_query($con, $sqlinfo);
+    $assinfo = mysqli_fetch_assoc($resinfo);
+    if(isset($_POST['currinfo']) && $assinfo['currinfo'] != $_POST['currinfo']){
+        $ci="'".mysqli_real_escape_string($con,nl2br($_POST['currinfo']))."'";
+    }else{$ci="NULL";}
 
-    if(isset($_POST['allminfo'])){
-        $a=mysqli_real_escape_string($con,nl2br($_POST['allminfo']));
-    }else{$a="";}
+    if(isset($_POST['allminfo']) && $assinfo['allminfo'] != $_POST['allminfo']){
+        $a="'".mysqli_real_escape_string($con,nl2br($_POST['allminfo']))."'";
+    }else{$a="NULL";}
 
-    if(isset($_POST['hemsida'])){
-        $h=mysqli_real_escape_string($con,$_POST['hemsida']);
-    }else{$h="";}
+    if(isset($_POST['hemsida']) && $assinfo['hemsida'] != $_POST['hemsida']){
+        $h="'".mysqli_real_escape_string($con,$_POST['hemsida'])."'";
+    }else{$h="NULL";}
 
-    if(isset($_POST['forecolor'])){
-        $f=mysqli_real_escape_string($con,$_POST['forecolor']);
-    }else{$f="";}
+    if(isset($_POST['forecolor']) && $assinfo['forecolor'] != $_POST['forecolor']){
+        $f="'".mysqli_real_escape_string($con,$_POST['forecolor'])."'";
+    }else{$f="NULL";}
 
-    if(isset($_POST['backcolor'])){
-        $b=mysqli_real_escape_string($con,$_POST['backcolor']);
-    }else{$b="";}
+    if(isset($_POST['backcolor']) && $assinfo['backcolor'] != $_POST['backcolor']){
+        $b="'".mysqli_real_escape_string($con,$_POST['backcolor'])."'";
+    }else{$b="NULL";}
 
-    if(isset($_POST['telefonenbr'])){
-        $t=mysqli_real_escape_string($con,$_POST['telefonenbr']);
-    }else{$t="";}
+    if(isset($_POST['telefonenbr']) && $assinfo['tele'] != $_POST['telefonenbr']){
+        $t="'".mysqli_real_escape_string($con,$_POST['telefonenbr'])."'";
+    }else{$t="NULL";}
 
 if($imgexist){
-    $sql3 = "INSERT INTO edit_foretag(kontraktid, currinfo, tele, logurl, logbredd, loghojd, hemsida, allminfo, forecolor, backcolor)VALUES('$c','$ci','$t','$target','$lw','$lh','$h','$a','$f','$b') ON DUPLICATE KEY UPDATE currinfo='$ci', tele='$t', logurl='$target',logbredd='$lw',loghojd='$lh',hemsida='$h',allminfo='$a',forecolor='$f',backcolor='$b'";
+    $sql3 = "INSERT INTO edit_foretag(kontraktid, currinfo, tele, logurl, logbredd, loghojd, hemsida, allminfo, forecolor, backcolor)VALUES($c,$ci,$t,$target,$lw,$lh,$h,$a,$f,$b) ON DUPLICATE KEY UPDATE currinfo=$ci, tele=$t, logurl=$target,logbredd=$lw,loghojd=$lh,hemsida=$h,allminfo=$a,forecolor=$f,backcolor=$b";
 }
 else{
-    $sql3 = "INSERT INTO edit_foretag(kontraktid, currinfo, tele, hemsida, allminfo, forecolor, backcolor)VALUES('$c','$ci','$t','$h','$a','$f','$b') ON DUPLICATE KEY UPDATE currinfo='$ci',tele='$t',hemsida='$h',allminfo='$a',forecolor='$f',backcolor='$b'";
+    $sql3 = "INSERT INTO edit_foretag(kontraktid, currinfo, tele, hemsida, allminfo, forecolor, backcolor)VALUES($c,$ci,$t,$h,$a,$f,$b) ON DUPLICATE KEY UPDATE currinfo=$ci,tele=$t,hemsida=$h,allminfo=$a,forecolor=$f,backcolor=$b";
 }
     if(!$error){
-        if(mysqli_query($con, $sql3)){
-            echo "<div class='ok'>Förfrågan om uppdatering av information är skickat till administratör</div>";
+        if(!($t=="NULL"&&$ci=="NULL"&&$h=="NULL"&&$a=="NULL"&&$f=="NULL"&&$b=="NULL"))
+        {
+            if(mysqli_query($con, $sql3)){
+                echo "<div class='ok'>Förfrågan om uppdatering av information är skickat till administratör</div>";
+            }
+            else{
+                echo "<div class='error'>Gick inte att skicka förfrågan om uppdatering</div>";
+            }
         }
-        else{
-            echo "<div class='error'>Gick inte att skicka förfrågan om uppdatering</div>";
+        else
+        {
+            echo "<div class='ok'>Ingen förändring behövs</div>";
         }
     }
     else{
