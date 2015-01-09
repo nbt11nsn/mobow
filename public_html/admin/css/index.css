@@ -537,6 +537,11 @@ text-align: left;
 	text-align: center;
 }
 
+.tmsg .tdb {
+    border-style: solid;
+    border-color: #000;
+}
+
 .tmsg .tnb {
     border-style:none;
 }

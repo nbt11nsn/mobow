@@ -124,7 +124,7 @@ elseif(isset($_POST['rmv'])&&isset($_POST['msg']))//ta bort ett meddelande
         echo"<tr>";
         if($nrofunreadmsg < 2){echo"<td class='tnb'>$nrofunreadmsg $sumsg.</td>";}
         else{echo"<td class='tnb'>$nrofunreadmsg $pumsg.</td>";}
-        echo"<td class='tnb'></td><td class='tnb'></td>";
+        echo"<td class='tnb'></td><td class='tnb'></td><td class='tnb'></td>";
         if($nrofmessage < 2){echo"<td class='tnb'>$nrofmessage $smsg.</td>";}
         else{echo"<td class='tnb'>$nrofmessage $pmsg.</td>";}
         echo"</tr>";
@@ -132,7 +132,7 @@ elseif(isset($_POST['rmv'])&&isset($_POST['msg']))//ta bort ett meddelande
         $sqlforetag = "SELECT edit_foretag.kontraktid AS kid, kontrakt.kontorsnamn AS namn, medstatus.info AS info FROM edit_foretag LEFT OUTER JOIN kontrakt ON edit_foretag.kontraktid = kontrakt.ID LEFT OUTER JOIN medstatus ON medstatus.ID = edit_foretag.status ORDER BY medstatus.ID";
         $resknt = mysqli_query($con, $sqlknt);
         $resforetag = mysqli_query($con, $sqlforetag);
-        echo"<tr><td colspan='4'><select name='msg' id='msg' style='width:100%'>";
+        echo"<tr><td colspan='5'><select name='msg' id='msg' style='width:100%'>";
         while($row = mysqli_fetch_assoc($resknt))
         {
             $id = $row['kid'];
@@ -161,7 +161,6 @@ elseif(isset($_POST['rmv'])&&isset($_POST['msg']))//ta bort ett meddelande
                     $sqllast = "UPDATE edit_foretag SET status='2' WHERE  edit_foretag.kontraktid='$msg';";
                     mysqli_query($con, $sqllast);
                 }
-                echo"<tr><th colspan='4'>$contract '".$assq['kontorsnamn']."'</th></tr>";
             }
             else // kontaktperson
             {
@@ -174,29 +173,29 @@ elseif(isset($_POST['rmv'])&&isset($_POST['msg']))//ta bort ett meddelande
                     $sqllast = "UPDATE edit_kntper SET status='2' WHERE  edit_kntper.kontaktid='$msg';";
                     mysqli_query($con, $sqllast);
                 }
-                echo"<tr><th colspan='4'>$useracc '".$assq['anvnamn']."'</th></tr><tr><th colspan='2'>Föregående värde</th><th colspan='2'>Nytt värde</th></tr>";
+                echo"<tr><th colspan='5'>$useracc '".$assq['anvnamn']."'</th></tr><tr><th></th><th colspan='2'>Föregående värde</th><th colspan='2'>Nytt värde</th></tr>";
                 if($assq['nyfornamn'] != null)
                 {
-                    echo "hej";
+                    echo "<tr><td colspan='2' class='tdb'>".$assq['fornamn']."</td><td class='tnb'></td><td colspan='2' class='tdb'>".$assq['nyfornamn']."</td></tr>";
                 }
                 if($assq['nyefternamn'] != null)
                 {
-                    echo "hej";
+                    echo "<tr><td colspan='2' class='tdb'>".$assq['efternamn']."</td><td class='tnb'></td><td colspan='2' class='tdb'>".$assq['nyefternamn']."</td></tr>";
                 }
                 if($assq['nymobil'] != null)
                 {
-                    echo "hej";
+                    echo "<tr><td colspan='2'>".$assq['mobil']."</td><td class='tnb'></td><td colspan='2'>".$assq['nymobil']."</td></tr>";
                 }
                 if($assq['nymejl'] != null)
                 {
-                    echo "hej";
+                    echo "<tr><td colspan='2' class='tdb'>".$assq['mejl']."</td><td class='tnb'></td><td colspan='2' class='tdb'>".$assq['nymejl']."</td></tr>";
                 }
             }
         }
-
         echo"<tr>
              <td><input type='submit' name='ope' value='$open'></td>
              <td><input type='submit' name='app' value='$approve'></td>
+             <td></td>
              <td><input type='submit' name='den' value='$deny'></td>
              <td><input type='submit' name='rmv' value='$remove'></td>
              </tr>";
