@@ -265,6 +265,7 @@ background: #efefef;
 /* #########################KONTRAKT BÖRJAN############################# */
 #frame *{
 margin: 0;
+margin-top: 5px;
 }
 
 #postContracts *{
@@ -304,6 +305,7 @@ text-align: center;
 
 #postContracts input[type="submit"]{
 text-align: center;
+margin-top: 5px;
 }
 
 #postContracts textarea{
