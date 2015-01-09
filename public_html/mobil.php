@@ -9,7 +9,6 @@ require_once(__DIR__ .'./../db.php');
 
 //$isql = "SELECT * FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID LEFT OUTER JOIN inforuta ON inforuta.ID = kontrakt.inforutaid";
 $isql = "SELECT * FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID";
-$isql2 = "SELECT * FROM oppettider LEFT OUTER JOIN kontrakt on oppettider.kontraktid = kontraktID";
 $sqloppen = "SELECT veckodagarid, DATE_FORMAT(oppet,'%H:%i') as oppet, DATE_FORMAT(stangt,'%H:%i') as stangt FROM oppettider JOIN veckodagar ON oppettider.veckodagarid = veckodagar.ID WHERE veckodagar.ID = DAYOFWEEK(NOW())";
 $places = array();// innehåller alla platser ur databasen
 if($iresult = mysqli_query($con, $isql)){
