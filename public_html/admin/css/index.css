@@ -51,7 +51,6 @@ padding-top: 10px;
 padding-top: 10px;
 color: black;
 background: #F0F0F0;
-float: left;
 width: 400px;
 min-height: 400px;
 height: 100%;
@@ -66,6 +65,7 @@ display: inline-block;
 }
 #frame_admedit{
 padding-top: 10px;
+float: right;
 color: black;
 background: #F0F0F0;
 width: 400px;
