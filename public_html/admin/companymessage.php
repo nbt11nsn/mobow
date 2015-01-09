@@ -39,6 +39,70 @@ if(isset($_SESSION['admin']) && $_SESSION['admin'])
     $open = "Öppna";
     $remove = "Ta bort";
 
+if(isset($_POST['app'])&&isset($_POST['msg']))//godkänn ett meddelande
+{
+    $msg = mysqli_real_escape_string($con, $_POST['msg']);
+    if(is_numeric($msg)) // kontrakt
+    {
+        $sql = "UPDATE edit_foretag SET status='4' WHERE  edit_foretag.kontraktid='$msg';";
+        if(mysqli_query($con, $sql))
+        {echo"<p class='ok'>Uppdateringen godkänd</p>";}
+        else
+        {echo"<p class='error'>Uppdateringen gick inte att godkänna</p>";}
+    }
+    else // kontaktperson
+    {
+        $msg = substr($msg, 1);
+        $sql = "UPDATE edit_kntper SET status='4' WHERE  edit_kntper.kontaktid='$msg';";
+        if(mysqli_query($con, $sql))
+        {echo"<p class='ok'>Uppdateringen godkänd</p>";}
+        else
+        {echo"<p class='error'>Uppdateringen gick inte att godkänna</p>";}
+    }
+}
+elseif(isset($_POST['den'])&&isset($_POST['msg']))//neka ett meddelande
+{
+    $msg = mysqli_real_escape_string($con, $_POST['msg']);
+    if(is_numeric($msg)) // kontrakt
+    {
+        $sql = "UPDATE edit_foretag SET status='3' WHERE  edit_foretag.kontraktid='$msg';";
+        if(mysqli_query($con, $sql))
+        {echo"<p class='ok'>Uppdateringen nekat</p>";}
+        else
+        {echo"<p class='error'>Uppdateringen gick inte att neka</p>";}
+    }
+    else // kontaktperson
+    {
+        $msg = substr($msg, 1);
+        $sql = "UPDATE edit_kntper SET status='3' WHERE  edit_kntper.kontaktid='$msg';";
+        if(mysqli_query($con, $sql))
+        {echo"<p class='ok'>Uppdateringen nekat</p>";}
+        else
+        {echo"<p class='error'>Uppdateringen gick inte att neka</p>";}
+    }
+}
+elseif(isset($_POST['rmv'])&&isset($_POST['msg']))//ta bort ett meddelande
+{
+    $msg = mysqli_real_escape_string($con, $_POST['msg']);
+    if(is_numeric($msg)) // kontrakt
+    {
+        $sql = "DELETE FROM edit_foretag WHERE kontraktid='$msg'";
+        if(mysqli_query($con, $sql))
+        {echo"<p class='ok'>Meddelandet borttaget</p>";}
+        else
+        {echo"<p class='error'>Meddelandet gick inte att ta bort</p>";}
+    }
+    else // kontaktperson
+    {
+        $msg = substr($msg, 1);
+        $sql = "DELETE FROM edit_kntper WHERE kontaktid='$msg'";
+        if(mysqli_query($con, $sql))
+        {echo"<p class='ok'>Meddelandet borttaget</p>";}
+        else
+        {echo"<p class='error'>Meddelandet gick inte att ta bort</p>";}
+    }
+}
+
     $sqlcount = "SELECT (SELECT COUNT(*) FROM edit_foretag) + (SELECT COUNT(*) FROM edit_kntper) AS numberofmessage FROM DUAL";
     $rescount = mysqli_query($con, $sqlcount);
     $asscount = mysqli_fetch_assoc($rescount);
@@ -83,6 +147,25 @@ if(isset($_SESSION['admin']) && $_SESSION['admin'])
             echo"<option value='$id'>$contract '$namn' --- $status $info</option>";
         }
         echo"</select></td></tr>";
+
+        if(isset($_POST['ope'])&&isset($_POST['msg']))//öppna ett meddelande
+        {
+            $msg = mysqli_real_escape_string($con, $_POST['msg']);
+            if(is_numeric($msg)) // kontrakt
+            {
+                $sqlq = "SELECT edit_foretag.currinfo AS nycurrinfo, edit_foretag.tele AS nytele, edit_foretag.logurl AS nylogurl, edit_foretag.logbredd AS nylogbredd, edit_foretag.loghojd AS nyloghojd, edit_foretag.hemsida AS nyhemsida, edit_foretag.allminfo AS nyallminfo, edit_foretag.forecolor AS nyforecolor, edit_foretag.backcolor AS nybackcolor, edit_foretag.ikonid AS nyikonid, kontrakt.currinfo, kontrakt.tele, kontrakt.logurl, kontrakt.logbredd, kontrakt.loghojd, kontrakt.hemsida, kontrakt.allminfo, kontrakt.forecolor, kontrakt.backcolor, kontrakt.ikonid FROM edit_foretag LEFT OUTER JOIN kontrakt ON edit_foretag.kontraktid = kontrakt.ID WHERE kontrakt.ID='$msg'";
+                $resq = mysqli_query($con, $sqlq);
+                $assq = mysqli_fetch_assoc($resq);
+            }
+            else // kontaktperson
+            {
+                $msg = substr($msg, 1);
+                $sql = "SELECT edit_kntper.fornamn AS nyfornamn, edit_kntper.efternamn AS nyefternamn, edit_kntper.mobil AS nymobil, edit_kntper.mejl AS nymejl, kontaktperson.fornamn, kontaktperson.efternamn, kontaktperson.mobil, kontaktperson.mejl FROM edit_kntper LEFT OUTER JOIN kontaktperson ON kontaktperson.anvnamn = edit_kntper.kontaktid WHERE kontaktperson.anvnamn='$msg'";
+                $resq = mysqli_query($con, $sqlq);
+                $assq = mysqli_fetch_assoc($resq);
+            }
+        }
+
         echo"<tr>
              <td><input type='submit' name='ope' value='$open'></td>
              <td><input type='submit' name='app' value='$approve'></td>
@@ -91,44 +174,6 @@ if(isset($_SESSION['admin']) && $_SESSION['admin'])
              </tr>";
         echo"</table>";
         echo"</form>";
-    }
-
-    if(isset($_POST['ope'])&&isset($_POST['msg']))//öppna ett meddelande
-    {
-        $msg = mysqli_real_escape_string($con, $_POST['msg']);
-        if(is_numeric($msg)) // kontrakt
-        {
-            
-        }
-        else // kontaktperson
-        {
-            $msg = substr($msg, 1);
-        }
-        echo"<table>";
-        echo"</table>";
-    }
-    elseif(isset($_POST['app'])&&isset($_POST['msg']))//godkänn ett meddelande
-    {
-        
-    }
-    elseif(isset($_POST['den'])&&isset($_POST['msg']))//neka ett meddelande
-    {
-        
-    }
-    elseif(isset($_POST['rmv'])&&isset($_POST['msg']))//ta bort ett meddelande
-    {
-        $msg = mysqli_real_escape_string($con, $_POST['msg']);
-        if(is_numeric($msg)) // kontrakt
-        {
-            $sql = "DELETE FROM edit_foretag WHERE kontraktid='$msg'";
-            mysqli_query($con, $sql);
-        }
-        else // kontaktperson
-        {
-            $msg = substr($msg, 1);
-            $sql = "DELETE FROM edit_kntper WHERE kontaktid='$msg'";
-            mysqli_query($con, $sql);
-        }
     }
 }
 else
