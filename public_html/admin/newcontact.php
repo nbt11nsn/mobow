@@ -35,8 +35,8 @@ $getIcons = "SELECT * FROM ikontyp";
 <fieldset>
 <legend><b>Användare</b></legend>
 <li>
-<label for="anvnamn">Användarnamn: </label>
-<input required type="text"  align="left" value = "" maxlength="100"  name="username" id="username" />
+<label for="anvnamn">Användarnamn: (minst ett icke-numeriskt tecken)</label>
+<input required type="text" align="left" value="" maxlength="100" name="username" id="username" />
 </li>
 <li>
 <label for="fornamn">Förnamn: </label>

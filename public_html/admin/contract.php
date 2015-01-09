@@ -218,7 +218,7 @@ if(isset($_POST['rmimg'])&&isset($_POST['contracts'])){
 if(isset($_POST['forrmimg'])&&isset($_POST['contracts'])){
   if(is_numeric($_POST['contracts'])){
     $c=$_POST['contracts'];
-    $sqlquery = "INSERT INTO edit_foretag(kontraktid, logurl, logbredd, loghojd)VALUES($c,NULL,NULL,NULL) ON DUPLICATE KEY UPDATE logurl=NULL, logbredd=NULL, loghojd=NULL";
+    $sqlquery = "INSERT INTO edit_foretag(kontraktid, logurl, logbredd, loghojd)VALUES($c,0,0,0) ON DUPLICATE KEY UPDATE logurl=0, logbredd=0, loghojd=0";
     if(mysqli_query($con, $sqlquery)){
       echo "<br /><br /><b>Förfrågan om att ta bort bild skickat till admin</b>";
     }

@@ -22,11 +22,11 @@ defined('THE_MENUE') || define('THE_MENUE', TRUE);
 require_once("include/menuebar.php");
 ?>
 <div id = "frame">
-<?php 
+<?php
 if(isset($_SESSION['admin']) && $_SESSION['admin'])
 {
-    $useracc = "Användarkonto";
-    $contract = "Kontrakt";
+    $useracc = "Ändringar på användarkonto";
+    $contract = "Ändringar på kontraktet";
     $type = "Typ:";
     $req = "Begärd förändring på:";
     $status = "Status:";
@@ -34,8 +34,9 @@ if(isset($_SESSION['admin']) && $_SESSION['admin'])
     $sumsg = "oläst meddelande";
     $pmsg = "meddelanden";
     $pumsg = "olästa meddelanden";
-    $approve = "Godkänn alla";
-    $deny = "Neka alla";
+    $approve = "Godkänn";
+    $deny = "Neka";
+    $open = "Öppna";
 
     $sqlcount = "SELECT (SELECT COUNT(*) FROM edit_foretag) + (SELECT COUNT(*) FROM edit_kntper) AS numberofmessage FROM DUAL";
     $rescount = mysqli_query($con, $sqlcount);
@@ -53,45 +54,55 @@ if(isset($_SESSION['admin']) && $_SESSION['admin'])
     }
     else //Det finns meddelanden
     {
-        echo"<table class='tmsg'>";
+        echo"<form name='sendmsg' method='post' action=''>";
+        echo"<table class='tmsg' width='80%'>";
         echo"<tr>";
         if($nrofunreadmsg < 2){echo"<td class='tnb'>$nrofunreadmsg $sumsg.</td>";}
-        else{echo"<td class='tnb'>$nrofunreadmsg $psmsg.</td>";}
+        else{echo"<td class='tnb'>$nrofunreadmsg $pumsg.</td>";}
         echo"<td class='tnb'></td>";
         if($nrofmessage < 2){echo"<td class='tnb'>$nrofmessage $smsg.</td>";}
         else{echo"<td class='tnb'>$nrofmessage $pmsg.</td>";}
         echo"</tr>";
-        echo"<tr><th>$type</th><th>$req</th><th>$status</th></tr>";
-        $sqlknt = "SELECT edit_kntper.kontaktid AS kid, medstatus.info AS info FROM edit_kntper LEFT OUTER JOIN medstatus ON medstatus.ID = edit_kntper.status";
-        $sqlforetag = "SELECT edit_foretag.kontraktid AS kid, kontrakt.kontorsnamn AS namn, medstatus.info AS info FROM edit_foretag LEFT OUTER JOIN kontrakt ON edit_foretag.kontraktid = kontrakt.ID LEFT OUTER JOIN medstatus ON medstatus.ID = edit_foretag.status";
+        $sqlknt = "SELECT edit_kntper.kontaktid AS kid, medstatus.info AS info FROM edit_kntper LEFT OUTER JOIN medstatus ON medstatus.ID = edit_kntper.status ORDER BY medstatus.ID";
+        $sqlforetag = "SELECT edit_foretag.kontraktid AS kid, kontrakt.kontorsnamn AS namn, medstatus.info AS info FROM edit_foretag LEFT OUTER JOIN kontrakt ON edit_foretag.kontraktid = kontrakt.ID LEFT OUTER JOIN medstatus ON medstatus.ID = edit_foretag.status ORDER BY medstatus.ID";
         $resknt = mysqli_query($con, $sqlknt);
         $resforetag = mysqli_query($con, $sqlforetag);
+        echo"<tr><td colspan='3'><select name='msg' id='msg' style='width:100%'>";
         while($row = mysqli_fetch_assoc($resknt))
         {
             $id = $row['kid'];
             $info = $row['info'];
-            echo"<tr>
-            <td>$useracc</td>
-            <td>$id</td>
-            <td>$info</td>
-            </tr>";
+            echo"<option value='!$id'>$useracc '$id' --- $status $info</option>";
         }
         while($row = mysqli_fetch_assoc($resforetag))
         {
             $id = $row['kid'];
             $namn = $row['namn'];
             $info = $row['info'];
-            echo"<tr>
-             <td>$contract</td>
-             <td>$namn</td>
-             <td>$info</td>
-             </tr>";
+            echo"<option value='$id'>$contract '$namn' --- $status $info</option>";
         }
+        echo"</select></td></tr>";
         echo"<tr>
+             <td><input type='submit' name='opall' value='$open'></td>
              <td><input type='submit' name='appall' value='$approve'></td>
-             <td class='tnb'></td>
              <td><input type='submit' name='denall' value='$deny'></td>
              </tr>";
+        echo"</table>";
+        echo"</form>";
+    }
+
+    if(isset($_POST['opall'])&&isset($_POST['msg']))//öppna ett meddelande
+    {
+        $msg = mysqli_real_escape_string($con, $_POST['msg']);
+        if(is_numeric($msg)) // kontrakt
+        {
+
+        }
+        else // kontaktperson
+        {
+            $msg = substr($msg, 1);
+        }
+        echo"<table>";
         echo"</table>";
     }
 }
