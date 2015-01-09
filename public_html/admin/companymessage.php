@@ -44,8 +44,9 @@ if(isset($_POST['app'])&&isset($_POST['msg']))//godkänn ett meddelande
     $msg = mysqli_real_escape_string($con, $_POST['msg']);
     if(is_numeric($msg)) // kontrakt
     {
+        $sqlsw = "UPDATE kontrakt SET currinfo = COALESCE((SELECT currinfo FROM edit_foretag WHERE kontraktid = '$msg'), currinfo), tele = COALESCE((SELECT tele FROM edit_foretag WHERE kontraktid = '$msg'), tele), logurl = COALESCE((SELECT logurl FROM edit_foretag WHERE kontraktid = '$msg'), logurl), logbredd = COALESCE((SELECT logbredd FROM edit_foretag WHERE kontraktid = '$msg'), logbredd), loghojd = COALESCE((SELECT loghojd FROM edit_foretag WHERE kontraktid = '$msg'), loghojd), hemsida = COALESCE((SELECT hemsida FROM edit_foretag WHERE kontraktid = '$msg'), hemsida), forecolor = COALESCE((SELECT forecolor FROM edit_foretag WHERE kontraktid = '$msg'), forecolor), backcolor = COALESCE((SELECT backcolor FROM edit_foretag WHERE kontraktid = '$msg'), backcolor), allminfo = COALESCE((SELECT allminfo FROM edit_foretag WHERE kontraktid = '$msg'), allminfo), ikonid = COALESCE((SELECT ikonid FROM edit_foretag WHERE kontraktid = '$msg'), ikonid) WHERE kontrakt.ID = '$msg'";
         $sql = "UPDATE edit_foretag SET status='4' WHERE  edit_foretag.kontraktid='$msg';";
-        if(mysqli_query($con, $sql))
+        if(mysqli_query($con, $sqlsw) && mysqli_query($con, $sql))
         {echo"<p class='ok'>Uppdateringen godkänd</p>";}
         else
         {echo"<p class='error'>Uppdateringen gick inte att godkänna</p>";}
@@ -53,8 +54,9 @@ if(isset($_POST['app'])&&isset($_POST['msg']))//godkänn ett meddelande
     else // kontaktperson
     {
         $msg = substr($msg, 1);
+        $sqlsw = "UPDATE kontaktperson SET fornamn = COALESCE((SELECT fornamn FROM edit_kntper WHERE kontaktid = '$msg'), fornamn), efternamn = COALESCE((SELECT efternamn FROM edit_kntper WHERE kontaktid = '$msg'), efternamn), mobil = COALESCE((SELECT mobil FROM edit_kntper WHERE kontaktid = '$msg'), mobil), mejl = COALESCE((SELECT mejl FROM edit_kntper WHERE kontaktid = '$msg'), mejl) WHERE anvnamn = '$msg'";
         $sql = "UPDATE edit_kntper SET status='4' WHERE  edit_kntper.kontaktid='$msg';";
-        if(mysqli_query($con, $sql))
+        if(mysqli_query($con, $sqlsw) && mysqli_query($con, $sql))
         {echo"<p class='ok'>Uppdateringen godkänd</p>";}
         else
         {echo"<p class='error'>Uppdateringen gick inte att godkänna</p>";}
