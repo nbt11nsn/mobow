@@ -171,7 +171,6 @@ $isql = "SELECT info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
    (SELECT ID FROM feltyp WHERE feltext = '".$new_txt."' LIMIT 1), '".$usrname."',
    '".$fromusr."');";   
    }
-echo $sqli4;
 	mysqli_query($con, $sqli4);  
   }
 ?>
