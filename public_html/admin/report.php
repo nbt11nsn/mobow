@@ -81,11 +81,19 @@ $isql = "SELECT info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	</li>
 	<li>';
 	}
-		 else if($isadmin){					 
-				$status = "UPDATE felmeddelande SET medstatus=2 WHERE ID = ".$_POST['reports']; 
-					mysqli_query($con, $status);				
-					}			
-	
+		else if($isadmin){
+		echo "hejsan";
+		if(mysqli_num_rows($iresult2) != 0){
+		echo "hejsan2";
+			while($irows2 = mysqli_num_rows($iresult2)){	  
+			echo "hejsa3n";
+				if($irows2['medstatus'] == 1){
+				echo "hejsa4n";
+					$status = "UPDATE felmeddelande SET medstatus=2 WHERE ID = ".$_POST['reports']; 
+					mysqli_query($con, $status);
+				}}		}
+					echo "hejsan5";				
+			}			
 
 	  $isql3 = "SELECT feltext, info, text, fronid, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
 	 ON feltyp.ID = felmeddelande.feltypid JOIN felstatus ON felstatus.id = felmeddelande.medstatus
