@@ -78,7 +78,7 @@ $isql = "SELECT info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	  <input type="text" readonly align="left"  value = "'.mysqli_real_escape_string($con, $_SESSION['username']).'" maxlength="50" id="frm" name="frm" />
 	</li>	
 	<li>
-	  <label>Ämne </label>
+	  <label>Ämne: </label>
 	  <input type="text" align="left" maxlength="50" name = "feltext" id = "feltext" />
 	</li>
 	<li>

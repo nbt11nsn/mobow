@@ -56,7 +56,7 @@ else{
 <?php
 if($adm){
     echo"<select name='comp' id='comp'>
-<option value=''>Välj organisationsnummer</option>";
+<option value=''>Välj Organisationsnummer</option>";
     $orgresult = mysqli_query($con, $sqlorg);
     if (mysqli_num_rows($orgresult) != 0) {
     while($rows = mysqli_fetch_assoc($orgresult)) {
@@ -106,11 +106,11 @@ echo"
 <input required type='text' align='left'  maxlength='50' value = '".$irows['kontorsnamn']."'  name='kontor' id='kontor' />
 </li>
 <li>
-<label for='sbesok'>Senaste besök: </label>
+<label for='sbesok'>Senaste Besök: </label>
 <input required type='date' align='left' value = '".$irows['sbesok']."' name='sbesok' id='sbesok' />
 </li>
 <li>
-<label for='typ'>Typ av verksamhet: </label>
+<label for='typ'>Typ av Verksamhet: </label>
 <select required name='typ' id='typ'>";
 if (mysqli_num_rows($resultikon) != 0) {
   while($ikons = mysqli_fetch_assoc($resultikon)) {
@@ -137,7 +137,7 @@ echo'
 if($adm){
 echo'
 <li>
-<label for="stn">Antal stationer: </label>
+<label for="stn">Antal Stationer: </label>
 <input required type="number" align="left"  value = "'.$irows["stn"].'" maxlength="11" value="stn" name="stn" name="stn" />
 </li>';}
 echo'
@@ -177,19 +177,19 @@ echo'
 </li>';}
 echo'
 <li>
-<label for="logga">Nuvarande bild: </label>';
+<label for="logga">Nuvarande Bild: </label>';
 if(isset($irows["logurl"])){
   echo"<img id='logga' src='./../".$irows['logurl']."' />";
   if($adm){
-  echo"<input type='submit' name='rmimg' id='rmimg' value='Ta bort bild' />";
+  echo"<input type='submit' name='rmimg' id='rmimg' value='Ta Bort Bild' />";
   }
   else{
-  echo"<input type='submit' name='forrmimg' id='forrmimg' value='Ta bort bild' />";
+  echo"<input type='submit' name='forrmimg' id='forrmimg' value='Ta Bort Bild' />";
   }
-  echo"</li><li><br /><label for='logo'>Byt bild (jpeg,bmp,gif,png <2MB):</label>";
+  echo"</li><li><br /><label for='logo'>Byt Bild (jpeg,bmp,gif,png <2MB):</label>";
 }
 else{
-  echo"Ingen bild vald</li><li><label for='logo'>Välj bild:</label>";
+  echo"Ingen bild vald</li><li><label for='logo'>Välj Bild:</label>";
 }
 echo'<input type="file" accept="image/*" align="left" maxlength="256" name="logo" id="logo" /></li>
 <li class="submit">
@@ -207,10 +207,10 @@ if(isset($_POST['rmimg'])&&isset($_POST['contracts'])){
     $c=$_POST['contracts'];
     $sqlquery = "UPDATE kontrakt SET kontrakt.logurl=NULL, kontrakt.logbredd=NULL, kontrakt.loghojd=NULL WHERE kontrakt.ID='$c'";
     if(mysqli_query($con, $sqlquery)){
-      echo "<br /><br /><b>Uppdateringen lyckades</b>";
+      echo "<br /><br /><b>Uppdateringen Lyckades</b>";
     }
     else{
-      echo "<br /><br /><b>Uppdateringen misslyckades</b>";
+      echo "<br /><br /><b>Uppdateringen Misslyckades</b>";
     }
   }
 }

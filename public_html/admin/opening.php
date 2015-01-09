@@ -55,7 +55,7 @@ if($adm){
 <?php
 if($adm){
     echo"<select name='comp' id='comp'>
-<option value=''>Välj organisationsnummer</option>";
+<option value=''>Välj Organisationsnummer</option>";
     $orgresult = mysqli_query($con, $sqlorg);
     if (mysqli_num_rows($orgresult) != 0) {
         while($rows = mysqli_fetch_assoc($orgresult)) {

@@ -151,7 +151,7 @@ echo '</select></fieldset>
 <fieldset>
 <legend><b>Nytt Företag</b></legend>
 <li>
-<label for="fnamn">Företags namn: </label>
+<label for="fnamn">Företagsnamn: </label>
 <input type="text" align="left"  maxlength="50" value = ""  name="cname" id="cname" />
 </li>
 <li>
@@ -159,7 +159,7 @@ echo '</select></fieldset>
 <input type="text" align="left"  maxlength="50" value = ""  name="ocr" id="ocr" />
 </li>
 <li>
-<label for="nyttforetag">Nytt företag: </label>
+<label for="nyttforetag">Nytt Företag: </label>
 <input type="checkbox" align="left"  maxlength="50" value = ""  name="cnew" id="cnew" />
 </li>
 </fieldset>
@@ -177,7 +177,7 @@ echo '</select></fieldset>
 <input type="tel" align="left"  maxlength="20" value = ""  name="telefonenbr" id="telefonenbr" />
 </li>
 <li>
-<label required for="stn">Antal stationer: </label>
+<label required for="stn">Antal Stationer: </label>
 <input type="number" align="left"  value = "1" maxlength="11" value="stn" name="stn" name="stn" />
 </li>
 <li>
@@ -201,12 +201,12 @@ echo '</select></fieldset>
 <input type="color" align="left"  value = "#FFFFFF" maxlength="7" name="backcolor" id="backcolor" />
 </li>
 <li>
-<label for="logga">Nuvarande bild: </label>
-Ingen bild vald</li><li><label for="logo">Välj bild:</label>
+<label for="logga">Nuvarande Bild: </label>
+Ingen bild vald</li><li><label for="logo">Välj Bild:</label>
 <input type="file" accept="image/*" align="left" maxlength="256" name="logo" id="logo" />
 </li>
 <li>
-<label for="ikontyp">Ikon typ: </label>
+<label for="ikontyp">Ikontyp: </label>
 <select name="icon_type" id="icon_type">
 ';
 
@@ -230,15 +230,15 @@ echo '</select></li>
 <input required type="text" align="left"  value = "" maxlength="100"  name="stad" id="stad" />
 </li>
 <li>
-<label for="gata">gata: </label>
+<label for="gata">Gata: </label>
 <input required type="text" align="left"  value = "" maxlength="100"  name="gata" id="gata" />
 </li>
 <li>
-<label for="lng">longitud: </label>
+<label for="lng">Longitud: </label>
 <input required type="text"  align="left" value = "" maxlength="100" name="lng" id="lng" />
 </li>
 <li>
-<label for="lat">latitude: </label>
+<label for="lat">Latitude: </label>
 <input required type="text"  align="left" value = "" maxlength="100" name="lat" id="lat" />
 </li>
 </fieldset>

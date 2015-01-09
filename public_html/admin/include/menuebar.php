@@ -11,7 +11,7 @@ echo"<div id = 'huvudmeny'>
   <nav>
     <ul>
       <li><a href='info.php' class='hemikon'>H</a></li> 
-	  <li class='gotsub'><a href='#'>Ny</a>
+	  <li class='gotsub'><a href='#'>Skapa</a>
         <ul>
 		<li><a href='newcontract.php'>Nytt Kontrakt</a></li>
         <li><a href='newcontact.php'>Ny Kontakt</a></li>
@@ -21,7 +21,7 @@ echo"<div id = 'huvudmeny'>
 	  <li ";
     if($num_rows != 0){echo "id='statuskoll'";}
 echo"><a href='report.php'>Felrapportering</a></li>
-	  <li class='gotsub'><a href='#'>Ta bort</a>
+	  <li class='gotsub'><a href='#'>Radera</a>
         <ul>
 		<li><a href='deletecontract.php'>Kontrakt och Företag</a></li>
         <li><a href='deletecontact.php'>Kontaktpersoner</a></li>

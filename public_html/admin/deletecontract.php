@@ -58,7 +58,7 @@ else{
 <?php
 if($adm){
     echo"<select name='comp' id='comp'>
-<option value=''>Välj organisationsnummer</option>";
+<option value=''>Välj Organisationsnummer</option>";
     $orgresult = mysqli_query($con, $sqlorg);
     if (mysqli_num_rows($orgresult) != 0) {
     while($rows = mysqli_fetch_assoc($orgresult)) {
@@ -94,8 +94,8 @@ if (mysqli_num_rows($iresult) != 0) {
 mysqli_free_result($iresult);	
 ?>
 </select> 
-<input type="submit" name = "deleteContract" id = "delete" value="Ta bort kontrakt">
-<input type="submit" name = "deleteCompany" id = "delete" value="Ta bort företag">
+<input type="submit" name = "deleteContract" id = "delete" value="Ta Bort Kontrakt">
+<input type="submit" name = "deleteCompany" id = "delete" value="Ta Bort Företag">
 <?php
 if(isset($_POST['contracts'])&&isset($_POST['deleteContract'])){
 if($_POST['contracts']!=""){
@@ -137,10 +137,6 @@ reloadPage();  </script>';
   }
  }
  
-
-
-
-
 if(isset($_POST['deleteCompany'])){
 $c=mysqli_real_escape_string($con,$_POST['comp']);
 if($c == "")
@@ -181,8 +177,6 @@ reloadPage();  </script>';
     }
   }
  }
-
-
 
 ?>
 </div><!--frame-->

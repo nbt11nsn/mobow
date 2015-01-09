@@ -97,13 +97,13 @@ $isql = "SELECT anvnamn, fornamn, efternamn, kontorsnamn
 		<label for="typ">Kontorstyp: </label>
 		<input type="text" value="'.$irows2['typ'].'" readonly id = "infotextframe"/>
 	
-		<label for="stn">Hyr antal stationer: </label>
+		<label for="stn">Hyr Antal Stationer: </label>
 		<input type="text" value="'.$irows2['stn'].'" readonly id = "infotextframe"/>
 			
-		<label for="senaste">Senaste besök: </label>
+		<label for="senaste">Senaste Besök: </label>
 		<input type="text" value="'.$irows2['sbesok'].'" readonly id = "infotextframe"/>
 			
-		<label for="nasta">Nästa besök: </label>
+		<label for="nasta">Nästa Besök: </label>
 		<input type="text" value="'.$endDate.'" readonly id = "infotextframe"/>		
 			
 		<label for="pers">Kontaktperson: </label>
@@ -120,10 +120,10 @@ $isql = "SELECT anvnamn, fornamn, efternamn, kontorsnamn
 		</fieldset>
 		
 		<fieldset>
-		<legend><b>Övrig information</b></legend>
+		<legend><b>Övrig Information</b></legend>
 		<label for="hem">Hemsidan: </label>
 		<a href = "'.$irows2['hemsida'].'"  target="_blank">
-		<input type="text" value="Gå till hemsidan" readonly id = "infotextframebot"/>
+		<input type="text" value="Gå Till Hemsidan" readonly id = "infotextframebot"/>
 		</a>			
 			';
 		
@@ -131,7 +131,7 @@ $isql = "SELECT anvnamn, fornamn, efternamn, kontorsnamn
 		echo '
 		<label for="fakt">Faktura: </label>
 		<a href = "../'.$irows2['url'].'" target="_blank">
-		<input type="text" value="Öppna senaste fakturan" readonly id = "infotextframebot"/>
+		<input type="text" value="Öppna Senaste Fakturan" readonly id = "infotextframebot"/>
 		</a>';
 		}
 			echo '</fieldset>';		

@@ -47,7 +47,7 @@ $getIcons = "SELECT * FROM ikontyp";
 <input required type="text"  align="left" value = "" maxlength="100"name="lstnme" id="lstnme" />
 </li>
 <li>
-<label for="mobil">Mobil nummer: </label>
+<label for="mobil">Mobilnummer: </label>
 <input type="text"  align="left" value = "" maxlength="100" name="mobile" id="mobile" />
 </li>
 <li>
