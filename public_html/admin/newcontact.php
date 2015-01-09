@@ -75,15 +75,14 @@ if(isset($_POST['save'])&&!empty($_POST['username'])&&!empty($_POST['frstnme'])&
     $last=mysqli_real_escape_string($con,$_POST['lstnme']);
 	$mob=mysqli_real_escape_string($con,$_POST['mobile']);
 	$mail=mysqli_real_escape_string($con,$_POST['mail']);	
-	$pass=mysqli_real_escape_string($con,$_POST['password']);
+	$pass=password_hash(mysqli_real_escape_string($con,$_POST['password']), PASSWORD_DEFAULT);
 	$admincheck = 0;
 	
 	if (isset($_POST['admin'])) {
 	$admincheck = 1;}
 			$hash = password_hash($pass, PASSWORD_DEFAULT);			        
 		$insertContact = "INSERT INTO kontaktperson values('".$name."','".$first."','".$last."','".$mob."','".$mail."','".$pass."',".$admincheck.")";	
-		mysqli_query($con, $insertContact);	
-		$pass = "UPDATE kontaktperson SET losen = '$hash' WHERE anvnamn = '".$_POST['username']."'";
-		mysqli_query($con, $pass);	
+		echo $insertContact;
+		mysqli_query($con, $insertContact);			
 }
 ?>
