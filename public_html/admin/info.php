@@ -44,21 +44,21 @@ require_once(__DIR__ .'./../../db.php');
 		//Skriver ut kontaktpersonens info i dropdownmenyn
 		$isadmin = mysqli_real_escape_string($con,$_SESSION['admin']);
 		if($isadmin){
-	$isql = "SELECT anvnamn, fornamn, efternamn, kontorsnamn 
+	$isql = "SELECT anvnamn, fornamn, efternamn, kontorsnamn, ID 
 				FROM kontaktperson JOIN kontrakt on kontrakt.kontaktpersonid = kontaktperson.anvnamn";
 }
 else{
-$isql = "SELECT anvnamn, fornamn, efternamn, kontorsnamn 
+$isql = "SELECT anvnamn, fornamn, efternamn, kontorsnamn, ID 
 				FROM kontaktperson JOIN kontrakt on kontrakt.kontaktpersonid = kontaktperson.anvnamn WHERE anvnamn = '".mysqli_real_escape_string($con,$_SESSION['username'])."'";
 }				
 	$iresult = mysqli_query($con, $isql);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	  
-	  if(isset($_POST['dropdown']) && $irows['anvnamn'] == $_POST['dropdown']){
-	  	  echo "<option value=".$irows['anvnamn']." selected='selected' >".$irows['fornamn']." ".$irows['efternamn'].", ".$irows['kontorsnamn']."</option>";
+	  if(isset($_POST['dropdown']) && $irows['ID'] == $_POST['dropdown']){
+	  	  echo "<option value='".$irows['ID']."' selected='selected' >".$irows['fornamn']." ".$irows['efternamn'].", ".$irows['kontorsnamn']."</option>";
 	  }
 	else{
-	  echo "<option value=".$irows['anvnamn'].">".$irows['fornamn']." ".$irows['efternamn'].", ".$irows['kontorsnamn']."</option>";
+	  echo "<option value='".$irows['ID']."'>".$irows['fornamn']." ".$irows['efternamn'].", ".$irows['kontorsnamn']."</option>";
 	}
     }
   }
@@ -71,7 +71,10 @@ $isql = "SELECT anvnamn, fornamn, efternamn, kontorsnamn
 				<?php 
 		
 		if(isset($_POST["choicebutton"])){
-			$isql6 = "SELECT logurl, hemsida, typ, kontorsnamn, kontrakt.orgnr, stn, fornamn, efternamn, kontaktperson.anvnamn, mobil, mejl, sbesok, url, datum, postnr, stad, gata, foretag.namn FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn JOIN adress ON adress.ID = kontrakt.ID JOIN foretag ON foretag.orgnr = kontrakt.orgnr JOIN ikontyp ON ikontyp.id = ikonid LEFT OUTER JOIN faktura ON faktura.agarid = kontrakt.ID WHERE kontaktperson.anvnamn = '".$_POST['dropdown']."'ORDER BY faktura.datum DESC LIMIT 1";
+			$isql6 = "SELECT logurl, hemsida, typ, kontorsnamn, kontrakt.orgnr, stn, fornamn, efternamn, kontaktperson.anvnamn, mobil, mejl, sbesok, url, datum, postnr, stad, gata, foretag.namn 
+			FROM kontaktperson LEFT OUTER JOIN kontrakt ON kontrakt.kontaktpersonid = kontaktperson.anvnamn JOIN adress ON adress.ID = kontrakt.ID JOIN foretag ON foretag.orgnr = kontrakt.orgnr 
+			JOIN ikontyp ON ikontyp.id = ikonid LEFT OUTER JOIN faktura ON faktura.agarid = kontrakt.ID 
+			WHERE kontrakt.ID = '".$_POST['dropdown']."' ORDER BY faktura.datum DESC LIMIT 1";
 
 	$iresult = mysqli_query($con, $isql6);
 	if (mysqli_num_rows($iresult) != 0) {

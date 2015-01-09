@@ -41,7 +41,7 @@ function makeHTML(i){
     var max = {w:185, h:100};
     var imgSize = scaleImage(obj[i].logbredd, obj[i].loghojd, max.w, max.h);
     var address = "<p class='address'>Adress: <br />" + obj[i].gata + "<br />" + obj[i].stad + "</p>";
-    var oppettider = (typeof oppen[i] === 'undefined')? "Vi har inte öppet idag":"<p class='oppettider'>Idag har vi öppet: <br />" + oppen[i].oppet + " - " + oppen[i].stangt + "</p>";
+    var oppettider = (typeof oppen[i] === 'undefined')? "<b>Idag är det stängt</b>":"<p class='oppettider'>Idag har vi öppet: <br />" + oppen[i].oppet + " - " + oppen[i].stangt + "</p>";
     var stn = "<p class='stn'>Antal stationer: " + obj[i].stn + "</p>";
 
     var image = (obj[i].logurl == null)? "":"<img class='imge' src='"+ obj[i].logurl + "' width='"+imgSize.w+"px' height='"+imgSize.h+"px' />";

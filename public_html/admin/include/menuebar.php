@@ -13,8 +13,8 @@ echo"<div id = 'huvudmeny'>
       <li><a href='info.php' class='hemikon'>H</a></li> 
 	  <li class='gotsub'><a href='#'>Skapa</a>
         <ul>
-		<li><a href='newcontract.php'>Nytt Kontrakt</a></li>
-        <li><a href='newcontact.php'>Ny Användare</a></li>
+		<li><a href='newcontract.php'>Kontrakt och Företag</a></li>
+        <li><a href='newcontact.php'>Användare</a></li>
 		</ul>
       </li>
       <li><a href='invoice.php'>Faktura</a></li>
@@ -24,7 +24,7 @@ echo"><a href='report.php'>Felrapportering</a></li>
 	  <li class='gotsub'><a href='#'>Radera</a>
         <ul>
 		<li><a href='deletecontract.php'>Kontrakt och Företag</a></li>
-        <li><a href='deletecontact.php'>Kontaktpersoner</a></li>
+        <li><a href='deletecontact.php'>Användare</a></li>
 		</ul>
       </li>
       <li class='gotsub'><a href='#'>Editera</a>
