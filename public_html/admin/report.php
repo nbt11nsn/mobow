@@ -45,24 +45,29 @@ $isql = "SELECT info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
     <select name = "reports" id = "reports">
 	<?php 
 	if(!$isadmin){
-	echo "<option value= -1> Ny Felrapport </option>";
+	echo "<option value=-1> Ny Felrapport </option>";
 	}
-	else echo "<option> Välj Felrapport </option>";
+	else echo "<option value = -2> Välj Felrapport </option>";
 	$iresult = mysqli_query($con, $isql);
 	if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0) {
-      while($irows = mysqli_fetch_assoc($iresult)) {	  
-		  echo "<option value=".$irows['ID']." class = '".$irows['info']."' >".$irows['anvnamn']." ".$irows['feltext']." ".$irows['info']."</option>";
-      }
+      while($irows = mysqli_fetch_assoc($iresult)) {
+		 if(isset($_POST['reports']) && $_POST['reports'] == $irows['ID']){
+		 echo "<option value=".$irows['ID']." selected = 'selected' class = '".$irows['info']."' >".$irows['anvnamn']." ".$irows['feltext']." ".$irows['info']."</option>";
+		 }
+		 else { echo "<option value=".$irows['ID']." class = '".$irows['info']."' >".$irows['anvnamn']." ".$irows['feltext']." ".$irows['info']."</option>";
+		}
+	  }
     mysqli_free_result($iresult);	
 	}
 	?>
     </select> 		
-    <input type="submit" name = "accept" id = "accept" value="Välj">  
-	<input type="submit" name = "send" id = "send" value="Skicka">	
+    <input type="submit" name = "accept" id = "accept" value="Välj"> 
+	<input type="submit" name = "delete" id = "delete" onclick='javascript: return (confirm("Vill du verkligen ta bort meddelandet?"))' value="Ta bort">	
    <?php 
+   
 
-	 if(isset($_POST['accept'])) {
-	 
+	 if(isset($_POST['accept'])&&$_POST["reports"]!=-2) {
+	 echo '<input type="submit" name = "send" id = "send" value="Skicka">';
 	if($_POST['reports'] == -1) {
 	$newmessage = true;
 	
@@ -92,7 +97,7 @@ $isql = "SELECT info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	 ON feltyp.ID = felmeddelande.feltypid JOIN felstatus ON felstatus.id = felmeddelande.medstatus
 	 WHERE felmeddelande.ID = ".mysqli_real_escape_string($con,$_POST['reports']);
 	 
-	$options = "SELECT ID, info FROM felstatus";	
+	$options = "SELECT ID, info FROM felstatus WHERE info != 'Oläst'";	
 	$iresultoptions = mysqli_query($con, $options);
 	$iresult = mysqli_query($con, $isql3);
 
@@ -131,12 +136,34 @@ $isql = "SELECT info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	<li>
 	  <label for="newMessage">Nytt Meddelande: </label>
 	   <textarea cols="40" rows="5" input type="text" name="newMessage" id = "newMessage"></textarea>
-	</li>	
+	</li>
       </ul>
     </form>
 	';
    }
   }
+   
+  
+  if(isset($_POST['delete'])){
+	
+    
+  $sqldelete = "DELETE FROM felmeddelande WHERE ID = ".$_POST['reports'];
+  mysqli_query($con, $sqldelete);
+echo '<script type="text/javascript"> var reload = false;
+var loc=""+document.location;
+loc = loc.indexOf("?reload=")!=-1?loc.substring(loc.indexOf("?reload=")+10,loc.length):"";
+loc = loc.indexOf("&")!=-1?loc.substring(0,loc.indexOf("&")):loc;
+reload = loc!=""?(loc=="true"):reload;
+
+function reloadPage() {
+    if (!reload) 
+        window.location.replace(window.location);
+}
+
+reloadPage();  </script>';	
+}
+  
+
   
   if(isset($_POST['send'])&&!empty($_POST["newMessage"])&&!empty($_POST["feltext"])){ 
   $message = mysqli_real_escape_string($con, $_POST["newMessage"]);  
@@ -172,7 +199,9 @@ $isql = "SELECT info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
    '".$fromusr."');";   
    }
 	mysqli_query($con, $sqli4);  
-  }
+  }0
+ 
+  
 ?>
 	
    </form>

@@ -41,8 +41,6 @@ function makeHTML(i){
     var max = {w:185, h:100};
     var imgSize = scaleImage(obj[i].logbredd, obj[i].loghojd, max.w, max.h);
     var address = "<p class='address'>Adress: <br />" + obj[i].gata + "<br />" + obj[i].stad + "</p>";
-    // Detta var koden innan: var oppet = var oppet = "<p class='oppet'><b>Öppettider: </b><br />"+ obj[i].oppet + "</p>";
-	//kör isset fast i javascript
     var oppettider = (typeof oppen[i] === 'undefined')? "Vi har inte öppet idag":"<p class='oppettider'>Idag har vi öppet: <br />" + oppen[i].oppet + " - " + oppen[i].stangt + "</p>";
     var stn = "<p class='stn'>Antal stationer: " + obj[i].stn + "</p>";
 
@@ -53,7 +51,6 @@ function makeHTML(i){
     var hemsida = (obj[i].hemsida == null)? "":"<p class='hemsida'><a style='color:"+obj[i].forecolor+"' href = '" + obj[i].hemsida + "' target = '_blank'>Vill du veta mer?</a></p>";
     var tele = (obj[i].tele == null)? "":"<p class='tele'>" + obj[i].tele + "</p>";
     var vagvisning = "<p class='hemsida'><a style='color:"+obj[i].forecolor+"' href='javascript:void(0)' onclick='cmap.direction("+obj[i].lat+","+obj[i].lng+");'>Vägbeskrivning</a></p>";
-
 
     var html = image + "<div id='info_content'>" + name + address + allminfo + currinfo + oppettider + stn + tele + hemsida + vagvisning + "</div>";
     return html;
