@@ -49,7 +49,7 @@ $usr = mysqli_real_escape_string($con, $_SESSION['username']);
 ?>
 
 <div id = "frame">
-    <form action='' method='post' id ='postcontacts' enctype="multipart/form-data">
+    <form action='' method='post' id ='postContracts' enctype="multipart/form-data">
 
 <?php
 if($adm){
