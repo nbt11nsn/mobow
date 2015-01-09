@@ -24,7 +24,8 @@ require_once(__DIR__ .'./../../db.php');
 $isadmin = mysqli_real_escape_string($con, $_SESSION['admin']);
 if($isadmin){
 $isql = "SELECT info, felmeddelande.ID, kontorsnamn,feltext,  orgnr, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn
- = fronid JOIN kontrakt ON kontaktpersonid = anvnamn JOIN feltyp ON feltypid = feltyp.ID JOIN felstatus ON felstatus.ID = felmeddelande.medstatus WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."' GROUP BY felmeddelande.ID";
+ = fronid JOIN kontrakt ON kontaktpersonid = anvnamn JOIN feltyp ON feltypid = feltyp.ID JOIN felstatus ON felstatus.ID
+ = felmeddelande.medstatus WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."' GROUP BY felmeddelande.ID";
  }
 else
 {
@@ -82,7 +83,7 @@ $isql = "SELECT info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	<li>';
 	}
 		 else if($isadmin){					 
-				$status = "UPDATE felmeddelande SET medstatus=2 WHERE ID = ".$_POST['reports']; 
+				$status = "UPDATE felmeddelande SET medstatus=2 WHERE ID = ".$_POST['reports']." AND medstatus = 1"; 
 					mysqli_query($con, $status);				
 					}			
 	
