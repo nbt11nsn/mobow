@@ -30,7 +30,6 @@ mysqli_close($con);
 <html>
 <head>
 
-
 <?php
 defined('THE_HEAD') || define('THE_HEAD', TRUE);
 require_once("include/head.php");
