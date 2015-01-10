@@ -2,7 +2,7 @@
 -- version 4.2.7.1
 -- http://www.phpmyadmin.net
 --
--- V√§rd: 127.0.0.1
+-- V‰rd: 127.0.0.1
 -- Tid vid skapande: 09 jan 2015 kl 09:47
 -- Serverversion: 5.6.20
 -- PHP-version: 5.5.15
@@ -43,11 +43,11 @@ CREATE TABLE IF NOT EXISTS `adress` (
 
 INSERT INTO `adress` (`ID`, `postnr`, `stad`, `gata`, `lng`, `lat`) VALUES
 (2, 91232, 'Vilhelmina', 'Postgatan 3', 16.6547774, 64.6230765),
-(3, 80320, 'G√§vle', 'Stortorget 1', 15.8253629, 60.2930402),
+(3, 80320, 'G‰vle', 'Stortorget 1', 15.8253629, 60.2930402),
 (4, 95391, 'Haparanda', 'Kukkolaforsen 184', 24.0548527, 65.9591007),
-(5, 95336, 'Haparanda', 'Norrskensv√§gen 2', 24.1324517, 65.8429222),
-(6, 80302, 'G√§vle', 'Alderholmsgatan 7', 17.16285760793459, 60.6786653779345),
-(8, 80252, 'G√§vle', 'Mobowgatan 52', 17.192, 60.673);
+(5, 95336, 'Haparanda', 'Norrskensv‰gen 2', 24.1324517, 65.8429222),
+(6, 80302, 'G‰vle', 'Alderholmsgatan 7', 17.16285760793459, 60.6786653779345),
+(8, 80252, 'G‰vle', 'Mobowgatan 52', 17.192, 60.673);
 
 -- --------------------------------------------------------
 
@@ -177,9 +177,9 @@ CREATE TABLE IF NOT EXISTS `felstatus` (
 --
 
 INSERT INTO `felstatus` (`ID`, `info`) VALUES
-(1, 'Ol√§st'),
+(1, 'Ol‰st'),
 (2, 'Mottagen'),
-(3, 'P√•b√∂rjad'),
+(3, 'PÂbˆrjad'),
 (4, 'Avslutad');
 
 -- --------------------------------------------------------
@@ -228,7 +228,7 @@ INSERT INTO `foretag` (`orgnr`, `namn`) VALUES
 ('225454-3458', 'Rubinola AB'),
 ('262648-2356', 'Solen AB'),
 ('454545-4545', 'Gevalia AB'),
-('548795-3251', 'Svarta h√•let AB'),
+('548795-3251', 'Svarta hÂlet AB'),
 ('556345-1201', 'Wayne och Margareta''s Coffee Aktiebolag'),
 ('910413-1234', 'Mobow');
 
@@ -251,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `ikontyp` (
 
 INSERT INTO `ikontyp` (`ID`, `opimgurl`, `stimgurl`, `typ`) VALUES
 (1, 'image/grestaurang24x32.png', 'image/restaurang24x32.png', 'Restaurang'),
-(2, 'image/gcafe31x32.png', 'image/cafe31x32.png', 'Caf√©');
+(2, 'image/gcafe31x32.png', 'image/cafe31x32.png', 'CafÈ');
 
 -- --------------------------------------------------------
 
@@ -279,7 +279,7 @@ INSERT INTO `kontaktperson` (`anvnamn`, `fornamn`, `efternamn`, `mobil`, `mejl`,
 ('DavidO', 'David', 'Olsson', '0123456789', 'kundtjanst@mobow.se', '$2y$10$.LODvRTvWP8HJPwFWCQ82uZO/nz/PIQxKDoHHnDmrIOQF/jEzeHVC', 1),
 ('KarlL', 'Karl', 'Lundh', '345678912', 'nbt11nsn@student.hig.se', '$2y$10$yAJqNxkCcl/3zHfm.WBAxuJa85z4Frj4KOQIhD7hdxQ97SamIaXz6', 0),
 ('MattiasD', 'Mattias', 'Didriksson', '732154879', 'nbt11nsn@student.hig.se', '$2y$10$jLjW0w8A.nhdno2ArRNcDO4NPEtdjC4UG48/VAMc6psre8XUunF.K', 0),
-('NiklasS', 'Niklas', 'Sj√∂gren', '234567891', 'nbt11nsn@student.hig.se', '$2y$10$AcIafMqd0GgCAzgog7eJIO.9GOH2FaJ.0NpxT4nsuLUCYJenOqrNG', 0),
+('NiklasS', 'Niklas', 'Sjˆgren', '234567891', 'nbt11nsn@student.hig.se', '$2y$10$AcIafMqd0GgCAzgog7eJIO.9GOH2FaJ.0NpxT4nsuLUCYJenOqrNG', 0),
 ('RickardH', 'Rickard', 'Hedlund', '456789123', 'nbt11nsn@student.hig.se', '$2y$10$VWMASYpv0PD3a9uaHMna6uA5Lhkab/ejhpnRNc6c/Dp1Q4xrgdpy6', 0);
 
 -- --------------------------------------------------------
@@ -312,12 +312,12 @@ CREATE TABLE IF NOT EXISTS `kontrakt` (
 --
 
 INSERT INTO `kontrakt` (`ID`, `kontorsnamn`, `sbesok`, `currinfo`, `tele`, `stn`, `logurl`, `logbredd`, `loghojd`, `hemsida`, `allminfo`, `forecolor`, `backcolor`, `kontaktpersonid`, `ikonid`, `orgnr`) VALUES
-(2, 'Gevalia S√∂der', '2014-09-16', 'sfdlkjsfdjkllkjdsf', '026-54875', 5, 'image/logo/logo0.png', 32, 32, 'http://www.aftonbladet.se/', '', '#ff00ff', '#000000', 'KarlL', 2, '454545-4545'),
+(2, 'Gevalia Sˆder', '2014-09-16', 'sfdlkjsfdjkllkjdsf', '026-54875', 5, 'image/logo/logo0.png', 32, 32, 'http://www.aftonbladet.se/', '', '#ff00ff', '#000000', 'KarlL', 2, '454545-4545'),
 (3, 'Gevalia Norr', '2014-06-04', '', '026-78458', 3, 'image/logo/04earth.png', 256, 256, 'http://www.google.com/', 'random grejs', '#000000', '#ffffff', 'KarlL', 1, '225454-3458'),
 (4, 'Solen', '2014-09-16', '', '012341234', 2, 'image/logo/08saturn.png', 256, 256, 'http://sv.wikipedia.org/wiki/', '', '#abcdef', '#543210', 'MattiasD', 1, '262648-2356'),
-(5, 'Svarta h√•let', '2014-09-16', NULL, '020-548454', 15, 'image/logo/blackhole.png', 256, 256, NULL, 'HEJHEJHEJHEJ', '#FF0000', '#00FFFF', 'RickardH', 2, '548795-3251'),
-(6, 'Wayne''s Coffee', '2014-05-28', NULL, '026-52454', 1, 'image/logo/wayne.jpg', 100, 100, 'http://www.waynescoffee.se/menyer.aspx', 'Vi p√• Wayne¬¥s Coffee vill ge m√§nniskor en m√∂jlighet att ta en paus i vardagen, en stund av avkoppling. Wayne¬¥s Coffee har blivit k√§nt som ‚Äùdet tredje rummet‚Äù, en m√∂tesplats mellan arbetet och hemmet. En frizon d√§r v√§nner tr√§ffas och tar en fika tillsammans. I v√•ra caf√©er erbjudes  kaffe av eget m√§rke, bakverk fr√•n eget bageri och mat med naturliga r√•varor av h√∂g kvalit√©.<br />\r\n', '#000000', '#ffffff', 'AndersB', 2, '556345-1201'),
-(8, 'Mobow', '2014-12-16', 'Livet ska inte styras av din batterim√§tares siffror!', '123456789', 9, 'image/logo/kontraktMobow.png', 32, 32, 'http://www.mobow.se/', 'Mobilen √§r v√•rt fr√§msta redskap med intill obegr√§nsade anv√§ndningsomr√•den. En dag utan mobil √§r f√∂r de flesta ot√§nkbart.\r\nKorta batteritider begr√§nsar oss och v√•r kontakt med v√§rlden. Mobow g√∂r din mobilanv√§ndning gr√§nsl√∂s.', '#634263', '#c1c1c1', 'DavidO', 1, '910413-1234');
+(5, 'Svarta hÂlet', '2014-09-16', NULL, '020-548454', 15, 'image/logo/blackhole.png', 256, 256, NULL, 'HEJHEJHEJHEJ', '#FF0000', '#00FFFF', 'RickardH', 2, '548795-3251'),
+(6, 'Wayne''s Coffee', '2014-05-28', NULL, '026-52454', 1, 'image/logo/wayne.jpg', 100, 100, 'http://www.waynescoffee.se/menyer.aspx', 'Vi pÂ Wayne¥s Coffee vill ge m‰nniskor en mˆjlighet att ta en paus i vardagen, en stund av avkoppling. Wayne¥s Coffee har blivit k‰nt som îdet tredje rummetî, en mˆtesplats mellan arbetet och hemmet. En frizon d‰r v‰nner tr‰ffas och tar en fika tillsammans. I vÂra cafÈer erbjudes  kaffe av eget m‰rke, bakverk frÂn eget bageri och mat med naturliga rÂvaror av hˆg kvalitÈ.<br />\r\n', '#000000', '#ffffff', 'AndersB', 2, '556345-1201'),
+(8, 'Mobow', '2014-12-16', 'Livet ska inte styras av din batterim‰tares siffror!', '123456789', 9, 'image/logo/kontraktMobow.png', 32, 32, 'http://www.mobow.se/', 'Mobilen ‰r vÂrt fr‰msta redskap med intill obegr‰nsade anv‰ndningsomrÂden. En dag utan mobil ‰r fˆr de flesta ot‰nkbart.\r\nKorta batteritider begr‰nsar oss och vÂr kontakt med v‰rlden. Mobow gˆr din mobilanv‰ndning gr‰nslˆs.', '#634263', '#c1c1c1', 'DavidO', 1, '910413-1234');
 
 -- --------------------------------------------------------
 
@@ -335,8 +335,8 @@ CREATE TABLE IF NOT EXISTS `medstatus` (
 --
 
 INSERT INTO `medstatus` (`ID`, `Info`) VALUES
-(1, 'Ol√§st'),
-(2, 'Godk√§nd'),
+(1, 'Ol‰st'),
+(2, 'Godk‰nd'),
 (3, 'Nekad');
 
 -- --------------------------------------------------------
@@ -413,199 +413,199 @@ CREATE TABLE IF NOT EXISTS `veckodagar` (
 --
 
 INSERT INTO `veckodagar` (`ID`, `akro`, `veckonamn`) VALUES
-(1, 'sun', 'S√∂ndag'),
-(2, 'mon', 'M√•ndag'),
+(1, 'sun', 'Sˆndag'),
+(2, 'mon', 'MÂndag'),
 (3, 'thue', 'Tisdag'),
 (4, 'wen', 'Onsdag'),
 (5, 'thur', 'Torsdag'),
 (6, 'fri', 'Fredag'),
-(7, 'sat', 'L√∂rdag');
+(7, 'sat', 'Lˆrdag');
 
 --
--- Index f√∂r dumpade tabeller
+-- Index fˆr dumpade tabeller
 --
 
 --
--- Index f√∂r tabell `adress`
+-- Index fˆr tabell `adress`
 --
 ALTER TABLE `adress`
  ADD PRIMARY KEY (`ID`);
 
 --
--- Index f√∂r tabell `edit_foretag`
+-- Index fˆr tabell `edit_foretag`
 --
 ALTER TABLE `edit_foretag`
  ADD PRIMARY KEY (`kontraktid`), ADD KEY `kontraktid` (`kontraktid`), ADD KEY `status` (`status`);
 
 --
--- Index f√∂r tabell `edit_kntper`
+-- Index fˆr tabell `edit_kntper`
 --
 ALTER TABLE `edit_kntper`
  ADD PRIMARY KEY (`ID`), ADD KEY `kontraktid` (`kontaktid`), ADD KEY `status` (`status`);
 
 --
--- Index f√∂r tabell `faktura`
+-- Index fˆr tabell `faktura`
 --
 ALTER TABLE `faktura`
  ADD PRIMARY KEY (`ID`), ADD KEY `agarid` (`agarid`);
 
 --
--- Index f√∂r tabell `felmeddelande`
+-- Index fˆr tabell `felmeddelande`
 --
 ALTER TABLE `felmeddelande`
  ADD PRIMARY KEY (`ID`), ADD KEY `fronid` (`fronid`), ADD KEY `tillid` (`tillid`), ADD KEY `medstatus` (`medstatus`), ADD KEY `feltypid` (`feltypid`);
 
 --
--- Index f√∂r tabell `felstatus`
+-- Index fˆr tabell `felstatus`
 --
 ALTER TABLE `felstatus`
  ADD PRIMARY KEY (`ID`);
 
 --
--- Index f√∂r tabell `feltyp`
+-- Index fˆr tabell `feltyp`
 --
 ALTER TABLE `feltyp`
  ADD PRIMARY KEY (`ID`);
 
 --
--- Index f√∂r tabell `foretag`
+-- Index fˆr tabell `foretag`
 --
 ALTER TABLE `foretag`
  ADD PRIMARY KEY (`orgnr`);
 
 --
--- Index f√∂r tabell `ikontyp`
+-- Index fˆr tabell `ikontyp`
 --
 ALTER TABLE `ikontyp`
  ADD PRIMARY KEY (`ID`);
 
 --
--- Index f√∂r tabell `kontaktperson`
+-- Index fˆr tabell `kontaktperson`
 --
 ALTER TABLE `kontaktperson`
  ADD PRIMARY KEY (`anvnamn`), ADD UNIQUE KEY `anvnamn` (`anvnamn`);
 
 --
--- Index f√∂r tabell `kontrakt`
+-- Index fˆr tabell `kontrakt`
 --
 ALTER TABLE `kontrakt`
  ADD PRIMARY KEY (`ID`), ADD KEY `ikonid` (`ikonid`), ADD KEY `kontaktpersonid` (`kontaktpersonid`), ADD KEY `foretagid` (`orgnr`), ADD KEY `foretagid_2` (`orgnr`), ADD KEY `orgnr` (`orgnr`);
 
 --
--- Index f√∂r tabell `medstatus`
+-- Index fˆr tabell `medstatus`
 --
 ALTER TABLE `medstatus`
  ADD PRIMARY KEY (`ID`);
 
 --
--- Index f√∂r tabell `oppettider`
+-- Index fˆr tabell `oppettider`
 --
 ALTER TABLE `oppettider`
  ADD PRIMARY KEY (`kontraktid`,`veckodagarid`), ADD KEY `veckodagarid` (`veckodagarid`);
 
 --
--- Index f√∂r tabell `specialtider`
+-- Index fˆr tabell `specialtider`
 --
 ALTER TABLE `specialtider`
  ADD PRIMARY KEY (`ID`), ADD KEY `kontraktid` (`kontraktid`), ADD KEY `kontraktid_2` (`kontraktid`,`veckodagarid`), ADD KEY `veckodagarid` (`veckodagarid`);
 
 --
--- Index f√∂r tabell `veckodagar`
+-- Index fˆr tabell `veckodagar`
 --
 ALTER TABLE `veckodagar`
  ADD PRIMARY KEY (`ID`);
 
 --
--- AUTO_INCREMENT f√∂r dumpade tabeller
+-- AUTO_INCREMENT fˆr dumpade tabeller
 --
 
 --
--- AUTO_INCREMENT f√∂r tabell `adress`
+-- AUTO_INCREMENT fˆr tabell `adress`
 --
 ALTER TABLE `adress`
 MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
--- AUTO_INCREMENT f√∂r tabell `edit_kntper`
+-- AUTO_INCREMENT fˆr tabell `edit_kntper`
 --
 ALTER TABLE `edit_kntper`
 MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT f√∂r tabell `faktura`
+-- AUTO_INCREMENT fˆr tabell `faktura`
 --
 ALTER TABLE `faktura`
 MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
--- AUTO_INCREMENT f√∂r tabell `felmeddelande`
+-- AUTO_INCREMENT fˆr tabell `felmeddelande`
 --
 ALTER TABLE `felmeddelande`
 MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 --
--- AUTO_INCREMENT f√∂r tabell `felstatus`
+-- AUTO_INCREMENT fˆr tabell `felstatus`
 --
 ALTER TABLE `felstatus`
 MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT f√∂r tabell `feltyp`
+-- AUTO_INCREMENT fˆr tabell `feltyp`
 --
 ALTER TABLE `feltyp`
 MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
--- AUTO_INCREMENT f√∂r tabell `ikontyp`
+-- AUTO_INCREMENT fˆr tabell `ikontyp`
 --
 ALTER TABLE `ikontyp`
 MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT f√∂r tabell `kontrakt`
+-- AUTO_INCREMENT fˆr tabell `kontrakt`
 --
 ALTER TABLE `kontrakt`
 MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
--- AUTO_INCREMENT f√∂r tabell `medstatus`
+-- AUTO_INCREMENT fˆr tabell `medstatus`
 --
 ALTER TABLE `medstatus`
 MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT f√∂r tabell `specialtider`
+-- AUTO_INCREMENT fˆr tabell `specialtider`
 --
 ALTER TABLE `specialtider`
 MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT f√∂r tabell `veckodagar`
+-- AUTO_INCREMENT fˆr tabell `veckodagar`
 --
 ALTER TABLE `veckodagar`
 MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
--- Restriktioner f√∂r dumpade tabeller
+-- Restriktioner fˆr dumpade tabeller
 --
 
 --
--- Restriktioner f√∂r tabell `adress`
+-- Restriktioner fˆr tabell `adress`
 --
 ALTER TABLE `adress`
 ADD CONSTRAINT `kontrakt_ibfk_10` FOREIGN KEY (`ID`) REFERENCES `kontrakt` (`ID`) ON DELETE CASCADE;
 
 --
--- Restriktioner f√∂r tabell `edit_foretag`
+-- Restriktioner fˆr tabell `edit_foretag`
 --
 ALTER TABLE `edit_foretag`
 ADD CONSTRAINT `kontrakt_ibfk_3` FOREIGN KEY (`kontraktid`) REFERENCES `kontrakt` (`ID`) ON DELETE CASCADE,
 ADD CONSTRAINT `status_ibfk_1` FOREIGN KEY (`status`) REFERENCES `medstatus` (`ID`);
 
 --
--- Restriktioner f√∂r tabell `edit_kntper`
+-- Restriktioner fˆr tabell `edit_kntper`
 --
 ALTER TABLE `edit_kntper`
 ADD CONSTRAINT `edit_kntper_ibfk_1` FOREIGN KEY (`kontaktid`) REFERENCES `kontaktperson` (`anvnamn`) ON DELETE CASCADE,
 ADD CONSTRAINT `status_ibfk_2` FOREIGN KEY (`status`) REFERENCES `medstatus` (`ID`);
 
 --
--- Restriktioner f√∂r tabell `faktura`
+-- Restriktioner fˆr tabell `faktura`
 --
 ALTER TABLE `faktura`
 ADD CONSTRAINT `kontrakt_ibfk_2` FOREIGN KEY (`agarid`) REFERENCES `kontrakt` (`ID`) ON DELETE CASCADE;
 
 --
--- Restriktioner f√∂r tabell `felmeddelande`
+-- Restriktioner fˆr tabell `felmeddelande`
 --
 ALTER TABLE `felmeddelande`
 ADD CONSTRAINT `felmeddelande_ifbk_1` FOREIGN KEY (`fronid`) REFERENCES `kontaktperson` (`anvnamn`) ON DELETE CASCADE,
@@ -614,7 +614,7 @@ ADD CONSTRAINT `felmeddelande_ifbk_3` FOREIGN KEY (`medstatus`) REFERENCES `fels
 ADD CONSTRAINT `felmeddelande_ifbk_4` FOREIGN KEY (`feltypid`) REFERENCES `feltyp` (`ID`);
 
 --
--- Restriktioner f√∂r tabell `kontrakt`
+-- Restriktioner fˆr tabell `kontrakt`
 --
 ALTER TABLE `kontrakt`
 ADD CONSTRAINT `ikon_ibfk_1` FOREIGN KEY (`ikonid`) REFERENCES `ikontyp` (`ID`),
@@ -622,14 +622,14 @@ ADD CONSTRAINT `kontrakt_ibfk_1` FOREIGN KEY (`kontaktpersonid`) REFERENCES `kon
 ADD CONSTRAINT `orgnr_ibfk_1` FOREIGN KEY (`orgnr`) REFERENCES `foretag` (`orgnr`) ON DELETE CASCADE;
 
 --
--- Restriktioner f√∂r tabell `oppettider`
+-- Restriktioner fˆr tabell `oppettider`
 --
 ALTER TABLE `oppettider`
 ADD CONSTRAINT `kontraktid_ibfk_1` FOREIGN KEY (`kontraktid`) REFERENCES `kontrakt` (`ID`) ON DELETE CASCADE,
 ADD CONSTRAINT `veckodagar_ibfk_1` FOREIGN KEY (`veckodagarid`) REFERENCES `veckodagar` (`ID`);
 
 --
--- Restriktioner f√∂r tabell `specialtider`
+-- Restriktioner fˆr tabell `specialtider`
 --
 ALTER TABLE `specialtider`
 ADD CONSTRAINT `specialtider_ibfk_1` FOREIGN KEY (`kontraktid`) REFERENCES `feltyp` (`ID`),
