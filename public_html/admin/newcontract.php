@@ -48,8 +48,10 @@ $error = false;
 	$sbesok=mysqli_real_escape_string($con,$_POST['sbesok']);		
 	$tef=mysqli_real_escape_string($con,$_POST['telefonenbr']);
 	$web=mysqli_real_escape_string($con,$_POST['hemsida']);
-	$ainf=mysqli_real_escape_string($con,$_POST['allminfo']);
-	$cinf=mysqli_real_escape_string($con,$_POST['currinfo']);
+	$ainf=mysqli_real_escape_string($con,nl2br($_POST['allminfo']));
+	$ainfhash=(trim($ainf) == ""?"NULL":"'".md5($ainf)."'");
+	$cinf=mysqli_real_escape_string($con,nl2br($_POST['currinfo']));
+	$cinfhash=(trim($cinf) == ""?"NULL":"'".md5($cinf)."'");
 	$fc=mysqli_real_escape_string($con,$_POST['forecolor']);
 	$bc=mysqli_real_escape_string($con,$_POST['backcolor']);
 	$zip=mysqli_real_escape_string($con,$_POST['postnr']);
@@ -108,9 +110,9 @@ if(isset($_POST['cnew'])){
 		}	
 	}
 	$contractid = "(SELECT LAST_INSERT_ID())";	
-	$insertAdress = "INSERT INTO adress values(".$contractid.",'".$zip."','".$stad."','".$gata."',".$lng.",".$lat.");";
-	$insertContract = "INSERT INTO kontrakt values(null,'".$kont."','".$sbesok."', ".isEmpty($cinf).",".isEmpty($tef).",
-	".$stn.",".isEmpty($target).",".isEmpty($lw).",".isEmpty($lh).",".isEmpty($web).",".isEmpty($ainf).",'".$fc."','".$bc."','".$usrn."', '".$icon_type."', '".$ocr."');";
+	$insertAdress = "INSERT INTO adress(ID, postnr, stad, gata, lng, lat) VALUES(".$contractid.",'".$zip."','".$stad."','".$gata."',".$lng.",".$lat.");";
+	$insertContract = "INSERT INTO kontrakt(ID, kontorsnamn, sbesok, currinfo, cihash, tele, stn, logurl, logbredd, loghojd, hemsida, allminfo, aihash, forecolor, backcolor, kontaktpersonid, ikonid, orgnr) 
+	VALUES(null,'".$kont."','".$sbesok."',".isEmpty($cinf).",".$cinfhash.",".isEmpty($tef).",".$stn.",".isEmpty($target).",".isEmpty($lw).",".isEmpty($lh).",".isEmpty($web).",".isEmpty($ainf).",".$ainfhash.",'".$fc."','".$bc."','".$usrn."', '".$icon_type."', '".$ocr."');";
 
     if(!$error){		
         if(mysqli_query($con, $insertContract)&&mysqli_query($con, $insertAdress)){			
