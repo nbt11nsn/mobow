@@ -4,6 +4,10 @@ defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../../../db.php');
 $adm = mysqli_real_escape_string($con, $_SESSION['admin']);
 $sqlkont="SELECT medstatus FROM felmeddelande WHERE medstatus = 1";
+$sqlnew="SELECT (SELECT COUNT(*) FROM edit_foretag WHERE status = 1) + (SELECT COUNT(*) FROM edit_kntper WHERE status = 1) AS count";
+$resnew=mysqli_query($con, $sqlnew);
+$assnew=mysqli_fetch_assoc($resnew);
+$numnew=$assnew['count'];
 $iresult = mysqli_query($con, $sqlkont);
 $num_rows = mysqli_num_rows($iresult);
 if($adm){
@@ -34,7 +38,9 @@ echo"><a href='report.php'>Felrapportering</a></li>
           <li><a href='contract.php'>Kontrakt</a></li>
         </ul>
       </li>
-      <li><a href='companymessage.php'>Meddelande</a></li>
+      <li ";
+    if($numnew != 0){echo "id='statuskoll'";}
+echo"><a href='companymessage.php'>Meddelande</a></li>
       <li><a href='logout.php' class='logikon'>L</a></li>
     </ul>
   </nav>
