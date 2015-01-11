@@ -36,6 +36,7 @@ echo"><a href='report.php'>Felrapportering</a></li>
           <li><a href='edit.php'>Inloggning</a></li>
           <li><a href='opening.php'>Öppettider</a></li>
           <li><a href='contract.php'>Kontrakt</a></li>
+		  <li><a href='editcontact.php'>Användare</a></li>
         </ul>
       </li>
       <li ";
@@ -58,6 +59,7 @@ echo"<div id = 'huvudmeny'>
           <li><a href='edit.php'>Inloggning</a></li>
           <li><a href='opening.php'>Öppettider</a></li>
           <li><a href='contract.php'>Kontrakt</a></li>
+		  <li><a href='editcontact.php'>Användare</a></li>
         </ul>
       </li>
       <li><a href='companymessage.php'>Meddelande</a></li>
