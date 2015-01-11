@@ -30,22 +30,22 @@ if(isset($_POST['chpasswd'])||isset($_POST['achpasswd'])){
         echo upasswd($_POST, true);
     }
 }
-?>
+?><div id="frame">  
 <div id="center">
 <div id="frame_edit">
     <form action="" method="post" id="passchange">
-    <fieldset style="border:0"><legend><b>Uppdatera ditt lösenord</b></legend>
+    <fieldset style="border:0"><legend><b>Uppdatera Ditt Lösenord</b></legend>
 	<ul>
     <li>
-    <label for="gpasswd">Gammalt lösenord: </label>
+    <label for="gpasswd">Gammalt Lösenord: </label>
     <input type="password" id="gpasswd" name="gpasswd" maxlength="50" required autofocus />
     </li>
     <li>
-    <label for="npasswd">Nytt lösenord: </label>
+    <label for="npasswd">Nytt Lösenord: </label>
     <input type="password" id="npasswd" name="npasswd" maxlength="50" required />
     </li>
     <li>
-    <label for="cpasswd">Upprepa nytt lösenord: </label>
+    <label for="cpasswd">Upprepa Nytt Lösenord: </label>
     <input type="password" id="cpasswd" name="cpasswd" maxlength="50" required />
     </li>
     <li class="submit"><input type="submit" id="chpasswd" name="chpasswd" value="Uppdatera" /></li>
@@ -75,15 +75,15 @@ if($_SESSION['admin']){
 echo"
     </li>
     <li>
-    <label for='gpasswd'>Admin lösenord: </label>
+    <label for='gpasswd'>Admin Lösenord: </label>
     <input type='password' id='apasswd' name='apasswd' maxlength='50' required autofocus />
     </li>
     <li>
-    <label for='npasswd'>Nytt lösenord: </label>
+    <label for='npasswd'>Nytt Lösenord: </label>
     <input type='password' id='npasswd' name='npasswd' maxlength='50' required />
     </li>
     <li>
-    <label for='cpasswd'>Upprepa nytt lösenord: </label>
+    <label for='cpasswd'>Upprepa Nytt Lösenord: </label>
     <input type='password' id='cpasswd' name='cpasswd' maxlength='50' required />
     </li>
     <li class='submit'><input type='submit' id='achpasswd' name='achpasswd' value='Byt' /></li>
@@ -95,6 +95,7 @@ echo"
 }
 ?>
 </div><!--center-->
+</div>
 </div><!--main-wrapper-->
 <?php
 defined('THE_FOOTER') || define('THE_FOOTER', TRUE);

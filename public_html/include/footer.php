@@ -9,9 +9,7 @@
 </div>
 <div id="right-box">
 <h3><li>Länkar</li></h3>
-<p>Our Mobile Planet [Google Statistics]
-Smartphone Usage Statistics 2012 [Infographic]
-Where We Are In The Smartphone Revolution</p>
+<p><a href = "http://www.mobow.se/" target="_blank" style="color:#FFF">Gå till hemsidan</a></p>
 </div>
 
 <div id="bottom-box">

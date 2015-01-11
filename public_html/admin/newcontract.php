@@ -7,6 +7,8 @@ SESSION_start();
 <?php
 defined('THE_SESSION') || define('THE_SESSION', TRUE);
 require_once('include/checksession.php');
+defined('THE_ASESSION') || define('THE_ASESSION', TRUE);
+require_once('include/checkasession.php');
 defined('THE_HEAD') || define('THE_HEAD', TRUE);
 include_once("include/head.php");
 ?>
@@ -24,6 +26,7 @@ require_once("include/menuebar.php");
 defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../../db.php');
 $getCompanies = "SELECT * FROM foretag";
+$getContacts = "SELECT * FROM kontaktperson";
 $getIcons = "SELECT * FROM ikontyp";
 ?>
 
@@ -31,9 +34,8 @@ $getIcons = "SELECT * FROM ikontyp";
     <form action='' method='post' id ='postContracts' enctype="multipart/form-data">
 
 <?php
-if(!empty($_POST['save'])&&!empty($_POST['gata'])&&!empty($_POST['stn'])&&!empty($_POST['stad'])
-&&!empty($_POST['kontor'])&&!empty($_POST['sbesok'])&&!empty($_POST['username'])&&!empty($_POST['frstnme'])
-&&!empty($_POST['lstnme'])&&!empty($_POST['mail'])&&!empty($_POST['password'])
+if(isset($_POST['save'])&&!empty($_POST['gata'])&&!empty($_POST['stn'])&&!empty($_POST['stad'])
+&&!empty($_POST['kontor'])&&!empty($_POST['sbesok'])&&!empty($_POST['old_usr'])
 &&!empty($_POST['forecolor'])&&!empty($_POST['backcolor'])&&!empty($_POST['postnr'])
 &&!empty($_POST['lng'])&&!empty($_POST['lat']))
 {
@@ -43,24 +45,21 @@ $error = false;
     $stad=mysqli_real_escape_string($con,$_POST['stad']);
     $kont=mysqli_real_escape_string($con,$_POST['kontor']);
 	$stn=mysqli_real_escape_string($con,$_POST['stn']);
-	$sbesok=mysqli_real_escape_string($con,$_POST['sbesok']);	
-	$usrn=mysqli_real_escape_string($con,$_POST['username']);
-	$frst=mysqli_real_escape_string($con,$_POST['frstnme']);
-	$lst=mysqli_real_escape_string($con,$_POST['lstnme']);
-	$mob=mysqli_real_escape_string($con,$_POST['mobile']);
-	$mail=mysqli_real_escape_string($con,$_POST['mail']);
-	$pass= password_hash(mysqli_real_escape_string($con,$_POST['password']), PASSWORD_DEFAULT);
+	$sbesok=mysqli_real_escape_string($con,$_POST['sbesok']);		
 	$tef=mysqli_real_escape_string($con,$_POST['telefonenbr']);
 	$web=mysqli_real_escape_string($con,$_POST['hemsida']);
-	$ainf=mysqli_real_escape_string($con,$_POST['allminfo']);
-	$cinf=mysqli_real_escape_string($con,$_POST['currinfo']);
+	$ainf=mysqli_real_escape_string($con,nl2br($_POST['allminfo']));
+	$ainfhash=(trim($ainf) == ""?"NULL":"'".md5($ainf)."'");
+	$cinf=mysqli_real_escape_string($con,nl2br($_POST['currinfo']));
+	$cinfhash=(trim($cinf) == ""?"NULL":"'".md5($cinf)."'");
 	$fc=mysqli_real_escape_string($con,$_POST['forecolor']);
 	$bc=mysqli_real_escape_string($con,$_POST['backcolor']);
 	$zip=mysqli_real_escape_string($con,$_POST['postnr']);
 	$logo=mysqli_real_escape_string($con,$_FILES['logo']['name']);
 	$lat=mysqli_real_escape_string($con,$_POST['lat']);
 	$lng=mysqli_real_escape_string($con,$_POST['lng']);	
-	$icon_type = mysqli_real_escape_string($con,$_POST['icon_type']);	
+	$icon_type = mysqli_real_escape_string($con,$_POST['icon_type']);
+	$usrn = mysqli_real_escape_string($con, $_POST["old_usr"]);
 	   
     if(!(is_numeric($stn)&&is_numeric($zip))){
 		$error="Ogiltigt antal stationer";
@@ -110,18 +109,13 @@ if(isset($_POST['cnew'])){
 	$error = "Gick inte att skapa ett nytt företag";
 		}	
 	}
-	
-
-	
-	$insertAdress = "INSERT INTO adress values(null,'".$zip."','".$stad."','".$gata."',".$lng.",".$lat.");";
-	$adressid = "(SELECT LAST_INSERT_ID())";	
-	$insertContract = "INSERT INTO kontrakt values(null,'".$kont."','".$sbesok."', ".isEmpty($cinf).",".isEmpty($tef).",
-	".$stn.",".isEmpty($target).",".isEmpty($lw).",".isEmpty($lh).",".isEmpty($web).",".isEmpty($ainf).",'".$fc."','".$bc."','".$usrn."',".$adressid.", '".$icon_type."', '".$ocr."');";
-	$insertNewUser = "INSERT INTO kontaktperson values('".$usrn."','".$frst."','".$lst."',".isEmpty($mob).",
-	'".$mail."','".$pass."', 0);";
+	$contractid = "(SELECT LAST_INSERT_ID())";	
+	$insertAdress = "INSERT INTO adress(ID, postnr, stad, gata, lng, lat) VALUES(".$contractid.",'".$zip."','".$stad."','".$gata."',".$lng.",".$lat.");";
+	$insertContract = "INSERT INTO kontrakt(ID, kontorsnamn, sbesok, currinfo, cihash, tele, stn, logurl, logbredd, loghojd, hemsida, allminfo, aihash, forecolor, backcolor, kontaktpersonid, ikonid, orgnr) 
+	VALUES(null,'".$kont."','".$sbesok."',".isEmpty($cinf).",".$cinfhash.",".isEmpty($tef).",".$stn.",".isEmpty($target).",".isEmpty($lw).",".isEmpty($lh).",".isEmpty($web).",".isEmpty($ainf).",".$ainfhash.",'".$fc."','".$bc."','".$usrn."', '".$icon_type."', '".$ocr."');";
 
     if(!$error){		
-        if(mysqli_query($con, $insertNewUser)&&mysqli_query($con, $insertAdress)&&mysqli_query($con, $insertContract)){			
+        if(mysqli_query($con, $insertContract)&&mysqli_query($con, $insertAdress)){			
             echo "<br /><br /><b>Uppdateringen lyckades</b>";
         }
         else{
@@ -132,8 +126,6 @@ if(isset($_POST['cnew'])){
         echo "<br /><br /><b>$error</b>";
     }
 }
-
-
 echo '<ul><fieldset>
 <legend><b>Välj Företag</b></legend>
 <select name="old_ocr" id="old_ocr">';
@@ -144,15 +136,24 @@ if (mysqli_num_rows($iresult) != 0) {
     	
   }
 }
+echo '</select></fieldset>';
 
-
-
+echo '<ul><fieldset>
+<legend><b>Välj Användare</b></legend>
+<select name="old_usr" id="old_usr">';
+$iresult = mysqli_query($con, $getContacts);
+if (mysqli_num_rows($iresult) != 0) {
+  while($irows = mysqli_fetch_assoc($iresult)) {
+   echo "<option value=".$irows['anvnamn']." class='".$irows['anvnamn']."'>".$irows['anvnamn']." (".$irows['fornamn']." ".$irows['efternamn'].") </option>";
+    	
+  }
+}
 
 echo '</select></fieldset>
 <fieldset>
 <legend><b>Nytt Företag</b></legend>
 <li>
-<label for="fnamn">Företags namn: </label>
+<label for="fnamn">Företagsnamn: </label>
 <input type="text" align="left"  maxlength="50" value = ""  name="cname" id="cname" />
 </li>
 <li>
@@ -160,7 +161,7 @@ echo '</select></fieldset>
 <input type="text" align="left"  maxlength="50" value = ""  name="ocr" id="ocr" />
 </li>
 <li>
-<label for="nyttforetag">Nytt företag: </label>
+<label for="nyttforetag">Nytt Företag: </label>
 <input type="checkbox" align="left"  maxlength="50" value = ""  name="cnew" id="cnew" />
 </li>
 </fieldset>
@@ -178,7 +179,7 @@ echo '</select></fieldset>
 <input type="tel" align="left"  maxlength="20" value = ""  name="telefonenbr" id="telefonenbr" />
 </li>
 <li>
-<label required for="stn">Antal stationer: </label>
+<label required for="stn">Antal Stationer: </label>
 <input type="number" align="left"  value = "1" maxlength="11" value="stn" name="stn" name="stn" />
 </li>
 <li>
@@ -202,12 +203,12 @@ echo '</select></fieldset>
 <input type="color" align="left"  value = "#FFFFFF" maxlength="7" name="backcolor" id="backcolor" />
 </li>
 <li>
-<label for="logga">Nuvarande bild: </label>
-Ingen bild vald</li><li><label for="logo">Välj bild:</label>
+<label for="logga">Nuvarande Bild: </label>
+Ingen bild vald</li><li><label for="logo">Välj Bild:</label>
 <input type="file" accept="image/*" align="left" maxlength="256" name="logo" id="logo" />
 </li>
 <li>
-<label for="ikontyp">Ikon typ: </label>
+<label for="ikontyp">Ikontyp: </label>
 <select name="icon_type" id="icon_type">
 ';
 
@@ -231,43 +232,16 @@ echo '</select></li>
 <input required type="text" align="left"  value = "" maxlength="100"  name="stad" id="stad" />
 </li>
 <li>
-<label for="gata">gata: </label>
+<label for="gata">Gata: </label>
 <input required type="text" align="left"  value = "" maxlength="100"  name="gata" id="gata" />
 </li>
 <li>
-<label for="lng">longitud: </label>
+<label for="lng">Longitud: </label>
 <input required type="text"  align="left" value = "" maxlength="100" name="lng" id="lng" />
 </li>
 <li>
-<label for="lat">latitude: </label>
+<label for="lat">Latitude: </label>
 <input required type="text"  align="left" value = "" maxlength="100" name="lat" id="lat" />
-</li>
-</fieldset>
-<fieldset>
-<legend><b>Användare</b></legend>
-<li>
-<label for="anvnamn">Användarnamn: </label>
-<input required type="text"  align="left" value = "" maxlength="100"  name="username" id="username" />
-</li>
-<li>
-<label for="fornamn">Förnamn: </label>
-<input required type="text"  align="left" value = "" maxlength="100" value="frstnme" name="frstnme" id="frstnme" />
-</li>
-<li>
-<label for="efternamn">Efternamn: </label>
-<input required type="text"  align="left" value = "" maxlength="100"name="lstnme" id="lstnme" />
-</li>
-<li>
-<label for="mobil">Mobil nummer: </label>
-<input type="text"  align="left" value = "" maxlength="100" name="mobile" id="mobile" />
-</li>
-<li>
-<label for="mejl">Mejl: </label>
-<input required type="text"  align="left" value = "" maxlength="100"  name="mail" id="mail" />
-</li>
-<li>
-<label for="losen">Lösenord: </label>
-<input required type="text"  align="left" value = "" maxlength="100" name="password" id="password" />
 </li>
 </fieldset>
 <li class="submit">
@@ -277,20 +251,6 @@ echo '</select></li>
 </ul>
 </form>';
 
-
-if(isset($_POST['rmimg'])&&isset($_POST['contracts'])){
-  if(is_numeric($_POST['contracts'])){
-    $c=$_POST['contracts'];
-    $sqlquery = "UPDATE kontrakt SET kontrakt.logurl=NULL, kontrakt.logbredd=NULL, kontrakt.loghojd=NULL WHERE kontrakt.ID='$c'";
-    mysqli_query($con, $sqlquery);
-    if(mysqli_query($con, $sqlquery)){
-      echo "<br /><br /><b>Sparningen lyckades</b>";
-    }
-    else{
-      echo "<br /><br /><b>Sparningen misslyckades</b>";
-    }
-  }
-}
 
 
 function isEmpty($value){

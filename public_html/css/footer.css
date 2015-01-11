@@ -27,6 +27,7 @@ width: 35%;
 height: auto;
 float: left;
 color: #C3C3C3;
+font: 18px Arial,sans-serif;
 }
 
 #right-box{
@@ -34,4 +35,5 @@ padding-right: 10%;
 width: 35%;
 height: auto;
 float: right;
+font: 18px Arial,sans-serif;
 }

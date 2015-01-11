@@ -23,14 +23,14 @@ defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../../db.php');
 $isadmin = mysqli_real_escape_string($con, $_SESSION['admin']);
 if($isadmin){
-$isql = "SELECT Info, felmeddelande.ID, kontorsnamn,feltext,  orgnr, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn
- = fronid JOIN kontrakt ON kontaktpersonid = anvnamn JOIN feltyp ON feltypid = feltyp.ID JOIN medstatus ON medstatus.ID = felmeddelande.medstatus WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."'";
-
+$isql = "SELECT info, felmeddelande.ID, kontorsnamn,feltext,  orgnr, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn
+ = fronid JOIN kontrakt ON kontaktpersonid = anvnamn JOIN feltyp ON feltypid = feltyp.ID JOIN felstatus ON felstatus.ID
+ = felmeddelande.medstatus WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."' GROUP BY felmeddelande.ID";
  }
 else
 {
-$isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
- ON feltypid = feltyp.ID JOIN medstatus ON medstatus.ID = felmeddelande.medstatus WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."'";
+$isql = "SELECT info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
+ ON feltypid = feltyp.ID JOIN felstatus ON felstatus.ID = felmeddelande.medstatus WHERE tillid = '".mysqli_real_escape_string($con, $_SESSION['username'])."' GROUP BY felmeddelande.ID";
 }
 
 ?>
@@ -45,58 +45,65 @@ $isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
     <select name = "reports" id = "reports">
 	<?php 
 	if(!$isadmin){
-	echo "<option value= -1> Ny Felrapport </option>";
+	echo "<option value=-1> Ny Felrapport </option>";
 	}
-	else echo "<option> Välj Felrapport </option>";
+	else echo "<option value = -2> Välj Felrapport </option>";
 	$iresult = mysqli_query($con, $isql);
 	if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0) {
-      while($irows = mysqli_fetch_assoc($iresult)) {	  
-		  echo "<option value=".$irows['ID']." class = '".$irows['Info']."' >".$irows['anvnamn']." ".$irows['feltext']." ".$irows['Info']."</option>";
-      }
+      while($irows = mysqli_fetch_assoc($iresult)) {
+		 if(isset($_POST['reports']) && $_POST['reports'] == $irows['ID']){
+		 echo "<option value=".$irows['ID']." selected = 'selected' class = '".$irows['info']."' >".$irows['anvnamn']." ".$irows['feltext']." ".$irows['info']."</option>";
+		 }
+		 else { echo "<option value=".$irows['ID']." class = '".$irows['info']."' >".$irows['anvnamn']." ".$irows['feltext']." ".$irows['info']."</option>";
+		}
+	  }
     mysqli_free_result($iresult);	
 	}
 	?>
     </select> 		
-    <input type="submit" name = "accept" id = "accept" value="Välj">  
-	<input type="submit" name = "send" id = "send" value="Skicka">	
+    <input type="submit" name = "accept" id = "accept" value="Välj"> 
+	<input type="submit" name = "delete" id = "delete" onclick='javascript: return (confirm("Vill du verkligen ta bort meddelandet?"))' value="Ta bort">	
    <?php 
+   
 
-	 if(isset($_POST['accept'])) {
-
-	
-	 
+	 if(isset($_POST['accept'])&&$_POST["reports"]!=-2) {
+	 echo '<input type="submit" name = "send" id = "send" value="Skicka">';
 	if($_POST['reports'] == -1) {
 	$newmessage = true;
-	echo  '<form action="" method="post" id = "messages">
+	
+	echo  '<form action="" method="post" id = "messages"><fieldset><legend class="center"><b>Nytt Meddelande</b></legend>
       <ul>	
 	  <li>
 	  <label>Från: </label>
 	  <input type="text" readonly align="left"  value = "'.mysqli_real_escape_string($con, $_SESSION['username']).'" maxlength="50" id="frm" name="frm" />
 	</li>	
 	<li>
-	  <label>Ämne </label>
+	  <label>Ämne: </label>
 	  <input type="text" align="left" maxlength="50" name = "feltext" id = "feltext" />
 	</li>
 	<li>
 	  <label>Meddelande: </label>
 	 <textarea cols="40" rows="5" input type="text" name="newMessage" id = "newMessage"></textarea>
 	</li>
-	<li>';
+	<li></fieldset>';
 	}
-	 else {
-	 
-	  $isql3 = "SELECT feltext, Info, text, fronid, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
-	 ON feltyp.ID = felmeddelande.feltypid JOIN medstatus ON medstatus.id = felmeddelande.medstatus
+		 else if($isadmin){					 
+				$status = "UPDATE felmeddelande SET medstatus=2 WHERE ID = ".$_POST['reports']." AND medstatus = 1"; 
+					mysqli_query($con, $status);				
+					}			
+	
+
+	  $isql3 = "SELECT feltext, info, text, fronid, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
+	 ON feltyp.ID = felmeddelande.feltypid JOIN felstatus ON felstatus.id = felmeddelande.medstatus
 	 WHERE felmeddelande.ID = ".mysqli_real_escape_string($con,$_POST['reports']);
 	 
-	$options = "SELECT ID, info FROM medstatus";
-	 
+	$options = "SELECT ID, info FROM felstatus WHERE info != 'Oläst'";	
 	$iresultoptions = mysqli_query($con, $options);
 	$iresult = mysqli_query($con, $isql3);
-	
+
 	if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0 && $iresultoptions !== FALSE && mysqli_num_rows($iresultoptions)) {
 	$irows = mysqli_fetch_assoc($iresult);	
-	echo  '<form action="" method="post" id = "messages">
+	echo  '<form action="" method="post" id = "messages"><fieldset><legend class="center"><b>Meddelande</b></legend>
       <ul>	
 	  <li>
 	  <label>Från: </label>
@@ -104,7 +111,7 @@ $isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	</li>
 	 <li>
 	  <label>Status: </label>
-	  <input type="text" readonly align="left"  value = "'.$irows["Info"].'" maxlength="50" id="infoinput" name="infoinput" />
+	  <input type="text" readonly align="left"  value = "'.$irows["info"].'" maxlength="50" id="infoinput" name="infoinput" />
 	</li>
 	<li>
 	  <label>Ämne </label>
@@ -114,7 +121,7 @@ $isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	  <label>Meddelande: </label>
 	 <textarea cols="40" rows="5" readonly input type="text" name="meddelande">'.strip_tags($irows["text"]).'</textarea>
 	</li>
-	<li>';
+	<li></fieldset><fieldset><legend class="center"><b>Svara</b></legend>';
 	
 	if($isadmin){
 	 echo '<label>Status</label>
@@ -129,19 +136,42 @@ $isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	<li>
 	  <label for="newMessage">Nytt Meddelande: </label>
 	   <textarea cols="40" rows="5" input type="text" name="newMessage" id = "newMessage"></textarea>
-	</li>	
+	</li>
+	</fieldset>
       </ul>
-    </form>
+ </form>
 	';
    }
   }
-  }
-  if(isset($_POST['send'])){ 
+   
+  
+  if(isset($_POST['delete'])){
+	
+    
+  $sqldelete = "DELETE FROM felmeddelande WHERE ID = ".$_POST['reports'];
+  mysqli_query($con, $sqldelete);
+echo '<script type="text/javascript"> var reload = false;
+var loc=""+document.location;
+loc = loc.indexOf("?reload=")!=-1?loc.substring(loc.indexOf("?reload=")+10,loc.length):"";
+loc = loc.indexOf("&")!=-1?loc.substring(0,loc.indexOf("&")):loc;
+reload = loc!=""?(loc=="true"):reload;
+
+function reloadPage() {
+    if (!reload) 
+        window.location.replace(window.location);
+}
+
+reloadPage();  </script>';	
+}
+  
+
+  
+  if(isset($_POST['send'])&&!empty($_POST["newMessage"])&&!empty($_POST["feltext"])){ 
   $message = mysqli_real_escape_string($con, $_POST["newMessage"]);  
   	$new_txt = mysqli_real_escape_string($con, $_POST["feltext"]);
 	$usrname = mysqli_real_escape_string($con, $_SESSION["username"]);
 	$fromusr = mysqli_real_escape_string($con, $_POST["frm"]);
-	$io = "Skickad";
+	$io = 'Oläst';
   if($isadmin){
     $io = mysqli_real_escape_string($con, $_POST["infooptions"]);
 	}
@@ -150,7 +180,7 @@ $isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	 $io = mysqli_real_escape_string($con, $_POST["infoinput"]);}
 	}
 	if($isadmin){
-   $sqli4 = "INSERT INTO felmeddelande VALUES(0, '".$message."', ". $io.",
+   $sqli4 = "INSERT INTO felmeddelande VALUES(0, '".$message."', ".$io.",
    (SELECT ID FROM feltyp WHERE feltext = '".$new_txt."' LIMIT 1), '".$usrname."',
    '".$fromusr."');"; 
    }
@@ -165,13 +195,14 @@ $isql = "SELECT Info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	$new_txt =  $lastId['feltext'];
    } 
    
-    $sqli4 = "INSERT INTO felmeddelande VALUES(0, '".$message."', (SELECT ID FROM medstatus WHERE Info = '".$io."' LIMIT 1),
+    $sqli4 = "INSERT INTO felmeddelande VALUES(0, '".$message."', (SELECT ID FROM felstatus WHERE info = '".$io."' LIMIT 1),
    (SELECT ID FROM feltyp WHERE feltext = '".$new_txt."' LIMIT 1), '".$usrname."',
    '".$fromusr."');";   
    }
-
 	mysqli_query($con, $sqli4);  
-  }
+  }0
+ 
+  
 ?>
 	
    </form>

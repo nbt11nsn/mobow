@@ -6,7 +6,7 @@ mobow-färgkoder [fyll gärna i resterande färgkoder]
 #F2F2F2
 */
 
-.Skickad{
+.Oläst{
 background-color: #FC5E5E;
 font-weight: bold;
 }
@@ -22,7 +22,7 @@ background-color: #78FC5E;
 
 fieldset {
 padding-bottom: 10px;
-paddin-top: 10px;
+padding-top: 10px;
 }
 
 
@@ -47,17 +47,15 @@ paddin-top: 10px;
   text-align: center;
   padding:25px 0px;
 }
-#frame_edit{}
-#frame_admedit{}
-#frame_edit, #frame_admedit {
-  position:relative;
-  left:-53%;
-  float:left;
-  color: #000;
-  width: 400px;
-  height: 350px;
-  padding: 25px;
-  margin-top: 50px;
+#frame_edit {
+padding-top: 10px;
+color: black;
+background: #F0F0F0;
+width: 400px;
+min-height: 400px;
+height: 100%;
+text-align: center;
+display: inline-block;  
   -moz-box-shadow: 0px 0px 10px #888;
   -o-box-shadow: 0px 0px 10px #888;
   -webkit-box-shadow: 0px 0px 10px #888;
@@ -65,6 +63,31 @@ paddin-top: 10px;
   -o-border-radius: 10px 10px 10px 10px;
   -webkit-border-radius: 10px 10px 10px 10px;
 }
+#frame_admedit{
+padding-top: 10px;
+float: right;
+color: black;
+background: #F0F0F0;
+width: 400px;
+min-height: 400px;
+height: 100%;
+text-align: center;
+display: inline-block;  
+  -moz-box-shadow: 0px 0px 10px #888;
+  -o-box-shadow: 0px 0px 10px #888;
+  -webkit-box-shadow: 0px 0px 10px #888;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -o-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+}
+
+#frame_admedit  input{
+margin: 5px 0;
+}
+#frame_edit  input{
+margin: 5px 0;
+}
+
 
 #admchange{
   display: inline-block;
@@ -119,9 +142,7 @@ background: #efefef;
 	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
 	border-radius: 10px;  	
 	color: #EA005A;
-	margin-top: 10px;
-	margin-right: 10px;
-	float: right;
+	margin-top: 10px;	
 	font: 18px Arial,sans-serif;
 	border: hidden;
 }
@@ -129,17 +150,28 @@ background: #efefef;
 #listframe { 
   width: 400px;
   min-height: 400px;
-  height: 100%;
-  border-style: solid;
-  border-width: 5px;
-  border-color: #ff6699;
+  height: 100%;  
   background: #F2F2F2;
-  display: inline-block; 
   text-align: center;
-  position: relative;
-  left: -53%;
-  float: left;
+  margin-top: 5px;
+  display: inline-block;
 }
+
+#invoicecontainer {
+width: 90%;
+margin: 0 5%;
+margin-top: 10px;
+margin-bottom: 10px;
+height: 21px;
+}
+
+input[type="checkbox"] {
+ -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+}
+
 
 #invoicelistframe { 
 background: #efefef; 
@@ -147,12 +179,12 @@ background: #efefef;
 	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
 	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
 	box-shadow: 0px 0px 5px rgba(0,0,0,1);
-	width: 95%;
-	margin-top: 20px;
-	text-align: center;
-	margin-right: 10px;
-	float: right;
+	width: 90%;	
+	text-align: center;	
+	float: left;
 	font: 18px Arial,sans-serif;
+	display: inline-block;
+	margin-right: 10px;
 }
 
 #preview{
@@ -244,6 +276,7 @@ background: #efefef;
 /* #########################KONTRAKT BÖRJAN############################# */
 #frame *{
 margin: 0;
+margin-top: 5px;
 }
 
 #postContracts *{
@@ -283,6 +316,7 @@ text-align: center;
 
 #postContracts input[type="submit"]{
 text-align: center;
+margin-top: 5px;
 }
 
 #postContracts textarea{
@@ -313,7 +347,6 @@ text-align: left;
 #editContract textarea{
 text-align: left;
 }
-
 
 #messageframecompany {
   width: 1024px; 
@@ -346,11 +379,20 @@ text-align: left;
 
 /* ############### id attribute #<id> ############### */
 
-#center{
-    position: relative;
-    left: 50%;
-    float: left;
+#center{ 
     padding: 25px;
+	width: 82%;
+	overflow: auto;
+	margin: 0px auto;
+	}
+#meddelandeuppladdning{	
+	width: 510px;
+	position: absolute;
+	margin-top: -25px;
+	margin-left: -700px;
+	text-align: center;
+	margin-right: 10px;	
+	font: 18px Arial,sans-serif;
 }
 
 /* Huvudområde längst ned på sidan*/
@@ -363,7 +405,11 @@ text-align: left;
   width: 120px;
   margin-left: 25px;
 }
-
+#statuskoll{
+	background: #F00;
+	text-align: center;
+	font: 18px Arial,sans-serif;
+}
 /* Huvudområde längst upp på sidan */
 #header-wrapper {
   width: 100%;
@@ -374,7 +420,7 @@ text-align: left;
 #huvudmeny {
   width: 100%; 
   height: auto;
-padding-bottom:10px;
+  padding-bottom:10px;
 }
 
 #logga{
@@ -468,12 +514,42 @@ padding-bottom:10px;
   margin-top: 20px;
 }
 
+.tmsg {
+    border-width: 5px;
+    border-spacing: 3px;
+    border-style: double;
+    border-color: rgb(234, 0, 90);
+    border-collapse: collapse;
+    background-color: white;
+    margin-left:auto !important;
+    margin-right:auto !important;
+}
+
+.tmsg td {
+    border-style: dotted;
+    padding:10px 5px;
+    border-width: 1px;
+    overflow: hidden;
+    word-break: normal;
+    border-color: #ccc;
+    color: #333;
+    background-color: #fff;
+	text-align: center;
+}
+
+.tmsg .tdb {
+    border-style: solid;
+    border-color: #000;
+}
+
+.tmsg .tnb {
+    border-style:none;
+}
+
 .upload_pdf{
   width: 400px;
   padding: 0 10px;
   margin: 0 auto;
-  position: relative;
-  left: -53%;
   float: left;
 }
 
@@ -731,4 +807,15 @@ nav ul a.logikon{
   padding-right: 10px;
   text-indent: -9999px;
   width: 16px;
+}
+
+th {
+display: table-cell;
+vertical-align: inherit;
+font-weight: bold;
+text-align: center;
+}
+
+table {
+color: #000;
 }
