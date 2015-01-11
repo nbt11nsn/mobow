@@ -89,7 +89,10 @@ $error = false;
             $lw = $li[0];
             $lh = $li[1];
             $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
-            $target = "image/logo/"."kontrakt".$kont.".".$ext;
+            $sqlai="SELECT AUTO_INCREMENT AS ai FROM information_schema.TABLES WHERE TABLE_SCHEMA =  'mobowdb' AND TABLE_NAME =  'kontrakt'";
+            $resai=mysqli_query($con, $sqlai);
+            $assai=mysqli_fetch_assoc($resai);
+            $target = "image/logo/"."kontrakt".$assai['ai'].".".$ext;
             $abs_dir = __DIR__."/../".$target;
             if(move_uploaded_file($tmp_path, $abs_dir)){               
             }
@@ -106,13 +109,13 @@ if(isset($_POST['cnew'])){
 	$ocr=mysqli_real_escape_string($con,$_POST['ocr']);
 	$insertCompany = "INSERT INTO foretag VALUES('".$ocr."', '".$cname."')";
 	if(!mysqli_query($con, $insertCompany)){
-	$error = "Gick inte att skapa ett nytt företag";
-		}	
-	}
+        $error = "Gick inte att skapa ett nytt företag";
+    }	
+}
 	$contractid = "(SELECT LAST_INSERT_ID())";	
 	$insertAdress = "INSERT INTO adress(ID, postnr, stad, gata, lng, lat) VALUES(".$contractid.",'".$zip."','".$stad."','".$gata."',".$lng.",".$lat.");";
 	$insertContract = "INSERT INTO kontrakt(ID, kontorsnamn, sbesok, currinfo, cihash, tele, stn, logurl, logbredd, loghojd, hemsida, allminfo, aihash, forecolor, backcolor, kontaktpersonid, ikonid, orgnr) 
-	VALUES(null,'".$kont."','".$sbesok."',".isEmpty($cinf).",".$cinfhash.",".isEmpty($tef).",".$stn.",".isEmpty($target).",".isEmpty($lw).",".isEmpty($lh).",".isEmpty($web).",".isEmpty($ainf).",".$ainfhash.",'".$fc."','".$bc."','".$usrn."', '".$icon_type."', '".$ocr."');";
+	VALUES(NULL,'".$kont."','".$sbesok."',".isEmpty($cinf).",".$cinfhash.",".isEmpty($tef).",".$stn.",".isEmpty($target).",".isEmpty($lw).",".isEmpty($lh).",".isEmpty($web).",".isEmpty($ainf).",".$ainfhash.",'".$fc."','".$bc."','".$usrn."', '".$icon_type."', '".$ocr."');";
 
     if(!$error){		
         if(mysqli_query($con, $insertContract)&&mysqli_query($con, $insertAdress)){			
