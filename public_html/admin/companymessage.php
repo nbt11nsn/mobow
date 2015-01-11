@@ -32,13 +32,24 @@ function decidebutton()
 	<td class='tnb'></td>
 	<td class='tnb'></td>
 	<td><input type='submit' name='app' value='$approve'></td>
-	<td><input type='submit' name='den' value='$deny'></td>
+    <td><input type='button' onclick='div_show()' value='$deny'></td>
 	</tr>";
 }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
+<script>
+//Function To Displayfunktion visa popup
+function div_show() {
+document.getElementById('abc').style.display = "block";
+}
+//funktion dölj popup
+function div_hide(){
+document.getElementById('abc').style.display = "none";
+}
+</script>
+<link href="./css/popup.css" rel="stylesheet">
 <?php
 defined('THE_SESSION') || define('THE_SESSION', TRUE);
 require_once('include/checksession.php');
@@ -97,14 +108,15 @@ if(isset($_POST['app'])&&isset($_POST['omsg']))//godkänn ett meddelande
 elseif(isset($_POST['den'])&&isset($_POST['omsg']))//neka ett meddelande
 {
     $msg = mysqli_real_escape_string($con, $_POST['omsg']);
+    $denmsg = mysqli_real_escape_string($con, $_POST['denymsg']);
     if(is_numeric($msg)) // kontrakt
     {
-        $sql = "UPDATE edit_foretag SET status='3' WHERE  edit_foretag.kontraktid='$msg';";
+        $sql = "UPDATE edit_foretag SET status='3', meddelande='$denmsg' WHERE  edit_foretag.kontraktid='$msg';";
     }
     else // kontaktperson
     {
         $msg = substr($msg, 1);
-        $sql = "UPDATE edit_kntper SET status='3' WHERE  edit_kntper.kontaktid='$msg';";
+        $sql = "UPDATE edit_kntper SET status='3', meddelande='$denmsg' WHERE  edit_kntper.kontaktid='$msg';";
     }
 	if(mysqli_query($con, $sql))
     {echo"<p class='ok'>Uppdateringen nekat</p>";}
@@ -193,6 +205,12 @@ elseif(isset($_POST['rmv'])&&isset($_POST['omsg']))//ta bort ett meddelande
         {
             $msg = mysqli_real_escape_string($con, $_POST['msg']);
             echo"<form name='upmsg' method='post' action=''><input type='hidden' name='omsg' value='$msg' />";
+            echo"<div id='abc'><div id='popupContact'>
+<img id='popupclose' src='./../image/close.png' onclick ='div_hide()' />
+<h2>Berätta varför neka?</h2>
+<textarea id='popupmsg' name='denymsg' placeholder='Meddelande'></textarea>
+<input type='submit' name='den' value='$deny'>
+</div></div>";
             if(is_numeric($msg)) // kontrakt
             {
                 $sqlq = "SELECT * FROM (SELECT edit_foretag.status, edit_foretag.kontraktid, edit_foretag.currinfo AS nycurrinfo, edit_foretag.tele AS nytele, edit_foretag.logurl AS nylogurl, edit_foretag.logbredd AS nylogbredd, edit_foretag.loghojd AS nyloghojd, edit_foretag.hemsida AS nyhemsida, edit_foretag.allminfo AS nyallminfo, edit_foretag.forecolor AS nyforecolor, edit_foretag.backcolor AS nybackcolor, edit_foretag.ikonid AS nyikonid, ikontyp.typ AS nytyp FROM edit_foretag LEFT OUTER JOIN ikontyp ON edit_foretag.ikonid = ikontyp.ID) AS t1 LEFT OUTER JOIN (SELECT kontrakt.ID, kontrakt.currinfo, kontrakt.tele, kontrakt.logurl, kontrakt.logbredd, kontrakt.loghojd, kontrakt.hemsida, kontrakt.allminfo, kontrakt.forecolor, kontrakt.backcolor, kontrakt.ikonid, kontrakt.kontorsnamn, ikontyp.typ FROM kontrakt LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID) AS t2 ON t1.kontraktid = t2.ID WHERE t2.ID='$msg'";

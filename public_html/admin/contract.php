@@ -157,7 +157,7 @@ if(isset($_POST['rmimg'])&&isset($_POST['contracts'])){ // ta bort logotyp
 if(isset($_POST['forrmimg'])&&isset($_POST['contracts'])){ // be admin ta bort logotyp
     if(is_numeric($_POST['contracts'])){
         $c=$_POST['contracts'];
-        $sqlquery = "INSERT INTO edit_foretag(kontraktid, logurl, logbredd, loghojd, status)VALUES($c,0,0,0,1) ON DUPLICATE KEY UPDATE logurl=0, logbredd=0, loghojd=0, status=1";
+        $sqlquery = "INSERT INTO edit_foretag(kontraktid, logurl, logbredd, loghojd, status)VALUES($c,0,0,0,1) ON DUPLICATE KEY UPDATE logurl=0, logbredd=0, loghojd=0, status=1, meddelande=NULL";
         if(mysqli_query($con, $sqlquery)){
             echo "<br /><br /><b>Förfrågan om att ta bort bild skickat till admin</b>";
         }
@@ -341,10 +341,10 @@ if(isset($_POST['forsave'])){ // be admin editera kontrakt
     }else{$t="NULL";}
     
     if($imgexist){
-        $sql3 = "INSERT INTO edit_foretag(kontraktid, currinfo, cihash, tele, logurl, logbredd, loghojd, hemsida, allminfo, aihash, forecolor, backcolor, status)VALUES($c,$ci,$chash,$t,'$target','$lw','$lh',$h,$a,$ahash,$f,$b,1) ON DUPLICATE KEY UPDATE currinfo=$ci,cihash=$chash,tele=$t,logurl='$target',logbredd='$lw',loghojd='$lh',hemsida=$h,allminfo=$a,aihash=$ahash,forecolor=$f,backcolor=$b, status=1";
+        $sql3 = "INSERT INTO edit_foretag(kontraktid, currinfo, cihash, tele, logurl, logbredd, loghojd, hemsida, allminfo, aihash, forecolor, backcolor, status)VALUES($c,$ci,$chash,$t,'$target','$lw','$lh',$h,$a,$ahash,$f,$b,1) ON DUPLICATE KEY UPDATE currinfo=$ci,cihash=$chash,tele=$t,logurl='$target',logbredd='$lw',loghojd='$lh',hemsida=$h,allminfo=$a,aihash=$ahash,forecolor=$f,backcolor=$b, status=1, meddelande=NULL";
     }
     else{
-        $sql3 = "INSERT INTO edit_foretag(kontraktid, currinfo, cihash, tele, hemsida, allminfo, aihash, forecolor, backcolor, status)VALUES($c,$ci,$chash,$t,$h,$a,$ahash,$f,$b,1) ON DUPLICATE KEY UPDATE currinfo=$ci,cihash=$chash,tele=$t,hemsida=$h,allminfo=$a,aihash=$ahash,forecolor=$f,backcolor=$b, status=1";
+        $sql3 = "INSERT INTO edit_foretag(kontraktid, currinfo, cihash, tele, hemsida, allminfo, aihash, forecolor, backcolor, status)VALUES($c,$ci,$chash,$t,$h,$a,$ahash,$f,$b,1) ON DUPLICATE KEY UPDATE currinfo=$ci,cihash=$chash,tele=$t,hemsida=$h,allminfo=$a,aihash=$ahash,forecolor=$f,backcolor=$b, status=1, meddelande=NULL";
     }
     if(!$error){
         if(!isset($target)&&$t=="NULL"&&$ci=="NULL"&&$h=="NULL"&&$a=="NULL"&&$f=="NULL"&&$b=="NULL")
