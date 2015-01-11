@@ -69,7 +69,7 @@ require_once("include/menuebar.php");
 ?>
 <div id = "frame">
 <?php
-if(isset($_SESSION['admin']) && $_SESSION['admin'])
+if(isset($_SESSION['admin']) && $_SESSION['admin']) // administratör
 {
 if(isset($_POST['app'])&&isset($_POST['omsg']))//godkänn ett meddelande
 {
@@ -314,7 +314,7 @@ elseif(isset($_POST['rmv'])&&isset($_POST['omsg']))//ta bort ett meddelande
         }
     }
 }
-else
+else // företag
 {
     
 }
