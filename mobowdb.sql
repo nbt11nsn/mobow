@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 10, 2015 at 10:59 PM
+-- Generation Time: Jan 11, 2015 at 03:12 AM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -78,6 +78,14 @@ CREATE TABLE IF NOT EXISTS `edit_foretag` (
   KEY `ikonid` (`ikonid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `edit_foretag`
+--
+
+INSERT INTO `edit_foretag` (`currinfo`, `cihash`, `tele`, `logurl`, `logbredd`, `loghojd`, `hemsida`, `allminfo`, `aihash`, `forecolor`, `backcolor`, `ikonid`, `status`, `meddelande`, `kontraktid`) VALUES
+(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '#ffffff', NULL, NULL, 1, NULL, 2),
+(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '#f8e109', NULL, 1, NULL, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -102,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `edit_kntper` (
 --
 
 INSERT INTO `edit_kntper` (`fornamn`, `efternamn`, `mobil`, `mejl`, `status`, `meddelande`, `kontaktid`) VALUES
-('Karolous', 'Försökskanin', NULL, NULL, 2, NULL, 'KarlL');
+('Krutrök', 'Gunpowder', NULL, NULL, 1, NULL, 'MattiasD');
 
 -- --------------------------------------------------------
 
