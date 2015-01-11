@@ -10,7 +10,6 @@
 <div id="right-box">
 <h3><li>Länkar</li></h3>
 <p><a href = "http://www.mobow.se/" target="_blank" style="color:#FFF">Gå till hemsidan</a></p>
-
 </div>
 
 <div id="bottom-box">
