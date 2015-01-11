@@ -37,7 +37,7 @@ require_once(__DIR__ .'./../../db.php');
 
 <div id="infoframe">
 
-	<form action="" method="post" id = "postRows">
+	<form action="" method="post" id = "postContracts">
 		<select name = "infodropdowntop" id = "infodropdowntop">		
 		
 		<?php 
@@ -64,10 +64,14 @@ $isql = "SELECT anvnamn, fornamn, efternamn
   }
   mysqli_free_result($iresult);	
 	?>	
-	
-		<input type="submit" name = "choicebutton" id = "infochoicebutton" value="Välj kontakt">						
-				<?php 
+		<input type="submit" name = "choicebutton" id = "infochoicebutton" value="Välj kontakt">
 		
+				<?php 
+		if($isadmin){
+		echo '<input type="submit" name="save" id="save" value="Spara" />';	
+		}		
+		else{
+		echo '<input type="submit" name="save" id="save" value="Skicka" />';	}
 		if(isset($_POST["choicebutton"])){
 			$isql6 = "SELECT anvnamn, mobil, fornamn, efternamn, mejl FROM kontaktperson WHERE anvnamn = '".$_POST['infodropdowntop']."'";
 
@@ -75,8 +79,7 @@ $isql = "SELECT anvnamn, fornamn, efternamn
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	 
 	   
-	   echo '	   
-	  <div>	   	
+	   echo '	   	   	
 	  <fieldset>
 		<legend class = "center"><b>'.$irows["anvnamn"].'</b></legend>	
 
@@ -91,12 +94,7 @@ $isql = "SELECT anvnamn, fornamn, efternamn
 			
 		<label for="mejl">Mejl: </label>
 		<input type="text" value="'.$irows['mejl'].'" name = "mail" id = "mail"/>
-	</fieldset></div>  ';	
-	echo '
-	<div id = "savereset">
-	<input type="submit" name="reset" id="reset" value="Återställ" />
-	<input type="submit" name="save" id="save" value="Spara" />	
-	</div>';			
+	</fieldset> ';				
 		}		
 	}	
         mysqli_free_result($iresult);	
@@ -112,15 +110,14 @@ $isql = "SELECT anvnamn, fornamn, efternamn
     $sql3 = "UPDATE kontaktperson SET fornamn = '$fo', efternamn = '$ef', mobil = '$mo', mejl = '$me' WHERE anvnamn = '".$_POST['infodropdowntop']."'";
 	}
 	else {
-	$sql3 = "UPDATE kontaktperson SET fornamn = '$fo', efternamn = '$ef', mobil = '$mo', mejl = '$me' WHERE anvnamn = '".$_POST['infodropdowntop']."'";
+	$sql3 = "INSERT INTO edit_kntper VALUES('$fo','$ef','$mo','$me',1,NULL, '".$_POST['infodropdowntop']."') 
+	ON DUPLICATE KEY UPDATE fornamn='$fo',efternamn='$ef',mobil='$mo',mejl='$me',status=1, meddelande=NULL";
 	}
-
 	mysqli_query($con, $sql3);
-
 }
 	?>	
+</form>
 </div>
- </form>
 </div><!--main-wrapper-->
 <?php
 defined('THE_FOOTER') || define('THE_FOOTER', TRUE);
