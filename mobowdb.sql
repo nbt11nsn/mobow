@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 11, 2015 at 02:34 PM
+-- Generation Time: Jan 11, 2015 at 04:18 PM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -70,12 +70,13 @@ CREATE TABLE IF NOT EXISTS `edit_foretag` (
   `backcolor` varchar(7) DEFAULT NULL,
   `ikonid` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
-  `meddelande` text,
+  `meddelande` int(11) DEFAULT NULL,
   `kontraktid` int(11) NOT NULL,
   PRIMARY KEY (`kontraktid`),
   KEY `kontraktid` (`kontraktid`),
   KEY `status` (`status`),
-  KEY `ikonid` (`ikonid`)
+  KEY `ikonid` (`ikonid`),
+  KEY `meddelande` (`meddelande`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -84,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `edit_foretag` (
 
 INSERT INTO `edit_foretag` (`currinfo`, `cihash`, `tele`, `logurl`, `logbredd`, `loghojd`, `hemsida`, `allminfo`, `aihash`, `forecolor`, `backcolor`, `ikonid`, `status`, `meddelande`, `kontraktid`) VALUES
 (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '#ffffff', NULL, NULL, 1, NULL, 2),
-(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '#f8e109', NULL, 1, NULL, 3);
+(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '#f8e109', NULL, 1, NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -98,11 +99,12 @@ CREATE TABLE IF NOT EXISTS `edit_kntper` (
   `mobil` int(11) DEFAULT NULL,
   `mejl` varchar(50) DEFAULT NULL,
   `status` int(11) NOT NULL,
-  `meddelande` text,
+  `meddelande` int(11) DEFAULT NULL,
   `kontaktid` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`kontaktid`),
   KEY `kontraktid` (`kontaktid`),
-  KEY `status` (`status`)
+  KEY `status` (`status`),
+  KEY `meddelande` (`meddelande`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -110,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `edit_kntper` (
 --
 
 INSERT INTO `edit_kntper` (`fornamn`, `efternamn`, `mobil`, `mejl`, `status`, `meddelande`, `kontaktid`) VALUES
-('Krutrök', 'Gunpowder', NULL, NULL, 1, NULL, 'MattiasD');
+('Mats', NULL, NULL, NULL, 1, NULL, 'MattiasD');
 
 -- --------------------------------------------------------
 
@@ -332,7 +334,7 @@ CREATE TABLE IF NOT EXISTS `kontrakt` (
 
 INSERT INTO `kontrakt` (`ID`, `kontorsnamn`, `sbesok`, `currinfo`, `cihash`, `tele`, `stn`, `logurl`, `logbredd`, `loghojd`, `hemsida`, `allminfo`, `aihash`, `forecolor`, `backcolor`, `kontaktpersonid`, `ikonid`, `orgnr`) VALUES
 (2, 'Gevalia Söder', '2014-09-16', 'sfdlkjsfdjkllkjdsf', '82338febdc4513abdb2bf4e6573fa85c', '026-54875', 5, 'image/logo/logo0.png', 32, 32, 'http://www.aftonbladet.se/', '', 'd41d8cd98f00b204e9800998ecf8427e', '#ff00ff', '#000000', 'KarlL', 2, '454545-4545'),
-(3, 'Gevalia Norr', '2014-06-04', 'Google.com<br />\r\n', '505de4476a84afa4f9b0d140f7cd9277', '026-78458', 3, NULL, NULL, NULL, 'http://www.google.com/', 'Google.se', 'b4394a61ec465770683f89400f05d0b8', '#000000', '#ffffff', 'KarlL', 1, '225454-3458'),
+(3, 'Gevalia Norr åäö...', '2014-06-04', 'Google.com<br />\r\n', '505de4476a84afa4f9b0d140f7cd9277', '026-78458', 3, NULL, NULL, NULL, 'http://www.google.com/', 'Google.se', 'b4394a61ec465770683f89400f05d0b8', '#000000', '#ffffff', 'KarlL', 1, '225454-3458'),
 (4, 'Solen', '2014-09-16', '', 'd41d8cd98f00b204e9800998ecf8427e', '012341234', 2, 'image/logo/01sun.png', 256, 256, 'http://stackoverflow.com/questions/4361774/mysql-update-multiple-tables-with-one-query', '', 'd41d8cd98f00b204e9800998ecf8427e', '#abcdef', '#543210', 'MattiasD', 1, '262648-2356'),
 (5, 'Svarta hålet', '2014-09-16', '', 'd41d8cd98f00b204e9800998ecf8427e', '020-548454', 15, 'image/logo/blackhole.png', 256, 256, '', 'HEJHEJHEJHEJ', '156ee735566ab98d3f7f460a6152e277', '#ff0000', '#00ffff', 'RickardH', 2, '548795-3251'),
 (6, 'Wayne', '2014-05-28', '', 'd41d8cd98f00b204e9800998ecf8427e', '026-52454', 1, 'image/logo/wayne.jpg', 100, 100, 'http://www.waynescoffee.se/menyer.aspx', 'Vi på Wayne´s Coffee vill ge människor en möjlighet att ta en paus i vardagen, en stund av avkoppling. Wayne´s Coffee har blivit känt som ”det tredje rummet”, en mötesplats mellan arbetet och hemmet. En frizon där vänner träffas och tar en fika tillsammans. I våra caféer erbjudes  kaffe av eget märke, bakverk från eget bageri och mat med naturliga råvaror av hög kvalité.<br />\n', '747c85a257c5313ffa1c30d2355121e1', '#000000', '#ffffff', 'AndersB', 2, '556345-1201'),
@@ -358,6 +360,22 @@ INSERT INTO `medstatus` (`ID`, `Info`) VALUES
 (1, 'Oläst'),
 (2, 'Godkänd'),
 (3, 'Nekad');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `msg`
+--
+
+CREATE TABLE IF NOT EXISTS `msg` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `meddelande` text NOT NULL,
+  `kontraktid` int(11) DEFAULT NULL,
+  `kontaktid` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `kontraktid` (`kontraktid`),
+  KEY `kontaktid` (`kontaktid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -462,6 +480,7 @@ ALTER TABLE `adress`
 -- Constraints for table `edit_foretag`
 --
 ALTER TABLE `edit_foretag`
+  ADD CONSTRAINT `edit_foretag_ibfk_2` FOREIGN KEY (`meddelande`) REFERENCES `msg` (`ID`) ON DELETE SET NULL,
   ADD CONSTRAINT `edit_foretag_ibfk_1` FOREIGN KEY (`ikonid`) REFERENCES `ikontyp` (`ID`),
   ADD CONSTRAINT `kontrakt_ibfk_3` FOREIGN KEY (`kontraktid`) REFERENCES `kontrakt` (`ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `status_ibfk_1` FOREIGN KEY (`status`) REFERENCES `medstatus` (`ID`);
@@ -470,6 +489,7 @@ ALTER TABLE `edit_foretag`
 -- Constraints for table `edit_kntper`
 --
 ALTER TABLE `edit_kntper`
+  ADD CONSTRAINT `edit_kntper_ibfk_2` FOREIGN KEY (`meddelande`) REFERENCES `msg` (`ID`) ON DELETE SET NULL,
   ADD CONSTRAINT `edit_kntper_ibfk_1` FOREIGN KEY (`kontaktid`) REFERENCES `kontaktperson` (`anvnamn`) ON DELETE CASCADE,
   ADD CONSTRAINT `status_ibfk_2` FOREIGN KEY (`status`) REFERENCES `medstatus` (`ID`);
 
@@ -495,6 +515,13 @@ ALTER TABLE `kontrakt`
   ADD CONSTRAINT `ikon_ibfk_1` FOREIGN KEY (`ikonid`) REFERENCES `ikontyp` (`ID`),
   ADD CONSTRAINT `kontrakt_ibfk_1` FOREIGN KEY (`kontaktpersonid`) REFERENCES `kontaktperson` (`anvnamn`) ON DELETE CASCADE,
   ADD CONSTRAINT `orgnr_ibfk_1` FOREIGN KEY (`orgnr`) REFERENCES `foretag` (`orgnr`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `msg`
+--
+ALTER TABLE `msg`
+  ADD CONSTRAINT `msg_ibfk_1` FOREIGN KEY (`kontraktid`) REFERENCES `kontrakt` (`ID`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `msg_ibfk_2` FOREIGN KEY (`kontaktid`) REFERENCES `kontaktperson` (`anvnamn`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `oppettider`

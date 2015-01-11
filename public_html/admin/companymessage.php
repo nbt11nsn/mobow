@@ -111,12 +111,16 @@ elseif(isset($_POST['den'])&&isset($_POST['omsg']))//neka ett meddelande
     $denmsg = mysqli_real_escape_string($con, $_POST['denymsg']);
     if(is_numeric($msg)) // kontrakt
     {
-        $sql = "UPDATE edit_foretag SET status='3', meddelande='$denmsg' WHERE  edit_foretag.kontraktid='$msg';";
+        $sqlmsg="INSERT INTO msg(meddelande, kontraktid) VALUES('$denmsg', '$msg')";
+        mysqli_query($con, $sqlmsg);
+        $sql = "UPDATE edit_foretag SET status='3', meddelande='".mysqli_insert_id($con)."' WHERE  edit_foretag.kontraktid='$msg'";
     }
     else // kontaktperson
     {
         $msg = substr($msg, 1);
-        $sql = "UPDATE edit_kntper SET status='3', meddelande='$denmsg' WHERE  edit_kntper.kontaktid='$msg';";
+        $sqlmsg="INSERT INTO msg(meddelande, kontaktid) VALUES('$denmsg', '$msg')";
+        mysqli_query($con, $sqlmsg);
+        $sql = "UPDATE edit_kntper SET status='3', meddelande='".mysqli_insert_id($con)."' WHERE  edit_kntper.kontaktid='$msg';";
     }
 	if(mysqli_query($con, $sql))
     {echo"<p class='ok'>Uppdateringen nekat</p>";}
