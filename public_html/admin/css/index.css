@@ -288,6 +288,15 @@ vertical-align: middle;
 max-width: 100%;
 }
 
+#savereset*{
+text-align: center;
+margin-left: auto;
+margin-right: auto;
+padding-top: 5px;
+vertical-align: middle;
+max-width: 100%;
+}
+
 #postContracts {
 margin-left: auto;
 margin-right: auto;

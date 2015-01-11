@@ -37,7 +37,7 @@ require_once(__DIR__ .'./../../db.php');
 
 <div id="infoframe">
 
-	<form action="" method="post" id = "postRows">
+	<form action="" method="post" id = "postContracts">
 		<select name = "dropdown" id = "infodropdowntop">		
 		
 		<?php 
