@@ -96,7 +96,7 @@ mysqli_free_result($iresult);
     if (mysqli_num_rows($iresult) != 0) {
         $irows = mysqli_fetch_assoc($iresult);
     }	  
-    echo '<ul>';
+    echo '<fieldset><legend class="center"><b>Editera Kontrakt</b></legend><ul>';
     if($adm){
         echo"<li><label for='kontor'>Namn: </label><input required type='text' align='left'  maxlength='50' value = '".$irows['kontorsnamn']."'  name='kontor' id='kontor' /></li><li><label for='sbesok'>Senaste Besök: </label><input required type='date' align='left' value = '".$irows['sbesok']."' name='sbesok' id='sbesok' /></li><li><label for='typ'>Typ av Verksamhet: </label><select required name='typ' id='typ'>";
         if (mysqli_num_rows($resultikon) != 0) {
@@ -138,7 +138,7 @@ mysqli_free_result($iresult);
     echo'<input type="file" accept="image/*" align="left" maxlength="256" name="logo" id="logo" /></li><li class="submit"><input type="reset" name="rst" id="rst" value="Återställ" />';
     if($adm){echo'<input type="submit" name="save" id="save" value="Spara" />';}
     else{echo'<input type="submit" name="forsave" id="forsave" value="Spara" />';}
-    echo'</li></ul></form>';
+    echo'</li></ul></fieldset></form>';
 }
 
 if(isset($_POST['rmimg'])&&isset($_POST['contracts'])){ // ta bort logotyp

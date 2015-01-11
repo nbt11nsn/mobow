@@ -71,7 +71,7 @@ $isql = "SELECT info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	if($_POST['reports'] == -1) {
 	$newmessage = true;
 	
-	echo  '<form action="" method="post" id = "messages">
+	echo  '<form action="" method="post" id = "messages"><fieldset><legend class="center"><b>Nytt Meddelande</b></legend>
       <ul>	
 	  <li>
 	  <label>Från: </label>
@@ -85,7 +85,7 @@ $isql = "SELECT info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	  <label>Meddelande: </label>
 	 <textarea cols="40" rows="5" input type="text" name="newMessage" id = "newMessage"></textarea>
 	</li>
-	<li>';
+	<li></fieldset>';
 	}
 		 else if($isadmin){					 
 				$status = "UPDATE felmeddelande SET medstatus=2 WHERE ID = ".$_POST['reports']." AND medstatus = 1"; 
@@ -103,7 +103,7 @@ $isql = "SELECT info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 
 	if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0 && $iresultoptions !== FALSE && mysqli_num_rows($iresultoptions)) {
 	$irows = mysqli_fetch_assoc($iresult);	
-	echo  '<form action="" method="post" id = "messages">
+	echo  '<form action="" method="post" id = "messages"><fieldset><legend class="center"><b>Meddelande</b></legend>
       <ul>	
 	  <li>
 	  <label>Från: </label>
@@ -121,7 +121,7 @@ $isql = "SELECT info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	  <label>Meddelande: </label>
 	 <textarea cols="40" rows="5" readonly input type="text" name="meddelande">'.strip_tags($irows["text"]).'</textarea>
 	</li>
-	<li>';
+	<li></fieldset><fieldset><legend class="center"><b>Svara</b></legend>';
 	
 	if($isadmin){
 	 echo '<label>Status</label>
@@ -137,8 +137,9 @@ $isql = "SELECT info, felmeddelande.ID, anvnamn, feltext FROM felmeddelande JOIN
 	  <label for="newMessage">Nytt Meddelande: </label>
 	   <textarea cols="40" rows="5" input type="text" name="newMessage" id = "newMessage"></textarea>
 	</li>
+	</fieldset>
       </ul>
-    </form>
+ </form>
 	';
    }
   }
