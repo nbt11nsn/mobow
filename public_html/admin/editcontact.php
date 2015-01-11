@@ -55,30 +55,31 @@ $isql = "SELECT anvnamn, fornamn, efternamn
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	  
 	  if(isset($_POST['infodropdowntop']) && $irows['anvnamn'] == $_POST['infodropdowntop']){
-	  	  echo "<option value='".$irows['anvnamn']."' selected='selected' >".$irows['fornamn']." ".$irows['efternamn']."</option>";
+	  	  echo "<option value='".$irows['anvnamn']."' selected='selected' >".$irows['anvnamn']."</option>";
 	  }
 	else{
-	  echo "<option value='".$irows['anvnamn']."'>".$irows['fornamn']." ".$irows['efternamn']."</option>";
+	  echo "<option value='".$irows['anvnamn']."'>".$irows['anvnamn']."</option>";
 	}
     }
+
   }
   mysqli_free_result($iresult);	
 	?>	
 		<input type="submit" name = "choicebutton" id = "infochoicebutton" value="Välj kontakt">
 		
 				<?php 
-		if($isadmin){
-		echo '<input type="submit" name="save" id="save" value="Spara" />';	
-		}		
-		else{
-		echo '<input type="submit" name="save" id="save" value="Skicka" />';	}
+		
 		if(isset($_POST["choicebutton"])){
 			$isql6 = "SELECT anvnamn, mobil, fornamn, efternamn, mejl FROM kontaktperson WHERE anvnamn = '".$_POST['infodropdowntop']."'";
 
 	$iresult = mysqli_query($con, $isql6);
 	if (mysqli_num_rows($iresult) != 0) {
       while($irows = mysqli_fetch_assoc($iresult)) {	 
-	   
+	   if($isadmin){
+		echo '<input type="submit" name="save" id="save" value="Spara" />';	
+		}		
+		else{
+		echo '<input type="submit" name="save" id="save" value="Skicka" />';	}
 	   echo '	   	   	
 	  <fieldset>
 		<legend class = "center"><b>'.$irows["anvnamn"].'</b></legend>	
@@ -113,7 +114,22 @@ $isql = "SELECT anvnamn, fornamn, efternamn
 	$sql3 = "INSERT INTO edit_kntper VALUES('$fo','$ef','$mo','$me',1,NULL, '".$_POST['infodropdowntop']."') 
 	ON DUPLICATE KEY UPDATE fornamn='$fo',efternamn='$ef',mobil='$mo',mejl='$me',status=1, meddelande=NULL";
 	}
-	mysqli_query($con, $sql3);
+	if($isadmin){
+        if(mysqli_query($con, $sql3)){
+            echo "<div class='ok'>Uppdateringen lyckades</div>";
+        }
+        else{
+            echo "<div class='error'>Uppdateringen misslyckades</div>";
+        }
+		}
+		else{
+		        if(mysqli_query($con, $sql3)){
+            echo "<div class='ok'>Förfrågan skickades</div>";
+        }
+        else{
+            echo "<div class='error'>Förfrågan misslyckades</div>";
+        }
+		}
 }
 	?>	
 </form>
