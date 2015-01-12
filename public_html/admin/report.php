@@ -47,14 +47,20 @@ require_once("include/menuebar.php");
 	if(!$isadmin){
         echo "<option value='-1'> Ny Felrapport </option>";
 	}
-	else echo "<option value='-2'> Välj Felrapport </option>";
+	else 
+    {
+        echo "<option value='-2'> Välj Felrapport </option>";
+    }
 $iresult = mysqli_query($con, $isql);
 if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0) {
     while($irows = mysqli_fetch_assoc($iresult)) {
-        if(isset($_POST['reports']) && $_POST['reports'] == $irows['ID']){
+        if(isset($_POST['reports']) && $_POST['reports'] == $irows['ID'])
+        {
             echo "<option value=".$irows['ID']." selected = 'selected' class = '".$irows['info']."' >".$irows['anvnamn']." ".$irows['feltext']." ".$irows['info']."</option>";
         }
-        else { echo "<option value=".$irows['ID']." class = '".$irows['info']."' >".$irows['anvnamn']." ".$irows['feltext']." ".$irows['info']."</option>";
+        else 
+        { 
+            echo "<option value=".$irows['ID']." class = '".$irows['info']."' >".$irows['anvnamn']." ".$irows['feltext']." ".$irows['info']."</option>";
 		}
     }
     mysqli_free_result($iresult);	
@@ -69,7 +75,7 @@ if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0) {
         if($_POST['reports'] == -1) {
             $newmessage = true;
             
-            echo  '<form action="" method="post" id = "messages"><fieldset><legend class="center"><b>Nytt Meddelande</b></legend>
+            echo'<form action="" method="post" id = "messages"><fieldset><legend class="center"><b>Nytt Meddelande</b></legend>
       <ul>	
 	  <li>
 	  <label>Från: </label>
@@ -187,7 +193,7 @@ if(isset($_POST['send'])&&!empty($_POST["newMessage"])&&!empty($_POST["feltext"]
 	$fromusr = mysqli_real_escape_string($con, $_POST["frm"]);
     if($isadmin){
         $io = mysqli_real_escape_string($con, $_POST["infooptions"]);
-        $sqli4 = "INSERT INTO felmeddelande(ID, text, medstatus,feptypid,fronid,tilladmin) VALUES(0, '".$message."', ".$io.", '".$new_txt."', '".$usrname."','0')";
+        $sqli4 = "INSERT INTO felmeddelande(ID, text, medstatus,feltypid,fronid,tilladmin) VALUES(0, '".$message."', ".$io.", '".$new_txt."', '".$fromusr."','0')";
     }
     else
     {
