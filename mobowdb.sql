@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 12 jan 2015 kl 14:33
+-- Tid vid skapande: 12 jan 2015 kl 14:55
 -- Serverversion: 5.6.20
 -- PHP-version: 5.5.15
 
@@ -219,7 +219,7 @@ CREATE TABLE IF NOT EXISTS `kontaktperson` (
 --
 
 INSERT INTO `kontaktperson` (`anvnamn`, `fornamn`, `efternamn`, `mobil`, `mejl`, `losen`, `admin`) VALUES
-('AdminM', 'Administrator', 'Mobow', '123456789', 'nbt11nsn@student.hig.se', '$2y$10$eBrVNjh2cgMgJRty0o2nC.oMUaHON/OaCYR18.2rIhTDV0OrwdPJm', 1),
+('DavidO', 'David', 'Olsson', '0706181853', 'dav.olsson@gmail.com', '$2y$10$eBrVNjh2cgMgJRty0o2nC.oMUaHON/OaCYR18.2rIhTDV0OrwdPJm', 1),
 ('Edbom', 'Kafé', 'Edbom', '123456789', 'nbt11nsn@student.hig.se', '$2y$10$Tk.1693nsr3GZw/T05bumuK5R4Vr5fF/D.czZTy4K9nsCEhxvDO9.', 0),
 ('WaynesA', 'Waynes', 'Aktiebolag', '084021700', 'info@waynescoffee.com', '$2y$10$cvarZJIs0fAice2XYgVgqOv7AtabPwRWQ4eVHNTbqgkrJzgR1W6da', 0);
 
@@ -304,6 +304,32 @@ CREATE TABLE IF NOT EXISTS `oppettider` (
   `oppet` time DEFAULT NULL,
   `stangt` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumpning av Data i tabell `oppettider`
+--
+
+INSERT INTO `oppettider` (`kontraktid`, `veckodagarid`, `oppet`, `stangt`) VALUES
+(9, 1, '11:00:00', '22:00:00'),
+(9, 2, '09:30:00', '22:00:00'),
+(9, 3, '09:30:00', '22:00:00'),
+(9, 4, '09:30:00', '22:00:00'),
+(9, 5, '09:30:00', '22:00:00'),
+(9, 6, '09:30:00', '22:00:00'),
+(9, 7, '10:00:00', '22:00:00'),
+(10, 1, '11:00:00', '22:00:00'),
+(10, 2, '09:30:00', '22:00:00'),
+(10, 3, '09:30:00', '22:00:00'),
+(10, 4, '09:30:00', '22:00:00'),
+(10, 5, '09:30:00', '22:00:00'),
+(10, 6, '09:30:00', '22:00:00'),
+(10, 7, '10:00:00', '22:00:00'),
+(11, 2, '08:00:00', '18:00:00'),
+(11, 3, '08:00:00', '18:00:00'),
+(11, 4, '08:00:00', '18:00:00'),
+(11, 5, '08:00:00', '18:00:00'),
+(11, 6, '10:00:00', '16:00:00'),
+(11, 7, '10:00:00', '16:00:00');
 
 -- --------------------------------------------------------
 
