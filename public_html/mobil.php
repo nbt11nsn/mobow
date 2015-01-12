@@ -65,8 +65,18 @@ defined('THE_HEADER') || define('THE_HEADER', TRUE);
 defined('THE_FOOTER') || define('THE_FOOTER', TRUE);
   require_once("include/footer.php");
 ?>
-  
+
 </body>
+<script type="text/javascript">
+ 
+var theScroll;
+function scroll() {
+    theScroll = new iScroll('infowindow');
+}
+document.addEventListener('DOMContentLoaded', scroll, false);
+</script>
+
+<script type="text/javascript" src="../iscroll-4/src/iScroll-lite.js"></script>
 </html>
 
 
