@@ -164,8 +164,6 @@ function reloadPage() {
 reloadPage();  </script>';	
 }
   
-
-  
   if(isset($_POST['send'])&&!empty($_POST["newMessage"])&&!empty($_POST["feltext"])){ 
   $message = mysqli_real_escape_string($con, $_POST["newMessage"]);  
   	$new_txt = mysqli_real_escape_string($con, $_POST["feltext"]);
@@ -200,7 +198,7 @@ reloadPage();  </script>';
    '".$fromusr."');";   
    }
 	mysqli_query($con, $sqli4);  
-  }0
+  }
  
   
 ?>
