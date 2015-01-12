@@ -84,7 +84,6 @@ if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0) {
 	<li>
 	  <label>Ämne: </label>';
             //<input type="text" align="left" maxlength="50" name = "feltext" id = "feltext" />
-            
             echo"<select name='feltext' id='feltext'>";
             $sqlfeltyp="SELECT ID, feltext FROM feltyp";
             $resfeltyp=mysqli_query($con, $sqlfeltyp);
@@ -106,7 +105,7 @@ if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0) {
         }			
         
         
-        $isql3 = "SELECT feltext, info, text, fronid, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
+        $isql3 = "SELECT felmeddelande.feltypid AS felid, feltext, info, text, fronid, anvnamn FROM felmeddelande JOIN kontaktperson ON anvnamn = fronid JOIN feltyp
 	 ON feltyp.ID = felmeddelande.feltypid JOIN felstatus ON felstatus.id = felmeddelande.medstatus
 	 WHERE felmeddelande.ID = ".mysqli_real_escape_string($con,$_POST['reports']);
         
@@ -134,7 +133,14 @@ if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0) {
             $resfeltyp=mysqli_query($con, $sqlfeltyp);
             while($row=mysqli_fetch_assoc($resfeltyp))
             {
-                echo "<option value=".$row['ID'].">".$row['feltext']."</option>";
+                if($row['ID'] == $irows['felid'])
+                {
+                    echo "<option value=".$row['ID']." selected>".$row['feltext']."</option>";
+                }
+                else
+                {
+                    echo "<option value=".$row['ID'].">".$row['feltext']."</option>"; 
+                }
             }
             echo"</select>";
             echo'</li>
