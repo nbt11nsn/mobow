@@ -102,7 +102,7 @@ body {
   top: 0px; 
   border-radius: 4px; 
   width: 251px; 
-  height: 340px; 
+  height: 500px; 
   background-color: rgb(255, 255, 255);
   box-shadow:8px 8px 16px #222;
   -webkit-box-shadow:8px 8px 16px #222;
@@ -110,9 +110,7 @@ body {
 }
 
 .contentDiv{
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: 320px;
+  height: 500px;
   font-family:Roboto, Arial, sans-serif;
   font-size: 14px;
   font-weight: normal;
