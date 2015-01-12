@@ -343,7 +343,7 @@ else // företag
     {
         $sqlmsg="SELECT msg.ID AS id, msg.meddelande AS msg, msg.kontaktid AS vem, kontrakt.kontorsnamn AS vad FROM msg LEFT OUTER JOIN kontrakt ON msg.kontraktid = kontrakt.ID WHERE kontraktid IN (SELECT ID FROM kontrakt WHERE kontaktpersonid='$me') OR kontaktid='$me'";
         $resmsg=mysqli_query($con, $sqlmsg);
-        if(!resmsg)
+        if(!$resmsg)
         {
             // sql gick fel
         }
