@@ -19,7 +19,7 @@ ON kontrakt.ikonid = ikontyp.ID) AS ikon
 ON kontrakt.ID = ikon.ID";
 
 
-$sqloppen = "SELECT veckodagarid, DATE_FORMAT(oppet,'%H:%i') as oppet, DATE_FORMAT(stangt,'%H:%i') as stangt FROM oppettider JOIN veckodagar ON oppettider.veckodagarid = veckodagar.ID WHERE veckodagar.ID = DAYOFWEEK(NOW())";
+$sqloppen = "SELECT kontraktid,veckodagarid, DATE_FORMAT(oppet,'%H:%i') as oppet, DATE_FORMAT(stangt,'%H:%i') as stangt FROM kontrakt LEFT OUTER JOIN (SELECT * from oppettider JOIN veckodagar ON oppettider.veckodagarid = veckodagar.ID WHERE veckodagar.ID = DAYOFWEEK(NOW())) as tider on kontrakt.ID = tider.kontraktid ORDER BY kontrakt.ID";
 $places = array();// innehåller alla platser ur databasen
 if($iresult = mysqli_query($con, $isql)){
   if (mysqli_num_rows($iresult) != 0) {	
@@ -33,7 +33,7 @@ $openhours = array();// innehåller alla dagens öppettider
 if($result = mysqli_query($con, $sqloppen)){
   if (mysqli_num_rows($result) != 0) {
     
-      while($rows = mysqli_fetch_assoc($result)) {	 
+      while($rows = mysqli_fetch_assoc($result)) {	 	  
           $openhours[] = $rows;		  
       }
       mysqli_free_result($result);
@@ -47,6 +47,7 @@ mysqli_close($con);
 
 
 <?php
+
 defined('THE_HEAD') || define('THE_HEAD', TRUE);
 require_once("include/head.php");
 ?>
