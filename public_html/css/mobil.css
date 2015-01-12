@@ -106,7 +106,7 @@ body {
   background-color: rgb(255, 255, 255);
   box-shadow:8px 8px 16px #222;
   -webkit-box-shadow:8px 8px 16px #222;
-  opacity: 0.6;
+  /*opacity: 0.6;*/
 }
 
 .contentDiv{
