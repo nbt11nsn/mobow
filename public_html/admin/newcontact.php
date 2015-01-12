@@ -69,11 +69,11 @@ $getIcons = "SELECT * FROM ikontyp";
 
 <?php	
 if(isset($_POST['save'])&&!empty($_POST['username'])&&!empty($_POST['frstnme'])&&!empty($_POST['lstnme'])
-&&!empty($_POST['mobile'])&&!empty($_POST['mail'])&&!empty($_POST['password'])){
+&&!empty($_POST['mail'])&&!empty($_POST['password'])){
 	$name=mysqli_real_escape_string($con,$_POST['username']);
     $first=mysqli_real_escape_string($con,$_POST['frstnme']);
     $last=mysqli_real_escape_string($con,$_POST['lstnme']);
-	$mob=mysqli_real_escape_string($con,$_POST['mobile']);
+	if(!empty($_POST['mobile'])){$mob=mysqli_real_escape_string($con,$_POST['mobile']);}else{$mob="";}
 	$mail=mysqli_real_escape_string($con,$_POST['mail']);	
 	$pass=password_hash(mysqli_real_escape_string($con,$_POST['password']), PASSWORD_DEFAULT);
 	$admincheck = 0;
@@ -82,7 +82,11 @@ if(isset($_POST['save'])&&!empty($_POST['username'])&&!empty($_POST['frstnme'])&
 	$admincheck = 1;}
 			$hash = password_hash($pass, PASSWORD_DEFAULT);			        
 		$insertContact = "INSERT INTO kontaktperson values('".$name."','".$first."','".$last."','".$mob."','".$mail."','".$pass."',".$admincheck.")";	
-		echo $insertContact;
-		mysqli_query($con, $insertContact);			
+        if(mysqli_query($con, $insertContact)){
+            echo "<div class='ok'>Ny användare har skapats</div>";
+        }
+        else{
+            echo "<div class='error'>Lyckades inte lägga till en ny användare</div>";
+        }		
 }
 ?>
