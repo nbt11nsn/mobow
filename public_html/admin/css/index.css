@@ -25,7 +25,6 @@ padding-bottom: 10px;
 padding-top: 10px;
 }
 
-
 #passchange {
   display: inline-block;
   text-align: center;
@@ -88,12 +87,10 @@ margin: 5px 0;
 margin: 5px 0;
 }
 
-
 #admchange{
   display: inline-block;
   text-align: center;
 }
-
 
 /* #########################FAKTURA BÖRJAN############################# */
 #invoiceframe { 
@@ -201,7 +198,6 @@ background: #efefef;
 }
 /* #########################FAKTURA SLUT############################# */
 /* #########################INFO BÖRJAN############################# */
-
 #infotextframe{	
 text-align: left;
 margin-left: auto;
@@ -491,7 +487,6 @@ text-align: left;
 }
 
 /* ############### name attribute .<name> ############### */
-
 .center{
     text-align: center;
 }
@@ -721,7 +716,6 @@ nav ul li:after{
   left:0;
   z-index:1;
   opacity:0;	
-  /* Gradients! */	
   background-image:-webkit-gradient(linear, left top, right top, from(rgba(168,168,168,0.5)),color-stop(0.5,rgba(168,168,168,0)), to(rgba(168,168,168,0.5)));
   background-image:-moz-linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));
   background-image:-o-linear-gradient(left, rgba(168,168,168,0.5), rgba(168,168,168,0) 50%, rgba(168,168,168,0.5));

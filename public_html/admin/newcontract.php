@@ -254,14 +254,11 @@ echo '</select></li>
 </ul>
 </form>';
 
-
-
 function isEmpty($value){
 if(trim($value) == '')
 {return "NULL";}
 return "'".$value."'";
 }
-
 
 ?>
 </div><!--frame-->

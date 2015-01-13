@@ -9,6 +9,22 @@
   border-bottom:thick solid #ccc;
   height: 90%;
 }
+#mobowpic  img{
+  height: 90%;
+  float: left;
+  margin-top: 1%;
+}
+#mobowpic {
+  padding-left: 2%;
+  width: 40%;
+  vertical-align:top;
+  height: 90%;
+}
+#header-wrapper {
+  width: 100%;
+  height: 10%;
+  background: #f2f2f2;
+}
 
 #googleMap {
   height: 100%;
@@ -39,7 +55,6 @@ body {
 }
 
 /* ##### infoWindow design  ##### */
-
 .aDcrocleft{
   position: absolute; 
   left: 6px; 
@@ -78,10 +93,7 @@ body {
 
 .arrowDiv{position: absolute; left: 117px; top: 339px; opacity: 0.8;}
 
-/*.arrowDivleft{position: absolute; overflow: hidden; left: -6px; top: -1px; width: 16px; height: 30px;}*/
-
 .arrowDivleft{position: absolute; overflow: hidden; left: -12px; top: 0px; width: 16px; height: 30px;}
-/*.arrowDivright{position: absolute; overflow: hidden; left: 10px; top: -1px; width: 16px; height: 30px;}*/
 
 .arrowDivright{position: absolute; overflow: hidden; left: 4px; top: 0px; width: 16px; height: 30px;}
 
@@ -90,7 +102,6 @@ body {
   height:16px;
   overflow:hidden;
   position: absolute;
-/*  transform: translateZ(0px);*/
   right: 8px;
   top: 5px;
   cursor: pointer;
@@ -114,8 +125,6 @@ body {
   font-family:Roboto, Arial, sans-serif;
   font-size: 14px;
   font-weight: normal;
-/*  text-align:center;*/
-/*  padding:5px 20px 10px;*/
 }
 
 .inDiv{position: absolute; left: 0px; top: 0px;}

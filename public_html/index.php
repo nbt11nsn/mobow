@@ -2,7 +2,6 @@
 SESSION_start();
 defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../db.php');
-//$isql = "SELECT * FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.ID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID";
 
 $isql = "SELECT * FROM kontrakt 
 LEFT OUTER JOIN adress ON kontrakt.ID = adress.ID 

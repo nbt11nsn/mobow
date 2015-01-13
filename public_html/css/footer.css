@@ -18,7 +18,7 @@ color: white;
 }
 #footer-wrapper  li:before {
     content: "• ";
-    color: pink; /* or whatever color you prefer */
+    color: pink; 
 }
 
 #left-box{
