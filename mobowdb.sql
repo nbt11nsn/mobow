@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 13, 2015 at 02:34 PM
+-- Generation Time: Jan 13, 2015 at 04:13 PM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -392,17 +392,6 @@ CREATE TABLE IF NOT EXISTS `specialtider` (
   KEY `kontraktid_2` (`kontraktid`,`veckodagarid`),
   KEY `veckodagarid` (`veckodagarid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
-
---
--- Dumping data for table `specialtider`
---
-
-INSERT INTO `specialtider` (`ID`, `kontraktid`, `specstart`, `specslut`, `veckodagarid`, `altoppet`, `altstangt`, `stangt`) VALUES
-(1, 10, '2015-01-06', '2015-01-15', 3, '06:00:12', '12:12:12', 0),
-(2, 11, '2015-01-06', '2015-01-15', 3, '06:00:12', '12:12:12', 1),
-(3, 11, '2014-01-06', '2014-01-15', 3, '08:00:12', '23:12:12', 0),
-(4, 11, '2014-01-06', '2014-01-15', 3, '08:00:12', '22:12:12', 1),
-(5, 11, '2015-01-06', '2015-01-15', 3, '08:00:12', '12:12:12', 1);
 
 -- --------------------------------------------------------
 
