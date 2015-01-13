@@ -84,7 +84,7 @@ Cmap.prototype.init = function() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
 	    function(position) {self.updateLocation(position);}, 
-	    function(){self.setLocation();}
+	    function(){self.setLocation();}, {maximumAge:60000, timeout:10000, enableHighAccuracy:true}
 	);
     } 
     else {
