@@ -41,7 +41,7 @@ mysqli_close($con);
 defined('THE_HEAD') || define('THE_HEAD', TRUE);
 require_once("include/head.php");
 ?>
-<script language="javascript" type="text/javascript" src = "include/googlemap.js"></script>
+<script language="javascript" type="text/javascript" src = "include/googlemap.js?<?php echo time(); ?>"></script>
 <script type="text/javascript">
     var obj = <?php echo json_encode($places, JSON_UNESCAPED_UNICODE); ?>;	
     var oppen = <?php echo json_encode($openhours, JSON_UNESCAPED_UNICODE);?>;
