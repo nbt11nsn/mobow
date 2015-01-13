@@ -168,7 +168,13 @@ if(isset($_POST['save'])) {
         $sqlrep .= ";";
         $sqlquery .= $sqlrep;
     }
-    mysqli_multi_query($con, $sqlquery);
+        if(mysqli_multi_query($con, $sqlquery)){
+		echo "<div class='ok'>Öppettider uppdaterades</div>";
+		}
+        else{
+		echo "<div class='error'>Misslyckades att uppdatera öppettider</div>";
+		}
+		
     while (mysqli_more_results($con)){mysqli_next_result($con);}
 }
 

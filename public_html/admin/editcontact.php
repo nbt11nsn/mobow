@@ -114,22 +114,14 @@ $isql = "SELECT anvnamn, fornamn, efternamn
 	$sql3 = "INSERT INTO edit_kntper VALUES('$fo','$ef','$mo','$me',1,NULL, '".$_POST['infodropdowntop']."') 
 	ON DUPLICATE KEY UPDATE fornamn='$fo',efternamn='$ef',mobil='$mo',mejl='$me',status=1, meddelande=NULL";
 	}
-	if($isadmin){
+
         if(mysqli_query($con, $sql3)){
             echo "<div class='ok'>Uppdateringen lyckades</div>";
         }
         else{
             echo "<div class='error'>Uppdateringen misslyckades</div>";
         }
-		}
-		else{
-		        if(mysqli_query($con, $sql3)){
-            echo "<div class='ok'>Förfrågan skickades</div>";
-        }
-        else{
-            echo "<div class='error'>Förfrågan misslyckades</div>";
-        }
-		}
+			
 }
 	?>	
 </form>

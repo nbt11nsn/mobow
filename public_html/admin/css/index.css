@@ -510,6 +510,7 @@ text-align: left;
 }
 
 .ok{
+	text-align: center;
     background-color: #cfc;
     color: #000;
     font-weight: bold;

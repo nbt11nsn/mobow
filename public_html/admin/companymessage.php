@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 SESSION_start();
 $useracc = "Ändringar på användarkonto";
 $contract = "Ändringar på kontraktet";
@@ -17,6 +15,7 @@ $deny = "Neka";
 $denied = "Nekad";
 $open = "Öppna";
 $remove = "Ta bort";
+$meddelande = "Meddelande:";
 function appdenmessage($ad)
 {
     global $approved, $denied, $remove;
@@ -111,12 +110,16 @@ elseif(isset($_POST['den'])&&isset($_POST['omsg']))//neka ett meddelande
     $denmsg = mysqli_real_escape_string($con, $_POST['denymsg']);
     if(is_numeric($msg)) // kontrakt
     {
-        $sql = "UPDATE edit_foretag SET status='3', meddelande='$denmsg' WHERE  edit_foretag.kontraktid='$msg';";
+        $sqlmsg="INSERT INTO msg(meddelande, kontraktid) VALUES('$denmsg', '$msg')";
+        mysqli_query($con, $sqlmsg);
+        $sql = "UPDATE edit_foretag SET status='3', meddelande='".mysqli_insert_id($con)."' WHERE  edit_foretag.kontraktid='$msg'";
     }
     else // kontaktperson
     {
         $msg = substr($msg, 1);
-        $sql = "UPDATE edit_kntper SET status='3', meddelande='$denmsg' WHERE  edit_kntper.kontaktid='$msg';";
+        $sqlmsg="INSERT INTO msg(meddelande, kontaktid) VALUES('$denmsg', '$msg')";
+        mysqli_query($con, $sqlmsg);
+        $sql = "UPDATE edit_kntper SET status='3', meddelande='".mysqli_insert_id($con)."' WHERE  edit_kntper.kontaktid='$msg';";
     }
 	if(mysqli_query($con, $sql))
     {echo"<p class='ok'>Uppdateringen nekat</p>";}
@@ -316,7 +319,46 @@ elseif(isset($_POST['rmv'])&&isset($_POST['omsg']))//ta bort ett meddelande
 }
 else // företag
 {
-    
+    if(isset($_POST['rmamess'])&&isset($_POST['whimsg'])&&is_numeric($_POST['whimsg'])) // ta bort ett meddelande
+    {
+        $id=$_POST['whimsg'];
+        $sqlrma="DELETE FROM msg WHERE msg.ID = $id";
+        if(mysqli_multi_query($con, $sqlrma)){
+            echo "<div class='ok'>Meddelandet borttaget</div>";
+		}
+        else{
+            echo "<div class='error'>Meddelandet gick inte att ta bort</div>";
+		}
+    }
+    $me = mysqli_real_escape_string($con, $_SESSION['username']);
+    $sqlcount = "SELECT COUNT(*) AS numberofmessage FROM msg WHERE kontraktid IN (SELECT ID FROM kontrakt WHERE kontaktpersonid='$me') OR kontaktid='$me'";
+    $rescount = mysqli_query($con, $sqlcount);
+    $asscount = mysqli_fetch_assoc($rescount);
+    $nrofmessage = $asscount['numberofmessage'];
+    if($nrofmessage < 1) // Det finns inga meddelanden
+    {
+        echo"Det finns inga meddelanden att visa";
+    }
+    else
+    {
+        $sqlmsg="SELECT msg.ID AS id, msg.meddelande AS msg, msg.kontaktid AS vem, kontrakt.kontorsnamn AS vad FROM msg LEFT OUTER JOIN kontrakt ON msg.kontraktid = kontrakt.ID WHERE kontraktid IN (SELECT ID FROM kontrakt WHERE kontaktpersonid='$me') OR kontaktid='$me'";
+        $resmsg=mysqli_query($con, $sqlmsg);
+        if(!$resmsg)
+        {
+            // sql gick fel
+        }
+        else
+        {
+            echo"<table class='tmsg' width='80%'>";
+            echo"<tr><th colspan='3'>Uppdateringarna nedan nekades med meddelande:</th></tr>";
+            echo"<tr><th>Förändring på:</th><th>$meddelande</th><th>Ta bort</th></tr>";
+            while($row=mysqli_fetch_assoc($resmsg))
+            {
+                echo"<tr><td>".($row['vem']===NULL?$row['vad']:$row['vem'])."</td><td>".$row['msg']."</td><td><form action='' method='POST'><input type='hidden' value='".$row['id']."' name='whimsg' id='whimsg'><input type='submit' value='Ta bort' name='rmamess' id='rmamess'></form></td></tr>";
+            }
+            echo"</table>";
+        }
+    }
 }
 ?>
 </div><!--frame-->
