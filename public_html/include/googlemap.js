@@ -81,7 +81,6 @@ function Cmap(opt_opts) {
 
 Cmap.prototype.init = function() {
     var self = this;
-    //ta en titt på navigator.geolocation.watchPosition till mobilversionen
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
 	    function(position) {self.updateLocation(position);}, 
@@ -123,14 +122,12 @@ Cmap.prototype.initialize = function(){
     this.mapReady = true;
     this.infoWindow = new (InfoCBox())();
     this.markers = [];
-//    var myIcon = {url:"image/contacts-32.png", size:new google.maps.Size(32,32)};
     this.map = new google.maps.Map(this.mapid, options);
     this.myMarker = new google.maps.Marker({
 	position: new google.maps.LatLng(locx, locy),
 	draggable: true
 	});
     this.myMarker.setMap(this.map);
-//    this.map.setOptions({styles: getStyles()});
     this.directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers:true, polylineOptions: {strokeColor: "#EA005A"}});
     this.directionsDisplay.setMap(this.map);
     var obj_length = obj.length;

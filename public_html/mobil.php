@@ -7,7 +7,6 @@ mb_http_input('UTF-8');
 defined('THE_DB') || define('THE_DB', TRUE);
 require_once(__DIR__ .'./../db.php');
 
-//$isql = "SELECT * FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.adressID = adress.ID LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID LEFT OUTER JOIN inforuta ON inforuta.ID = kontrakt.inforutaid";
 $isql = "SELECT * FROM kontrakt LEFT OUTER JOIN adress ON kontrakt.ID = adress.ID LEFT OUTER JOIN (SELECT kontrakt.ID, IF (kontrakt.ID IN (SELECT kontrakt.ID FROM oppettider LEFT OUTER JOIN kontrakt ON oppettider.kontraktid = kontrakt.ID WHERE  veckodagarid = DAYOFWEEK(NOW()) AND oppet <= CURTIME() AND stangt >= CURTIME()), ikontyp.opimgurl, ikontyp.stimgurl) AS ikonurl FROM kontrakt LEFT OUTER JOIN ikontyp ON kontrakt.ikonid = ikontyp.ID) AS ikon ON kontrakt.ID = ikon.ID ORDER BY kontrakt.ID";
 $sqloppen = "SELECT kontraktid,veckodagarid, DATE_FORMAT(oppet,'%H:%i') as oppet, DATE_FORMAT(stangt,'%H:%i') as stangt FROM kontrakt LEFT OUTER JOIN (SELECT * from oppettider JOIN veckodagar ON oppettider.veckodagarid = veckodagar.ID WHERE veckodagar.ID = DAYOFWEEK(NOW())) as tider on kontrakt.ID = tider.kontraktid ORDER BY kontrakt.ID";
 $places = array();// innehåller alla platser ur databasen
@@ -36,7 +35,7 @@ mysqli_close($con);
 <head>
 <?php
 defined('THE_HEAD') || define('THE_HEAD', TRUE);
-require_once("include/head.php");
+require_once("include/headmobil.php");
 ?>
 <meta charset=UTF-8 />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,7 +52,7 @@ require_once("include/head.php");
 
 <?php
 defined('THE_HEADER') || define('THE_HEADER', TRUE);
-  require_once("include/header.php"); 
+  require_once("include/headermobil.php"); 
 ?>  
   <div id='google_container'>
   <div id= "googleMap">
@@ -61,12 +60,17 @@ defined('THE_HEADER') || define('THE_HEADER', TRUE);
   </div>
 </div>
 
-<?php
-defined('THE_FOOTER') || define('THE_FOOTER', TRUE);
-  require_once("include/footer.php");
-?>
-  
 </body>
+<script type="text/javascript">
+ 
+var theScroll;
+function scroll() {
+    theScroll = new iScroll('infowindow');
+}
+document.addEventListener('DOMContentLoaded', scroll, false);
+</script>
+
+<script type="text/javascript" src="../iscroll-4/src/iScroll-lite.js"></script>
 </html>
 
 

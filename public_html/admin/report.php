@@ -82,8 +82,7 @@ if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0) {
 	  <input type="text" readonly align="left"  value = "'.mysqli_real_escape_string($con, $_SESSION['username']).'" maxlength="50" id="frm" name="frm" />
 	</li>	
 	<li>
-	  <label>Ämne: </label>';
-            //<input type="text" align="left" maxlength="50" name = "feltext" id = "feltext" />
+	  <label>Ämne: </label>';           
             echo"<select name='feltext' id='feltext'>";
             $sqlfeltyp="SELECT ID, feltext FROM feltyp";
             $resfeltyp=mysqli_query($con, $sqlfeltyp);
@@ -126,8 +125,7 @@ if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0) {
 	  <input type="text" readonly align="left"  value = "'.$irows["info"].'" maxlength="50" id="infoinput" name="infoinput" />
 	</li>
 	<li>
-	  <label>Ämne </label>';
-            //<input type="text" readonly align="left" maxlength="50" name = "feltext" id = "feltext" value = "'.$irows["feltext"].'" />
+	  <label>Ämne </label>';          
             echo"<select name='feltext' id='feltext'>";
             $sqlfeltyp="SELECT ID, feltext FROM feltyp";
             $resfeltyp=mysqli_query($con, $sqlfeltyp);
@@ -170,10 +168,7 @@ if ($iresult !== FALSE && mysqli_num_rows($iresult) != 0) {
         }
     }
 
-
-if(isset($_POST['delete'])){
-    
-    
+if(isset($_POST['delete'])){  
     $sqldelete = "DELETE FROM felmeddelande WHERE ID = ".$_POST['reports'];
     mysqli_query($con, $sqldelete);
     echo '<script type="text/javascript"> var reload = false;
