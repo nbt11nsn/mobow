@@ -113,7 +113,7 @@ if($adm){
 </div>";
 }
 ?>
-<fieldset><legend class='center'><b>Välj Faktura</b></legend>
+<fieldset class = "fieldsetblock"><legend class='center'><b>Välj Faktura</b></legend>
 	<div id="listframe">
 	    <form action="" method="post" id = "postRows">
 		<select name = "dropdown" id = "invoicedropdown">		

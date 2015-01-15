@@ -23,6 +23,7 @@ background-color: #78FC5E;
 fieldset {
 padding-bottom: 10px;
 padding-top: 10px;
+display: inline-block;
 }
 
 #passchange {
